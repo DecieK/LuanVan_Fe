@@ -15,6 +15,8 @@ const Header = () => {
 
   return (
     <div className={styles.homeheadercontainer}>
+
+
       <div className={styles.homeheadercontent}>
         <div className={styles.leftcontent}>
           <div className={styles.headerlogo}></div>

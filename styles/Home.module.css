@@ -23,8 +23,8 @@
 }
 
 .homeheadercontainer .homeheadercontent .leftcontent .headerlogo {
-  background: url(../public/logo.png) no-repeat;
-  height: 67px;
+  background: url(../public/logoCGV1.png) no-repeat;
+  height: 100%;
   width: 100%;
   cursor: pointer;
   margin-top: 10px;
