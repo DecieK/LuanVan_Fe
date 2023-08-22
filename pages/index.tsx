@@ -2,6 +2,7 @@
 import Header from "@/Components/Header";
 import Test from "./test";
 import Image from "next/image";
+import Footer from "@/Components/Footer";
 const index = () => {
   return (
 
@@ -13,6 +14,7 @@ const index = () => {
         height={500}
       /> */}
       <Header />
+      <Footer />
     </div>
 
 

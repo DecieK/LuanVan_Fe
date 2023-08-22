@@ -14,25 +14,21 @@ const Header = () => {
   };
 
   return (
-    <div className={styles.homeheadercontainer}>
-
-
-      <div className={styles.homeheadercontent}>
-        <div className={styles.leftcontent}>
-          <div className={styles.headerlogo}></div>
-        </div>
-
-        <div className={styles.rightcontent}>
-          <div className={styles.zalo}>
-            <div className={styles.zaloimg} onClick={handleZaloLogin}></div>
-            <div className={styles.zalolable} onClick={handleZaloLogin}>
-              Quan tâm
-            </div>
+    <div>
+      <div className="">
+        <div className="grid grid-cols-3 ">
+          <div className=" col-span-1 h-[50px] w-[100px] bg-no-repeat ml-[20px]  bg-[url('../public/logoCGV1.png')]"></div>
+          <div className="text-center grid grid-cols-3 mt-2">
+            <div className="col-span-1 hover:text-blue-300 text-2xl">Phim</div>
+            <div className="col-span-1 hover:text-blue-300 text-2xl">Cụm rạp</div>
+            <div className="col-span-1 hover:text-blue-300 text-2xl">Tin tức</div>
           </div>
-          <div className={styles.login} onClick={handleLogin}></div>
+          <div className="col-span-1 right-10 absolute top-0 h-[50px] w-[50px] bg-no-repeat bg-[url('../public/login1.jpg')]"></div>
         </div>
       </div>
+      <hr className="mt-3" />
     </div>
+
   );
 };
 
