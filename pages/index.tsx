@@ -3,6 +3,7 @@ import Header from "@/Components/Header";
 import Test from "./test";
 import Image from "next/image";
 import Footer from "@/Components/Footer";
+
 const index = () => {
   return (
 
@@ -13,8 +14,7 @@ const index = () => {
         width={200 }
         height={500}
       /> */}
-      <Header />
-      <Footer />
+     <Header />
     </div>
 
 
