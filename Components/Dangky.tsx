@@ -11,10 +11,17 @@ type Props = {
 const Dangky = ({ onClose, show }: Props) => {
 
   const [isBrowser, setIsBrowser] = useState(false);
+  const [gt, setGT] = useState("");
+  const [Ngaysinh, setNgaysinh] = useState("");
+
+
 
   useEffect(() => {
     setIsBrowser(true);
   }, []);
+  const onChangeGT = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGT(e.target.value)
+  }
 
   const handleCloseClick = () => {
 
@@ -32,9 +39,7 @@ const Dangky = ({ onClose, show }: Props) => {
         <StyledModalHeader className=" bg-blue-300  ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
-              ádasd
-              <br />
-              ádasd
+              Đăng ký tài khoản
             </span>
 
             <button
@@ -57,18 +62,41 @@ const Dangky = ({ onClose, show }: Props) => {
         <StyledModalBody className="bg-gray-300 ">
           <div className="modal ">
             <div>
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="tài khoản" type="text" />
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="mật khẩu" type="password" />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="tài khoản" type="text" />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="mật khẩu" type="password" />
 
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="NHẬP CHÍNH XÁC HỌ TÊN" type="text" />
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="NHẬP CHÍNH XÁC HỌ TÊN" type="date" />
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="NHẬP CHÍNH XÁC HỌ TÊN" type="radio" />
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="SDT" type="text" />
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="email" type="email" />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="NHẬP CHÍNH XÁC HỌ TÊN" type="text" />
+              <input
+                id="ngaysinh"
+                className=" w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none"
+                data-date-format="dd-MM-yy"
+                type="date"
+                // clearIcon={null}
+                // placeholder="DD/MM/YYYY"
+                data-inputmask-alias="date"
+                data-inputmask-inputformat="dd-mm-yyyy"
+                data-mask=""
+                im-insert="false"
+                value={Ngaysinh}
+                // onChange={(Ngaysinh: Date) => handleOnchangeDate((Ngaysinh))}
+                onChange={(event) => setNgaysinh(event.target.value)}
+              ></input>              <div className="col-span-4 mx-10 ">
+                <input onChange={onChangeGT} type="radio" value="Nam" name='gt' checked={gt === "Nam"} /> Nam
+                <input className="ml-9" onChange={onChangeGT} type="radio" value="Nu" name='gt' checked={gt === "Nu"} /> Nữ
+              </div>
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="SDT" type="text" />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="email" type="email" />
 
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="Địa chỉ" type="text" />
-              <input className="w-full  border-slate-500 border-dotted font-bold border-b-2" placeholder="SDT" type="text" />
-              <button className="bg-slate-600">Đăng ký</button>
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="Địa chỉ" type="text" />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="SDT" type="text" />
+              {/* <div className="grid grid-cols-5 py-2">
+                <div className="col-span-1 pl-5">
+                  <p className="datlich_text_desktop text-right">Giới tính</p>
+                </div>
+
+
+              </div> */}
+              <button className="bg-slate-600 flex  ">Đăng ký</button>
             </div>
           </div>
         </StyledModalBody>
