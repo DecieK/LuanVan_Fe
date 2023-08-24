@@ -32,7 +32,6 @@ const QuenMk = ({ onClose, show }: Props) => {
 
   useEffect(() => {
     setIsBrowser(true);
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
   const handleCloseClick = () => {

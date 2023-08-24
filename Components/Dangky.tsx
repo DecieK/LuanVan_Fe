@@ -15,16 +15,13 @@ const Dangky = ({ onClose, show }: Props) => {
   const [Ngaysinh, setNgaysinh] = useState("");
 
 
-
   useEffect(() => {
     setIsBrowser(true);
   }, []);
   const onChangeGT = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGT(e.target.value)
   }
-
   const handleCloseClick = () => {
-
     // window.location.reload()
     // e.preventDefault();
     onClose();
