@@ -1,8 +1,10 @@
 // import SearchResults from "@/components/SearchResults";
 import Header from "@/Components/Header";
-import Test from "./test";
+// import Test from "./test";
 import Image from "next/image";
 import Footer from "@/Components/Footer";
+import Slide from "@/Components/Slide";
+import DSPhim from "@/Components/DSPhim";
 
 const index = () => {
   return (
@@ -23,7 +25,7 @@ const index = () => {
       <div className=" h-[864px] w-[564px] bg-no-repeat bg-[url('https://i.pinimg.com/564x/d1/b8/71/d1b871cfa171334d1d20bf9c9bf357c5.jpg')]"> </div>
       <div className=" h-[864px] w-[564px] bg-no-repeat bg-[url('https://i.pinimg.com/564x/d1/b8/71/d1b871cfa171334d1d20bf9c9bf357c5.jpg')]"> </div> */}
       <Header />
-      <div className="flex">
+      {/* <div className="flex">
         <div className=" h-[518px] w-[350px] object-cover bg-no-repeat bg-[url('../public/poster2.jpg')]"> </div>
         <div className=" h-[518px] w-[350px] object-cover bg-no-repeat bg-[url('../public/poster3.jpg')]"> </div>
         <div className=" h-[518px] w-[350px] object-cover bg-no-repeat bg-[url('../public/poster4.jpg')]"> </div>
@@ -36,7 +38,9 @@ const index = () => {
 
 
 
-      </div>
+      </div> */}
+      <Slide />
+      <DSPhim />
 
 
       <Footer />

@@ -18,7 +18,7 @@ const Header = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div>
+    <div className="bg-[#f2ba49]">
       <div className="">
         <div className="grid grid-cols-3 ">
           <div className=" col-span-1 h-[50px] w-[100px] bg-no-repeat ml-[20px]  bg-[url('../public/logoCGV1.png')]"></div>
