@@ -106,7 +106,7 @@ function SignInOTP() {
 
         {step === "INPUT_PHONE_NUMBER" && (
           <div className="form bg-gray-100 w-80 h-48">
-            <h1 className="pt-2">Vui lòng đăng nhập</h1>
+            <h1 className="pt-2">Vui lòng nhập số điện thoại để nhận mã xác nhận</h1>
             <div className="mb-4">
               <input
                 value={sdt}
@@ -124,7 +124,7 @@ function SignInOTP() {
                 onClick={signin}
                 className="bg-green-700 w-60 h-10 rounded-3xl font-semibold text-white hover:bg-indigo-700"
               >
-                Send OTP
+                Gửi mã
               </button>
               <div>
                 <button onClick={() => Router.back()} className="text-right pt-3 ">Trở về</button>
@@ -135,7 +135,7 @@ function SignInOTP() {
 
         {step === "VERIFY_OTP" && (
           <div className="form bg-gray-100 w-80 h-48">
-            <h1 className="pt-2">Vui lòng đăng nhập</h1>
+            <h1 className="pt-2">Vui lòng nhập mã</h1>
             <input
               type="text"
               placeholder={"Enter your OTP"}
@@ -150,7 +150,7 @@ function SignInOTP() {
               className="bg-green-700 w-60 h-10 rounded-3xl font-semibold text-white hover:bg-indigo-700"
               onClick={() => ValidateOtp(phoneNumber)}
             >
-              Đăng nhập
+              Xác nhận
             </button>
             <div>
               <button onClick={() => Router.back()} className="text-right pt-3">Trở về</button>

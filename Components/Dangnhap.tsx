@@ -3,9 +3,8 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 import Dangky from "./Dangky";
 import QuenMk from "./QuenMK";
-import Header from "./Header";
 import router from "next/router";
-
+import Axios from "axios";
 
 
 type Props = {
@@ -22,10 +21,16 @@ const Dangnhap = ({ onClose, show }: Props) => {
 
 
   const [passwordType, setPasswordType] = useState("password");
-  const [passwordInput, setPasswordInput] = useState("");
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordInput(e.target.value);
-  }
+  // const [passwordInput, setPasswordInput] = useState("");
+
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
+
+  // const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setPasswordInput(e.target.value);
+  // }
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text")
@@ -55,6 +60,27 @@ const Dangnhap = ({ onClose, show }: Props) => {
 
 
   };
+
+  const login = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    Axios.post("http://localhost:8080/api/Dangnhap", {
+      Taikhoan_KH: username,
+      Matkhau_KH: password,
+    }).then((response) => {
+      if (response.data.errCode) {
+        setLoginStatus(response.data.errCode);
+        console.log("status2", loginStatus)
+
+
+      } else {
+        console.log("asdasdasdasd")
+        // router.push({
+        //   pathname: '/bookinglist',
+        //   query: { username: username },
+        // })
+      }
+    })
+  }
 
   const modalContent = show ? (
 
@@ -88,12 +114,12 @@ const Dangnhap = ({ onClose, show }: Props) => {
         <StyledModalBody className="bg-gray-300 ">
           <div className="modal">
             <div>
-              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="tài khoản" />
-              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="mật khẩu" name="password" type={passwordType} onChange={handlePasswordChange} value={passwordInput} />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="tài khoản" onChange={(e) => { setUsername(e.target.value) }} />
+              <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="mật khẩu" name="password" type={passwordType} onChange={(e) => { setPassword(e.target.value) }} value={password} />
               <button onClick={togglePassword}>
                 {passwordType === "password"
-                  ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hienMk.png')]"></button>
-                  : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hide.png')]"></button>}
+                  ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hide.png')]"></button>
+                  : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hienMK.png')]"></button>}
               </button>
               <a className="flex pl-2 col-span-1 hover:text-red-600 cursor-pointer italic text-xs "
                 onClick={handleSignOTP}>
@@ -102,7 +128,7 @@ const Dangnhap = ({ onClose, show }: Props) => {
 
               <div className="grid grid-cols-3 p-2">
                 <button className=" col-span-1 bg-slate-600  m-1" onClick={() => setShowModalDangky(true)}>Đăng ký</button>
-                <button className="col-span-1 bg-slate-600 m-1">Đăng Nhập</button>
+                <button className="col-span-1 bg-slate-600 m-1" onClick={login}>Đăng Nhập</button>
               </div>
             </div>
             <Dangky
