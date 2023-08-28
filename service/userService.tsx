@@ -59,7 +59,7 @@ export async function Datve(params: {
   id_doan: number;
 }): Promise<any> {
   const response = await fetch(
-    `http://localhost:8080/api/Dangky`,
+    `http://localhost:8080/api/Datve`,
     {
       method: "POST",
       headers: {

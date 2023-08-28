@@ -77,9 +77,7 @@ const QuenMk = ({ onClose, show }: Props) => {
               <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="tài khoản" />
               <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="mật khẩu" name="password" type={passwordType} onChange={handlePasswordChange} value={passwordInput} />
               <button onClick={togglePassword}>
-                {passwordType === "password" 
-                ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hienMk.png')]"></button> 
-                : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hide.png')]"></button>}
+
               </button>
 
             </div>

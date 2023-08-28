@@ -117,9 +117,9 @@ const Dangnhap = ({ onClose, show }: Props) => {
               <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="tài khoản" onChange={(e) => { setUsername(e.target.value) }} />
               <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="mật khẩu" name="password" type={passwordType} onChange={(e) => { setPassword(e.target.value) }} value={password} />
               <button onClick={togglePassword}>
-                {passwordType === "password"
-                  ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hide.png')]"></button>
-                  : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/hienMK.png')]"></button>}
+                {passwordType === "password" 
+                ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/Hienps.png')]"></button> 
+                : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/Anps.png')]"></button>}
               </button>
               <a className="flex pl-2 col-span-1 hover:text-red-600 cursor-pointer italic text-xs "
                 onClick={handleSignOTP}>
