@@ -37,6 +37,7 @@ const Slide = () => {
         },
         {
             url: 'https://www.cgv.vn/media/wysiwyg/2019/JAN19/350.jpg'
+            // bg-[url('../public/logoCGV1.png')]
             // url: 'https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80',
         },
 

@@ -8,15 +8,7 @@ import axios from "axios";
 // }
 
 
-// export async function SearchPhone1(params: { key: string }): Promise<any> {
-//   const { key } = params;
-//   const response = await fetch(
-//     // `http://localhost:8080/clinics/search?keyword=${key}`
-//     `http://localhost:8080/api/get-history?SDT=${key}`
-//   );
-//   const data = await response.json();
-//   return data;
-// }
+
 
 export async function DangKy_KH(params: {
   hten_KH: string;
@@ -67,6 +59,15 @@ export async function Datve(params: {
       },
       body: JSON.stringify(params),
     }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function LayTTchitietve(params: { id_ve: any }): Promise<any> {
+  const { id_ve } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTChitietve?keyword=${id_ve}`
   );
   const data = await response.json();
   return data;

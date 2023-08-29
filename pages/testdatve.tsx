@@ -1,3 +1,4 @@
+import Sodoghe from '@/Components/Sodoghe';
 import { Datve } from '@/service/userService';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -5,6 +6,9 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 
 const TestDatVe = () => {
+  interface chitietve {
+    
+  }
 
   const [hten_KH, setHten_KH] = useState("");
   const [httt, setHttt] = useState("");
@@ -25,7 +29,7 @@ const TestDatVe = () => {
   const handleDatve = async () => {
 
 
-        console.log("hoten", hten_KH)
+    console.log("hoten", hten_KH)
     console.log("httt", httt)
     console.log("tongtien", tongtien)
     console.log("soluongghe", soluongghe)
@@ -82,11 +86,12 @@ const TestDatVe = () => {
     setId_KM(10)
     setId_NV(10)
     setId_doan(10)
-  });
+  }, []);
 
 
   return (
     <div>
+    <Sodoghe />
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
     </div>
   );
