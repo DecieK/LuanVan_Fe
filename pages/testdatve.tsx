@@ -1,15 +1,25 @@
 import Sodoghe from '@/Components/Sodoghe';
-import { Datve } from '@/service/userService';
+import { Datve, LayTTGhe, LayTTchitietve } from '@/service/userService';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 
 const TestDatVe = () => {
-  interface chitietve {
-    
+  interface Chitetve {
+    id: number;
+    id_ve: number;
+    id_ghe: number;
+    Trangthaighe: number;
+  }
+  interface Ghe {
+    id: number;
+    maGhe: string;
+    loaiGhe: string;
+
   }
 
+  const [id_ve, setId_ve] = useState(1)
   const [hten_KH, setHten_KH] = useState("");
   const [httt, setHttt] = useState("");
   const [tongtien, setTongtien] = useState(Number);
@@ -23,12 +33,12 @@ const TestDatVe = () => {
   const [id_KM, setId_KM] = useState(Number);
   const [id_NV, setId_NV] = useState(Number);
   const [id_doan, setId_doan] = useState(Number);
+  const [chitietve, setChitietve] = useState<Chitetve[]>([]);
+  const [ghe, setGhe] = useState<Ghe[]>([]);
 
 
-  
+
   const handleDatve = async () => {
-
-
     console.log("hoten", hten_KH)
     console.log("httt", httt)
     console.log("tongtien", tongtien)
@@ -72,7 +82,57 @@ const TestDatVe = () => {
     };
   }
 
+  const handleLayTTchitietve = async () => {
+    try {
+
+      const params = {
+        id_ve: id_ve,
+      };
+      console.log("searchdate", params);
+      const response = await LayTTchitietve(params);
+      const res: Chitetve[] = response.chitietves;
+      console.log("check api searchdate chitietve: ", response);
+      console.log("length", res.length);
+      setChitietve(res);
+      console.log(res)
+
+      // res2.map((res2) => (
+      // )
+      // );
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleLayTTGhe = async () => {
+    try {
+
+      const params = {
+        key: "ALL",
+      };
+      console.log("searchdate", params);
+      const response = await LayTTGhe(params);
+      const res: Ghe[] = response.ghes;
+      console.log("check api searchdate ghe: ", response);
+      console.log("length", res.length);
+      setGhe(res);
+      console.log(res)
+
+      // res2.map((res2) => (
+      // )
+      // );
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
+    handleLayTTchitietve()
+    handleLayTTGhe()
     setHten_KH("kjhoa")
     setHttt("onl")
     setTongtien(200000)
@@ -91,8 +151,34 @@ const TestDatVe = () => {
 
   return (
     <div>
-    <Sodoghe />
+      {/* <Sodoghe /> */}
+
+      {
+        ghe.map((ghes) => (
+          chitietve.map((chitietves) => {
+             let gheVIP = ghes.loaiGhe === 'VIP' ? 'bg-yellow-500' : '';
+            return <>
+
+              <button
+                key={ghes.id}
+                // number a ={ thongtinbenhnhans.id}
+                // className=' --{gheVIP} h-14 w-14 items-center m-2' 
+                className={`h-14 w-14 items-center m-2 ${gheVIP ? 'bg-amber-100 text-amber-700' : 'bg-slate-500'}`}
+
+              // onChange={handlechange}
+              >
+                {ghes.maGhe}
+              </button>
+            </>
+          })
+
+        ))
+
+      }
+
+
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
+   
     </div>
   );
 }

@@ -64,7 +64,7 @@ export async function Datve(params: {
   return data;
 }
 
-export async function LayTTchitietve(params: { id_ve: any }): Promise<any> {
+export async function LayTTchitietve(params: { id_ve: number }): Promise<any> {
   const { id_ve } = params;
   const response = await fetch(
     `http://localhost:8080/api/TTChitietve?keyword=${id_ve}`
@@ -72,4 +72,11 @@ export async function LayTTchitietve(params: { id_ve: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
-
+export async function LayTTGhe(params: { key: string }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTGhe?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
