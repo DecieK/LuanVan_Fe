@@ -18,6 +18,13 @@ const TestDatVe = () => {
     loaiGhe: string;
 
   }
+  interface DSGheDangDat {
+    id: number;
+    maGhe: string;
+    loaiGhe: string;
+    giaGhe: number;
+
+  }
 
   const [id_ve, setId_ve] = useState(1)
   const [hten_KH, setHten_KH] = useState("");
@@ -35,10 +42,14 @@ const TestDatVe = () => {
   const [id_doan, setId_doan] = useState(Number);
   const [chitietve, setChitietve] = useState<Chitetve[]>([]);
   const [ghe, setGhe] = useState<Ghe[]>([]);
+  const [dsghe, setDsghe] = useState<DSGheDangDat[]>([]);
 
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
+  const dsghedangdat: number[] = []
+  // let dsghedangdatTAM: string;
+  const [dsghedangdatTAM, setDsghedangdatTAM] = useState("")
 
 
   const handleDatve = async () => {
@@ -85,11 +96,54 @@ const TestDatVe = () => {
     //   alert("Đăng ký không thành công")
 
     // };
-    console.log("arrghe", gheArr)
+    // console.log("arrghe", gheArr)
     // console.log("chitietveArr", chitietveArr)
-    console.log("chitietveArr", chitietveArr);
-
+    console.log("testclick");
+    console.log("dsghedangdattttttttt", dsghedangdat);
   }
+
+  const handleChonghedangdat = async (id_ghe: number) => {
+    console.log("wwwđaâsdassssssssssssssssssssssss", dsghedangdat)
+
+    if (dsghedangdat.includes(id_ghe) === false) {
+      dsghedangdat.push(id_ghe),
+        console.log("ádasd"),
+        console.log("dsghedangdatThem", dsghedangdat)
+    }
+    else {
+      let vitriPTcanxoa = dsghedangdat.findIndex((item) => item === id_ghe)
+      dsghedangdat.splice(vitriPTcanxoa, 1)
+      console.log("dsghedangdatXoa", dsghedangdat)
+    }
+    console.log("đâsdassssssssssssssssssssssss", dsghedangdat)
+
+    for (let i = 0; i <= dsghedangdat.length; i++) {
+      try {
+        const params = {
+          key: dsghedangdat[i],
+        };
+        console.log("searchdate", params);
+        const response = await LayTTGhe(params);
+        const res: DSGheDangDat[] = response.ghes;
+        console.log("check api searchdate ghe: ", response);
+        console.log("length", res.length);
+        setDsghe(res);
+        console.log(res)
+        res.map((res) => (
+          setDsghedangdatTAM(dsghedangdatTAM + " " + res.maGhe)
+        ));
+        // console.log("gheArr", gheArr);
+
+      } catch (error) {
+        console.log(error);
+      }
+      console.log("tessss", dsghedangdat[i])
+    }
+    console.log("dsghedangdatTAM", dsghedangdat)
+
+    // setDsghedangdatTAM(dsghedangdatTAM+" "+dsghedangdat.join(','))
+  }
+
   const handleLayTTchitietve = async () => {
     try {
 
@@ -141,7 +195,6 @@ const TestDatVe = () => {
 
 
   useEffect(() => {
-
     handleLayTTchitietve()
     handleLayTTGhe()
     setHten_KH("khoa")
@@ -165,22 +218,47 @@ const TestDatVe = () => {
       {
         ghe.map((ghes) => {
           let gheVIP = ghes.loaiGhe === 'VIP';
+          // let gheVIP = 'bg-pink-200'
+
           gheArr.push(ghes.id)
-          console.log("gheArr", gheArr);
-          console.log("chitietveArr", chitietveArr[1]);
+          // console.log("gheArr", gheArr);
+          // console.log("chitietveArr", chitietveArr[1]);
           // console.log(chitietveArr.includes(ghes.id));
           let gheDadat = chitietveArr.includes(ghes.id)
-                    // console.log("gheDadat",gheDadat);
-          console.log("maghe", ghes.maGhe)
+          // console.log("gheDadat",gheDadat);
+          // console.log("maghe", ghes.maGhe)
+          let disabled = gheDadat === true
           return <>
             <button
+              onClick={() => {
+                handleChonghedangdat(ghes.id)
+
+                //   if (dsghedangdat.includes(ghes.id) === false) {
+
+                //     dsghedangdat.push(ghes.id),
+                //       console.log("ádasd"),
+                //       console.log("dsghedangdatThem", dsghedangdat)
+                //       // handleChonghedangdat(ghes.id)
+                //   }
+                //   else {
+                //     let vitriPTcanxoa = dsghedangdat.findIndex((item) => item === ghes.id)
+                //     dsghedangdat.splice(vitriPTcanxoa, 1)
+                //     console.log("dsghedangdatXoa", dsghedangdat)
+
+                //   }
+                //   console.log(dsghe)
+
+                // }
+
+              }
+              }
               key={ghes.id}
-              // number a ={ thongtinbenhnhans.id}
-              // className=' --{gheVIP} h-14 w-14 items-center m-2' 
               className={`h-14 w-14 items-center m-2 
+              ${gheVIP}
                ${gheVIP ? 'bg-amber-100 text-amber-700' : 'bg-slate-500'}
-               ${gheDadat === true  ? 'bg-pink-400 text-pink-600' : ''}
+               ${gheDadat === true ? 'bg-yellow-400 text-amber-700' : ''}
               `}
+              disabled={disabled}
             // onChange={handlechange}              
             >
               {ghes.maGhe}
@@ -189,13 +267,20 @@ const TestDatVe = () => {
         },
           chitietve.map((chitietves) => {
             chitietveArr.push(chitietves.id_ghe)
-            // console.log("chitietveArr2222222222", chitietveArr);
 
           })
 
         )
       }
+
+
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
+      <p className='p-8 m-8'
+      // onClick={handleChonghedangdat}
+      >
+        {dsghedangdatTAM}
+      </p>
+
 
     </div>
   );

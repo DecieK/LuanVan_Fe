@@ -49,6 +49,11 @@ const Slide = () => {
         const isFirstSlide = currentIndex === 0;
         const newIndex = isFirstSlide ? slidesPhim.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
+
+
+        const isFirstSlideKM = currentIndex === 0;
+        const newIndexKM = isFirstSlideKM ? slidesKM.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndexKM);
     };
 
     const nextSlide = useCallback(() => {
