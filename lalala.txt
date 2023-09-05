@@ -1,0 +1,5 @@
+lấy csdl chitietve về, 
+lấy csdl 1 rạp có những ghế nào về lưu vào 1 mảng(a), sau đó lấy csdl chitietve về lưu vào 1 mảng(b).
+so sánh mảng b có ghế nào thì ghế đó đã đặt r.
+load mảng a ra sơ đồ ghế r
+load mảng b ra xog so sánh kiểu maghe(b) có trong maghe(a) => đổi màu nút có maghe đó
