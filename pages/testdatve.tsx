@@ -37,51 +37,59 @@ const TestDatVe = () => {
   const [ghe, setGhe] = useState<Ghe[]>([]);
 
 
+  const gheArr: number[] = []
+  const chitietveArr: number[] = []
+
 
   const handleDatve = async () => {
-    console.log("hoten", hten_KH)
-    console.log("httt", httt)
-    console.log("tongtien", tongtien)
-    console.log("soluongghe", soluongghe)
-    console.log("ngaymuave", ngaymuave)
-    console.log("id_ghe", id_ghe)
-    console.log("id_suatchieu", id_suatchieu)
-    console.log("id_rap", id_rap)
-    console.log("id_cumrap", id_cumrap)
-    console.log("id_KM", id_KM)
-    console.log("id_NV", id_NV)
-    console.log("id_doan", id_doan)
-    console.log("id_KH", id_KH)
-    let res = await Datve(
-      {
-        hten_KH: hten_KH,
-        httt: httt,
-        tongtien: tongtien,
-        soluongghe: soluongghe,
-        ngaymuave: ngaymuave,
-        id_KH: id_KH,
-        id_ghe: id_ghe,
-        id_suatchieu: id_suatchieu,
-        id_rap: id_rap,
-        id_cumrap: id_cumrap,
-        id_KM: id_KM,
-        id_NV: id_NV,
-        id_doan: id_doan
-      });
-    if (res && res.errCode === 0) {
+    // console.log("hoten", hten_KH)
+    // console.log("httt", httt)
+    // console.log("tongtien", tongtien)
+    // console.log("soluongghe", soluongghe)
+    // console.log("ngaymuave", ngaymuave)
+    // console.log("id_ghe", id_ghe)
+    // console.log("id_suatchieu", id_suatchieu)
+    // console.log("id_rap", id_rap)
+    // console.log("id_cumrap", id_cumrap)
+    // console.log("id_KM", id_KM)
+    // console.log("id_NV", id_NV)
+    // console.log("id_doan", id_doan)
+    // console.log("id_KH", id_KH)
 
-      console.log(res)
-      alert("Đăng ký thành công")
 
-      // handleCloseClick();
-    } else {
+    // let res = await Datve(
+    //   {
+    //     hten_KH: hten_KH,
+    //     httt: httt,
+    //     tongtien: tongtien,
+    //     soluongghe: soluongghe,
+    //     ngaymuave: ngaymuave,
+    //     id_KH: id_KH,
+    //     id_ghe: id_ghe,
+    //     id_suatchieu: id_suatchieu,
+    //     id_rap: id_rap,
+    //     id_cumrap: id_cumrap,
+    //     id_KM: id_KM,
+    //     id_NV: id_NV,
+    //     id_doan: id_doan
+    //   });
+    // if (res && res.errCode === 0) {
 
-      console.log(res)
-      alert("Đăng ký không thành công")
+    //   console.log(res)
+    //   alert("Đăng ký thành công")
 
-    };
+    //   // handleCloseClick();
+    // } else {
+
+    //   console.log(res)
+    //   alert("Đăng ký không thành công")
+
+    // };
+    console.log("arrghe", gheArr)
+    // console.log("chitietveArr", chitietveArr)
+    console.log("chitietveArr", chitietveArr);
+
   }
-
   const handleLayTTchitietve = async () => {
     try {
 
@@ -93,12 +101,12 @@ const TestDatVe = () => {
       const res: Chitetve[] = response.chitietves;
       console.log("check api searchdate chitietve: ", response);
       console.log("length", res.length);
-      setChitietve(res);
-      console.log(res)
 
-      // res2.map((res2) => (
-      // )
-      // );
+      setChitietve(res);
+      // res.map((res) => {
+      //   chitietveArr.push(res.id_ghe)
+      // })
+      // console.log("chitietveArr", chitietveArr);
 
 
     } catch (error) {
@@ -119,21 +127,24 @@ const TestDatVe = () => {
       console.log("length", res.length);
       setGhe(res);
       console.log(res)
-
-      // res2.map((res2) => (
-      // )
-      // );
-
+      // res.map((res) => (
+      //   gheArr.push(res.id)
+      // ));
+      // console.log("gheArr",gheArr);
 
     } catch (error) {
       console.log(error);
     }
   }
 
+
+
+
   useEffect(() => {
+
     handleLayTTchitietve()
     handleLayTTGhe()
-    setHten_KH("kjhoa")
+    setHten_KH("khoa")
     setHttt("onl")
     setTongtien(200000)
     setSoluongghe(2)
@@ -151,34 +162,41 @@ const TestDatVe = () => {
 
   return (
     <div>
-      {/* <Sodoghe /> */}
-
       {
-        ghe.map((ghes) => (
+        ghe.map((ghes) => {
+          let gheVIP = ghes.loaiGhe === 'VIP';
+          gheArr.push(ghes.id)
+          console.log("gheArr", gheArr);
+          console.log("chitietveArr", chitietveArr[1]);
+          // console.log(chitietveArr.includes(ghes.id));
+          let gheDadat = chitietveArr.includes(ghes.id)
+                    // console.log("gheDadat",gheDadat);
+          console.log("maghe", ghes.maGhe)
+          return <>
+            <button
+              key={ghes.id}
+              // number a ={ thongtinbenhnhans.id}
+              // className=' --{gheVIP} h-14 w-14 items-center m-2' 
+              className={`h-14 w-14 items-center m-2 
+               ${gheVIP ? 'bg-amber-100 text-amber-700' : 'bg-slate-500'}
+               ${gheDadat === true  ? 'bg-pink-400 text-pink-600' : ''}
+              `}
+            // onChange={handlechange}              
+            >
+              {ghes.maGhe}
+            </button>
+          </>
+        },
           chitietve.map((chitietves) => {
-             let gheVIP = ghes.loaiGhe === 'VIP' ? 'bg-yellow-500' : '';
-            return <>
+            chitietveArr.push(chitietves.id_ghe)
+            // console.log("chitietveArr2222222222", chitietveArr);
 
-              <button
-                key={ghes.id}
-                // number a ={ thongtinbenhnhans.id}
-                // className=' --{gheVIP} h-14 w-14 items-center m-2' 
-                className={`h-14 w-14 items-center m-2 ${gheVIP ? 'bg-amber-100 text-amber-700' : 'bg-slate-500'}`}
-
-              // onChange={handlechange}
-              >
-                {ghes.maGhe}
-              </button>
-            </>
           })
 
-        ))
-
+        )
       }
-
-
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
-   
+
     </div>
   );
 }
