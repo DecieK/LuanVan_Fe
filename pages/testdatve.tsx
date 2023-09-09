@@ -261,14 +261,23 @@ const TestDatVe = () => {
           // console.log("chitietveArr", chitietveArr[1]);
           // console.log(chitietveArr.includes(ghes.id));
           let gheDadat = chitietveArr.includes(ghes.id)
+          if (gheDadat) {
+            gheVIP = false
+          }
+
           // console.log("gheDadat",gheDadat);
           // console.log("maghe", ghes.maGhe)
           let disabled = gheDadat === true
+          console.log("gheVIP", gheVIP)
 
           //ghế đang dặt
           let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
 
           let classGhedangdat = ghedangdat != -1
+
+          if (gheVIP && classGhedangdat) {
+            gheVIP = false
+          }
           return <>
             <button
               onClick={async () => {
@@ -288,7 +297,7 @@ const TestDatVe = () => {
                     handleChonghedangdat(ghes.id, res.maGhe)
 
                   ));
-                }else{
+                } else {
                   handleDeleteJoke(ghes.id)
                 }
                 // const params = {
@@ -307,24 +316,27 @@ const TestDatVe = () => {
                 // ));
                 console.log("classGhedangdat", classGhedangdat);
                 console.log("ghedangdattttttttttttt1", ghedangdat);
-
-
-
               }
-
-
               }
               key={ghes.id}
-              className={`h-14 w-14 items-center m-2
-              ${classGhedangdat ? 'bg-blue-500' : 'bg-slate-400'}
-               ${gheVIP ? 'bg-amber-100 text-amber-700' : ''}
-               ${gheDadat === true ? 'bg-red-900 text-amber-700' : ''}
+              className={`h-14 w-14 items-center m-2             
+                ${gheVIP ? 'bg-yellow-200' : ''}
+                ${classGhedangdat ? 'bg-blue-500' : ''}
+
+                ${gheDadat ? 'bg-black text-red-500' : ''}
+                // ${!gheDadat && !gheVIP && !classGhedangdat ? 'bg-slate-400' : ''}
+                ${gheVIP && classGhedangdat ? 'bg-blue-500' : ''}
+
+
+
+              
+               
               `}
               disabled={disabled}
             // onChange={handlechange}              
             >
-              {ghes.maGhe}
-            </button>
+              {gheDadat === true ? 'X' : ghes.maGhe}
+            </button >
           </>
         },
           chitietve.map((chitietves) => {
@@ -338,15 +350,17 @@ const TestDatVe = () => {
 
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
 
-      {dsgheDDs.map((element, index) => {
-        return (
-          <div key={index}>
-            <h2>{element.ma_ghe} ádasd</h2>
-            <p>Khuyen mai</p>
-            <button></button>
-          </div>
-        );
-      })}
+      {
+        dsgheDDs.map((element, index) => {
+          return (
+            <div key={index}>
+              <h2>{element.ma_ghe} ádasd</h2>
+              <p>Khuyen mai</p>
+              <button></button>
+            </div>
+          );
+        })
+      }
 
       <p className='p-8 m-8'
       // onClick={handleChonghedangdat}
@@ -355,7 +369,7 @@ const TestDatVe = () => {
       </p>
 
 
-    </div>
+    </div >
   );
 }
 
