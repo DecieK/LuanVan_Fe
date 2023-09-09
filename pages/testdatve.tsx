@@ -18,10 +18,10 @@ const TestDatVe = () => {
     loaiGhe: string;
 
   }
-  interface Dsghedangdat {
+  interface DSGheDangDat {
     id: number;
     maGhe: string;
-    // loaiGhe: string;
+    loaiGhe: string;
     giaGhe: number;
 
   }
@@ -58,8 +58,8 @@ const TestDatVe = () => {
   const [dsgheDDs, setDsgheDDs] = useState([
     {
       id_ghe: 0,
-      ma_ghe: ""
-      // gia: Number
+      ma_ghe: "",
+      gia: 0
     },
 
   ])
@@ -125,7 +125,8 @@ const TestDatVe = () => {
 
     const dsgheDD = {
       id_ghe: id,
-      ma_ghe: maGhe
+      ma_ghe: maGhe,
+      gia: 0
     }
     // jokes.push(joke)
 
@@ -288,13 +289,17 @@ const TestDatVe = () => {
                   };
                   console.log("searchdate", params);
                   const response = await LayTTGhe(params);
-                  const res: Dsghedangdat[] = response.ghes;
+                  const res: DSGheDangDat[] = response.ghes;
                   console.log("check api searchdate ghe: ", response);
                   console.log("length", res.length);
                   setDsghe(res);
                   console.log(res)
                   res.map((res) => (
                     handleChonghedangdat(ghes.id, res.maGhe)
+                    //lay gia ghe từ useeff, 
+                    //xong chổ này nếu loai ghe vip thì truyền dô giá nhân ... ngược lại thì k
+                   
+
 
                   ));
                 } else {
