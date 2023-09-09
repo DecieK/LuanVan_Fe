@@ -18,10 +18,10 @@ const TestDatVe = () => {
     loaiGhe: string;
 
   }
-  interface DSGheDangDat {
+  interface Dsghedangdat {
     id: number;
     maGhe: string;
-    loaiGhe: string;
+    // loaiGhe: string;
     giaGhe: number;
 
   }
@@ -44,12 +44,26 @@ const TestDatVe = () => {
   const [ghe, setGhe] = useState<Ghe[]>([]);
   const [dsghe, setDsghe] = useState<DSGheDangDat[]>([]);
 
+  const [names, setNames] = useState<string[]>([]);
+  const [focus, setFocus] = useState(Number);
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
   const dsghedangdat: number[] = []
+  // let dsghedangdatTAM: string[] = []
+
   // let dsghedangdatTAM: string;
-  const [dsghedangdatTAM, setDsghedangdatTAM] = useState("")
+
+
+  const [dsgheDDs, setDsgheDDs] = useState([
+    {
+      id_ghe: 0,
+      ma_ghe: ""
+      // gia: Number
+    },
+
+  ])
+
 
 
   const handleDatve = async () => {
@@ -101,47 +115,69 @@ const TestDatVe = () => {
     console.log("testclick");
     console.log("dsghedangdattttttttt", dsghedangdat);
   }
+  const handleDeleteJoke = (id: number) => {
+    setDsgheDDs(dsgheDDs.filter(dsgheDDs => dsgheDDs.id_ghe !== id))
+    console.log("delete joke", id)
+  }
+  const handleChonghedangdat = async (id: number, maGhe: string) => {
+    // const handleAddJoke = (text) => {
 
-  const handleChonghedangdat = async (id_ghe: number) => {
-    console.log("wwwđaâsdassssssssssssssssssssssss", dsghedangdat)
 
-    if (dsghedangdat.includes(id_ghe) === false) {
-      dsghedangdat.push(id_ghe),
-        console.log("ádasd"),
-        console.log("dsghedangdatThem", dsghedangdat)
+    const dsgheDD = {
+      id_ghe: id,
+      ma_ghe: maGhe
     }
-    else {
-      let vitriPTcanxoa = dsghedangdat.findIndex((item) => item === id_ghe)
-      dsghedangdat.splice(vitriPTcanxoa, 1)
-      console.log("dsghedangdatXoa", dsghedangdat)
-    }
-    console.log("đâsdassssssssssssssssssssssss", dsghedangdat)
+    // jokes.push(joke)
 
-    for (let i = 0; i <= dsghedangdat.length; i++) {
-      try {
-        const params = {
-          key: dsghedangdat[i],
-        };
-        console.log("searchdate", params);
-        const response = await LayTTGhe(params);
-        const res: DSGheDangDat[] = response.ghes;
-        console.log("check api searchdate ghe: ", response);
-        console.log("length", res.length);
-        setDsghe(res);
-        console.log(res)
-        res.map((res) => (
-          setDsghedangdatTAM(dsghedangdatTAM + " " + res.maGhe)
-        ));
-        // console.log("gheArr", gheArr);
+    setDsgheDDs([dsgheDD, ...dsgheDDs])
+    // console.log("New Joke:", text)
+    console.log("jokesjokesjokes", dsgheDDs)
 
-      } catch (error) {
-        console.log(error);
-      }
-      console.log("tessss", dsghedangdat[i])
-    }
-    console.log("dsghedangdatTAM", dsghedangdat)
 
-    // setDsghedangdatTAM(dsghedangdatTAM+" "+dsghedangdat.join(','))
+
+    // }
+
+
+
+    // console.log("wwwđaâsdassssssssssssssssssssssss", dsghedangdat)
+
+    // if (dsghedangdat.includes(id_ghe) === false) {
+    //   dsghedangdat.push(id_ghe),
+    //     console.log("ádasd"),
+    //     console.log("1", dsghedangdat)
+    // }
+    // else {
+    //   let vitriPTcanxoa = dsghedangdat.findIndex((item) => item === id_ghe)
+    //   dsghedangdat.splice(vitriPTcanxoa, 1)
+    //   console.log("2", dsghedangdat)
+    // }
+    // console.log("đâsdassssssssssssssssssssssss", dsghedangdat)
+
+    // for (let i = 0; i <= dsghedangdat.length; i++) {
+    //   try {
+    //     const params = {
+    //       key: dsghedangdat[i],
+    //     };
+    //     console.log("searchdate", params);
+    //     const response = await LayTTGhe(params);
+    //     const res: DSGheDangDat[] = response.ghes;
+    //     console.log("check api searchdate ghe: ", response);
+    //     console.log("length", res.length);
+    //     setDsghe(res);
+    //     console.log(res)
+    //     res.map((res) => (
+    //       setDsghedangdatTAM(dsghedangdatTAM + " " + res.maGhe)
+    //     ));
+    //     // console.log("gheArr", gheArr);
+
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    //   console.log("tessss", dsghedangdat[i])
+    // }
+    // console.log("dsghedangdatTAM", dsghedangdat)
+    // return dsghedangdat
+    // setDsghedangdatTAM(dsghedangdatTAM + " " + dsghedangdat.join(','))
   }
 
   const handleLayTTchitietve = async () => {
@@ -228,35 +264,61 @@ const TestDatVe = () => {
           // console.log("gheDadat",gheDadat);
           // console.log("maghe", ghes.maGhe)
           let disabled = gheDadat === true
+
+          //ghế đang dặt
+          let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
+
+          let classGhedangdat = ghedangdat != -1
           return <>
             <button
-              onClick={() => {
-                handleChonghedangdat(ghes.id)
+              onClick={async () => {
 
-                //   if (dsghedangdat.includes(ghes.id) === false) {
+                if (!classGhedangdat) {
+                  const params = {
+                    key: ghes.id,
+                  };
+                  console.log("searchdate", params);
+                  const response = await LayTTGhe(params);
+                  const res: Dsghedangdat[] = response.ghes;
+                  console.log("check api searchdate ghe: ", response);
+                  console.log("length", res.length);
+                  setDsghe(res);
+                  console.log(res)
+                  res.map((res) => (
+                    handleChonghedangdat(ghes.id, res.maGhe)
 
-                //     dsghedangdat.push(ghes.id),
-                //       console.log("ádasd"),
-                //       console.log("dsghedangdatThem", dsghedangdat)
-                //       // handleChonghedangdat(ghes.id)
-                //   }
-                //   else {
-                //     let vitriPTcanxoa = dsghedangdat.findIndex((item) => item === ghes.id)
-                //     dsghedangdat.splice(vitriPTcanxoa, 1)
-                //     console.log("dsghedangdatXoa", dsghedangdat)
+                  ));
+                }else{
+                  handleDeleteJoke(ghes.id)
+                }
+                // const params = {
+                //   key: ghes.id,
+                // };
+                // console.log("searchdate", params);
+                // const response = await LayTTGhe(params);
+                // const res: Dsghedangdat[] = response.ghes;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                // setDsghe(res);
+                // console.log(res)
+                // res.map((res) => (
+                //   handleChonghedangdat(ghes.id, res.maGhe)
 
-                //   }
-                //   console.log(dsghe)
+                // ));
+                console.log("classGhedangdat", classGhedangdat);
+                console.log("ghedangdattttttttttttt1", ghedangdat);
 
-                // }
+
 
               }
+
+
               }
               key={ghes.id}
-              className={`h-14 w-14 items-center m-2 
-              ${gheVIP}
-               ${gheVIP ? 'bg-amber-100 text-amber-700' : 'bg-slate-500'}
-               ${gheDadat === true ? 'bg-yellow-400 text-amber-700' : ''}
+              className={`h-14 w-14 items-center m-2
+              ${classGhedangdat ? 'bg-blue-500' : 'bg-slate-400'}
+               ${gheVIP ? 'bg-amber-100 text-amber-700' : ''}
+               ${gheDadat === true ? 'bg-red-900 text-amber-700' : ''}
               `}
               disabled={disabled}
             // onChange={handlechange}              
@@ -275,10 +337,21 @@ const TestDatVe = () => {
 
 
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
+
+      {dsgheDDs.map((element, index) => {
+        return (
+          <div key={index}>
+            <h2>{element.ma_ghe} ádasd</h2>
+            <p>Khuyen mai</p>
+            <button></button>
+          </div>
+        );
+      })}
+
       <p className='p-8 m-8'
       // onClick={handleChonghedangdat}
       >
-        {dsghedangdatTAM}
+        {/* {dsghedangdatTAM} ádasdas  */}
       </p>
 
 
