@@ -247,7 +247,7 @@ const TestDatVe = () => {
     setId_KM(10)
     setId_NV(10)
     setId_doan(10)
-  }, []);
+  }, [ ]);
 
 
   return (
@@ -298,7 +298,7 @@ const TestDatVe = () => {
                     handleChonghedangdat(ghes.id, res.maGhe)
                     //lay gia ghe từ useeff, 
                     //xong chổ này nếu loai ghe vip thì truyền dô giá nhân ... ngược lại thì k
-                   
+
 
 
                   ));
@@ -354,18 +354,23 @@ const TestDatVe = () => {
 
 
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
+      <div className='flex p-1 m-1'>
+        danh sách ghế đã chọn:
+        {
+          dsgheDDs.map((element, index) => {
+            return (
+              <div key={index} className=''>
 
-      {
-        dsgheDDs.map((element, index) => {
-          return (
-            <div key={index}>
-              <h2>{element.ma_ghe} ádasd</h2>
-              <p>Khuyen mai</p>
-              <button></button>
-            </div>
-          );
-        })
-      }
+                <label className=''>{element.ma_ghe}</label>
+                {/* <p>Khuyen mai</p> */}
+                <button></button>
+              </div>
+            );
+          })
+        }
+
+      </div>
+
 
       <p className='p-8 m-8'
       // onClick={handleChonghedangdat}

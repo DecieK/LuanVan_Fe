@@ -80,3 +80,42 @@ export async function LayTTGhe(params: { key: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+
+// export async function LayTTCieu(params: { key: any }): Promise<any> {
+//   const { key } = params;
+//   const response = await fetch(
+//     `http://localhost:8080/api/TTChieu?keyword=${key}`
+//   );
+//   const data = await response.json();
+//   return data;
+// }
+
+// export async function LayTTCieu(params: {
+//   id_rap: number;
+//   id_phim: number;
+//   id_suatchieu: number;  
+// }): Promise<any> {
+//   const response = await fetch(
+//     `http://localhost:8080/api/TTChieu`,    {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(params),
+//     }
+//   );
+//   const data = await response.json();
+//   return data;
+// }
+export async function API_appraisePhongKham(
+  id_rap: number,
+  id_phim: number,
+  id_suatchieu: number
+) {
+  const response = await axios.post( `http://localhost:8080/api/TTChieu`, {
+    id_rap: id_rap,
+    id_phim: id_phim,
+    id_suatchieu: id_suatchieu,
+  });
+  return response.data;
+}
