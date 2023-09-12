@@ -1,14 +1,4 @@
-// import fetch from "isomorphic-unfetch";
 import axios from "axios";
-
-// export async function AllUser_API() {
-//   const response = await fetch("http://localhost:8080/api/get-all-users");
-//   const data = await response.json();
-//   return data;
-// }
-
-
-
 
 export async function DangKy_KH(params: {
   hten_KH: string;
@@ -81,41 +71,32 @@ export async function LayTTGhe(params: { key: any }): Promise<any> {
   return data;
 }
 
-// export async function LayTTCieu(params: { key: any }): Promise<any> {
-//   const { key } = params;
+// export async function layTTChieu(params: { id_rap: number, id_phim: number,id_suatchieu: number}): Promise<any> {
+//   const { id_rap,id_phim,id_suatchieu } = params;
 //   const response = await fetch(
-//     `http://localhost:8080/api/TTChieu?keyword=${key}`
+//     `http://localhost:8080/api/TTChieu?keyword=${id_rap & id_phim & id_suatchieu }`
 //   );
 //   const data = await response.json();
 //   return data;
 // }
 
-// export async function LayTTCieu(params: {
-//   id_rap: number;
-//   id_phim: number;
-//   id_suatchieu: number;  
-// }): Promise<any> {
-//   const response = await fetch(
-//     `http://localhost:8080/api/TTChieu`,    {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(params),
-//     }
-//   );
-//   const data = await response.json();
-//   return data;
-// }
-export async function API_appraisePhongKham(
-  id_rap: number,
-  id_phim: number,
-  id_suatchieu: number
-) {
-  const response = await axios.post( `http://localhost:8080/api/TTChieu`, {
-    id_rap: id_rap,
-    id_phim: id_phim,
-    id_suatchieu: id_suatchieu,
-  });
-  return response.data;
+
+export async function layTTChieu(params: {
+  id_suatchieu: number;
+  id_rap: number;
+  id_phim: number;
+ 
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/TTChieu`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
 }
