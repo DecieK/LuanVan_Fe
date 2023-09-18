@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // import Sodoghe from '@/Components/Sodoghe';
 import { Datve, LayTTGhe, LayTTchitietve, layTTChieu } from '@/service/userService';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
@@ -27,7 +28,7 @@ const Sodoghe = () => {
   interface Chieu {
     id: number;
     ngaychieu: string;
-    giave: string;
+    giave: number;
     id_rap: number;
     id_phim: number;
     id_suatchieu: number;
@@ -58,8 +59,8 @@ const Sodoghe = () => {
 
 
 
-//   const [names, setNames] = useState<string[]>([]);
-//   const [focus, setFocus] = useState(Number);
+  //   const [names, setNames] = useState<string[]>([]);
+  //   const [focus, setFocus] = useState(Number);
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
@@ -140,14 +141,14 @@ const Sodoghe = () => {
     const dsgheDD = {
       id_ghe: id,
       ma_ghe: maGhe,
-      gia: 0
+      gia: giave
     }
     // jokes.push(joke)
 
     setDsgheDDs([dsgheDD, ...dsgheDDs])
     // console.log("New Joke:", text)
     console.log("jokesjokesjokes", dsgheDDs)
-
+    // saveToLocalStorage()
 
 
     // }
@@ -220,9 +221,9 @@ const Sodoghe = () => {
       setChieu(res);
       console.log(res.length)
       res.map((res) => (
-        gheArr.push(res.id)
+        setGiave(res.giave)
       ));
-      console.log("gheArr",gheArr);
+      console.log("giave", giave);
 
     } catch (error) {
       console.log(error);
@@ -243,10 +244,6 @@ const Sodoghe = () => {
       console.log("length", res.length);
 
       setChitietve(res);
-      // res.map((res) => {
-      //   chitietveArr.push(res.id_ghe)
-      // })
-      // console.log("chitietveArr", chitietveArr);
 
 
     } catch (error) {
@@ -268,7 +265,7 @@ const Sodoghe = () => {
       setGhe(res);
       console.log(res)
       // res.map((res) => (
-        
+
       // ));
       // console.log("gheArr",gheArr);
 
@@ -277,29 +274,96 @@ const Sodoghe = () => {
     }
   }
 
+  // const saveToLocalStorage = () => {
+  //   // e.preventDefault()
+  //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
+  // }
 
 
 
   useEffect(() => {
-    handleLayTTchitietve()
-    handleLayTTGhe()
-    handleLayTTChieu()
-    setHten_KH("khoa")
-    setHttt("onl")
-    setTongtien(200000)
-    setSoluongghe(2)
-    setNgaymuave("8-28-2023")
-    setId_KH(1)
-    setId_ghe(25)
-    setId_suatchieu(5)
-    setId_rap(9)
-    setId_cumrap(2)
-    setId_KM(10)
-    setId_NV(10)
-    setId_doan(10)
-    localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
+    const handleLayTTChieu = async () => {
+      console.log("id_rap", id_rap);
+      console.log("id_phim", id_phim);
+      console.log("id_suatchieu", id_suatchieu);
+      try {
+        const params = {
+          id_rap: 1,
+          id_phim: 1,
+          id_suatchieu: 1
+
+        };
+        console.log("searchdate", params);
+        const response = await layTTChieu(params);
+        const res: Chieu[] = response.ttchieu;
+        console.log("check api handleLayTTChieu: ", response);
+        // console.log("length", res.length);
+        setChieu(res);
+        console.log(res.length)
+        res.map((res) => (
+          setGiave(res.giave),
+          console.log("giave", res.giave)
+
+        ));
+        console.log("giave", giave);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+
+    const handleLayTTGhe = async () => {
+      try {
+
+        const params = {
+          key: "ALL",
+        };
+        console.log("searchdate", params);
+        const response = await LayTTGhe(params);
+        const res: Ghe[] = response.ghes;
+        console.log("check api searchdate ghe: ", response);
+        console.log("length", res.length);
+        setGhe(res);
+        console.log(res)
+        // res.map((res) => (
+
+        // ));
+        // console.log("gheArr",gheArr);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const handleLayTTchitietve = async () => {
+      try {
+
+        const params = {
+          id_ve: id_ve,
+        };
+        console.log("searchdate", params);
+        const response = await LayTTchitietve(params);
+        const res: Chitetve[] = response.chitietves;
+        console.log("check api searchdate chitietve: ", response);
+        console.log("length", res.length);
+
+        setChitietve(res);
+
+
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    handleLayTTChieu();
+    handleLayTTGhe();
+    handleLayTTchitietve();
+    // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
   }, []);
+  useEffect(() => {
+    localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
+  }, [dsgheDDs]);
 
 
   return (
@@ -354,6 +418,7 @@ const Sodoghe = () => {
 
 
                   ));
+                  
                 } else {
                   handleDeleteJoke(ghes.id)
                 }
