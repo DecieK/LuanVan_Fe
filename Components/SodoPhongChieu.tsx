@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { layTTChieu } from '@/service/userService';
 import { Console } from 'console';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -33,6 +34,7 @@ const SodoPhongChieu = () => {
   const [chieu, setChieu] = useState<Chieu[]>([]);
   // const [isInitialRender, setIsInitialRender] = useState(true);
 
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
   const [dsgheDDs, setDsgheDDs] = useState([
     {
@@ -42,25 +44,38 @@ const SodoPhongChieu = () => {
     },
 
   ])
-  console.log("dsgheDDs", dsgheDDs)
-  
+  const handleTesst = () => {
+    let todoLocal = JSON.parse(localStorage.getItem("dsgheDDs") || "{}");
+    setDsgheDDs(todoLocal);
+    console.log("dsgheDDs", dsgheDDs)
 
+  }
 
+  // useEffect(() => {
 
+  //   const getLocalTodo = () => {
+  //     if (localStorage.getItem("dsgheDDs") === null) {
+  //       localStorage.setItem("dsgheDDs", JSON.stringify([]));
+  //     } else {
+  //       let todoLocal = JSON.parse(localStorage.getItem("dsgheDDs") || "{}");
+  //       setDsgheDDs(todoLocal);
+  //     }
+  //   };
+
+  //   getLocalTodo()
+  // }, []);
+  console.log(dsgheDDs)
 
 
   useEffect(() => {
 
-    // if () {
+    if (isInitialRender) {
       const dsgheDD1 = JSON.parse(localStorage.getItem("dsgheDDs") || "{}");
+      setDsgheDDs(dsgheDD1)
+    }
 
-      setDsgheDDs(dsgheDD1);
-      // setIsInitialRender(false);
 
-    // }
-    console.log("jokesjokesjokes", dsgheDDs)
-
-  }, [dsgheDDs]);
+  }, []);
 
   return (
     <div>
@@ -81,7 +96,7 @@ const SodoPhongChieu = () => {
         }
 
       </div>
-      <button className='bg-slate-500' >Click</button>
+      <button onClick={handleTesst} className='bg-slate-500 hover:focus:bg-yellow-600' >Click</button>
     </div>
   );
 }

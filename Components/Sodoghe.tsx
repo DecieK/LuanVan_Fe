@@ -477,6 +477,19 @@ const Sodoghe = () => {
       <p className='p-8 m-8'
       // onClick={handleChonghedangdat}
       >
+                {
+          dsgheDDs.map((element, index) => {
+            return (
+              <div key={index} className=''>
+
+                <label className=''> {element.ma_ghe} </label>
+                {/* <label className=''> {element.gia} </label> */}
+
+                {/* <p>Khuyen mai</p> */}
+              </div>
+            );
+          })
+        }
         {/* {dsghedangdatTAM} ádasdas  */}
       </p>
 
