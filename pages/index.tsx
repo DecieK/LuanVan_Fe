@@ -5,8 +5,13 @@ import Image from "next/image";
 import Footer from "@/Components/Footer";
 import Slide from "@/Components/Slide";
 import DSPhim from "@/Components/DSPhim";
+import router from "next/router";
 
 const index = () => {
+  const handleLogin = () => {
+    router.push("/login");
+    console.log("hello")
+  };
   return (
 
     <div>
@@ -41,9 +46,8 @@ const index = () => {
       </div> */}
       <Slide />
       <DSPhim />
-
-
       <Footer />
+      <div onClick={handleLogin}>click</div>
 
     </div>
 

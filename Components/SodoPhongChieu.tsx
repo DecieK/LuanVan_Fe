@@ -54,7 +54,7 @@ const SodoPhongChieu = () => {
       }
     }
 
-}, [dsgheDDs]);
+}, []);
 
 return (
   <div>
