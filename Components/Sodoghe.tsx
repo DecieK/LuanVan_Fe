@@ -36,6 +36,7 @@ const Sodoghe = () => {
 
   }
 
+
   const [id_ve, setId_ve] = useState(1)
   const [hten_KH, setHten_KH] = useState("");
   const [httt, setHttt] = useState("");
@@ -56,6 +57,7 @@ const Sodoghe = () => {
   const [id_phim, setId_phim] = useState(Number)
   const [chieu, setChieu] = useState<Chieu[]>([]);
   const [giave, setGiave] = useState(Number);
+  const [tonggiave, setTonggiave] = useState(Number)
 
 
 
@@ -65,9 +67,9 @@ const Sodoghe = () => {
   const gheArr: number[] = []
   const chitietveArr: number[] = []
   const dsghedangdat: number[] = []
-  // let dsghedangdatTAM: string[] = []
-
+  // const tongtienve: number
   // let dsghedangdatTAM: string;
+  let sumsum = 0;
 
 
   const [dsgheDDs, setDsgheDDs] = useState([
@@ -134,68 +136,46 @@ const Sodoghe = () => {
     setDsgheDDs(dsgheDDs.filter(dsgheDDs => dsgheDDs.id_ghe !== id))
     console.log("delete joke", id)
   }
-  const handleChonghedangdat = async (id: number, maGhe: string) => {
+  const handleChonghedangdat = async (id: number, maGhe: string, loaighe: string) => {
     // const handleAddJoke = (text) => {
 
 
-    const dsgheDD = {
-      id_ghe: id,
-      ma_ghe: maGhe,
-      gia: giave
+    if (loaighe === 'VIP') {
+      const dsgheDD = {
+        id_ghe: id,
+        ma_ghe: maGhe,
+        gia: giave + giave * 0.2
+      }
+      setDsgheDDs([dsgheDD, ...dsgheDDs])
+
+    }
+    else {
+      const dsgheDD = {
+        id_ghe: id,
+        ma_ghe: maGhe,
+        gia: giave
+      }
+      setDsgheDDs([dsgheDD, ...dsgheDDs])
+
     }
     // jokes.push(joke)
 
-    setDsgheDDs([dsgheDD, ...dsgheDDs])
     // console.log("New Joke:", text)
-    console.log("jokesjokesjokes", dsgheDDs)
-    // saveToLocalStorage()
-
-
-    // }
-
-
-
-    // console.log("wwwđaâsdassssssssssssssssssssssss", dsghedangdat)
-
-    // if (dsghedangdat.includes(id_ghe) === false) {
-    //   dsghedangdat.push(id_ghe),
-    //     console.log("ádasd"),
-    //     console.log("1", dsghedangdat)
-    // }
-    // else {
-    //   let vitriPTcanxoa = dsghedangdat.findIndex((item) => item === id_ghe)
-    //   dsghedangdat.splice(vitriPTcanxoa, 1)
-    //   console.log("2", dsghedangdat)
-    // }
-    // console.log("đâsdassssssssssssssssssssssss", dsghedangdat)
-
-    // for (let i = 0; i <= dsghedangdat.length; i++) {
-    //   try {
-    //     const params = {
-    //       key: dsghedangdat[i],
-    //     };
-    //     console.log("searchdate", params);
-    //     const response = await LayTTGhe(params);
-    //     const res: DSGheDangDat[] = response.ghes;
-    //     console.log("check api searchdate ghe: ", response);
-    //     console.log("length", res.length);
-    //     setDsghe(res);
-    //     console.log(res)
-    //     res.map((res) => (
-    //       setDsghedangdatTAM(dsghedangdatTAM + " " + res.maGhe)
-    //     ));
-    //     // console.log("gheArr", gheArr);
-
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //   console.log("tessss", dsghedangdat[i])
-    // }
-    // console.log("dsghedangdatTAM", dsghedangdat)
-    // return dsghedangdat
-    // setDsghedangdatTAM(dsghedangdatTAM + " " + dsghedangdat.join(','))
+    console.log("dsgheDDs", dsgheDDs)
+    // setTonggia(dsgheDDs.gia)
   }
 
+  // const handleUpdateDSghe = (id: any) => {
+  //   setDsgheDDs(dsgheDDs.map(dsghe => {
+  //     if (dsghe.id_ghe === id) {
+  //       return { ...dsghe, gia: giave }
+  //       // return { ...dsghe, gia: dsghe.gia*0.2 }
+
+  //     } else {
+  //       return dsghe
+  //     }
+  //   }))
+  // }
   const handleLayTTChieu = async () => {
 
     setId_rap(1)
@@ -364,6 +344,7 @@ const Sodoghe = () => {
   useEffect(() => {
     localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   }, [dsgheDDs]);
+  let temp: number
 
 
   return (
@@ -381,24 +362,30 @@ const Sodoghe = () => {
           if (gheDadat) {
             gheVIP = false
           }
-
-          // console.log("gheDadat",gheDadat);
-          // console.log("maghe", ghes.maGhe)
           let disabled = gheDadat === true
-          console.log("gheVIP", gheVIP)
+          // const handleLike = (id) => {
+          //   setJokes(jokes.map(joke => {
+          //     if (joke.id === id) {
+          //       return {...joke, likes: joke.likes + joke*t}
+          //     } else {
+          //       return joke
+          //     }
+          //   }))
+          // }
 
           //ghế đang dặt
           let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
-
           let classGhedangdat = ghedangdat != -1
-
           if (gheVIP && classGhedangdat) {
             gheVIP = false
           }
+
+
           return <>
             <button
               onClick={async () => {
 
+                // handleUpdateDSghe(ghes.id)
                 if (!classGhedangdat) {
                   const params = {
                     key: ghes.id,
@@ -411,33 +398,18 @@ const Sodoghe = () => {
                   setDsghe(res);
                   console.log(res)
                   res.map((res) => (
-                    handleChonghedangdat(ghes.id, res.maGhe)
+                    handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
                     //lay gia ghe từ useeff, 
                     //xong chổ này nếu loai ghe vip thì truyền dô giá nhân ... ngược lại thì k
-
-
-
                   ));
-                  
+
                 } else {
                   handleDeleteJoke(ghes.id)
                 }
-                // const params = {
-                //   key: ghes.id,
-                // };
-                // console.log("searchdate", params);
-                // const response = await LayTTGhe(params);
-                // const res: Dsghedangdat[] = response.ghes;
-                // console.log("check api searchdate ghe: ", response);
-                // console.log("length", res.length);
-                // setDsghe(res);
-                // console.log(res)
-                // res.map((res) => (
-                //   handleChonghedangdat(ghes.id, res.maGhe)
-
-                // ));
                 console.log("classGhedangdat", classGhedangdat);
                 console.log("ghedangdattttttttttttt1", ghedangdat);
+
+
               }
               }
               key={ghes.id}
@@ -463,35 +435,41 @@ const Sodoghe = () => {
         },
           chitietve.map((chitietves) => {
             chitietveArr.push(chitietves.id_ghe)
-
           })
-
         )
       }
 
-
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
 
-
-
-      <p className='p-8 m-8'
-      // onClick={handleChonghedangdat}
-      >
-                {
+      <div className='flex p-1 m-1'>
+        danh sách ghế đã chọn:
+        {
           dsgheDDs.map((element, index) => {
+
+
+            let sum = 0;
+
+            dsgheDDs.forEach(element => {
+              sum += element.gia;
+            });
+            sumsum = sum
+
+            // setTonggiave(sum)
             return (
               <div key={index} className=''>
-
-                <label className=''> {element.ma_ghe} </label>
-                {/* <label className=''> {element.gia} </label> */}
-
-                {/* <p>Khuyen mai</p> */}
+                <label className='pr-1'> {element.ma_ghe} </label>
+                {/* <div>{sum}</div> */}
               </div>
             );
+
           })
         }
-        {/* {dsghedangdatTAM} ádasdas  */}
-      </p>
+
+
+      </div>
+      <div>{sumsum}</div>
+
+
 
 
     </div >
