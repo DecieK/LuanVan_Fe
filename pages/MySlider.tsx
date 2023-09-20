@@ -5,28 +5,6 @@ import "slick-carousel/slick/slick-theme.css"
 import script from "next/script";
 
 
-<script type="text/javascript">
-var Slick = window.Slick || {};
-    $(document).ready(function(){
-        $('.slider-for').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            fade: true,
-            asNavFor: '.slider-nav'
-        }),
-        $('.slider-nav').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            asNavFor: '.slider-for',
-            dots: true,
-            centerMode: true,
-            focusOnSelect: true
-        }),
-    
-});
-</script>
-
 
 const data = [
     { imgg: "/poster1.jpg" },
@@ -41,11 +19,12 @@ const data = [
 const MySlider = () => {
 
     const setting = {
-        // arrows: true,
-        // Infinity: true,
-        // speed: 500,
-        // slidesToShow: 4,
-        // slidesToScroll: 1,
+        arrows: false,
+        Infinity: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        dots: true,
        
     
 
@@ -53,18 +32,13 @@ const MySlider = () => {
 
 return (
     <div>
-        <div className=" relative slider-for">
-            <Slider className='' {...setting}>
+        <div className="pt-10">
+            <Slider className="" {...setting}>
                 {data.map((el, index) => <Card key={index} imgg={el.imgg}></Card>)}
 
             </Slider>
         </div>
-        <div className="relative slider-nav">
-            <Slider {...setting}>
-                {data.map((el, index) => <Card key={index} imgg={el.imgg}></Card>)}
 
-            </Slider>
-        </div>
     </div>
 )
 

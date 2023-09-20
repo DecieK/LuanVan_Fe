@@ -6,12 +6,20 @@ import Footer from "@/Components/Footer";
 import Slide from "@/Components/Slide";
 import DSPhim from "@/Components/DSPhim";
 import router from "next/router";
+import QuenMk from "@/Components/QuenMK";
+import { useState } from "react";
+import Dangnhap from "@/Components/Dangnhap";
+import Quenmatkhau from "@/Components/Quenmatkhau";
+import MySlider from "./MySlider";
 
 const index = () => {
   const handleLogin = () => {
     router.push("/login");
     console.log("hello")
   };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [showModalQuenMk, setShowModalQuenMK] = useState(false);
+
   return (
 
     <div>
@@ -45,11 +53,13 @@ const index = () => {
 
       </div> */}
       <Slide />
-      <DSPhim />
+      <MySlider/>
+      {/* <DSPhim /> */}
       <Footer />
-      <div onClick={handleLogin}>click</div>
+      {/* <Quenmatkhau/> */}
+      {/* <div onClick={handleLogin}>click</div> */}
 
-    </div>
+ </div>
 
   )
 }
