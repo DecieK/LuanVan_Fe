@@ -100,3 +100,20 @@ export async function layTTChieu(params: {
   const data = await response.json();
   return data;
 }
+
+export async function LayTTKM(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTKM?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function LayTTDoan(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTDoan?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}

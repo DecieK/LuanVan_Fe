@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // import Sodoghe from '@/Components/Sodoghe';
-import { Datve, LayTTGhe, LayTTchitietve, layTTChieu } from '@/service/userService';
+import { Datve, LayTTDoan, LayTTGhe, LayTTKM, LayTTchitietve, layTTChieu } from '@/service/userService';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
@@ -32,8 +33,23 @@ const Sodoghe = () => {
     id_rap: number;
     id_phim: number;
     id_suatchieu: number;
-
-
+  }
+  interface Doan {
+    id: number;
+    ten: string;
+    loai: number;
+    mota: number;
+    gia: number;
+    size: number;
+  }
+  interface Khuyenmai {
+    id: number;
+    ten_KM: string;
+    tile_KM: number;
+    mota_KM: string;
+    dieukien_KM: number;
+    thoigianbatdau: Date;
+    thoigianketthuc: Date;
   }
 
 
@@ -58,17 +74,19 @@ const Sodoghe = () => {
   const [chieu, setChieu] = useState<Chieu[]>([]);
   const [giave, setGiave] = useState(Number);
   const [tonggiave, setTonggiave] = useState(Number)
+  const [km, setKm] = useState(false)
+  const [trangthaidoan, setTrangthaidoan] = useState(false)
+  const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
+  const [doan, setDoan] = useState<Doan[]>([]);
 
 
 
-  //   const [names, setNames] = useState<string[]>([]);
-  //   const [focus, setFocus] = useState(Number);
+
+
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
   const dsghedangdat: number[] = []
-  // const tongtienve: number
-  // let dsghedangdatTAM: string;
   let sumsum = 0;
 
 
@@ -84,53 +102,53 @@ const Sodoghe = () => {
 
 
   const handleDatve = async () => {
-    // console.log("hoten", hten_KH)
-    // console.log("httt", httt)
-    // console.log("tongtien", tongtien)
-    // console.log("soluongghe", soluongghe)
-    // console.log("ngaymuave", ngaymuave)
-    // console.log("id_ghe", id_ghe)
-    // console.log("id_suatchieu", id_suatchieu)
-    // console.log("id_rap", id_rap)
-    // console.log("id_cumrap", id_cumrap)
-    // console.log("id_KM", id_KM)
-    // console.log("id_NV", id_NV)
-    // console.log("id_doan", id_doan)
-    // console.log("id_KH", id_KH)
+    console.log("hoten", hten_KH)
+    console.log("httt", httt)
+    console.log("tongtien", tongtien)
+    console.log("soluongghe", soluongghe)
+    console.log("ngaymuave", ngaymuave)
+    console.log("id_ghe", id_ghe)
+    console.log("id_suatchieu", id_suatchieu)
+    console.log("id_rap", id_rap)
+    console.log("id_cumrap", id_cumrap)
+    console.log("id_KM", id_KM)
+    console.log("id_NV", id_NV)
+    console.log("id_doan", id_doan)
+    console.log("id_KH", id_KH)
 
 
-    // let res = await Datve(
-    //   {
-    //     hten_KH: hten_KH,
-    //     httt: httt,
-    //     tongtien: tongtien,
-    //     soluongghe: soluongghe,
-    //     ngaymuave: ngaymuave,
-    //     id_KH: id_KH,
-    //     id_ghe: id_ghe,
-    //     id_suatchieu: id_suatchieu,
-    //     id_rap: id_rap,
-    //     id_cumrap: id_cumrap,
-    //     id_KM: id_KM,
-    //     id_NV: id_NV,
-    //     id_doan: id_doan
-    //   });
-    // if (res && res.errCode === 0) {
+    let res = await Datve(
+      {
+        hten_KH: hten_KH,
+        httt: httt,
+        tongtien: tongtien,
+        soluongghe: soluongghe,
+        ngaymuave: ngaymuave,
+        id_KH: id_KH,
+        id_ghe: id_ghe,
+        id_suatchieu: id_suatchieu,
+        id_rap: id_rap,
+        id_cumrap: id_cumrap,
+        id_KM: id_KM,
+        id_NV: id_NV,
+        id_doan: id_doan
+      });
+    if (res && res.errCode === 0) {
 
-    //   console.log(res)
-    //   alert("Đăng ký thành công")
+      console.log(res)
+      alert("Đăng ký thành công")
 
-    //   // handleCloseClick();
-    // } else {
+      // handleCloseClick();
+    } else {
 
-    //   console.log(res)
-    //   alert("Đăng ký không thành công")
+      console.log(res)
+      alert("Đăng ký không thành công")
 
-    // };
+    };
     // console.log("arrghe", gheArr)
     // console.log("chitietveArr", chitietveArr)
-    console.log("testclick");
-    console.log("dsghedangdattttttttt", dsghedangdat);
+    // console.log("testclick");
+    // console.log("dsghedangdattttttttt", dsghedangdat);
   }
   const handleDeleteJoke = (id: number) => {
     setDsgheDDs(dsgheDDs.filter(dsgheDDs => dsgheDDs.id_ghe !== id))
@@ -158,24 +176,8 @@ const Sodoghe = () => {
       setDsgheDDs([dsgheDD, ...dsgheDDs])
 
     }
-    // jokes.push(joke)
-
-    // console.log("New Joke:", text)
-    console.log("dsgheDDs", dsgheDDs)
-    // setTonggia(dsgheDDs.gia)
   }
 
-  // const handleUpdateDSghe = (id: any) => {
-  //   setDsgheDDs(dsgheDDs.map(dsghe => {
-  //     if (dsghe.id_ghe === id) {
-  //       return { ...dsghe, gia: giave }
-  //       // return { ...dsghe, gia: dsghe.gia*0.2 }
-
-  //     } else {
-  //       return dsghe
-  //     }
-  //   }))
-  // }
   const handleLayTTChieu = async () => {
 
     setId_rap(1)
@@ -254,10 +256,20 @@ const Sodoghe = () => {
     }
   }
 
-  // const saveToLocalStorage = () => {
-  //   // e.preventDefault()
-  //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
-  // }
+  const handleDoan = (trangthai: boolean) => {
+    if (trangthai === true) {
+      setTrangthaidoan(false)
+    }
+    else setTrangthaidoan(true)
+
+  }
+  const handleKM = (trangthai: boolean) => {
+    if (trangthai === true) {
+      setKm(false)
+    }
+    else setKm(true)
+
+  }
 
 
 
@@ -291,8 +303,6 @@ const Sodoghe = () => {
         console.log(error);
       }
     }
-
-
     const handleLayTTGhe = async () => {
       try {
 
@@ -335,15 +345,61 @@ const Sodoghe = () => {
       }
 
     }
+    const handleLayTTKM = async () => {
+      try {
+
+        const params = {
+          key: "ALL",
+        };
+        console.log("searchdate", params);
+        const response = await LayTTKM(params);
+        const res: Khuyenmai[] = response.khuyenmais;
+        console.log("check api KM: ", response);
+        console.log("length", res.length);
+        setKhuyenmai(res);
+        console.log(res)
+        // res.map((res) => (
+
+        // ));
+        // console.log("gheArr",gheArr);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const handleLayTTDoan = async () => {
+      try {
+
+        const params = {
+          key: "ALL",
+        };
+        console.log("searchdate", params);
+        const response = await LayTTDoan(params);
+        const res: Doan[] = response.doans;
+        console.log("check api Doan: ", response);
+        console.log("length", res.length);
+        setDoan(res);
+        console.log(res)
+        // res.map((res) => (
+
+        // ));
+        // console.log("gheArr",gheArr);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
     handleLayTTChieu();
     handleLayTTGhe();
     handleLayTTchitietve();
+    handleLayTTKM();
+    handleLayTTDoan();
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
   }, []);
-  useEffect(() => {
-    localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
-  }, [dsgheDDs]);
+  // useEffect(() => {
+  //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
+  // }, [dsgheDDs]);
   let temp: number
 
 
@@ -407,7 +463,7 @@ const Sodoghe = () => {
                   handleDeleteJoke(ghes.id)
                 }
                 console.log("classGhedangdat", classGhedangdat);
-                console.log("ghedangdattttttttttttt1", ghedangdat);
+                console.log("ghedangdattttttttttttt1", dsgheDDs);
 
 
               }
@@ -439,6 +495,11 @@ const Sodoghe = () => {
         )
       }
 
+
+      {/* check dkien 
+  + nếu 1 vé đặt 1 ghế là insert dữ liệu bth
+  + nếu nhiều hơn 1 ghế thì check length mãng mã ghế xong for để insert dữ liệu */}
+
       <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
 
       <div className='flex p-1 m-1'>
@@ -464,10 +525,49 @@ const Sodoghe = () => {
 
           })
         }
-
-
       </div>
       <div>{sumsum}</div>
+      <div>
+        <div className='cursor-pointer' onClick={(e) => handleDoan(trangthaidoan)}>chọn bắp nước</div>
+        {
+          trangthaidoan === true
+            ?
+            <div>
+              {
+                doan.map((doans, index) => {
+                  return (
+                    <>
+                      <button className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'>{doans.ten} size: {doans.size}</button>
+                    </>
+                  )
+                })
+              }
+            </div>
+            : ""
+        }
+
+      </div>
+      <div>
+        <div className='cursor-pointer' onClick={(e) => handleKM(km)}>khuyến mãi</div>
+        {
+          km === true
+            ?
+            <div>
+              {
+                khuyenmai.map((khuyenmais, index) => {
+                  return (
+                    <>
+                      <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'>{khuyenmais.ten_KM}</button>
+                    </>
+                  )
+                })
+              }
+
+            </div>
+            : ""
+        }
+
+      </div>
 
 
 

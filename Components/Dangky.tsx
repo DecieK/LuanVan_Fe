@@ -12,8 +12,6 @@ type Props = {
 const Dangky = ({ onClose, show }: Props) => {
 
   const [isBrowser, setIsBrowser] = useState(false);
-
-
   const [hten_KH, setHten_KH] = useState("");
   const [Ngaysinh, setNgaysinh] = useState("");
   const [gt_KH, setGT_KH] = useState("");
