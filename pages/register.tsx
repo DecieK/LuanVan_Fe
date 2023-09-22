@@ -77,8 +77,8 @@ const Register = () => {
   };
   return (
     <div className={noto_serif.className}>
-      <div className="pt-10 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full h-screen">
-        <form className="text-black m-auto text-sm h-auto w-[450px] bg-yellow-900 bg-opacity-20 rounded-xl leading-loose">
+      <div className="pt-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full h-screen">
+        <form className="text-black m-auto text-sm h-auto w-[450px] bg-yellow-900 bg-opacity-20 rounded-xl leading-normal">
           <h1 className="text-center uppercase text-3xl pt-6 ">Register</h1>
           <div className="pl-6">
             <p>Tên đăng nhập:</p>

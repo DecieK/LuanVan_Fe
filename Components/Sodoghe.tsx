@@ -58,7 +58,7 @@ const Sodoghe = () => {
   const [httt, setHttt] = useState("");
   const [tongtien, setTongtien] = useState(Number);
   const [soluongghe, setSoluongghe] = useState(Number);
-  const [ngaymuave, setNgaymuave] = useState("");
+  const [ngaymuave, setNgaymuave] = useState(new Date);
   const [id_KH, setId_KH] = useState(Number);
   const [id_ghe, setId_ghe] = useState(Number);
   const [id_suatchieu, setId_suatchieu] = useState(Number);
@@ -73,11 +73,16 @@ const Sodoghe = () => {
   const [id_phim, setId_phim] = useState(Number)
   const [chieu, setChieu] = useState<Chieu[]>([]);
   const [giave, setGiave] = useState(Number);
-  const [tonggiave, setTonggiave] = useState(Number)
   const [km, setKm] = useState(false)
   const [trangthaidoan, setTrangthaidoan] = useState(false)
   const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
   const [doan, setDoan] = useState<Doan[]>([]);
+  const [id_ghe1, setId_ghe1] = useState(Array);
+  const [tonggiave, setTonggiave] = useState(Number)
+  const [tileKM, setTileKM] = useState(Number)
+  const [giaDA, setGiaDA] = useState(Number)
+  const [sumsum1, setSumsum1] = useState(Number)
+
 
 
 
@@ -88,7 +93,10 @@ const Sodoghe = () => {
   const chitietveArr: number[] = []
   const dsghedangdat: number[] = []
   let sumsum = 0;
+  // let sumsum1 = 0;
+  let sumsum2 = 0;
 
+  // let sum = 0;
 
   const [dsgheDDs, setDsgheDDs] = useState([
     {
@@ -96,12 +104,22 @@ const Sodoghe = () => {
       ma_ghe: "",
       gia: 0
     },
-
   ])
 
-
-
   const handleDatve = async () => {
+    // console.log("sumsum", sumsum)
+    // setTongtien(sumsum)
+    // setSoluongghe(dsgheDDs.length-1)
+    // setHttt("Online")
+    // console.log("alalalal", dsgheDDs.length-1)
+
+    // dsgheDDs.map((item) => {
+    //   // id_ghe1.indexOf(item.ma_ghe)
+    //   if(id_ghe1.indexOf(item.ma_ghe) < 0){
+    //     id_ghe1.push(item.ma_ghe)
+    //   }
+    // } )
+
     console.log("hoten", hten_KH)
     console.log("httt", httt)
     console.log("tongtien", tongtien)
@@ -115,7 +133,6 @@ const Sodoghe = () => {
     console.log("id_NV", id_NV)
     console.log("id_doan", id_doan)
     console.log("id_KH", id_KH)
-
 
     let res = await Datve(
       {
@@ -211,8 +228,6 @@ const Sodoghe = () => {
       console.log(error);
     }
   }
-
-
   const handleLayTTchitietve = async () => {
     try {
 
@@ -232,7 +247,6 @@ const Sodoghe = () => {
       console.log(error);
     }
   }
-
   const handleLayTTGhe = async () => {
     try {
 
@@ -271,7 +285,28 @@ const Sodoghe = () => {
 
   }
 
+  const handleSetdoan = (id_da: number, giaDA: number) => {
+    setId_doan(id_da)
+    // setTongtien()
+    console.log("giaDA", giaDA)
 
+    setSumsum1(sumsum + giaDA)
+    setTongtien(sumsum + giaDA)
+    // sumsum1 = tongtien
+    console.log("tongtien", tongtien)
+    // console.log("giaDA", giaDA)
+    console.log("sumsum1", sumsum1)
+  }
+  const handleSetkm = (id_km: number, tile: number) => {
+    setId_KM(id_km)
+    console.log("sumsum1", sumsum1)
+
+    console.log("sumsummmm", sumsum)
+
+    setTongtien(sumsum1 - sumsum1 * (tile / 100))
+    console.log("tongtien", tongtien)
+    console.log("tile", tile)
+  }
 
   useEffect(() => {
     const handleLayTTChieu = async () => {
@@ -394,13 +429,28 @@ const Sodoghe = () => {
     handleLayTTchitietve();
     handleLayTTKM();
     handleLayTTDoan();
+
+
+    setHten_KH("Luong Vu Khoa")
+    // console.log(Object.entries(dsgheDDs));
+    // setId_ghe()
+    setHttt("Online")
+    setNgaymuave(new Date())
+    setId_suatchieu(1)
+    setId_rap(1)
+    setId_cumrap(1)
+    setId_NV(1)
+    // setId_KM(1)
+    // setId_doan()
+    setId_KH(1)
+
+
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
   }, []);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);
-  let temp: number
 
 
   return (
@@ -440,8 +490,6 @@ const Sodoghe = () => {
           return <>
             <button
               onClick={async () => {
-
-                // handleUpdateDSghe(ghes.id)
                 if (!classGhedangdat) {
                   const params = {
                     key: ghes.id,
@@ -464,6 +512,17 @@ const Sodoghe = () => {
                 }
                 console.log("classGhedangdat", classGhedangdat);
                 console.log("ghedangdattttttttttttt1", dsgheDDs);
+                setSoluongghe(dsgheDDs.length)
+                setId_ghe(ghes.id)
+                dsgheDDs.map((item) => {
+                  let sum = 0;
+                  dsgheDDs.forEach(item => {
+                    sum += item.gia;
+                  });
+                  sumsum = sum
+                  handleSetdoan(id_doan, giaDA)
+                  handleSetkm(id_KM, tileKM)
+                })
 
 
               }
@@ -507,8 +566,8 @@ const Sodoghe = () => {
         {
           dsgheDDs.map((element, index) => {
 
-
             let sum = 0;
+
 
             dsgheDDs.forEach(element => {
               sum += element.gia;
@@ -526,7 +585,7 @@ const Sodoghe = () => {
           })
         }
       </div>
-      <div>{sumsum}</div>
+      <div>{tongtien ? tongtien : sumsum}</div>
       <div>
         <div className='cursor-pointer' onClick={(e) => handleDoan(trangthaidoan)}>chọn bắp nước</div>
         {
@@ -535,9 +594,13 @@ const Sodoghe = () => {
             <div>
               {
                 doan.map((doans, index) => {
+                  // console.log("doans.id",doans.id)
+
                   return (
                     <>
-                      <button className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'>{doans.ten} size: {doans.size}</button>
+                      <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
+                        onClick={() => handleSetdoan(doans.id, doans.gia)}
+                      >{doans.ten} size: {doans.size}</button>
                     </>
                   )
                 })
@@ -548,7 +611,7 @@ const Sodoghe = () => {
 
       </div>
       <div>
-        <div className='cursor-pointer' onClick={(e) => handleKM(km)}>khuyến mãi</div>
+        <div className='cursor-pointer' onClick={() => handleKM(km)}>khuyến mãi</div>
         {
           km === true
             ?
@@ -557,7 +620,10 @@ const Sodoghe = () => {
                 khuyenmai.map((khuyenmais, index) => {
                   return (
                     <>
-                      <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'>{khuyenmais.ten_KM}</button>
+                      <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
+                        onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+
+                      >{khuyenmais.ten_KM}</button>
                     </>
                   )
                 })

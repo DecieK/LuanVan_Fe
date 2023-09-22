@@ -30,7 +30,7 @@ export async function Datve(params: {
   httt: string;
   tongtien: number;
   soluongghe: number;
-  ngaymuave: string;
+  ngaymuave: Date;
   id_KH: number;
   id_ghe: number;
   id_suatchieu: number;
