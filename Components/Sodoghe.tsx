@@ -82,6 +82,9 @@ const Sodoghe = () => {
   const [tileKM, setTileKM] = useState(Number)
   const [giaDA, setGiaDA] = useState(Number)
   const [sumsum1, setSumsum1] = useState(Number)
+  const [tienDA, setTienDA] = useState(Number)
+  const [tienKM, setTienKM] = useState(Number)
+  // const [sumsum1, setSumsum1] = useState(Number)
 
 
 
@@ -286,26 +289,28 @@ const Sodoghe = () => {
   }
 
   const handleSetdoan = (id_da: number, giaDA: number) => {
-    setId_doan(id_da)
-    // setTongtien()
-    console.log("giaDA", giaDA)
-
-    setSumsum1(sumsum + giaDA)
-    setTongtien(sumsum + giaDA)
-    // sumsum1 = tongtien
-    console.log("tongtien", tongtien)
-    // console.log("giaDA", giaDA)
-    console.log("sumsum1", sumsum1)
+    if (id_da === id_doan) {
+      setId_doan(0)
+      setTienDA(0)
+    }
+    else {
+      setId_doan(id_da)
+      setTienDA(giaDA)
+    }
+    console.log("tienDA", tienDA)
   }
   const handleSetkm = (id_km: number, tile: number) => {
-    setId_KM(id_km)
-    console.log("sumsum1", sumsum1)
+    if (id_km === id_KM) {
+      setId_KM(0)
+      setTienKM(0)
+    }
+    else {
+      setId_KM(id_km)
+      setTienKM(tile)
+    }
 
-    console.log("sumsummmm", sumsum)
+    console.log("tienKM", tienKM)
 
-    setTongtien(sumsum1 - sumsum1 * (tile / 100))
-    console.log("tongtien", tongtien)
-    console.log("tile", tile)
   }
 
   useEffect(() => {
@@ -520,8 +525,7 @@ const Sodoghe = () => {
                     sum += item.gia;
                   });
                   sumsum = sum
-                  handleSetdoan(id_doan, giaDA)
-                  handleSetkm(id_KM, tileKM)
+                  setTongtien(sum)
                 })
 
 
@@ -585,7 +589,6 @@ const Sodoghe = () => {
           })
         }
       </div>
-      <div>{tongtien ? tongtien : sumsum}</div>
       <div>
         <div className='cursor-pointer' onClick={(e) => handleDoan(trangthaidoan)}>chọn bắp nước</div>
         {
@@ -600,6 +603,8 @@ const Sodoghe = () => {
                     <>
                       <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
                         onClick={() => handleSetdoan(doans.id, doans.gia)}
+                      // onClick={() => setTienDA(doans.gia)}
+
                       >{doans.ten} size: {doans.size}</button>
                     </>
                   )
@@ -622,6 +627,7 @@ const Sodoghe = () => {
                     <>
                       <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
                         onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                      // onClick={() => setTienKM(khuyenmais.tile_KM)}
 
                       >{khuyenmais.ten_KM}</button>
                     </>
@@ -635,6 +641,9 @@ const Sodoghe = () => {
 
       </div>
 
+      {/* <div>{tienDA}</div> */}
+      {/* <div>{(tienKM / 100)}</div> */}
+      <div>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}</div>
 
 
 

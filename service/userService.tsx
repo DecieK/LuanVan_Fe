@@ -117,3 +117,49 @@ export async function LayTTDoan(params: { key: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+
+
+export async function TaoTTPhim(params: {
+  id_suatchieu: number;
+  id_rap: number;
+  id_phim: number;
+ 
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/uploadimage`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function Themttphim(params: {
+  Tenphim: string;
+  Dieukien: number;
+  Trailer: string,
+  Dienvien: string;
+  Ngonngu: string;
+  Quocgia: string;
+  Tomtat: string;
+  Nsx: string;
+  Trangthai: string;
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTPhim`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}

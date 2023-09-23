@@ -11,6 +11,7 @@ import { useState } from "react";
 import Dangnhap from "@/Components/Dangnhap";
 import Quenmatkhau from "@/Components/Quenmatkhau";
 import MySlider from "./MySlider";
+import Upload from "@/Components/Upload";
 
 const index = () => {
   const handleLogin = () => {
@@ -52,13 +53,13 @@ const index = () => {
 
 
       </div> */}
-      <Slide />
-      <MySlider/>
+      {/* <Slide /> */}
+      {/* <MySlider/> */}
       {/* <DSPhim /> */}
-      <Footer />
+      {/* <Footer /> */}
       {/* <Quenmatkhau/> */}
       {/* <div onClick={handleLogin}>click</div> */}
-
+      <Upload />
  </div>
 
   )
