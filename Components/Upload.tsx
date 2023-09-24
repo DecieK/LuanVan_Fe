@@ -25,8 +25,11 @@ const Upload = () => {
     const [tomtat, setTomtat] = useState("");
     const [nsx, setNsx] = useState("");
     const [trangthai, setTrangthai] = useState("");
-    const [base64, setBase64] = useState("");
-    const [prevURL, setPrevURL] = useState("");
+    // const [base64Img, setBase64Img] = useState("");
+    const [prevURLIMG, setPrevURLIMG] = useState("");
+    const [poster, setPoster] = useState("");
+    const [prevURLVideo, setPrevURLVideo] = useState("");
+    // const [trailer, setTrailer] = useState("");
 
 
 
@@ -39,10 +42,10 @@ const Upload = () => {
 
     const handleEdit = () => {
         let imageBase64 = "";
-        if (base64) {
-            imageBase64 = new Buffer(base64, "base64").toString("binary");
+        if (poster) {
+            imageBase64 = new Buffer(poster, "base64").toString("binary");
         }
-        setPrevURL(imageBase64)
+        setPrevURLIMG(imageBase64)
 
     }
 
@@ -51,11 +54,29 @@ const Upload = () => {
         let file = data[0];
 
         if (file) {
-            let base64 = await CommonUtils.getBase64(file);
-            console.log("check base64 img: ", base64);
+            let base64img = await CommonUtils.getBase64(file);
+            console.log("check base64 img: ", base64img);
             let objectUrl = URL.createObjectURL(file);
-            setBase64(base64)
-            setPrevURL(objectUrl)
+            console.log("check objectUrl img: ", objectUrl);
+
+            setPoster(base64img)
+            setPrevURLIMG(objectUrl)
+
+        }
+    };
+
+    const handleOnChangeVideos = async (event: { target: { files: any; }; }) => {
+        let data = event.target.files;
+        let file = data[0];
+
+        if (file) {
+            let base64 = await CommonUtils.getBase64(file);
+            console.log("check base64 video: ", base64);
+            let objectUrl = URL.createObjectURL(file);
+            console.log("check objectUrl video: ", objectUrl);
+
+            setTrailer(base64)
+            setPrevURLVideo(objectUrl)
 
         }
     };
@@ -74,7 +95,8 @@ const Upload = () => {
             {
                 Tenphim: tenphim,
                 Dieukien: dieukien,
-                Trailer: base64,
+                Poster: poster,
+                Trailer: trailer,
                 Dienvien: dienvien,
                 Ngonngu: ngonngu,
                 Quocgia: quocgia,
@@ -164,44 +186,76 @@ const Upload = () => {
                     </div>
 
                 </form>
-                <div className="form-group col-3">
-                    <label>
-                        {/* <FormattedMessage id="" /> */}
-                    </label>
-                    <div className="preview-img-container">
-                        <input
-                            id="preview-img"
-                            type="file"
-                            hidden
-                            onChange={(event) => handleOnChangeImage(event)}
-                        />
-                        <label className="lable-upload" htmlFor="preview-img">
-                            Tải ảnh <i className="fas fa-upload"></i>
-                        </label>
+
+                <div>
+                    <div>
+                        <div className="form-group col-3">
+                            <label>
+                                {/* <FormattedMessage id="" /> */}
+                            </label>
+                            <div className="preview-img-container">
+                                <input
+                                    id="preview-img"
+                                    type="file"
+                                    hidden
+                                    onChange={(event) => handleOnChangeImage(event)}
+                                />
+                                <label className="lable-upload" htmlFor="preview-img">
+                                    Tải ảnh <i className="fas fa-upload"></i>
+                                </label>
+                                {/* <div
+                                className="preview-image"
+                                // previewImgURL
+                                style={{
+                                      backgroundImage: `url(${previewImgURL})`,
+                                }}
+                            // onClick={() => this.openPreviewImg()}
+                            ></div> */}
+                            </div>
+                        </div>
                         <div
-                            className="preview-image"
-                            // previewImgURL
                             style={{
-                                //   backgroundImage: `url(${this.state.previewImgURL})`,
+                                backgroundImage: `url(${prevURLIMG})`,
                             }}
-                        // onClick={() => this.openPreviewImg()}
-                        ></div>
+                        >
+                            review image
+                        </div>
+                    </div>
+                    <div>
+                        <div className="form-group col-3">
+                            <label>
+                                {/* <FormattedMessage id="" /> */}
+                            </label>
+                            <div className="preview-img-container">
+                                <input
+                                    id="preview-img"
+                                    type="file"
+                                    hidden
+                                    onChange={(event) => handleOnChangeVideos(event)}
+                                />
+                                <label className="lable-upload" htmlFor="preview-img">
+                                    Tải video <i className="fas fa-upload"></i>
+                                </label>
+                                {/* <div
+                                className="preview-image"
+                                // previewImgURL
+                                style={{
+                                      backgroundImage: `url(${previewImgURL})`,
+                                }}
+                            // onClick={() => this.openPreviewImg()}
+                            ></div> */}
+                            </div>
+                        </div>
+                        <div
+                            style={{
+                                backgroundImage: `url(${prevURLVideo})`,
+                            }}
+                        >
+                            review image
+                        </div>
                     </div>
                 </div>
-                <div
-                    style={{
-                        backgroundImage: `url(${prevURL})`,
-                    }}
-                >
-                    review image
-                </div>
-                {/* <div>
-                    <button
-                        className=""
-                    //   onClick={() => this.handleSaveUser()}
-                    >
-                    </button>
-                </div> */}
+
                 <button className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
                     onClick={handleDangKy}
 

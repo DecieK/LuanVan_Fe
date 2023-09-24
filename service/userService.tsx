@@ -142,6 +142,7 @@ export async function TaoTTPhim(params: {
 export async function Themttphim(params: {
   Tenphim: string;
   Dieukien: number;
+  Poster: string,
   Trailer: string,
   Dienvien: string;
   Ngonngu: string;
