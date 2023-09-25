@@ -12,6 +12,7 @@ import Dangnhap from "@/Components/Dangnhap";
 import Quenmatkhau from "@/Components/Quenmatkhau";
 import MySlider from "./MySlider";
 import Upload from "@/Components/Upload";
+import UploadVideos from "@/Components/UpLoadVideos";
 
 const index = () => {
   const handleLogin = () => {
@@ -59,7 +60,8 @@ const index = () => {
       {/* <Footer /> */}
       {/* <Quenmatkhau/> */}
       {/* <div onClick={handleLogin}>click</div> */}
-      <Upload />
+      {/* <Upload /> */}
+      <UploadVideos />  
  </div>
 
   )

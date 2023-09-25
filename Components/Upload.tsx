@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import { Themttphim } from "@/service/userService";
 import CommonUtils from "@/Components/CommonUtils"
 
+
+
 const noto_serif = Noto_Serif({
     weight: '400',
     subsets: ['latin'],
@@ -65,11 +67,13 @@ const Upload = () => {
         }
     };
 
-    const handleOnChangeVideos = async (event: { target: { files: any; }; }) => {
-        let data = event.target.files;
+    const handleOnChangeVideos = async (e: { target: { files: any; }; }) => {
+        let data = e.target.files;
         let file = data[0];
 
         if (file) {
+
+
             let base64 = await CommonUtils.getBase64(file);
             console.log("check base64 video: ", base64);
             let objectUrl = URL.createObjectURL(file);
@@ -188,7 +192,7 @@ const Upload = () => {
                 </form>
 
                 <div>
-                    <div>
+                <div>
                         <div className="form-group col-3">
                             <label>
                                 {/* <FormattedMessage id="" /> */}
@@ -221,39 +225,7 @@ const Upload = () => {
                             review image
                         </div>
                     </div>
-                    <div>
-                        <div className="form-group col-3">
-                            <label>
-                                {/* <FormattedMessage id="" /> */}
-                            </label>
-                            <div className="preview-img-container">
-                                <input
-                                    id="preview-img"
-                                    type="file"
-                                    hidden
-                                    onChange={(event) => handleOnChangeVideos(event)}
-                                />
-                                <label className="lable-upload" htmlFor="preview-img">
-                                    Tải video <i className="fas fa-upload"></i>
-                                </label>
-                                {/* <div
-                                className="preview-image"
-                                // previewImgURL
-                                style={{
-                                      backgroundImage: `url(${previewImgURL})`,
-                                }}
-                            // onClick={() => this.openPreviewImg()}
-                            ></div> */}
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                backgroundImage: `url(${prevURLVideo})`,
-                            }}
-                        >
-                            review image
-                        </div>
-                    </div>
+
                 </div>
 
                 <button className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
@@ -266,7 +238,8 @@ const Upload = () => {
                 <input type="file" name="sampleFile" accept="image/*" />
                 <input type="submit" className="btn btn-primary" />
             </form> */}
-        </div>
+
+        </div >
     );
 };
 
