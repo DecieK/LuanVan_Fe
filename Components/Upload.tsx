@@ -31,6 +31,10 @@ const Upload = () => {
     const [prevURLIMG, setPrevURLIMG] = useState("");
     const [poster, setPoster] = useState("");
     const [prevURLVideo, setPrevURLVideo] = useState("");
+    const [fileIMG, setFileIMG] = useState<File>()
+    const [fileVD, setFileVD] = useState<File>()
+
+
     // const [trailer, setTrailer] = useState("");
 
 
@@ -50,8 +54,10 @@ const Upload = () => {
         setPrevURLIMG(imageBase64)
 
     }
-
     const handleOnChangeImage = async (event: { target: { files: any; }; }) => {
+        console.log("img")
+        setFileIMG(event.target.files[0]);
+
         let data = event.target.files;
         let file = data[0];
 
@@ -67,7 +73,11 @@ const Upload = () => {
         }
     };
 
+
     const handleOnChangeVideos = async (e: { target: { files: any; }; }) => {
+        setFileVD(e.target.files[1]);
+        console.log("video")
+
         let data = e.target.files;
         let file = data[0];
 
@@ -84,6 +94,7 @@ const Upload = () => {
 
         }
     };
+
 
     const handleDangKy = async () => {
         console.log("tenphim", tenphim)
@@ -192,17 +203,20 @@ const Upload = () => {
                 </form>
 
                 <div>
+
                     <div>
-                        <div className="form-group col-3 boder-2 bg-slate-400">
+                        <div className="  pb-20">
                             <label>
                                 {/* <FormattedMessage id="" /> */}
                             </label>
                             <div className="preview-img-container bg-slate-500">
                                 <input
+                                    className="w-56 boder-2 bg-slate-400"
                                     id="preview-img"
                                     type="file"
-                                    accept=".mp4,.flv"
+                                    accept=".png,.jpg"
                                     hidden
+                                    // onChange={(e) => setFileIMG(e.target.files?.[0])}
                                     onChange={(event) => handleOnChangeImage(event)}
                                 />
                                 <label className="lable-upload" htmlFor="preview-img">
@@ -216,23 +230,25 @@ const Upload = () => {
                                 backgroundImage: `url(${prevURLIMG})`,
                             }}
                         >
-                            review image
+                            review image:
                         </div>
                     </div>
+
                     <div>
-                        <div className="form-group col-3 p">
+                        <div className="">
                             <label>
                                 {/* <FormattedMessage id="" /> */}
                             </label>
                             <div className="preview-img-container">
                                 <input
-                                    id="preview-img"
+                                    id="preview-video"
+
                                     type="file"
                                     accept=".mp4,.flv"
                                     hidden
                                     onChange={(event) => handleOnChangeVideos(event)}
                                 />
-                                <label className="lable-upload" htmlFor="preview-img">
+                                <label className="lable-upload" htmlFor="preview-video">
                                     Tải video <i className="fas fa-upload"></i>
                                 </label>
                             </div>
@@ -249,8 +265,7 @@ const Upload = () => {
                 </div>
 
                 <button className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
-                    onClick={handleDangKy}
-
+                // onClick={handleDangKy}
                 >Đăng kí</button>
             </div>
             {/* <form action="/" method="POST" encType="multipart/form-data">
