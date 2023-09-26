@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { Noto_Serif } from 'next/font/google'
-import { FormattedMessage } from "react-intl";
+// import { FormattedMessage } from "react-intl";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { Themttphim } from "@/service/userService";
@@ -192,29 +192,23 @@ const Upload = () => {
                 </form>
 
                 <div>
-                <div>
-                        <div className="form-group col-3">
+                    <div>
+                        <div className="form-group col-3 boder-2 bg-slate-400">
                             <label>
                                 {/* <FormattedMessage id="" /> */}
                             </label>
-                            <div className="preview-img-container">
+                            <div className="preview-img-container bg-slate-500">
                                 <input
                                     id="preview-img"
                                     type="file"
+                                    accept=".mp4,.flv"
                                     hidden
                                     onChange={(event) => handleOnChangeImage(event)}
                                 />
                                 <label className="lable-upload" htmlFor="preview-img">
                                     Tải ảnh <i className="fas fa-upload"></i>
                                 </label>
-                                {/* <div
-                                className="preview-image"
-                                // previewImgURL
-                                style={{
-                                      backgroundImage: `url(${previewImgURL})`,
-                                }}
-                            // onClick={() => this.openPreviewImg()}
-                            ></div> */}
+
                             </div>
                         </div>
                         <div
@@ -223,6 +217,32 @@ const Upload = () => {
                             }}
                         >
                             review image
+                        </div>
+                    </div>
+                    <div>
+                        <div className="form-group col-3 p">
+                            <label>
+                                {/* <FormattedMessage id="" /> */}
+                            </label>
+                            <div className="preview-img-container">
+                                <input
+                                    id="preview-img"
+                                    type="file"
+                                    accept=".mp4,.flv"
+                                    hidden
+                                    onChange={(event) => handleOnChangeVideos(event)}
+                                />
+                                <label className="lable-upload" htmlFor="preview-img">
+                                    Tải video <i className="fas fa-upload"></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <video autoPlay controls
+                                style={{ width: '500px', height: '500px' }}
+                                src={prevURLVideo}
+                            >
+                            </video>
                         </div>
                     </div>
 

@@ -60,8 +60,8 @@ const index = () => {
       {/* <Footer /> */}
       {/* <Quenmatkhau/> */}
       {/* <div onClick={handleLogin}>click</div> */}
-      {/* <Upload /> */}
-      <UploadVideos />  
+      <Upload />
+      {/* <UploadVideos />   */}
  </div>
 
   )
