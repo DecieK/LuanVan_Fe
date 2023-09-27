@@ -164,3 +164,12 @@ export async function Themttphim(params: {
   const data = await response.json();
   return data;
 }
+
+export async function LayTTPhim(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTPhim?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
