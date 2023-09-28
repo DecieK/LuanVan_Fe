@@ -60,8 +60,8 @@ const MySlider = () => {
         console.log(res.length)
         res.map((res) => (
           // setGiave(res.giave),
-          // console.log("lalalal", res.poster),
-          imageBase64 = new Buffer(res.poster, "base64").toString("binary")
+          console.log("lalalal", res.poster)
+          // imageBase64 = new Buffer(res.poster, "base64").toString("binary")
           // console.log("imageBase64", imageBase64)
 
         ));
