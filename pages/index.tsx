@@ -31,7 +31,7 @@ const index = () => {
       <Slide />
       <MySlider/>
       <MySlider/>
-      <Slide />
+      {/* <Slide /> */}
       
       {/* <ThemTTphim /> */}
 

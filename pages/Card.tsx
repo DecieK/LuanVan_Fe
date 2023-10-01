@@ -17,7 +17,7 @@ const Card = ({ poster }: Props) => {
         //         imageBase64 = new Buffer(poster, "base64").toString("binary");
         //     }
         //     setPrevURLIMG(imageBase64),
-        //     console.log("setPrevURLIMG", prevURLIMG)
+            console.log("poster", poster)
 
         // }
         // handleEdit
