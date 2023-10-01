@@ -8,6 +8,7 @@ type Props = {
 
 const Card = ({ poster }: Props) => {
     // const [prevURLIMG, setPrevURLIMG] = useState("");
+    const [hide, setHide] = useState(false);
 
     useEffect(() => {
         // const handleEdit = () => {
@@ -21,16 +22,31 @@ const Card = ({ poster }: Props) => {
         // }
         // handleEdit
     }, []);
+    const test= () => {
+        setHide(true)
+        console.log("asda", hide)
+    }
 
     return (
         <div>
-            <div className="w-11/12 m-auto shadow-xl">
+            
+            <div className="w-11/12 m-auto shadow-xl hover:bg-slate-600"
+            onFocus={test}
+            
+            >
                 <div className=" h-96 w-64 object-cover m-auto" style={{
                     backgroundImage: `url(${poster})`,
                 }} >
-
+                    {
+                        hide === true ? 
+                            <div>asdasdas</div>
+                        
+                        : ""
+                    }
                 </div>
             </div>
+            <button onClick={()=>console.log(hide)}>click</button>
+            
         </div>
     )
 }
