@@ -7,12 +7,13 @@ import Slide from "@/Components/Slide";
 import DSPhim from "@/Components/DSPhim";
 import router from "next/router";
 import QuenMk from "@/Components/QuenMK";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dangnhap from "@/Components/Dangnhap";
 import Quenmatkhau from "@/Components/Quenmatkhau";
 import MySlider from "./MySlider";
 import ThemTTphim from "@/Components/ThemTTphim";
 import UploadVideos from "@/Components/UpLoadVideos";
+import { LayTTPhim } from "@/service/userService";
 
 const index = () => {
   const handleLogin = () => {
@@ -21,6 +22,8 @@ const index = () => {
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showModalQuenMk, setShowModalQuenMK] = useState(false);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
 
   return (
 

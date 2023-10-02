@@ -55,23 +55,27 @@ const MySlider = () => {
         const response = await LayTTPhim(params);
         const res: Phim[] = response.phims;
         console.log("check api handleLayTTChieu: ", response);
-        // console.log("length", res.length);
+        console.log("length", res.length);
         setPhim(res);
-        console.log(res.length)
-        res.map((res) => (
+        // console.log(res.length)
+        // res.map((res) => (
           // setGiave(res.giave),
-          console.log("lalalal", res.poster)
+          // console.log("lalalal", res.poster)
           // imageBase64 = new Buffer(res.poster, "base64").toString("binary")
           // console.log("imageBase64", imageBase64)
 
-        ));
+        // ));
 
       } catch (error) {
         console.log(error);
       }
     }
-    handleLayTTPhim()
+    // handleLayTTPhim()
+    // localStorage.setItem('phim', JSON.stringify(phim));
+
   }, []);
+
+
   return (
     <div>
       <div className="pt-10">
@@ -81,7 +85,7 @@ const MySlider = () => {
 
 
 
-                phim.map((el, index) => <Card key={index} poster={new Buffer(el.poster, "base64").toString("binary")}></Card>)}
+                // phim.map((el, index) => <Card key={index} poster={new Buffer(el.poster, "base64").toString("binary")}></Card>)}
 
         </Slider>
       </div>
