@@ -85,7 +85,7 @@ export async function layTTChieu(params: {
   id_suatchieu: number;
   id_rap: number;
   id_phim: number;
- 
+
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/TTChieu`,
@@ -123,7 +123,7 @@ export async function TaoTTPhim(params: {
   id_suatchieu: number;
   id_rap: number;
   id_phim: number;
- 
+
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/uploadimage`,
@@ -169,6 +169,25 @@ export async function LayTTPhim(params: { key: any }): Promise<any> {
   const { key } = params;
   const response = await fetch(
     `http://localhost:8080/api/LayTTPhim?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function handleTest(params: {
+  File: any
+  Filename: string,
+  File_src: string,
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/upload`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
   );
   const data = await response.json();
   return data;

@@ -29,7 +29,7 @@ const index = () => {
 
     <div>
 
-      <Header />
+      {/* <Header />
 
       <Slide />
       <MySlider/>
@@ -38,7 +38,8 @@ const index = () => {
       
       {/* <ThemTTphim /> */}
 
-      <Footer />
+      {/* <Footer />  */}
+      <UploadVideos />
  </div>
 
   )

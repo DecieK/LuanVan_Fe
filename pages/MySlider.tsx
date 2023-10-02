@@ -70,10 +70,10 @@ const MySlider = () => {
         console.log(error);
       }
     }
-    // handleLayTTPhim()
+    handleLayTTPhim()
     // localStorage.setItem('phim', JSON.stringify(phim));
 
-  }, []);
+  }, [phim]);
 
 
   return (
@@ -85,7 +85,7 @@ const MySlider = () => {
 
 
 
-                // phim.map((el, index) => <Card key={index} poster={new Buffer(el.poster, "base64").toString("binary")}></Card>)}
+                phim.map((el, index) => <Card key={index} poster={new Buffer(el.poster, "base64").toString("binary")}></Card>)}
 
         </Slider>
       </div>
