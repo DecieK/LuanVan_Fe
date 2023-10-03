@@ -16,6 +16,7 @@ import UploadVideos from "@/Components/UpLoadVideos";
 import { LayTTPhim } from "@/service/userService";
 import Blog from "@/Components/Blog";
 import Phim from "@/Components/Phim";
+import Sodoghe from "@/Components/Sodoghe";
 
 const index = () => {
   const handleLogin = () => {
@@ -38,7 +39,7 @@ const index = () => {
       <Phim />
       {/* <MySlider/>  */}
       {/* <Slide /> */}
-      
+      <Sodoghe />
      {/* <ThemTTphim /> */}
       <Blog />
        <Footer />  
