@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useState } from "react";
+import Image from 'next/image'
 
 type Props = {
     poster: any;
@@ -8,37 +7,38 @@ type Props = {
 
 const Card = ({ poster }: Props) => {
     // const [prevURLIMG, setPrevURLIMG] = useState("");
-    // const [hide, setHide] = useState(false);
 
-    useEffect(() => {
-        // const handleEdit = () => {
-        //     let imageBase64 = "";
-        //     if (poster) {
-        //         imageBase64 = new Buffer(poster, "base64").toString("binary");
-        //     }
-        //     setPrevURLIMG(imageBase64),
-            // console.log("poster", poster)
+    // useEffect(() => {
+    //     // const handleEdit = () => {
+    //     //     let imageBase64 = "";
+    //     //     if (poster) {
+    //     //         imageBase64 = new Buffer(poster, "base64").toString("binary");
+    //     //     }
+    //     //     setPrevURLIMG(imageBase64),
+    //         console.log("poster", poster)
 
-        // }
-        // handleEdit
-    }, []);
-    
+    //     // }
+    //     // handleEdit
+    // }, []);
+
     return (
         <div>
-            
-            <div className="w-11/12 m-auto shadow-xl hover:bg-slate-600"
-            // onFocus={test}
-            
-            >
-                <div className=" h-96 w-64 object-cover m-auto" style={{
+            <div className=" m-auto  ">
+                <Image
+                    className="h-[700px] w-10/12  rounded-xl m-auto  bg-no-repeat"
+                    src={poster}
+                    width={1500}
+                    height={1500}
+                    alt="Picture of the author"
+                />
+                {/* <div className="border-2 border-green-600 h-[700px] w-10/12  rounded-xl m-auto  bg-no-repeat" style={{
                     backgroundImage: `url(${poster})`,
-                }} >
-                   
-                </div>
+                }} > */}
+                    {/* <img className=" h-[500px] w-10/12 rounded-xl m-auto" src={poster}></img> */}
+                {/* </div> */}
             </div>
-            {/* <button onClick={()=>console.log(hide)}>click</button> */}
-            
         </div>
+
     )
 }
 export default Card;

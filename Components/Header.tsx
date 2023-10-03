@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "@/styles/Home.module.css";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Modal from "@/pages/Modal";
 import Dangnhap from "@/Components/Dangnhap";
 import { Noto_Serif } from 'next/font/google'
@@ -11,35 +11,44 @@ import Link from "next/link";
 const noto_serif = Noto_Serif({
   weight: '400',
   subsets: ['latin'],
-  display: 'swap',
+  // display: 'swap',
 })
 const Header = () => {
-  // const router = useRouter();
+  const router = useRouter();
 
-
+  const handleZaloLogin = () => {
+    router.push("/zalo-login");
+  };
 
   const handleLogin = () => {
-    router.push("/login");
-    // console.log("ádasdasd")
+    // router.push("/login");
     
   };
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className={noto_serif.className }>
-      <div>
-        <div className="flex bg-[#ffe4d5] h-16 w-full">
-          <div className="  h-16 w-28 bg-cover  bg-[url('../public/logoCGV.png')]"></div>
-          <div className="uppercase flex w-5/6 justify-center items-center space-x-5">
-            <Link href=''>Phim</Link>
-            <Link href=''>Rạp CGV</Link>
-            <Link href=''>Tin tức & ưu đãi</Link>
-            <Link href=''>Quy định</Link>
-          </div>
-          <div onClick={handleLogin} className="h-16 w-16 bg-cover bg-[url('../public/login1.jpg')] float-right"></div>
-          
+      <div className="flex w-full h-16 ">
+        <div className="w-1/6">
+          <div className="  h-14 w-28 bg-cover m-auto bg-[url('../public/logoCGV.png')]"></div>
         </div>
+
+        <div className="w-4/6uppercase text-center uppercase font-semibold space-x-20 m-auto">
+          <Link href=''>Phim</Link>
+          <label>|</label>
+          <Link href=''>Rạp CGV</Link>
+          <label>|</label>
+          <Link href=''>Tin tức & ưu đãi</Link>
+          <label>|</label>
+          <Link href=''>Quy định</Link>
+        </div>
+
+        <div className="w-1/6 ">
+          <div className=" h-14 w-16 m-auto bg-cover bg-[url('../public/login1.jpg')] "></div>
+        </div>
+        
       </div>
+      <hr className="w-full"/>
     </div>
 
   );

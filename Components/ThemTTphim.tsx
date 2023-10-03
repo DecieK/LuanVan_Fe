@@ -278,7 +278,7 @@ const Upload = () => {
                             </div>
                         </div>
                         <div
-                            className="preview-img"
+                            className="preview-img bg-no-repeat "
 
                             style={{
                                 backgroundImage: `url(${prevURLIMG})`,

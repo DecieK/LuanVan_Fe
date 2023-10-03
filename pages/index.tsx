@@ -14,6 +14,8 @@ import MySlider from "./MySlider";
 import ThemTTphim from "@/Components/ThemTTphim";
 import UploadVideos from "@/Components/UpLoadVideos";
 import { LayTTPhim } from "@/service/userService";
+import Blog from "@/Components/Blog";
+import Phim from "@/Components/Phim";
 
 const index = () => {
   const handleLogin = () => {
@@ -29,17 +31,18 @@ const index = () => {
 
     <div>
 
-      {/* <Header />
-
-      <Slide />
+      <Header />
+     
       <MySlider/>
-      <MySlider/>
+      <p>Phim đăng chiếu | Phim sắp chiếu</p>
+      <Phim />
+      {/* <MySlider/>  */}
       {/* <Slide /> */}
       
-      {/* <ThemTTphim /> */}
-
-      {/* <Footer />  */}
-      <UploadVideos />
+     {/* <ThemTTphim /> */}
+      <Blog />
+       <Footer />  
+      {/* <UploadVideos />  */}
  </div>
 
   )
