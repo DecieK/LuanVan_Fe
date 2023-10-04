@@ -1,6 +1,7 @@
 import { LayTTPhim } from "@/service/userService";
 import { Noto_Serif } from "next/font/google";
 import Image from 'next/image'
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const noto_serif = Noto_Serif({
@@ -13,7 +14,7 @@ const Phim = () => {
         id: number;
         tenphim: string;
         dieukien: number;
-        trailer: Blob;
+        trailer: string;
         poster: string;
         dienvien: string;
         ngonngu: string;
@@ -24,7 +25,17 @@ const Phim = () => {
     }
     const [phim, setPhim] = useState<Phim[]>([]);
     const [src, setSrc] = useState(String);
+    const router = useRouter();
 
+    const handleXemchitiet = (id_phim: any) => {
+        console.log(id_phim)
+        router.push({
+            pathname: '/xemchitiet',
+            query: { id_phim: id_phim },
+          })
+       
+        
+      };
 
     useEffect(() => {
         const handleLayTTPhim = async () => {
@@ -78,7 +89,7 @@ const Phim = () => {
                                             <p className="">{item.tenphim}</p>
                                             <p className="">{item.tomtat.slice(0,90)}...</p>
                                             <div className="space-x-5  space-y-3">
-                                                <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
+                                                <button onClick={()=>handleXemchitiet(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
                                                 <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
                                             </div>
                                         </div>

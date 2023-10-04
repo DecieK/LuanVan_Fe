@@ -1,8 +1,16 @@
 import { LayTTPhim } from '@/service/userService';
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
+import Modal from './Modal';
+import ReactDOM from "react-dom";
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
 
-const Chitietphim = () => {
+
+type Props = {
+    id_phim: any;
+  }
+const Chitietphim = ({id_phim}:Props) => {
     interface Phim {
         id: number;
         tenphim: string;
@@ -18,13 +26,20 @@ const Chitietphim = () => {
     }
     const [phim, setPhim] = useState<Phim[]>([]);
     const [domLoaded, setDomLoaded] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const router = useRouter();
 
+    const handleXemchitiet = () => {
+        router.push("/xemchitiet");
+        
+      };
     useEffect(() => {
+        
         const handleLayTTPhim = async () => {
 
             try {
                 const params = {
-                    key: 'ALL'
+                    key: id_phim
 
                 };
                 console.log("searchdate", params);
@@ -46,7 +61,7 @@ const Chitietphim = () => {
         }
         setDomLoaded(true)
         handleLayTTPhim()
-    }, []);
+    }, [id_phim]);
     return (
         <div>
 
@@ -77,7 +92,7 @@ const Chitietphim = () => {
                                     <p>Đạo diễn:</p>
                                     <p>Ngày khởi chiếu</p>
                                 </div>
-                                <button className='bg-slate-600'>Đặt vé</button>
+                                <button onClick={() => setShowModal(true)} className='bg-slate-600'>Đặt vé</button>
                                 <div>
                                     <div>Nội dung phim</div>
                                     <div>{item.tomtat}</div>
@@ -87,8 +102,13 @@ const Chitietphim = () => {
                     )
                 })
             }
+            <Modal
+                onClose={() => setShowModal(false)}
+                show={showModal}
+            ></Modal>
         </div>
 
     );
 }
+
 export default Chitietphim;

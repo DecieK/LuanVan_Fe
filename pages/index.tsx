@@ -35,16 +35,16 @@ const index = () => {
 
       <Header />
      
-      {/* <MySlider/> */}
+      <MySlider/>
       {/* <p>Phim đăng chiếu | Phim sắp chiếu</p> */}
-      {/* <Phim /> */}
+      <Phim />
       {/* <MySlider/>  */}
       {/* <Slide /> */}
       {/* <Sodoghe /> */}
      {/* <ThemTTphim /> */}
-      {/* <Blog /> */}
-      <Chitietphim />
-       {/* <Footer />   */}
+      <Blog />
+      {/* <Chitietphim /> */}
+       <Footer />  
       {/* <UploadVideos />  */}
  </div>
 
