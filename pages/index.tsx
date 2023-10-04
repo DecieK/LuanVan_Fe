@@ -17,6 +17,7 @@ import { LayTTPhim } from "@/service/userService";
 import Blog from "@/Components/Blog";
 import Phim from "@/Components/Phim";
 import Sodoghe from "@/Components/Sodoghe";
+import Chitietphim from "@/Components/Chitietphim";
 
 const index = () => {
   const handleLogin = () => {
@@ -34,15 +35,16 @@ const index = () => {
 
       <Header />
      
-      <MySlider/>
-      <p>Phim đăng chiếu | Phim sắp chiếu</p>
-      <Phim />
+      {/* <MySlider/> */}
+      {/* <p>Phim đăng chiếu | Phim sắp chiếu</p> */}
+      {/* <Phim /> */}
       {/* <MySlider/>  */}
       {/* <Slide /> */}
-      <Sodoghe />
+      {/* <Sodoghe /> */}
      {/* <ThemTTphim /> */}
-      <Blog />
-       <Footer />  
+      {/* <Blog /> */}
+      <Chitietphim />
+       {/* <Footer />   */}
       {/* <UploadVideos />  */}
  </div>
 

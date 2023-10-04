@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   const handleLogin = () => {
-    // router.push("/login");
+    router.push("/login");
     
   };
   const [showModal, setShowModal] = useState(false);
@@ -44,7 +44,7 @@ const Header = () => {
         </div>
 
         <div className="w-1/6 ">
-          <div className=" h-14 w-16 m-auto bg-cover bg-[url('../public/login1.jpg')] "></div>
+          <div onClick={handleLogin} className=" h-14 w-16 m-auto bg-cover bg-[url('../public/login1.jpg')] "></div>
         </div>
         
       </div>

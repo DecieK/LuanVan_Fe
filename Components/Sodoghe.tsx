@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// import Sodoghe from '@/Components/Sodoghe';
+//goldclass 32,64
+//104,118,128,164
 import { Datve, LayTTDoan, LayTTGhe, LayTTKM, LayTTchitietve, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
