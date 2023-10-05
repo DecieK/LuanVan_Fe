@@ -7,6 +7,7 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "@material-tailwind/react";
+import { LayTTCumrap, LayTTSuatchieu, layTTChieu } from "@/service/userService";
 
 
 
@@ -16,6 +17,7 @@ type Props = {
   //   iddv: number;
   show: any;
   onClose: any;
+  id_phim: number;
 };
 // export type thongtinbenhnhan = {
 //   id: number;
@@ -26,20 +28,116 @@ type Props = {
 //   Diachi: string;
 //   Hovaten: string;
 // };
-const Modal = ({ show, onClose }: Props) => {
-
+const Modal = ({ show, onClose, id_phim }: Props) => {
+  interface Chieu {
+    id: number;
+    ngaychieu: string;
+    giave: number;
+    id_rap: number;
+    id_suatchieu: number;
+    id_phim: number;
+  }
+  interface Cumrap {
+    id: number;
+    ten_tttt: string;
+    diachi: string;
+  }
+  interface Suatchieu {
+    id: number;
+    giobatdau: string;
+    gioketthuc: string;
+  }
 
   const [Ngaysinh, setNgaysinh] = useState<any>()
   const [isBrowser, setIsBrowser] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-
-
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = (data: any) => alert(JSON.stringify(data));
+  const [chieu, setChieu] = useState<Chieu[]>([]);
+  const [cumrap, setCumrap] = useState<Cumrap[]>([]);
+  const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
+  const [idChieu, setIdChieu] = useState(Number);
+
+
+
+
+  const handleLayTTChieu = async (id_rap: number) => {
+    // console.log(date)
+    // const key = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+
+    // const keyfm = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
+    // console.log(keyfm)
+    // setStartDate(date)
+    let res = await layTTChieu(
+      {
+        id_phim: id_phim,
+        ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+        id_rap: id_rap
+      });
+    console.log("res", res)
+    try {
+      const res1: Chieu[] = res.ttchieu;
+      res1.map((res1) => {
+        setIdChieu(res1.id_suatchieu)
+        console.log(res1.id_phim)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+
+    // if (res && res.errCode === 0) {
+
+    //   console.log(res)
+    //   alert("Đăng ký thành công")
+
+    //   handleCloseClick();
+    // } else {
+
+    //   console.log(res)
+    //   alert("Đăng ký không thành công")
+
+    // };
+
+  }
+
+
 
   useEffect(() => {
+    const handleLayTTCumrap = async () => {
+      try {
+        const params = {
+          key: 'ALL',
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTCumrap(params);
+        const res: Cumrap[] = response.cumraps;
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
+        setCumrap(res);
+        // console.log(res.length)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const handleLayTTSuatchieu = async () => {
+      try {
+        const params = {
+          key: idChieu,
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTSuatchieu(params);
+        const res: Suatchieu[] = response.suatchieus;
+        // console.log("check api searchdate Suatchieu: ", response);
+        // console.log("length", res.length);
+        setSuatchieu(res);
+        // console.log(res.length)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    handleLayTTCumrap()
+    handleLayTTSuatchieu()
     setIsBrowser(true);
-  }, []);
+  }, [idChieu]);
   const handleCloseClick = () => {
     onClose()
     console.log(onClose)
@@ -87,23 +185,38 @@ const Modal = ({ show, onClose }: Props) => {
                 // type="datetime"
                 selected={startDate}
                 // onChange={handlSearchLichkham}
+                // onChange={(date: Date) => handleLayTTChieu(date)}
                 onChange={(date: Date) => setStartDate(date)}
                 // onChange={(date: Date) => handlSearchDate((date))}
                 dateFormat="dd/MM/yyyy"
               />
             </div>
-            <div>
-            <Button className="h-28 w-28 bg-slate-600 m-4">Vincom Ninh kiều</Button>
-            <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button>
-            </div>
-           <div>
-           <button className="h-12 w-28 bg-green-500 m-4">12:10 ~ 14:46<br/>116/118 Ghế</button>
-            <button className="h-12 w-28 bg-green-500 m-4">12:10 ~ 14:46<br/>116/118 Ghế</button>
-            <button className="h-12 w-28 bg-green-500 m-4">12:10 ~ 14:46<br/>116/118 Ghế</button>
-            <button className="h-12 w-28 bg-green-500 m-4">12:10 ~ 14:46<br/>116/118 Ghế</button>
-           </div>
+            {
+              cumrap.map((item, index) => {
+                return (
+                  <>
+                    {/* <div key={index}> */}
+                    <Button onClick={()=> handleLayTTChieu(item.id)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.ten_tttt}</Button>
+                    {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
+                    {/* </div> */}
+                  </>
+                )
+              })
+            }
+            {/* <div> */}
+            {suatchieu.map((item, index) => {
+              return (
+                <div key={index}>
+                  <button className="h-12 w-28 bg-green-500 m-4">{item.giobatdau} ~ {item.gioketthuc}<br />116/118 Ghế</button>
+                  <button className="h-12 w-28 bg-green-500 m-4">{item.giobatdau} ~ {item.gioketthuc}<br />116/118 Ghế</button>
+                  <button className="h-12 w-28 bg-green-500 m-4">{item.giobatdau} ~ {item.gioketthuc}<br />116/118 Ghế</button>
+                  <button className="h-12 w-28 bg-green-500 m-4">{item.giobatdau} ~ {item.gioketthuc}<br />116/118 Ghế</button>
+                </div>
+              )
+            })}
+            {/* </div> */}
 
-            
+
           </div>
         </StyledModalBody>
       </StyledModal>

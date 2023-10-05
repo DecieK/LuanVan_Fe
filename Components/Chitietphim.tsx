@@ -103,6 +103,7 @@ const Chitietphim = ({id_phim}:Props) => {
                 })
             }
             <Modal
+                id_phim={id_phim}
                 onClose={() => setShowModal(false)}
                 show={showModal}
             ></Modal>

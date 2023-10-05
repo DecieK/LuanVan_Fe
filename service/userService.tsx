@@ -82,9 +82,10 @@ export async function LayTTGhe(params: { key: any }): Promise<any> {
 
 
 export async function layTTChieu(params: {
-  id_suatchieu: number;
-  id_rap: number;
+  ngaychieu: string;
   id_phim: number;
+  id_rap: number;
+
 
 }): Promise<any> {
   const response = await fetch(
@@ -188,6 +189,24 @@ export async function handleTest(params: {
       },
       body: JSON.stringify(params),
     }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function LayTTCumrap(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTCumrap?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function LayTTSuatchieu(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTSuatchieu?keyword=${key}`
   );
   const data = await response.json();
   return data;
