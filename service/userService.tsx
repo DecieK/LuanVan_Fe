@@ -211,3 +211,12 @@ export async function LayTTSuatchieu(params: { key: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+
+export async function LayTTRap_idcumrap(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTRap_idcumrap?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
