@@ -216,7 +216,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         <StyledModalHeader className=" bg-blue-300  ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
-              Lịch chiếu CGV Cần Thơasdasdasd
+              Lịch chiếu CGV Cần 
             </span>
 
             <button
