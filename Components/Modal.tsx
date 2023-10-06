@@ -67,6 +67,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   const [idSuatchieu, setIdSuatchieu] = useState(Number);
   const [idcumrap, setIdcumrap] = useState(Number);
   const [id_rap, setIdRap] = useState(Number);
+  // const [ttchieu, setTtchieu] = useState([]);
 
   const [chieus, setDschieus] = useState([
     {
@@ -86,15 +87,24 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
   const handleChonghedangdat = async (id: number, ngaychieu: string, giave: number, id_r: number, id_suatchieu: number, id_phim: number) => {
     // const handleAddJoke = (text) => {
-    const chieu = {
+    // const chieu = {
+    //   id: id,
+    //   ngaychieu: ngaychieu,
+    //   giave: giave,
+    //   id_rap: id_r,
+    //   id_suatchieu: id_suatchieu,
+    //   id_phim: id_phim
+    // }
+    // setDschieus([chieu, ...chieus])
+
+    chieus.push({
       id: id,
       ngaychieu: ngaychieu,
       giave: giave,
       id_rap: id_r,
       id_suatchieu: id_suatchieu,
       id_phim: id_phim
-    }
-    setDschieus([chieu, ...chieus])
+    });
 
   }
 
@@ -132,8 +142,12 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
   }
 
-  const handleLayTTCumRap = async (id_cumrap: number) => {
+  const deleteAllItems = () => {
+    chieus.splice(0, chieus.length);
+    setDschieus([...chieus]); // Update the state with the modified array
+  };
 
+  const handleLayTTCumRap = async (id_cumrap: number) => {
     try {
       const params = {
         key: id_cumrap,
@@ -216,7 +230,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         <StyledModalHeader className=" bg-blue-300  ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
-              Lịch chiếu CGV Cần 
+              Lịch chiếu CGV Cần
             </span>
 
             <button
@@ -287,11 +301,11 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
             }
             <button
               // onClick={() => console.log("chieuuu", chieus)}
-              onClick={() => handleLayTTSuatchieu()}
+              onClick={() => deleteAllItems()}
             >click</button>
             <button
-              onClick={() => console.log("tests", tests)}
-              // onClick={() => handleLayTTSuatchieu()}
+              onClick={() => console.log("chieu", chieus)}
+            // onClick={() => handleLayTTSuatchieu()}
             >click2</button>
           </div>
         </StyledModalBody>
