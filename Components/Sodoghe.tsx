@@ -508,8 +508,7 @@ const Sodoghe = () => {
                   console.log(res)
                   res.map((res) => (
                     handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
-                    //lay gia ghe từ useeff, 
-                    //xong chổ này nếu loai ghe vip thì truyền dô giá nhân ... ngược lại thì k
+                    
                   ));
 
                 } else {

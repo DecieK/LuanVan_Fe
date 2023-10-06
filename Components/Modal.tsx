@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button } from "@material-tailwind/react";
+import { Button, button } from "@material-tailwind/react";
 import { LayTTCumrap, LayTTRap_idcumrap, LayTTSuatchieu, layTTChieu } from "@/service/userService";
 
 
@@ -68,14 +68,39 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   const [idcumrap, setIdcumrap] = useState(Number);
   const [id_rap, setIdRap] = useState(Number);
 
+  const [chieus, setDschieus] = useState([
+    {
+      id: 0,
+      ngaychieu: "",
+      giave: 0,
+      id_rap: 0,
+      id_suatchieu: 0,
+      id_phim: 0
+    },
+  ])
+  const [tests, setTests] = useState([
+    {
+      text: ""
+    },
+  ])
 
-  const handleLayTTChieu = async (id_rap : number) => {
-    console.log("id_rap",id_rap)
+  const handleChonghedangdat = async (id: number, ngaychieu: string, giave: number, id_r: number, id_suatchieu: number, id_phim: number) => {
+    // const handleAddJoke = (text) => {
+    const chieu = {
+      id: id,
+      ngaychieu: ngaychieu,
+      giave: giave,
+      id_rap: id_r,
+      id_suatchieu: id_suatchieu,
+      id_phim: id_phim
+    }
+    setDschieus([chieu, ...chieus])
+
+  }
+
+  const handleLayTTChieu = async (id_rap: number) => {
     // const key = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-
     // const keyfm = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-    // console.log(id_cumrap)
-    // setStartDate(date)
     let res = await layTTChieu(
       {
         id_phim: id_phim,
@@ -86,21 +111,19 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
     try {
       const res1: Chieu[] = res.ttchieu;
       setChieu(res1)
-      res1.map(async (res1) => {
-        try {
-          const params = {
-            key: res1.id_suatchieu,
-          };
-          // console.log("searchdate", params);
-          const response = await LayTTSuatchieu(params);
-          const res: Suatchieu[] = response.suatchieus;
-          console.log("check api searchdate Suatchieu: ", response);
-          // console.log("length", res.length);
-          setSuatchieu(res);
-          // console.log(res.length)
-        } catch (error) {
-          console.log(error);
-        }
+      console.log(res1.length)
+      res1.map((res1) => {
+        console.log("gia", res1.giave)
+        // const chieu = {
+        //   id: res1.id,
+        //   ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+        //   giave: res1.giave,
+        //   id_rap: res1.id_rap,
+        //   id_suatchieu: res1.id_suatchieu,
+        //   id_phim: res1.id_phim
+        // }
+        // setDschieus([chieu, ...chieus])
+        handleChonghedangdat(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
       })
     } catch (error) {
       console.log(error);
@@ -109,7 +132,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
   }
 
-  const handleLayTTRap = async (id_cumrap: number) => {
+  const handleLayTTCumRap = async (id_cumrap: number) => {
 
     try {
       const params = {
@@ -119,33 +142,40 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
       const response = await LayTTRap_idcumrap(params);
       const res: Rap[] = response.raps;
       console.log("check api searchdate tat ca rap trong 1 cum rap: ", response);
-      // console.log("length", res.length);
+      console.log("length rap", res.length);
       setRap(res);
-      res.map((res)=>{
+      res.map((res) => {
         handleLayTTChieu(res.id)
       })
-      console.log(chieu)
+      console.log("chieus", chieus)
     } catch (error) {
       console.log(error);
     }
 
   }
-    const handleLayTTSuatchieu = async () => {
-      try {
-        const params = {
-          key: idSuatchieu,
-        };
-        // console.log("searchdate", params);
-        const response = await LayTTSuatchieu(params);
-        const res: Suatchieu[] = response.suatchieus;
-        // console.log("check api searchdate Suatchieu: ", response);
-        // console.log("length", res.length);
-        setSuatchieu(res);
-        // console.log(res.length)
-      } catch (error) {
-        console.log(error);
-      }
+  const handleLayTTSuatchieu = async () => {
+    try {
+      const params = {
+        // key: idSuatchieu,
+        key: 'ALL'
+      };
+      // console.log("searchdate", params);
+      const response = await LayTTSuatchieu(params);
+      const res: Suatchieu[] = response.suatchieus;
+      // console.log("check api searchdate Suatchieu: ", response);
+      console.log("length", res.length);
+      setSuatchieu(res);
+      res.map((res) => {
+        const test = {
+          text: res.giobatdau
+        }
+        setTests([test, ...tests])
+      })
+      // console.log(res.length)
+    } catch (error) {
+      console.log(error);
     }
+  }
 
 
   useEffect(() => {
@@ -225,7 +255,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 return (
                   <>
                     {/* <div key={index}> */}
-                    <Button onClick={() => handleLayTTRap(item.id)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.ten_tttt}</Button>
+                    <Button onClick={() => handleLayTTCumRap(item.id)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.ten_tttt}</Button>
                     {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
                     {/* </div> */}
                   </>
@@ -238,23 +268,31 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 return (
                   <div key={index} className="h-12 w-28 bg-green-500 m-4">
                     {item.slghe}
-                        {/* {suatchieu.giobatdau}~{suatchieu.gioketthuc} */}
+                    {/* {suatchieu.giobatdau}~{suatchieu.gioketthuc} */}
                   </div>
                 )
               })
             }
             {
-              chieu.map((item, index) => {
+              chieus.map((item, index) => {
                 return (
                   <>
                     {/* <div key={index}> */}
-                    <Button  key={index} className="h-28 w-28 bg-slate-600 m-4">{item.id_rap}</Button>
+                    <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.id_rap}</Button>
                     {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
                     {/* </div> */}
                   </>
                 )
               })
             }
+            <button
+              // onClick={() => console.log("chieuuu", chieus)}
+              onClick={() => handleLayTTSuatchieu()}
+            >click</button>
+            <button
+              onClick={() => console.log("tests", tests)}
+              // onClick={() => handleLayTTSuatchieu()}
+            >click2</button>
           </div>
         </StyledModalBody>
       </StyledModal>
