@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, button } from "@material-tailwind/react";
 import { LayTTCumrap, LayTTRap_idcumrap, LayTTSuatchieu, layTTChieu } from "@/service/userService";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -79,33 +80,38 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
       id_phim: 0
     },
   ])
-  const [tests, setTests] = useState([
+  const [suatchieus, setDssuatchieus] = useState([
     {
-      text: ""
+      // id: Number,
+      // giobatdau: String,
+      // gioketthuc: String
+      id: 0,
+      giobatdau: "",
+      gioketthuc: ""
     },
   ])
+  // chieus.splice(0, chieus.length);
+  // suatchieus.splice(0, suatchieus.length);
+  const handlePushTTchieu = async (id: number, ngaychieu: string, giave: number, id_r: number, id_suatchieu: number, id_phim: number) => {
+    const isFound = chieus.some(element => {
+      if (element.id === id) {
+        return true;
+      }
 
-  const handleChonghedangdat = async (id: number, ngaychieu: string, giave: number, id_r: number, id_suatchieu: number, id_phim: number) => {
-    // const handleAddJoke = (text) => {
-    // const chieu = {
-    //   id: id,
-    //   ngaychieu: ngaychieu,
-    //   giave: giave,
-    //   id_rap: id_r,
-    //   id_suatchieu: id_suatchieu,
-    //   id_phim: id_phim
-    // }
-    // setDschieus([chieu, ...chieus])
-
-    chieus.push({
-      id: id,
-      ngaychieu: ngaychieu,
-      giave: giave,
-      id_rap: id_r,
-      id_suatchieu: id_suatchieu,
-      id_phim: id_phim
+      return false;
     });
+    if (isFound === false) {
+      chieus.push({
+        id: id,
+        ngaychieu: ngaychieu,
+        giave: giave,
+        id_rap: id_r,
+        id_suatchieu: id_suatchieu,
+        id_phim: id_phim
+      });
+      // handleLayTTSuatchieu()
 
+    }
   }
 
   const handleLayTTChieu = async (id_rap: number) => {
@@ -118,77 +124,123 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         id_rap: id_rap
       });
     console.log("Thong tin bang Chieu", res)
-    try {
-      const res1: Chieu[] = res.ttchieu;
-      setChieu(res1)
-      console.log(res1.length)
-      res1.map((res1) => {
-        console.log("gia", res1.giave)
-        // const chieu = {
-        //   id: res1.id,
-        //   ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
-        //   giave: res1.giave,
-        //   id_rap: res1.id_rap,
-        //   id_suatchieu: res1.id_suatchieu,
-        //   id_phim: res1.id_phim
-        // }
-        // setDschieus([chieu, ...chieus])
-        handleChonghedangdat(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
-      })
-    } catch (error) {
-      console.log(error);
-    }
 
+    // try {
+    const res1: Chieu[] = res.ttchieu;
+    setChieu(res1)
+    console.log(res1.length)
+    res1.map((res1) => {
+      console.log("gia", res1.giave)
+      // const chieu = {
+      //   id: res1.id,
+      //   ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+      //   giave: res1.giave,
+      //   id_rap: res1.id_rap,
+      //   id_suatchieu: res1.id_suatchieu,
+      //   id_phim: res1.id_phim
+      // }
+      // setDschieus([chieu, ...chieus])
+      handlePushTTchieu(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
+    })
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    console.log("Thong tin bang chieus", chieus)
 
   }
 
   const deleteAllItems = () => {
     chieus.splice(0, chieus.length);
-    setDschieus([...chieus]); // Update the state with the modified array
+    // setDschieus([...chieus]); // Update the state with the modified array
   };
 
   const handleLayTTCumRap = async (id_cumrap: number) => {
+    setIdcumrap(id_cumrap)
+    deleteAllItems()
+    //  if(id_cumrap !== idcumrap){
     try {
       const params = {
         key: id_cumrap,
       };
-      console.log("searchdate", params);
+      // console.log("searchdate", params);
       const response = await LayTTRap_idcumrap(params);
       const res: Rap[] = response.raps;
       console.log("check api searchdate tat ca rap trong 1 cum rap: ", response);
-      console.log("length rap", res.length);
+      // console.log("length rap", res.length);
       setRap(res);
-      res.map((res) => {
-        handleLayTTChieu(res.id)
+      res.map(async (res) => {
+        let resChieu = await layTTChieu(
+          {
+            id_phim: id_phim,
+            ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+            id_rap: res.id
+          });
+          handleLayTTSuatchieu()
+
+        const res1: Chieu[] = resChieu.ttchieu;
+        setChieu(res1)
+        res1.map((res1) => {
+          console.log("gia", res1.giave)
+
+          handlePushTTchieu(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
+        })
+        // handleLayTTChieu(res.id)
       })
-      console.log("chieus", chieus)
+      console.log("lengasdasdasth rap");
     } catch (error) {
       console.log(error);
     }
-
+    console.log("chieuschieus2222", chieus)
   }
   const handleLayTTSuatchieu = async () => {
-    try {
-      const params = {
-        // key: idSuatchieu,
-        key: 'ALL'
-      };
-      // console.log("searchdate", params);
-      const response = await LayTTSuatchieu(params);
-      const res: Suatchieu[] = response.suatchieus;
-      // console.log("check api searchdate Suatchieu: ", response);
-      console.log("length", res.length);
-      setSuatchieu(res);
-      res.map((res) => {
-        const test = {
-          text: res.giobatdau
-        }
-        setTests([test, ...tests])
-      })
-      // console.log(res.length)
-    } catch (error) {
-      console.log(error);
-    }
+    suatchieus.splice(0, suatchieus.length);
+    console.log("lengthchieus", chieus.length);
+    chieus.map(async (item) => {
+      try {
+        const params = {
+          // key: idSuatchieu,
+          key: item.id
+        };
+        console.log("suatchieuparams", params);
+        const response = await LayTTSuatchieu(params);
+        const res: Suatchieu[] = response.suatchieus;
+        console.log("check api searchdate Suatchieu: ", response);
+        // console.log("length", res.length);
+        setSuatchieu(res);
+        res.map((res) => {
+          suatchieus.push({
+            id: res.id,
+            giobatdau: res.giobatdau,
+            gioketthuc: res.gioketthuc
+          });
+        })
+        console.log(res.length)
+      } catch (error) {
+        console.log(error);
+      }
+    })
+    // try {
+    //   const params = {
+    //     // key: idSuatchieu,
+    //     key: 'ALL'
+    //   };
+    // console.log("searchdate", params);
+    //   const response = await LayTTSuatchieu(params);
+    //   const res: Suatchieu[] = response.suatchieus;
+    //   // console.log("check api searchdate Suatchieu: ", response);
+    //   console.log("length", res.length);
+    //   setSuatchieu(res);
+    //   res.map((res) => {
+    //     const test = {
+    //       text: res.giobatdau
+    //     }
+    //     setTests([test, ...tests])
+    //   })
+    //   // console.log(res.length)
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
 
@@ -205,15 +257,26 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         // console.log("length", res.length);
         setCumrap(res);
         // console.log(res.length)
+
       } catch (error) {
         console.log(error);
       }
     }
+    // chieus.map((item)=>{
+    //   item.ngaychieu === ' '
+    //   chieus.splice(0, chieus.length)
+    // })
+    // suatchieus.map((item2)=>{
+    //   item2.giobatdau === ' '
+    //   suatchieus.splice(0, suatchieus.length)
+    // })
+
 
     handleLayTTCumrap()
-    // handleLayTTSuatchieu()
+
+
     setIsBrowser(true);
-  }, [chieu, idSuatchieu]);
+  }, [chieu, chieus, idSuatchieu, suatchieus]);
 
   const handleCloseClick = () => {
     onClose()
@@ -289,24 +352,44 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
             }
             {
               chieus.map((item, index) => {
-                return (
-                  <>
-                    {/* <div key={index}> */}
-                    <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.id_rap}</Button>
-                    {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
-                    {/* </div> */}
-                  </>
-                )
+                if(item.giave !== 0){
+                  return (
+                    <>
+                      {/* <div key={index}> */}
+                      <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.id_rap}</Button>
+  
+                      {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
+                      {/* </div> */}
+                    </>
+                  )
+                }
+              })
+            }
+            {
+              suatchieus.map((item, index) => {
+                if(item.giobatdau !==''){
+                  return (
+                    <>
+                      {/* <div key={index}> */}
+                      <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}</Button>
+                      {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
+                      {/* </div> */}
+                    </>
+                  )
+                }
               })
             }
             <button
-              // onClick={() => console.log("chieuuu", chieus)}
-              onClick={() => deleteAllItems()}
+              // onClick={() => console.log("suatchieus", suatchieus)}
+              onClick={() => handleLayTTSuatchieu()}
             >click</button>
+
+
+
             <button
-              onClick={() => console.log("chieu", chieus)}
-            // onClick={() => handleLayTTSuatchieu()}
-            >click2</button>
+              onClick={() => console.log("suatchieus", suatchieus)}
+            // onClick={() => console.log("chieu", chieus)}
+            >chieus</button>
           </div>
         </StyledModalBody>
       </StyledModal>

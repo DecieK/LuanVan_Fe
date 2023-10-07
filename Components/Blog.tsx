@@ -32,6 +32,7 @@ const Blog = () => {
                             height={144}
                             alt="Picture of the author"
                         />
+                        
                         {/* <img src='https://cdn.galaxycine.vn/media/2023/9/29/750x500_1695961597860.jpg' 
                         className="w-52 h-36 mt-3" /> */}
                         <p>dfghj</p>

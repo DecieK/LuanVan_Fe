@@ -203,7 +203,7 @@ export async function LayTTCumrap(params: { key: any }): Promise<any> {
   return data;
 }
 
-export async function LayTTSuatchieu(params: { key: any }): Promise<any> {
+export async function LayTTSuatchieu(params: { key: number }): Promise<any> {
   const { key } = params;
   const response = await fetch(
     `http://localhost:8080/api/TTSuatchieu?keyword=${key}`
