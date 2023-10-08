@@ -17,7 +17,6 @@ const xemchitiet = ({id_phim}: codeProductProps) => {
   return (
 
     <div>
-
       <Header />
       <Chitietphim id_phim={id_phim} />
       <Footer />

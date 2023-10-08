@@ -1,3 +1,4 @@
+import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
 import La from '@/Components/La';
 import SodoPhongChieu from '@/Components/SodoPhongChieu';
@@ -22,8 +23,7 @@ const TestDatVe = () => {
 <div>
     <Header/>
     <Sodoghe/>
-    {/* <SodoPhongChieu /> */}
-    {/* <La /> */}
+    <Footer />  
 </div>
   );
 }

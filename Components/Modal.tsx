@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Button, button } from "@material-tailwind/react";
 import { LayTTCumrap, LayTTRap_idcumrap, LayTTSuatchieu, layTTChieu } from "@/service/userService";
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 
 
@@ -68,7 +69,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   const [idSuatchieu, setIdSuatchieu] = useState(Number);
   const [idcumrap, setIdcumrap] = useState(Number);
   const [id_rap, setIdRap] = useState(Number);
-  // const [ttchieu, setTtchieu] = useState([]);
+  const [ngaychieu, setNgaychieu] = useState(Date);
 
   const [chieus, setDschieus] = useState([
     {
@@ -78,6 +79,20 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
       id_rap: 0,
       id_suatchieu: 0,
       id_phim: 0
+    },
+  ])
+  const [items, setDsitems] = useState([
+    {
+      id_rap: 0,
+      ngaychieu: "",
+      // giave: 0,
+      id_phim: 0,
+      id_suatchieu: 0,
+      giobatdau: "",
+      gioketthuc: "",
+      slghe: 0,
+      slghedadat: 0
+
     },
   ])
   const [suatchieus, setDssuatchieus] = useState([
@@ -158,6 +173,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   const handleLayTTCumRap = async (id_cumrap: number) => {
     setIdcumrap(id_cumrap)
     deleteAllItems()
+    setNgaychieu(startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate())
     //  if(id_cumrap !== idcumrap){
     try {
       const params = {
@@ -176,13 +192,49 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
             ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
             id_rap: res.id
           });
-          handleLayTTSuatchieu()
-
+        // handleLayTTSuatchieu()
+        suatchieus.splice(0, suatchieus.length);
+        console.log("lengthchieus", chieus.length);
+        chieus.map(async (item) => {
+          try {
+            const params = {
+              // key: idSuatchieu,
+              key: item.id
+            };
+            console.log("suatchieuparams", params);
+            const response = await LayTTSuatchieu(params);
+            const ressuatchieu: Suatchieu[] = response.suatchieus;
+            console.log("check api searchdate Suatchieu: ", response);
+            // console.log("length", res.length);
+            setSuatchieu(ressuatchieu);
+            ressuatchieu.map((res) => {
+              suatchieus.push({
+                id: res.id,
+                giobatdau: res.giobatdau,
+                gioketthuc: res.gioketthuc
+              });
+            })
+ 
+            console.log(ressuatchieu.length)
+          } catch (error) {
+            console.log(error);
+          }
+        })
         const res1: Chieu[] = resChieu.ttchieu;
         setChieu(res1)
         res1.map((res1) => {
           console.log("gia", res1.giave)
-
+          items.push({
+            id_rap: res.id,
+            ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+            // giave: 0,
+            id_phim: id_phim,
+            id_suatchieu: res1.id_suatchieu,
+            giobatdau: '',
+            gioketthuc: "",
+            slghe: res.id,
+            slghedadat: 0
+          });
           handlePushTTchieu(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
         })
         // handleLayTTChieu(res.id)
@@ -242,7 +294,18 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
     //   console.log(error);
     // }
   }
+  const router = useRouter();
 
+  const handleDatve = (id_phim: any) => {
+    console.log(id_phim)
+    router.push({
+      pathname: '/datve',
+      query: { id_phim: id_phim, id_rap: id_rap, ngaychieu: ngaychieu },
+
+    })
+
+
+  };
 
   useEffect(() => {
     const handleLayTTCumrap = async () => {
@@ -339,39 +402,15 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 )
               })
             }
-            {
-              rap.map((item, index) => {
-                // suatchieu.map((suatchieus, index) => {
-                return (
-                  <div key={index} className="h-12 w-28 bg-green-500 m-4">
-                    {item.slghe}
-                    {/* {suatchieu.giobatdau}~{suatchieu.gioketthuc} */}
-                  </div>
-                )
-              })
-            }
-            {
-              chieus.map((item, index) => {
-                if(item.giave !== 0){
-                  return (
-                    <>
-                      {/* <div key={index}> */}
-                      <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.id_rap}</Button>
-  
-                      {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
-                      {/* </div> */}
-                    </>
-                  )
-                }
-              })
-            }
+
+
             {
               suatchieus.map((item, index) => {
-                if(item.giobatdau !==''){
+                if (item.giobatdau !== '') {
                   return (
                     <>
                       {/* <div key={index}> */}
-                      <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}</Button>
+                      <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
                       {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
                       {/* </div> */}
                     </>
@@ -387,7 +426,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
 
             <button
-              onClick={() => console.log("suatchieus", suatchieus)}
+              onClick={() => console.log("suatchieus", chieus)}
             // onClick={() => console.log("chieu", chieus)}
             >chieus</button>
           </div>

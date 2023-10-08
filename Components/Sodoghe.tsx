@@ -198,80 +198,6 @@ const Sodoghe = () => {
     }
   }
 
-  const handleLayTTChieu = async () => {
-
-    setId_rap(1)
-    setId_phim(1)
-    setId_suatchieu(1)
-
-    console.log("id_rap", id_rap);
-    console.log("id_phim", id_phim);
-    console.log("id_suatchieu", id_suatchieu);
-
-    try {
-      const params = {
-        id_rap: 1,
-        id_phim: 1,
-        id_suatchieu: 1
-
-      };
-      console.log("searchdate", params);
-      const response = await layTTChieu(params);
-      const res: Chieu[] = response.ttchieu;
-      console.log("check api searchdate ghe: ", response);
-      // console.log("length", res.length);
-      setChieu(res);
-      console.log(res.length)
-      res.map((res) => (
-        setGiave(res.giave)
-      ));
-      console.log("giave", giave);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const handleLayTTchitietve = async () => {
-    try {
-
-      const params = {
-        id_ve: id_ve,
-      };
-      console.log("searchdate", params);
-      const response = await LayTTchitietve(params);
-      const res: Chitetve[] = response.chitietves;
-      console.log("check api searchdate chitietve: ", response);
-      console.log("length", res.length);
-
-      setChitietve(res);
-
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  const handleLayTTGhe = async () => {
-    try {
-
-      const params = {
-        key: "ALL",
-      };
-      console.log("searchdate", params);
-      const response = await LayTTGhe(params);
-      const res: Ghe[] = response.ghes;
-      console.log("check api searchdate ghe: ", response);
-      console.log("length", res.length);
-      setGhe(res);
-      console.log(res)
-      // res.map((res) => (
-
-      // ));
-      // console.log("gheArr",gheArr);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const handleDoan = (trangthai: boolean) => {
     if (trangthai === true) {
@@ -322,7 +248,7 @@ const Sodoghe = () => {
         const params = {
           id_rap: 1,
           id_phim: 1,
-          id_suatchieu: 1
+          ngaychieu: '2023-10-20'
 
         };
         console.log("searchdate", params);
@@ -347,7 +273,7 @@ const Sodoghe = () => {
       try {
 
         const params = {
-          key: "ALL",
+          key: 1,
         };
         console.log("searchdate", params);
         const response = await LayTTGhe(params);
@@ -365,26 +291,26 @@ const Sodoghe = () => {
         console.log(error);
       }
     }
-    const handleLayTTchitietve = async () => {
-      try {
+    // const handleLayTTchitietve = async () => {
+    //   try {
 
-        const params = {
-          id_ve: id_ve,
-        };
-        console.log("searchdate", params);
-        const response = await LayTTchitietve(params);
-        const res: Chitetve[] = response.chitietves;
-        console.log("check api searchdate chitietve: ", response);
-        console.log("length", res.length);
+    //     const params = {
+    //       id_ve: id_ve,
+    //     };
+    //     console.log("searchdate", params);
+    //     const response = await LayTTchitietve(params);
+    //     const res: Chitetve[] = response.chitietves;
+    //     console.log("check api searchdate chitietve: ", response);
+    //     console.log("length", res.length);
 
-        setChitietve(res);
+    //     setChitietve(res);
 
 
-      } catch (error) {
-        console.log(error);
-      }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
 
-    }
+    // }
     const handleLayTTKM = async () => {
       try {
 
@@ -431,7 +357,7 @@ const Sodoghe = () => {
     }
     handleLayTTChieu();
     handleLayTTGhe();
-    handleLayTTchitietve();
+    // handleLayTTchitietve();
     handleLayTTKM();
     handleLayTTDoan();
 
@@ -441,18 +367,18 @@ const Sodoghe = () => {
     // setId_ghe()
     setHttt("Online")
     setNgaymuave(new Date())
-    setId_suatchieu(1)
-    setId_rap(1)
-    setId_cumrap(1)
-    setId_NV(1)
-    // setId_KM(1)
-    // setId_doan()
-    setId_KH(1)
+    // setId_suatchieu(1)
+    // setId_rap(1)
+    // setId_cumrap(1)
+    // setId_NV(1)
+    // // setId_KM(1)
+    // // setId_doan()
+    // setId_KH(1)
 
 
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
-  }, []);
+  }, [giave, id_phim, id_rap, id_suatchieu, id_ve]);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);
@@ -644,7 +570,7 @@ const Sodoghe = () => {
       {/* <div>{(tienKM / 100)}</div> */}
       <div>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}</div>
 
-
+<button onClick={()=>console.log(chitietve)}>chitietveee</button>
 
     </div >
   );
