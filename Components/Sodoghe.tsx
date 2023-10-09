@@ -6,12 +6,25 @@ import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
+<<<<<<< HEAD
 type Props = {
   id_phimP: any;
   id_rapP:any;
   ngaychieuP:any;
 }
 const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
+=======
+
+type Props = {
+  id_phimP: any;
+  id_rapP: any;
+  ngaychieuP: any;
+
+}
+const Sodoghe = (
+  {id_phimP ,id_rapP ,ngaychieuP}:Props
+  ) => {
+>>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
   interface Chitetve {
     id: number;
     id_ve: number;
@@ -57,7 +70,7 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
   }
 
 
-  const [id_ve, setId_ve] = useState(1)
+  const [id_ve, setId_ve] = useState("")
   const [hten_KH, setHten_KH] = useState("");
   const [httt, setHttt] = useState("");
   const [tongtien, setTongtien] = useState(Number);
@@ -244,10 +257,18 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
   }
 
   useEffect(() => {
+
+    // console.log("ipphim",ngaychieuP)
     const handleLayTTChieu = async () => {
+<<<<<<< HEAD
       console.log("id_rapP", id_rapP);
       console.log("id_phimP", id_phimP);
       console.log("ngaychieuP", ngaychieuP);
+=======
+      // console.log("id_rap", id_rapP);
+      // console.log("id_phim", id_phimP);
+      // console.log("ngaychieuP", ngaychieuP);
+>>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
       try {
         const params = {
           id_rap: id_rapP,
@@ -255,19 +276,19 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
           ngaychieu: ngaychieuP
 
         };
-        console.log("searchdate", params);
+        // console.log("searchdate", params);
         const response = await layTTChieu(params);
         const res: Chieu[] = response.ttchieu;
         console.log("check api handleLayTTChieu: ", response);
         // console.log("length", res.length);
         setChieu(res);
-        console.log(res.length)
+        // console.log(res.length)
         res.map((res) => (
-          setGiave(res.giave),
-          console.log("giave", res.giave)
+          setGiave(res.giave)
+          // console.log("giave", res.giave)
 
         ));
-        console.log("giave", giave);
+        // console.log("giave", giave);
 
       } catch (error) {
         console.log(error);
@@ -277,13 +298,20 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
       try {
 
         const params = {
+<<<<<<< HEAD
           id_rap: id_rapP,
         };
         console.log("searchdate", params);
         const response = await LayTTGhe_idrap(params);
+=======
+          key: id_rapP,
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTGhe(params);
+>>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
         const res: Ghe[] = response.ghes;
-        console.log("check api searchdate ghe: ", response);
-        console.log("length", res.length);
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
         setGhe(res);
         console.log(res)
         // res.map((res) => (
@@ -295,39 +323,39 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
         console.log(error);
       }
     }
-    // const handleLayTTchitietve = async () => {
-    //   try {
+    const handleLayTTchitietve = async () => {
+      try {
 
-    //     const params = {
-    //       id_ve: id_ve,
-    //     };
-    //     console.log("searchdate", params);
-    //     const response = await LayTTchitietve(params);
-    //     const res: Chitetve[] = response.chitietves;
-    //     console.log("check api searchdate chitietve: ", response);
-    //     console.log("length", res.length);
+        const params = {
+          id_ve: id_ve,
+        };
+        console.log("searchdate", params);
+        const response = await LayTTchitietve(params);
+        const res: Chitetve[] = response.chitietves;
+        console.log("check api searchdate chitietve: ", response);
+        console.log("length", res.length);
 
-    //     setChitietve(res);
+        setChitietve(res);
 
 
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
+      } catch (error) {
+        console.log(error);
+      }
 
-    // }
+    }
     const handleLayTTKM = async () => {
       try {
 
         const params = {
           key: "ALL",
         };
-        console.log("searchdate", params);
+        // console.log("searchdate", params);
         const response = await LayTTKM(params);
         const res: Khuyenmai[] = response.khuyenmais;
-        console.log("check api KM: ", response);
-        console.log("length", res.length);
+        // console.log("check api KM: ", response);
+        // console.log("length", res.length);
         setKhuyenmai(res);
-        console.log(res)
+        // console.log(res)
         // res.map((res) => (
 
         // ));
@@ -343,13 +371,13 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
         const params = {
           key: "ALL",
         };
-        console.log("searchdate", params);
+        // console.log("searchdate", params);
         const response = await LayTTDoan(params);
         const res: Doan[] = response.doans;
-        console.log("check api Doan: ", response);
-        console.log("length", res.length);
+        // console.log("check api Doan: ", response);
+        // console.log("length", res.length);
         setDoan(res);
-        console.log(res)
+        // console.log(res)
         // res.map((res) => (
 
         // ));
@@ -420,8 +448,6 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
           if (gheVIP && classGhedangdat) {
             gheVIP = false
           }
-
-
           return <>
             <button
               onClick={async () => {

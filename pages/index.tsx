@@ -40,6 +40,8 @@ const index = () => {
       <Phim />
       <Blog />
       <Footer />
+    
+      {/* <Sodoghe id_phimP={1} id_rapP={1} ngaychieuP={2023-10-20} /> */}
     </div>
 
   )

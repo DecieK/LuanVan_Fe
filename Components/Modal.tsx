@@ -186,6 +186,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
       // console.log("length rap", res.length);
       setRap(res);
       res.map(async (res) => {
+        setIdRap(res.id)
         let resChieu = await layTTChieu(
           {
             id_phim: id_phim,
@@ -198,7 +199,6 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         chieus.map(async (item) => {
           try {
             const params = {
-              // key: idSuatchieu,
               key: item.id
             };
             console.log("suatchieuparams", params);
@@ -213,7 +213,12 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 giobatdau: res.giobatdau,
                 gioketthuc: res.gioketthuc
               });
+<<<<<<< HEAD
             }) 
+=======
+            })
+
+>>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
             console.log(ressuatchieu.length)
           } catch (error) {
             console.log(error);
@@ -224,17 +229,17 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         setChieu(res1)
         res1.map((res1) => {
           console.log("gia", res1.giave)
-          items.push({
-            id_rap: res.id,
-            ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
-            // giave: 0,
-            id_phim: id_phim,
-            id_suatchieu: res1.id_suatchieu,
-            giobatdau: '',
-            gioketthuc: "",
-            slghe: res.id,
-            slghedadat: 0
-          });
+          // items.push({
+          //   id_rap: res.id,
+          //   ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+          //   // giave: 0,
+          //   id_phim: id_phim,
+          //   id_suatchieu: res1.id_suatchieu,
+          //   giobatdau: '',
+          //   gioketthuc: "",
+          //   slghe: res.slghe,
+          //   slghedadat: 0
+          // });
           handlePushTTchieu(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
         })
         // handleLayTTChieu(res.id)
@@ -296,11 +301,15 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   }
   const router = useRouter();
 
+<<<<<<< HEAD
   const handleDatve = (id_rap: number) => {
+=======
+  const handleDatve = () => {
+>>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
     console.log(id_phim)
     router.push({
       pathname: '/datve',
-      query: { id_phim: id_phim, id_rap: id_rap, ngaychieu: ngaychieu },
+      query: { id_phim: id_phim, id_rap: id_rap, ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate()},
 
     })
 
@@ -325,19 +334,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         console.log(error);
       }
     }
-    // chieus.map((item)=>{
-    //   item.ngaychieu === ' '
-    //   chieus.splice(0, chieus.length)
-    // })
-    // suatchieus.map((item2)=>{
-    //   item2.giobatdau === ' '
-    //   suatchieus.splice(0, suatchieus.length)
-    // })
-
-
-    handleLayTTCumrap()
-
-
+ 
+    handleLayTTCumrap();
     setIsBrowser(true);
   }, [chieu, chieus, idSuatchieu, suatchieus]);
 
@@ -405,6 +403,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
 
             {
+<<<<<<< HEAD
               suatchieus.map((item, index) => {
                 if (item.giobatdau !== '') {
                   return (
@@ -416,6 +415,26 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                     </>
                   )
                 }
+=======
+              rap.map((item, index) => {
+                // if (item.giobatdau !== '') {
+                console.log("suatchieurap", suatchieus)
+                console.log("rap", rap.length)
+
+                return (
+                  <>
+                    {/* <div key={index}> */}
+                    <Button onClick={handleDatve} key={index} className="h-28 w-28 bg-slate-600 m-4">{suatchieus.length >1 ? suatchieus[index].giobatdau : ""}~{suatchieus.length >1 ? suatchieus[index].gioketthuc : ""}<br />
+                    số ghế còn trống/{item.slghe}
+
+                      </Button>
+                      {/* {suatchieus.length >1 ? suatchieus[index].giobatdau : ""} */}
+                    {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
+                    {/* </div> */}
+                  </>
+                )
+                // }
+>>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
               })
             }
             <button
@@ -426,7 +445,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
 
             <button
-              onClick={() => console.log("suatchieus", chieus)}
+              onClick={() => console.log("suatchieus", items)}
             // onClick={() => console.log("chieu", chieus)}
             >chieus</button>
           </div>
