@@ -213,14 +213,14 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 giobatdau: res.giobatdau,
                 gioketthuc: res.gioketthuc
               });
-            })
- 
+            }) 
             console.log(ressuatchieu.length)
           } catch (error) {
             console.log(error);
           }
         })
         const res1: Chieu[] = resChieu.ttchieu;
+        console.log("asdassssssssssssss",resChieu.ttchieu)
         setChieu(res1)
         res1.map((res1) => {
           console.log("gia", res1.giave)
@@ -296,7 +296,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   }
   const router = useRouter();
 
-  const handleDatve = (id_phim: any) => {
+  const handleDatve = (id_rap: number) => {
     console.log(id_phim)
     router.push({
       pathname: '/datve',
@@ -410,7 +410,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                   return (
                     <>
                       {/* <div key={index}> */}
-                      <Button key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
+                      <Button onClick={()=>handleDatve(rap[index].id)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
                       {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
                       {/* </div> */}
                     </>

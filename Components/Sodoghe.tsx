@@ -1,13 +1,17 @@
 //goldclass 32,64
 //104,118,128,164
-import { Datve, LayTTDoan, LayTTGhe, LayTTKM, LayTTchitietve, layTTChieu } from '@/service/userService';
+import { Datve, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTchitietve, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
-
-const Sodoghe = () => {
+type Props = {
+  id_phimP: any;
+  id_rapP:any;
+  ngaychieuP:any;
+}
+const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
   interface Chitetve {
     id: number;
     id_ve: number;
@@ -241,14 +245,14 @@ const Sodoghe = () => {
 
   useEffect(() => {
     const handleLayTTChieu = async () => {
-      console.log("id_rap", id_rap);
-      console.log("id_phim", id_phim);
-      console.log("id_suatchieu", id_suatchieu);
+      console.log("id_rapP", id_rapP);
+      console.log("id_phimP", id_phimP);
+      console.log("ngaychieuP", ngaychieuP);
       try {
         const params = {
-          id_rap: 1,
-          id_phim: 1,
-          ngaychieu: '2023-10-20'
+          id_rap: id_rapP,
+          id_phim: id_phimP,
+          ngaychieu: ngaychieuP
 
         };
         console.log("searchdate", params);
@@ -273,10 +277,10 @@ const Sodoghe = () => {
       try {
 
         const params = {
-          key: 1,
+          id_rap: id_rapP,
         };
         console.log("searchdate", params);
-        const response = await LayTTGhe(params);
+        const response = await LayTTGhe_idrap(params);
         const res: Ghe[] = response.ghes;
         console.log("check api searchdate ghe: ", response);
         console.log("length", res.length);
@@ -378,7 +382,7 @@ const Sodoghe = () => {
 
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
-  }, [giave, id_phim, id_rap, id_suatchieu, id_ve]);
+  }, [giave, id_phim, id_phimP, id_rap, id_rapP, id_suatchieu, id_ve, ngaychieuP]);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);

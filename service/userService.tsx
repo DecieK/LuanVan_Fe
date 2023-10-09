@@ -70,6 +70,14 @@ export async function LayTTGhe(params: { key: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+export async function LayTTGhe_idrap(params: { id_rap: any }): Promise<any> {
+  const { id_rap } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTGhetheoIdrap?id_rap=${id_rap}`
+  );
+  const data = await response.json();
+  return data;
+}
 
 // export async function layTTChieu(params: { id_rap: number, id_phim: number,id_suatchieu: number}): Promise<any> {
 //   const { id_rap,id_phim,id_suatchieu } = params;
