@@ -6,25 +6,12 @@ import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
-<<<<<<< HEAD
 type Props = {
   id_phimP: any;
   id_rapP:any;
   ngaychieuP:any;
 }
 const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
-=======
-
-type Props = {
-  id_phimP: any;
-  id_rapP: any;
-  ngaychieuP: any;
-
-}
-const Sodoghe = (
-  {id_phimP ,id_rapP ,ngaychieuP}:Props
-  ) => {
->>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
   interface Chitetve {
     id: number;
     id_ve: number;
@@ -260,15 +247,9 @@ const Sodoghe = (
 
     // console.log("ipphim",ngaychieuP)
     const handleLayTTChieu = async () => {
-<<<<<<< HEAD
       console.log("id_rapP", id_rapP);
       console.log("id_phimP", id_phimP);
       console.log("ngaychieuP", ngaychieuP);
-=======
-      // console.log("id_rap", id_rapP);
-      // console.log("id_phim", id_phimP);
-      // console.log("ngaychieuP", ngaychieuP);
->>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
       try {
         const params = {
           id_rap: id_rapP,
@@ -298,17 +279,10 @@ const Sodoghe = (
       try {
 
         const params = {
-<<<<<<< HEAD
           id_rap: id_rapP,
         };
         console.log("searchdate", params);
         const response = await LayTTGhe_idrap(params);
-=======
-          key: id_rapP,
-        };
-        // console.log("searchdate", params);
-        const response = await LayTTGhe(params);
->>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
         const res: Ghe[] = response.ghes;
         // console.log("check api searchdate ghe: ", response);
         // console.log("length", res.length);

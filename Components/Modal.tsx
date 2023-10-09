@@ -213,12 +213,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 giobatdau: res.giobatdau,
                 gioketthuc: res.gioketthuc
               });
-<<<<<<< HEAD
             }) 
-=======
-            })
-
->>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
             console.log(ressuatchieu.length)
           } catch (error) {
             console.log(error);
@@ -301,11 +296,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   }
   const router = useRouter();
 
-<<<<<<< HEAD
   const handleDatve = (id_rap: number) => {
-=======
-  const handleDatve = () => {
->>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
     console.log(id_phim)
     router.push({
       pathname: '/datve',
@@ -403,7 +394,6 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
 
             {
-<<<<<<< HEAD
               suatchieus.map((item, index) => {
                 if (item.giobatdau !== '') {
                   return (
@@ -415,26 +405,6 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                     </>
                   )
                 }
-=======
-              rap.map((item, index) => {
-                // if (item.giobatdau !== '') {
-                console.log("suatchieurap", suatchieus)
-                console.log("rap", rap.length)
-
-                return (
-                  <>
-                    {/* <div key={index}> */}
-                    <Button onClick={handleDatve} key={index} className="h-28 w-28 bg-slate-600 m-4">{suatchieus.length >1 ? suatchieus[index].giobatdau : ""}~{suatchieus.length >1 ? suatchieus[index].gioketthuc : ""}<br />
-                    số ghế còn trống/{item.slghe}
-
-                      </Button>
-                      {/* {suatchieus.length >1 ? suatchieus[index].giobatdau : ""} */}
-                    {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
-                    {/* </div> */}
-                  </>
-                )
-                // }
->>>>>>> a61ab55f2f709eb7425e64108d2d07720be97125
               })
             }
             <button
