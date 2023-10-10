@@ -57,7 +57,7 @@ const Upload = () => {
     const [ngonngu, setNgonngu] = useState("");
     const [quocgia, setQuocgia] = useState("");
     const [daodien, setDaodien] = useState("");
-    const [thoiluong, setThoiluong] = useState("");
+    const [thoiluong, setThoiluong] = React.useState('')
     const [ngaychieu, setNgaychieu] = useState(new Date());
     const [tomtat, setTomtat] = useState("");
     const [nsx, setNsx] = useState("");
@@ -181,6 +181,7 @@ const Upload = () => {
         console.log("tomtat", tomtat)
         console.log("nsx", nsx)
         console.log("trangthai", trangthai)
+
         let res = await Themttphim(
             {
                 Tenphim: tenphim,
@@ -191,6 +192,9 @@ const Upload = () => {
                 Ngonngu: ngonngu,
                 Quocgia: quocgia,
                 Tomtat: tomtat,
+                Daodien: daodien,
+                Thoiluong: thoiluong,
+                Ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
                 Nsx: nsx,
                 Trangthai: trangthai
 
@@ -248,7 +252,7 @@ const Upload = () => {
 
                         ></input>
                         <p>Thời lượng phim:</p>
-                        <input placeholder="" className="w-[90%] border-2 border-gray-300"
+                        <input placeholder="" type="number" className="w-[90%] border-2 border-gray-300"
                             onChange={(event) => setThoiluong(event.target.value)}
 
                         ></input>

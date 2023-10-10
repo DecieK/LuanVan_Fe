@@ -33,14 +33,14 @@ const index = () => {
 
     <div>
 
-      {/* <Header />
+      <Header />
 
       <MySlider />
       <p>Phim đăng chiếu | Phim sắp chiếu</p>
       <Phim />
       <Blog />
-      <Footer /> */}
-    <ThemTTphim />
+      <Footer />
+    {/* <ThemTTphim /> */}
       {/* <Sodoghe id_phimP={1} id_rapP={1} ngaychieuP={2023-10-20} /> */}
     </div>
 

@@ -157,6 +157,9 @@ export async function Themttphim(params: {
   Ngonngu: string;
   Quocgia: string;
   Tomtat: string;
+  Daodien: string;
+  Thoiluong: string;
+  Ngaychieu: string;
   Nsx: string;
   Trangthai: string;
 }): Promise<any> {
