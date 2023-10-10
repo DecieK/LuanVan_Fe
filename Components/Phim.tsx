@@ -18,6 +18,9 @@ const Phim = () => {
         poster: string;
         dienvien: string;
         ngonngu: string;
+        daodien: string;
+        thoiluong: number;
+        ngaychieu: string;
         quocgia: string;
         tomtat: string;
         nsx: string;

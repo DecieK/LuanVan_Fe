@@ -19,6 +19,9 @@ const Chitietphim = ({id_phim}:Props) => {
         poster: string;
         dienvien: string;
         ngonngu: string;
+        daodien: string;
+        thoiluong: number;
+        ngaychieu: string;
         quocgia: string;
         tomtat: string;
         nsx: string;
@@ -89,8 +92,8 @@ const Chitietphim = ({id_phim}:Props) => {
                                     <p>Diễn viên:{item.dienvien}</p>
                                     <p>Nhà sản xuất:{item.nsx}</p>
                                     <p>Thể loại:</p>
-                                    <p>Đạo diễn:</p>
-                                    <p>Ngày khởi chiếu</p>
+                                    <p>Đạo diễn:{item.daodien}</p>
+                                    <p>Ngày khởi chiếu{item.ngaychieu}</p>
                                 </div>
                                 <button onClick={() => setShowModal(true)} className='bg-slate-600'>Đặt vé</button>
                                 <div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { Noto_Serif } from 'next/font/google'
-// import { FormattedMessage } from "react-intl";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { LayTTPhim, Themttphim } from "@/service/userService";
@@ -23,12 +24,31 @@ const Upload = () => {
         poster: Blob;
         dienvien: string;
         ngonngu: string;
+        daodien: string;
+        thoiluong: number;
+        ngaychieu: string;
         quocgia: string;
         tomtat: string;
         nsx: string;
         trangthai: string;
     }
 
+    // interface Phim {
+    //     id: number;
+    //     tenphim: string;
+    //     dieukien: number;
+    //     trailer: string;
+    //     poster: string;
+    //     dienvien: string;
+    //     ngonngu: string;
+    //     daodien: string;
+    //     thoiluong: number;
+    //     ngaychieu: string;
+    //     quocgia: string;
+    //     tomtat: string;
+    //     nsx: string;
+    //     trangthai: string;
+    // }
     const [isBrowser, setIsBrowser] = useState(false);
     const [tenphim, setTenphim] = useState("");
     const [dieukien, setDieukien] = useState(Number);
@@ -36,6 +56,9 @@ const Upload = () => {
     const [dienvien, setDienvien] = useState("");
     const [ngonngu, setNgonngu] = useState("");
     const [quocgia, setQuocgia] = useState("");
+    const [daodien, setDaodien] = useState("");
+    const [thoiluong, setThoiluong] = useState("");
+    const [ngaychieu, setNgaychieu] = useState(new Date());
     const [tomtat, setTomtat] = useState("");
     const [nsx, setNsx] = useState("");
     const [trangthai, setTrangthai] = useState("");
@@ -219,6 +242,27 @@ const Upload = () => {
                             onChange={(event) => setDienvien(event.target.value)}
 
                         ></input>
+                        <p>Đạo diễn:</p>
+                        <input placeholder="" className="w-[90%] border-2 border-gray-300"
+                            onChange={(event) => setDaodien(event.target.value)}
+
+                        ></input>
+                        <p>Thời lượng phim:</p>
+                        <input placeholder="" className="w-[90%] border-2 border-gray-300"
+                            onChange={(event) => setThoiluong(event.target.value)}
+
+                        ></input>
+                        <p>Ngày chiếu:</p>
+                        <DatePicker
+                            className=""
+                            // type="datetime"
+                            selected={ngaychieu}
+                            // onChange={handlSearchLichkham}
+                            // onChange={(date: Date) => handleLayTTChieu(date)}
+                            onChange={(date: Date) => setNgaychieu(date)}
+                            // onChange={(date: Date) => handlSearchDate((date))}
+                            dateFormat="dd/MM/yyyy"
+                        />
 
                         <p>Ngôn ngữ:</p>
                         <input placeholder="" className="w-[90%] border-2 border-gray-300"
@@ -291,39 +335,13 @@ const Upload = () => {
                         {/* <img src={prevURLIMG}></img> */}
                     </div>
 
-                    <div>
-                        <div className="">
-                            <label>
-                                {/* <FormattedMessage id="" /> */}
-                            </label>
-                            <div className="preview-img-container">
-                                <input
-                                    id="preview-video"
-
-                                    type="file"
-                                    accept=".mp4,.flv"
-                                    hidden
-                                    onChange={(event) => handleOnChangeVideos(event)}
-                                />
-                                <label className="lable-upload" htmlFor="preview-video">
-                                    Tải video <i className="fas fa-upload"></i>
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <video autoPlay controls
-                                style={{ width: '500px', height: '500px' }}
-                                src={prevURLVideo}
-                            >
-                            </video>
-                        </div>
-                    </div>
+      
 
                 </div>
 
                 <button className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
                     onClick={handleDangKy}
-                    // onClick={handleEdit}
+                // onClick={handleEdit}
 
                 >Đăng kí</button>
             </div>
@@ -338,3 +356,31 @@ const Upload = () => {
 };
 
 export default Upload;
+
+
+{/* <div>
+<div className="">
+    <label>
+    </label>
+    <div className="preview-img-container">
+        <input
+            id="preview-video"
+
+            type="file"
+            accept=".mp4,.flv"
+            hidden
+            onChange={(event) => handleOnChangeVideos(event)}
+        />
+        <label className="lable-upload" htmlFor="preview-video">
+            Tải video <i className="fas fa-upload"></i>
+        </label>
+    </div>
+</div>
+<div>
+    <video autoPlay controls
+        style={{ width: '500px', height: '500px' }}
+        src={prevURLVideo}
+    >
+    </video>
+</div>
+</div> */}

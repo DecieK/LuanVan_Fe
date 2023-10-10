@@ -8,10 +8,10 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 type Props = {
   id_phimP: any;
-  id_rapP:any;
-  ngaychieuP:any;
+  id_rapP: any;
+  ngaychieuP: any;
 }
-const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
+const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   interface Chitetve {
     id: number;
     id_ve: number;
@@ -145,17 +145,22 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
       {
         hten_KH: hten_KH,
         httt: httt,
-        tongtien: tongtien,
+        tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
         soluongghe: soluongghe,
         ngaymuave: ngaymuave,
-        id_KH: id_KH,
+        // id_KH: id_KH,
         id_ghe: id_ghe,
         id_suatchieu: id_suatchieu,
-        id_rap: id_rap,
-        id_cumrap: id_cumrap,
-        id_KM: id_KM,
-        id_NV: id_NV,
-        id_doan: id_doan
+        id_rap: id_rapP,
+        // id_cumrap: id_cumrap,
+        // id_KM: id_KM,
+        // id_NV: id_NV,
+        // id_doan: id_doan
+        id_cumrap: 1,
+        id_KM: 1,
+        id_NV: 1,
+        id_doan: 1,
+        id_KH: 1
       });
     if (res && res.errCode === 0) {
 
@@ -201,7 +206,6 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
 
     }
   }
-
 
   const handleDoan = (trangthai: boolean) => {
     if (trangthai === true) {
@@ -265,7 +269,8 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
         setChieu(res);
         // console.log(res.length)
         res.map((res) => (
-          setGiave(res.giave)
+          setGiave(res.giave),
+          setId_suatchieu(res.id_suatchieu)
           // console.log("giave", res.giave)
 
         ));
@@ -438,7 +443,7 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
                   console.log(res)
                   res.map((res) => (
                     handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
-                    
+
                   ));
 
                 } else {
@@ -574,7 +579,7 @@ const Sodoghe = ({id_phimP, id_rapP,ngaychieuP}:Props) => {
       {/* <div>{(tienKM / 100)}</div> */}
       <div>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}</div>
 
-<button onClick={()=>console.log(chitietve)}>chitietveee</button>
+      <button onClick={() => console.log(chitietve)}>chitietveee</button>
 
     </div >
   );
