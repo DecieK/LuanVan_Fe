@@ -1,6 +1,6 @@
 //goldclass 32,64
 //104,118,128,164
-import { Datve, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTchitietve, layTTChieu } from '@/service/userService';
+import { Datve, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -55,13 +55,30 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     thoigianbatdau: Date;
     thoigianketthuc: Date;
   }
+  interface Ve {
+    id: number;
+    Hten_KH: string;
+    HTTT: string;
+    Tongtien: number;
+    SLghe: number;
+    Ngaymuave: string;
+    id_KH: number;
+    id_suatchieu: number;
+    id_rap: number;
+    id_chieu: number;
+    id_cumrap: number;
+    id_KM: number;
+    id_NV: number;
+    id_DA: number;
+  }
 
 
   const [id_ve, setId_ve] = useState("")
+  const [id_chieu, setId_chieu] = useState(Number)
   const [hten_KH, setHten_KH] = useState("");
   const [httt, setHttt] = useState("");
   const [tongtien, setTongtien] = useState(Number);
-  const [soluongghe, setSoluongghe] = useState(Number);
+  // const [soluongghe, setSoluongghe] = useState(Number);
   const [ngaymuave, setNgaymuave] = useState(new Date);
   const [id_KH, setId_KH] = useState(Number);
   const [id_ghe, setId_ghe] = useState(Number);
@@ -72,6 +89,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   const [id_NV, setId_NV] = useState(Number);
   const [id_doan, setId_doan] = useState(Number);
   const [chitietve, setChitietve] = useState<Chitetve[]>([]);
+  const [ve, setVe] = useState<Ve[]>([]);
   const [ghe, setGhe] = useState<Ghe[]>([]);
   const [dsghe, setDsghe] = useState<DSGheDangDat[]>([]);
   const [id_phim, setId_phim] = useState(Number)
@@ -81,15 +99,16 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   const [trangthaidoan, setTrangthaidoan] = useState(false)
   const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
   const [doan, setDoan] = useState<Doan[]>([]);
-  const [id_ghe1, setId_ghe1] = useState(Array);
-  const [tonggiave, setTonggiave] = useState(Number)
-  const [tileKM, setTileKM] = useState(Number)
-  const [giaDA, setGiaDA] = useState(Number)
-  const [sumsum1, setSumsum1] = useState(Number)
+  // const [id_ghe1, setId_ghe1] = useState(Array);
+  // const [tonggiave, setTonggiave] = useState(Number)
+  // const [tileKM, setTileKM] = useState(Number)
+  // const [giaDA, setGiaDA] = useState(Number)
+  // const [sumsum1, setSumsum1] = useState(Number)
   const [tienDA, setTienDA] = useState(Number)
   const [tienKM, setTienKM] = useState(Number)
   // const [sumsum1, setSumsum1] = useState(Number)
-
+  const [arrIdghe, setArrIdghe] = useState<number[]>([]);
+  // const [arrIdghe, setArrIdghe] = useState<number[]>([]);
 
 
 
@@ -130,7 +149,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     console.log("hoten", hten_KH)
     console.log("httt", httt)
     console.log("tongtien", tongtien)
-    console.log("soluongghe", soluongghe)
+    console.log("soluongghe", dsgheDDs.length)
     console.log("ngaymuave", ngaymuave)
     console.log("id_ghe", id_ghe)
     console.log("id_suatchieu", id_suatchieu)
@@ -140,16 +159,20 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     console.log("id_NV", id_NV)
     console.log("id_doan", id_doan)
     console.log("id_KH", id_KH)
+    console.log("arrIdghe", arrIdghe)
+    console.log("dsgheDDs", dsgheDDs)
+    console.log("id_chieu", id_chieu)
 
+    // Object.keys(numbers);
     let res = await Datve(
       {
         hten_KH: hten_KH,
         httt: httt,
         tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
-        soluongghe: soluongghe,
+        soluongghe: dsgheDDs.length,
         ngaymuave: ngaymuave,
-        // id_KH: id_KH,
-        id_ghe: id_ghe,
+        id_chieu: id_chieu,
+        id_ghe: arrIdghe,
         id_suatchieu: id_suatchieu,
         id_rap: id_rapP,
         // id_cumrap: id_cumrap,
@@ -181,7 +204,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   }
   const handleDeleteJoke = (id: number) => {
     setDsgheDDs(dsgheDDs.filter(dsgheDDs => dsgheDDs.id_ghe !== id))
-    console.log("delete joke", id)
+    // console.log("delete joke", id)
+    setArrIdghe(arrIdghe.filter(item => item !== id))
+    console.log("delete joke", arrIdghe)
+
   }
   const handleChonghedangdat = async (id: number, maGhe: string, loaighe: string) => {
     // const handleAddJoke = (text) => {
@@ -205,6 +231,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
       setDsgheDDs([dsgheDD, ...dsgheDDs])
 
     }
+    (arrIdghe).push(id)
+
   }
 
   const handleDoan = (trangthai: boolean) => {
@@ -248,7 +276,12 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   }
 
   useEffect(() => {
-
+    dsgheDDs.map((item) => {
+      if (item.id_ghe === 0) {
+        dsgheDDs.splice(0, dsgheDDs.length);
+      }
+    })
+    console.log(id_ve)
     // console.log("ipphim",ngaychieuP)
     const handleLayTTChieu = async () => {
       console.log("id_rapP", id_rapP);
@@ -268,15 +301,43 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
         // console.log("length", res.length);
         setChieu(res);
         // console.log(res.length)
-        res.map((res) => (
+        res.map(async (res) => {
           setGiave(res.giave),
-          setId_suatchieu(res.id_suatchieu)
-          // console.log("giave", res.giave)
+          setId_suatchieu(res.id_suatchieu),
+          setId_chieu(res.id)
+          try {
+            const params = {
+              id_chieu: res.id
+            };
+            console.log("veparams", params);
+            const response = await LayTTve_idchieu(params);
+            const resVe: Ve[] = response.ves;
+            console.log("check api searchdate ve: ", response);
+            setVe(resVe);
+            resVe.map(async (item) => {
+              try {
+                const params = {
+                  id_ve: item.id
+                };
+                console.log("searchdate", params);
+                const response = await LayTTchitietve(params);
+                const res: Chitetve[] = response.chitietves;
+                console.log("check api searchdate chitietve: ", response);
+                console.log("length", res.length);
+                setChitietve(res);
+        
+        
+              } catch (error) {
+                console.log(error);
+              }
+            })
+            // console.log(resVe.length)
+          } catch (error) {
+            console.log(error);
+          }
+        })
 
-        ));
-        // console.log("giave", giave);
-
-      } catch (error) {
+        } catch (error) {
         console.log(error);
       }
     }
@@ -306,14 +367,13 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
       try {
 
         const params = {
-          id_ve: id_ve,
+          id_ve: 'ALL'
         };
         console.log("searchdate", params);
         const response = await LayTTchitietve(params);
         const res: Chitetve[] = response.chitietves;
         console.log("check api searchdate chitietve: ", response);
         console.log("length", res.length);
-
         setChitietve(res);
 
 
@@ -389,7 +449,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
 
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
-  }, [giave, id_phim, id_phimP, id_rap, id_rapP, id_suatchieu, id_ve, ngaychieuP]);
+  }, [dsgheDDs, giave, id_phim, id_phimP, id_rap, id_rapP, id_suatchieu, id_ve, ngaychieuP]);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);
@@ -451,7 +511,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
                 }
                 console.log("classGhedangdat", classGhedangdat);
                 console.log("ghedangdattttttttttttt1", dsgheDDs);
-                setSoluongghe(dsgheDDs.length)
+                // setSoluongghe(dsgheDDs.length)
                 setId_ghe(ghes.id)
                 dsgheDDs.map((item) => {
                   let sum = 0;

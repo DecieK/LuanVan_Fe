@@ -32,7 +32,8 @@ export async function Datve(params: {
   soluongghe: number;
   ngaymuave: Date;
   id_KH: number;
-  id_ghe: number;
+  id_ghe: Array<number>
+  id_chieu: number;
   id_suatchieu: number;
   id_rap: number;
   id_cumrap: number;
@@ -227,6 +228,14 @@ export async function LayTTRap_idcumrap(params: { key: any }): Promise<any> {
   const { key } = params;
   const response = await fetch(
     `http://localhost:8080/api/TTRap_idcumrap?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function LayTTve_idchieu(params: { id_chieu: any }): Promise<any> {
+  const { id_chieu } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/TTVe_idchieu?id_chieu=${id_chieu}`
   );
   const data = await response.json();
   return data;
