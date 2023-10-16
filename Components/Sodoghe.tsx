@@ -16,7 +16,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     id: number;
     id_ve: number;
     id_ghe: number;
-    Trangthaighe: number;
+    // Trangthaighe: number;
   }
   interface Ghe {
     id: number;
@@ -129,6 +129,13 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
       id_ghe: 0,
       ma_ghe: "",
       gia: 0
+    },
+  ])
+  const [DSchitietves, setDSchitietves] = useState([
+    {
+      // id: 0,
+      id_ve: 0,
+      id_ghe: 0
     },
   ])
 
@@ -303,8 +310,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
         // console.log(res.length)
         res.map(async (res) => {
           setGiave(res.giave),
-          setId_suatchieu(res.id_suatchieu),
-          setId_chieu(res.id)
+            setId_suatchieu(res.id_suatchieu),
+            setId_chieu(res.id)
           try {
             const params = {
               id_chieu: res.id
@@ -314,10 +321,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
             const resVe: Ve[] = response.ves;
             console.log("check api searchdate ve: ", response);
             setVe(resVe);
-            resVe.map(async (item) => {
+            resVe.map(async (itemve) => {
               try {
                 const params = {
-                  id_ve: item.id
+                  id_ve: itemve.id + 1
                 };
                 console.log("searchdate", params);
                 const response = await LayTTchitietve(params);
@@ -325,8 +332,17 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
                 console.log("check api searchdate chitietve: ", response);
                 console.log("length", res.length);
                 setChitietve(res);
-        
-        
+                res.map((itemctv) => {
+                  let b = DSchitietves.findIndex(DSchitietves => DSchitietves.id_ghe === itemctv.id_ghe)
+                  if (b) {
+                    DSchitietves.push({
+                      id_ve: itemctv.id_ve,
+                      id_ghe: itemctv.id_ghe
+                    })
+                  }
+                })
+
+
               } catch (error) {
                 console.log(error);
               }
@@ -337,7 +353,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
           }
         })
 
-        } catch (error) {
+      } catch (error) {
         console.log(error);
       }
     }
@@ -546,7 +562,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
             </button >
           </>
         },
-          chitietve.map((chitietves) => {
+          // chitietve.map((chitietves) => {
+          //   chitietveArr.push(chitietves.id_ghe)
+          // })
+          DSchitietves.map((chitietves) => {
             chitietveArr.push(chitietves.id_ghe)
           })
         )
