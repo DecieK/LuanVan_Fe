@@ -6,6 +6,10 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 // import Footer from '@/Components/Footer';
 // import D from '@/Components/D';
 
@@ -39,6 +43,7 @@ import MovieIcon from '@mui/icons-material/Movie';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Blog from '@/Components/Blog';
 import { LayTTCumrap } from '@/service/userService';
+import QLCumrap from "@/Components/QuanLy/QLCumrap";
 
 const Quanly = () => {
   interface Cumrap {
@@ -50,6 +55,9 @@ const Quanly = () => {
   const [open, setOpen] = useState(false);
   const [option, setOption] = useState(0);
   const [cumrap, setCumrap] = useState<Cumrap[]>([]);
+  const [tenTTTT, setTenTTTT] = useState('');
+  const [diachi, setDiachi] = useState('');
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -57,6 +65,13 @@ const Quanly = () => {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const handleSuaThongTin = () => {
+    // setTenTTTT()
+  }
+
+
+
   useEffect(() => {
     const handleLayTTCumrap = async () => {
       try {
@@ -95,15 +110,19 @@ const Quanly = () => {
         </Box>
         <TabPanel value="1">
           <div className="flex " >
-            <div className="w-2/12 border-2 border-green-300 uppercase text-xl space-y-5">
-              <ListItemButton>
+            <div className="w-2/12 uppercase text-xl space-y-5 border-r-2">
+              <ListItemButton
+                className={`           
+                ${option == 1 ? 'text-blue-600' : ''} `}>
+
                 <ListItemIcon>
-                  <VideocamIcon />
+                  <LocationOnIcon />
                 </ListItemIcon>
                 <ListItemText onClick={() => setOption(1)} primary="Cụm rap" />
               </ListItemButton>
 
-              <ListItemButton>
+              <ListItemButton className={`           
+                ${option == 2 ? 'text-blue-600' : ''} `}>
                 <ListItemIcon>
                   <VideocamIcon />
                 </ListItemIcon>
@@ -121,13 +140,15 @@ const Quanly = () => {
 
               <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 4 }}
+                    className={`${option == 3 ? 'text-blue-600' : ''} `}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
                     <ListItemText onClick={() => setOption(3)} primary="Phim đang chiếu" />
                   </ListItemButton>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 4 }}
+                    className={`${option == 4 ? 'text-blue-600' : ''} `}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
@@ -135,59 +156,16 @@ const Quanly = () => {
                   </ListItemButton>
                 </List>
               </Collapse>
-              <ListItemButton >
+              <ListItemButton className={`${option == 5 ? 'text-blue-600' : ''} `}> 
                 <ListItemIcon>
                   <CalendarMonthIcon />
                 </ListItemIcon>
                 <ListItemText onClick={() => setOption(5)} primary="Lịch chiếu" />
               </ListItemButton>
             </div>
-            <div className="w-10/12 border-2 border-red-300">
+            <div className="w-10/12 m-5">
               {option == 1 ? (
-                <div>
-                  <div className="p-2">
-                    <div >
-                      <p>Tên trung tâm thương mại</p>
-                      <input placeholder="" className="w-[90%] border-2 border-gray-500 outline-none"
-                      // onChange={(event) => setTenphim(event.target.value)}
-                      ></input>
-                    </div>
-                    <div>
-                      <p>Địa chỉ</p>
-                      <input placeholder="" className="w-[90%] border-2 border-gray-500"
-                      // onChange={(event) => setTenphim(event.target.value)}
-                      ></input>
-                    </div>
-                  </div>
-                  <table className=" border-separate border border-slate-400 w-full  ">
-                    <thead>
-                      <tr>
-                        {/* <th className="border border-slate-300">#</th> */}
-                        <th className="border border-slate-300">#</th>
-                        {/* <th className="border border-slate-300">ID</th> */}
-                        <th className="border border-slate-300">Tên trung tâm thương mại</th>
-                        <th className="border border-slate-300">Địa chỉ</th>
-                        {/* <th className="border border-slate-300">Chẩn đoán</th> */}
-                        {/* <th className="border border-slate-300">Đơn thuốc</th> */}
-                        {/* <th className="border border-slate-300">Kết quả CLS</th> */}
-                        {/* <th className="border border-slate-300">{sdt}</th> */}
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cumrap.map((item) => (
-                        <>
-                          <tr key={item.id}>
-                            {/* <td className="border border-slate-300 text-center">{item.id}</td> */}
-                            <td className="border border-slate-300 pl-5">{item.id}</td>
-                            <td className="border border-slate-300 pl-5">{item.ten_tttt}</td>
-                            <td className="border border-slate-300 pl-5">{item.diachi}</td>
-                          </tr>
-                        </>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <QLCumrap cumrapP={cumrap} />
               ) : ''}
             </div>
           </div>
@@ -195,7 +173,7 @@ const Quanly = () => {
         <TabPanel value="2"><Blog /></TabPanel>
         <TabPanel value="3">Item Three</TabPanel>
       </TabContext>
-    </Box>
+    </Box >
   );
 }
 export default Quanly;

@@ -465,7 +465,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
 
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
-  }, [dsgheDDs, giave, id_phim, id_phimP, id_rap, id_rapP, id_suatchieu, id_ve, ngaychieuP]);
+  }, [DSchitietves, dsgheDDs, giave, id_phim, id_phimP, id_rap, id_rapP, id_suatchieu, id_ve, ngaychieuP]);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);
