@@ -42,8 +42,11 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import MovieIcon from '@mui/icons-material/Movie';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Blog from '@/Components/Blog';
-import { LayTTCumrap } from '@/service/userService';
+import { LayTTCumrap, LayTTGhe, LayTTPhim, LayTTRap_idcumrap } from '@/service/userService';
 import QLCumrap from "@/Components/QuanLy/QLCumrap";
+import QLGhe from "@/Components/QuanLy/QLGhe";
+import QLRap from "@/Components/QuanLy/QLRap";
+import QLPhim from "@/Components/QuanLy/QLPhim";
 
 const Quanly = () => {
   interface Cumrap {
@@ -51,10 +54,43 @@ const Quanly = () => {
     ten_tttt: string;
     diachi: string;
   }
+  interface Ghe {
+    id: number;
+    maGhe: string;
+    loaiGhe: string;
+  }
+  interface Rap {
+    id: number;
+    ten_rap: string;
+    slghe: number;
+    id_cumrap: number;
+  }
+  interface Phim {
+    id: number;
+    tenphim: string;
+    dieukien: number;
+    trailer: string;
+    poster: string;
+    dienvien: string;
+    ngonngu: string;
+    daodien: string;
+    thoiluong: number;
+    ngaychieu: string;
+    quocgia: string;
+    tomtat: string;
+    nsx: string;
+    trangthai: string;
+  }
   const [value, setValue] = useState('1');
-  const [open, setOpen] = useState(false);
+  const [openP, setOpenP] = useState(false);
+  const [openC, setOpenC] = useState(false);
+  const [openL, setOpenL] = useState(false);
+
   const [option, setOption] = useState(0);
   const [cumrap, setCumrap] = useState<Cumrap[]>([]);
+  const [ghe, setGhe] = useState<Ghe[]>([]);
+  const [rap, setRap] = useState<Rap[]>([]);
+  const [phim, setPhim] = useState<Phim[]>([]);
   const [tenTTTT, setTenTTTT] = useState('');
   const [diachi, setDiachi] = useState('');
 
@@ -62,14 +98,16 @@ const Quanly = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-  const handleClick = () => {
-    setOpen(!open);
+
+  const handleClickPhim = () => {
+    setOpenP(!openP);
   };
-
-  const handleSuaThongTin = () => {
-    // setTenTTTT()
-  }
-
+  const handleClickPhongchieu = () => {
+    setOpenC(!openC);
+  };
+  const handleClickLichchieu = () => {
+    setOpenL(!openL);
+  };
 
 
   useEffect(() => {
@@ -90,7 +128,76 @@ const Quanly = () => {
         console.log(error);
       }
     }
+    const handleLayTTGhe = async () => {
+      try {
+        const params = {
+          key: 'ALL',
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTGhe(params);
+        const res: Ghe[] = response.ghes;
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
+        setGhe(res);
+        // console.log(res.length)
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    // const handleLayTTRap = async () => {
+    //   try {
+    //     const params = {
+    //       key: 'ALL',
+    //     };
+    //     // console.log("searchdate", params);
+    //     const response = await LayTTCumrap(params);
+    //     const res: Cumrap[] = response.cumraps;
+    //     // console.log("check api searchdate ghe: ", response);
+    //     // console.log("length", res.length);
+    //     setCumrap(res);
+    //     // console.log(res.length)
+
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    const handleLayTTRap = async () => {
+      try {
+        const params = {
+          key: 'ALL',
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTRap_idcumrap(params);
+        const res: Rap[] = response.raps;
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
+        setRap(res);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const handleLayTTPhim = async () => {
+      try {
+        const params = {
+          key: 'ALL',
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTPhim(params);
+        const res: Phim[] = response.phims;
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
+        setPhim(res);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
     handleLayTTCumrap()
+    handleLayTTGhe()
+    handleLayTTRap()
+    handleLayTTPhim()
   }, [])
 
 
@@ -121,53 +228,122 @@ const Quanly = () => {
                 <ListItemText onClick={() => setOption(1)} primary="Cụm rap" />
               </ListItemButton>
 
-              <ListItemButton className={`           
-                ${option == 2 ? 'text-blue-600' : ''} `}>
+              <ListItemButton
+                onClick={handleClickPhongchieu}>
                 <ListItemIcon>
                   <VideocamIcon />
                 </ListItemIcon>
-                <ListItemText onClick={() => setOption(2)} primary="Phòng chiếu" />
-              </ListItemButton>
-
-              <ListItemButton onClick={handleClick}>
-                <ListItemIcon>
-                  <MovieIcon />
-                </ListItemIcon>
-                <ListItemText primary="Phim" />
-                {open ? <ExpandLess /> : <ExpandMore />}
+                <ListItemText
+                  // onClick={() => setOption(2)}
+                  primary="Phòng chiếu" />
+                {openC ? <ExpandLess /> : <ExpandMore />}
 
               </ListItemButton>
-
-              <Collapse in={open} timeout="auto" unmountOnExit>
+              <Collapse in={openC} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}
+                    className={`${option == 2 ? 'text-blue-600' : ''} `}>
+                    {/* <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon> */}
+                    <ListItemText onClick={() => setOption(2)} primary="Rạp" />
+                  </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
                     className={`${option == 3 ? 'text-blue-600' : ''} `}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(3)} primary="Phim đang chiếu" />
+                    <ListItemText onClick={() => setOption(3)} primary="Ghế" />
                   </ListItemButton>
+                </List>
+              </Collapse>
+              <ListItemButton onClick={handleClickPhim}>
+                <ListItemIcon>
+                  <MovieIcon />
+                </ListItemIcon>
+                <ListItemText primary="Phim" />
+                {openP ? <ExpandLess /> : <ExpandMore />}
+
+              </ListItemButton>
+
+              <Collapse in={openP} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}
                     className={`${option == 4 ? 'text-blue-600' : ''} `}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(4)} primary="Phim sắp chiếu" />
+                    <ListItemText onClick={() => setOption(4)} primary="Loại phim" />
+                  </ListItemButton>
+                  <ListItemButton sx={{ pl: 4 }}
+                    className={`${option == 5 ? 'text-blue-600' : ''} `}>
+                    {/* <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon> */}
+                    <ListItemText onClick={() => setOption(5)} primary="Phim" />
                   </ListItemButton>
                 </List>
               </Collapse>
-              <ListItemButton className={`${option == 5 ? 'text-blue-600' : ''} `}> 
+
+              <ListItemButton
+                onClick={handleClickLichchieu}>
                 <ListItemIcon>
                   <CalendarMonthIcon />
                 </ListItemIcon>
-                <ListItemText onClick={() => setOption(5)} primary="Lịch chiếu" />
+                <ListItemText
+                  // onClick={() => setOption(5)} 
+                  primary="Lịch chiếu" />
+                {openL ? <ExpandLess /> : <ExpandMore />}
+
               </ListItemButton>
+
+              <Collapse in={openL} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}
+                    className={`${option == 6 ? 'text-blue-600' : ''} `}>
+                    {/* <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon> */}
+                    <ListItemText onClick={() => setOption(6)} primary="Suất chiếu" />
+                  </ListItemButton>
+                  <ListItemButton sx={{ pl: 4 }}
+                    className={`${option == 7 ? 'text-blue-600' : ''} `}>
+                    {/* <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon> */}
+                    <ListItemText onClick={() => setOption(7)} primary="Chiếu" />
+                  </ListItemButton>
+                </List>
+              </Collapse>
             </div>
-            <div className="w-10/12 m-5">
-              {option == 1 ? (
+            {option == 1 ? (
+              <div className="w-10/12 m-5">
+
                 <QLCumrap cumrapP={cumrap} />
-              ) : ''}
-            </div>
+
+              </div>
+            ) : null}
+            {option == 2 ? (
+              <div className="w-10/12 m-5">
+
+                <QLRap rapP={rap} cumrapP={cumrap} />
+
+              </div>
+            ) : null}
+            {option == 3 ? (
+              <div className="w-10/12 m-5">
+
+                <QLGhe gheP={ghe} cumrapP={cumrap} />
+
+              </div>
+            ) : null}
+            {option == 5 ? (
+              <div className="w-10/12 m-5">
+
+                <QLPhim phimP={phim} />
+
+              </div>
+            ) : null}
           </div>
         </TabPanel>
         <TabPanel value="2"><Blog /></TabPanel>

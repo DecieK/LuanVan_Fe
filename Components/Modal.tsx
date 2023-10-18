@@ -55,7 +55,6 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
     ten_rap: string;
     slghe: number;
     id_cumrap: number;
-
   }
 
   const [Ngaysinh, setNgaysinh] = useState<any>()
