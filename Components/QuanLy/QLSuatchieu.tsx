@@ -13,86 +13,57 @@ const noto_serif = Noto_Serif({
     // display: 'swap',
 })
 type Props = {
-    cumrapP: any
-    rapP: any
+    suatchieuP: any
 
 };
-const QLRap = ({ cumrapP, rapP }: Props) => {
+const QLSuatchieu = ({suatchieuP }: Props) => {
 
-    interface Ghe {
+    interface Suatchieu {
         id: number;
-        maGhe: string;
-        loaiGhe: string;
-        id_rap: number;
-    }
-    interface Cumrap {
-        id: number;
-        ten_tttt: string;
-        diachi: string;
-    }
-    interface Rap {
-        id: number;
-        ten_rap: string;
-        slghe: number;
-        id_cumrap: number;
-    }
+        giobatdau: string;
+        gioketthuc: string;
+      }
     const [tenTTTT, setTenTTTT] = useState('');
     const [diachi, setDiachi] = useState('');
-    const [cumrap, setCumrap] = useState<Cumrap[]>([]);
-    const [ghe, setGhe] = useState<Ghe[]>([]);
-    const [rap, setRap] = useState<Rap[]>([]);
+    const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
     const [valueCumrap, setValueCumrap] = useState('');
     const [valueRap, setValueRap] = useState('');
-    const [id_cr, setId_cr] = useState(Number);
 
-    const handleLayttRap = (value: string) => {
-        setValueCumrap(value)
-        setValueRap('')
-        cumrap.map(async (item) => {
-            if (value === item.ten_tttt) {
-                setId_cr(item.id)
-                const params = {
-                    key: item.id,
-                };
-                // console.log("searchdate", params);
-                const response = await LayTTRap_idcumrap(params);
-                const res: Rap[] = response.raps;
-                // console.log("check api searchdate ghe: ", response);
-                // console.log("length", res.length);
-                setRap(res);
+    // const handleLayttRap = (value: string) => {
+    //     setValueCumrap(value)
+    //     setValueRap('')
+    //     cumrap.map(async (item) => {
+    //         if (value === item.ten_tttt) {
+    //             setId_cr(item.id)
+    //             const params = {
+    //                 key: item.id,
+    //             };
+    //             // console.log("searchdate", params);
+    //             const response = await LayTTRap_idcumrap(params);
+    //             const res: Rap[] = response.raps;
+    //             // console.log("check api searchdate ghe: ", response);
+    //             // console.log("length", res.length);
+    //             setRap(res);
 
 
-            }
+    //         }
 
-        })
+    //     })
 
-    }
+    // }
 
     useEffect(() => {
-        setCumrap(cumrapP)
-        setRap(rapP)
+        setSuatchieu(suatchieuP)
         // const res: Cumrap[] = cumrapP;
         // console.log("ádasd",res)
 
 
-    }, [cumrapP, rapP])
+    }, [suatchieuP])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
             <div className="space-y-5">
-                <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={cumrap.map((option) => option.ten_tttt)}
-                    value={valueCumrap}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayttRap(newValue) : null }
-
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Trung tâm thương mại" />}
-                />
+               
 
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tên rạp</p>
@@ -113,24 +84,21 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
                 <thead>
                     <tr>
                         <th className="border border-slate-300 text-center">#</th>
-                        <th className="border border-slate-300 text-center">Tên rạp</th>
-                        <th className="border border-slate-300 text-center">Số lượng ghế</th>
-                        <th className="border border-slate-300 text-center">Tên cụm rạp</th>
-                        {/* <th className="border border-slate-300 text-center">Rạp</th> */}
-                        <th className="border border-slate-300 text-center">Tác vụ</th>
+                        <th className="border border-slate-300 text-center">Giờ bắt đâu</th>
+                        <th className="border border-slate-300 text-center">Giờ kết thúc</th>
+
 
 
 
                     </tr>
                 </thead>
                 <tbody>
-                    {rap.map((item) => (
+                    {suatchieu.map((item) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>
-                                <td className="border border-slate-300 text-center">{item.ten_rap}</td>
-                                <td className="border border-slate-300 text-center">{item.slghe}</td>
-                                <td className="border border-slate-300 text-center">{valueCumrap ? valueCumrap : item.id_cumrap}</td>
+                                <td className="border border-slate-300 text-center">{item.giobatdau}</td>
+                                <td className="border border-slate-300 text-center">{item.gioketthuc}</td>
                                 {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
 
                                 <td className="border border-slate-300 text-center">
@@ -147,4 +115,4 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
     );
 };
 
-export default QLRap;
+export default QLSuatchieu;

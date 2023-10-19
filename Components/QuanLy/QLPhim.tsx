@@ -18,28 +18,16 @@ const noto_serif = Noto_Serif({
 })
 type Props = {
     phimP: any
+    loaiphimP: any
 
 };
-const QLPhim = ({phimP}: Props) => {
+const QLPhim = ({ phimP, loaiphimP }: Props) => {
 
-    interface Ghe {
+    interface Loaiphim {
         id: number;
-        maGhe: string;
-        loaiGhe: string;
-        id_rap: number;
+        tenloai: string;
     }
-    interface Cumrap {
-        id: number;
-        ten_tttt: string;
-        diachi: string;
-    }
-    interface Rap {
-        id: number;
-        ten_rap: string;
-        slghe: number;
-        id_cumrap: number;
-      }
-      interface Phim {
+    interface Phim {
         id: number;
         tenphim: string;
         dieukien: number;
@@ -57,63 +45,57 @@ const QLPhim = ({phimP}: Props) => {
     }
     const [tenTTTT, setTenTTTT] = useState('');
     const [diachi, setDiachi] = useState('');
-    const [cumrap, setCumrap] = useState<Cumrap[]>([]);
-    const [ghe, setGhe] = useState<Ghe[]>([]);
-    const [rap, setRap] = useState<Rap[]>([]);
+    const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
-    const [valueCumrap, setValueCumrap] = useState('');
-    const [valueRap, setValueRap] = useState('');
-    const [id_cr, setId_cr] = useState(Number);
+    const [valueloaiphim, setValueloaiphim] = useState('');
 
-    const handleLayttRap = (value: string) => {
-        setValueCumrap(value)
-        setValueRap('')
-        cumrap.map(async (item) => {
-            if (value === item.ten_tttt) {
-                setId_cr(item.id)
-                const params = {
-                    key: item.id,
-                };
-                // console.log("searchdate", params);
-                const response = await LayTTRap_idcumrap(params);
-                const res: Rap[] = response.raps;
-                // console.log("check api searchdate ghe: ", response);
-                // console.log("length", res.length);
-                setRap(res);
+    // const handleLayttRap = (value: string) => {
+    //     setValueCumrap(value)
+    //     setValueRap('')
+    //     cumrap.map(async (item) => {
+    //         if (value === item.ten_tttt) {
+    //             setId_cr(item.id)
+    //             const params = {
+    //                 key: item.id,
+    //             };
+    //             // console.log("searchdate", params);
+    //             const response = await LayTTRap_idcumrap(params);
+    //             const res: Rap[] = response.raps;
+    //             // console.log("check api searchdate ghe: ", response);
+    //             // console.log("length", res.length);
+    //             setRap(res);
 
 
-            }
+    //         }
 
-        })
+    //     })
 
-    }
+    // }
 
     useEffect(() => {
         setPhim(phimP)
-        // const res: Cumrap[] = cumrapP;
-        // console.log("ádasd",res)
+        setLoaiphim(loaiphimP)
 
-
-    }, [phimP])
+    }, [loaiphimP, phimP])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
             <div className="space-y-5">
                 <Autocomplete
-                    value={valueCumrap}
+                    value={valueloaiphim}
                     disablePortal
                     id="combo-box-demo"
-                    options={cumrap.map((option) => option.ten_tttt)}
+                    options={loaiphim.map((option) => option.tenloai)}
                     // options={}
                     onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayttRap(newValue) : null }
+                        { newValue ? setValueloaiphim(newValue) : null }
+                        // { newValue ? handleLayttRap(newValue) : null }
 
                     }}
                     sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Trung tâm thương mại" />}
+                    renderInput={(params) => <TextField {...params} label="Loại phim" />}
                 />
-               
+
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tên rạp</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
@@ -129,40 +111,61 @@ const QLPhim = ({phimP}: Props) => {
                 <div className=" w-8/12 ">
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40">Lưu thông tin</button></div>
             </div>
-            <table className=" border-separate  border border-slate-400 w-full  ">
-                <thead>
-                    <tr>
-                        <th className="border border-slate-300 text-center">#</th>
-                        <th className="border border-slate-300 text-center">Tên phim</th>
-                        <th className="border border-slate-300 text-center">Đạo diễn</th>
-                        <th className="border border-slate-300 text-center">Diễn viên</th>
-                        {/* <th className="border border-slate-300 text-center">Rạp</th> */}
-                        <th className="border border-slate-300 text-center">Tác vụ</th>
+            <div className="w-full overflow-x-auto">
+                <table className=" border-separate  border border-slate-400 w-[1500px] ">
+                    <thead>
+                        <tr>
+                            <th className="border border-slate-300 text-center ">#</th>
+                            <th className="border border-slate-300 text-center">Tên phim</th>
+                            <th className="border border-slate-300 text-center">Đạo diễn</th>
+                            <th className="border border-slate-300 text-center">Diễn viên</th>
+                            <th className="border border-slate-300 text-center">Nhà sản xuất</th>
+                            <th className="border border-slate-300 text-center">Ngôn ngữ</th>
+                            <th className="border border-slate-300 text-center">Ngày chiếu</th>
+                            <th className="border border-slate-300 text-center">Tóm tắt</th>
+                            <th className="border border-slate-300 text-center">Thời lượng</th>
+                            <th className="border border-slate-300 text-center">Poster</th>
+                            <th className="border border-slate-300 text-center">Trailer</th>
+                            <th className="border border-slate-300 text-center">Trạng thái phim</th>
+                            <th className="border border-slate-300 text-center">Giới hạn tuổi</th>
+                            <th className="border border-slate-300 text-center">Quốc gia</th>
+                            <th className="border border-slate-300 text-center">Tác vụ</th>
 
 
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {phim.map((item) => (
-                        <>
-                            <tr key={item.id}>
-                                <td className="border border-slate-300 text-center">{item.id}</td>
-                                <td className="border border-slate-300 text-center">{item.tenphim}</td>
-                                <td className="border border-slate-300 text-center">{item.daodien}</td>
-                                <td className="border border-slate-300 text-center">{item.dienvien}</td>
-                                {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {phim.map((item) => (
+                            <>
+                                <tr key={item.id}>
+                                    <td className="border border-slate-300 text-center">{item.id}</td>
+                                    <td className="border border-slate-300 text-center">{item.tenphim}</td>
+                                    <td className="border border-slate-300 text-center">{item.daodien}</td>
+                                    <td className="border border-slate-300 text-center">{item.dienvien}</td>
+                                    <td className="border border-slate-300 text-center">{item.nsx}</td>
+                                    <td className="border border-slate-300 text-center">{item.ngonngu}</td>
+                                    <td className="border border-slate-300 text-center">{item.ngaychieu}</td>
+                                    <td className="border border-slate-300 text-center">{item.tomtat}</td>
+                                    <td className="border border-slate-300 text-center">{item.thoiluong}</td>
+                                    <td className="border border-slate-300 text-center">{}</td>
+                                    <td className="border border-slate-300 text-center">{item.trailer}</td>
+                                    <td className="border border-slate-300 text-center">{item.trangthai}</td>
+                                    <td className="border border-slate-300 text-center">{item.dieukien}</td>
+                                    <td className="border border-slate-300 text-center">{item.quocgia}</td>
+                                    {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
 
-                                <td className="border border-slate-300 text-center">
-                                    <EditIcon className="cursor-pointer" />
-                                    <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} />
-                                </td>
+                                    <td className="border border-slate-300 text-center">
+                                        <EditIcon className="cursor-pointer" />
+                                        <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} />
+                                    </td>
 
-                            </tr>
-                        </>
-                    ))}
-                </tbody>
-            </table>
+                                </tr>
+                            </>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

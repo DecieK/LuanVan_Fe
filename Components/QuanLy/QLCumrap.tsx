@@ -30,14 +30,6 @@ const QLCumrap = ({ cumrapP }: Props) => {
 
     const router = useRouter();
 
-    const handleZaloLogin = () => {
-        router.push("/zalo-login");
-    };
-
-    const handleLogin = () => {
-        router.push("/login");
-
-    };
 
     useEffect(() => {
         setCumrap(cumrapP)

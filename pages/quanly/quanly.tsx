@@ -7,8 +7,8 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import EditIcon from '@mui/icons-material/Edit';
-import ClearIcon from '@mui/icons-material/Clear';
+// import EditIcon from '@mui/icons-material/Edit';
+// import ClearIcon from '@mui/icons-material/Clear';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 // import Footer from '@/Components/Footer';
 // import D from '@/Components/D';
@@ -42,11 +42,15 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import MovieIcon from '@mui/icons-material/Movie';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Blog from '@/Components/Blog';
-import { LayTTCumrap, LayTTGhe, LayTTPhim, LayTTRap_idcumrap } from '@/service/userService';
+import { LayTTCumrap, LayTTGhe, LayTTLoaiphim, LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu } from '@/service/userService';
 import QLCumrap from "@/Components/QuanLy/QLCumrap";
 import QLGhe from "@/Components/QuanLy/QLGhe";
 import QLRap from "@/Components/QuanLy/QLRap";
 import QLPhim from "@/Components/QuanLy/QLPhim";
+import QLLoaiphim from "@/Components/QuanLy/QLLoaiphim";
+import QLSuatchieu from "@/Components/QuanLy/QLSuatchieu";
+import QLChieu from "@/Components/QuanLy/QLChieu";
+
 
 const Quanly = () => {
   interface Cumrap {
@@ -81,6 +85,17 @@ const Quanly = () => {
     nsx: string;
     trangthai: string;
   }
+  interface Loaiphim {
+    id: number;
+    tenloai: string;
+
+  }
+  interface Suatchieu {
+    id: number;
+    giobatdau: string;
+    gioketthuc: string;
+  }
+
   const [value, setValue] = useState('1');
   const [openP, setOpenP] = useState(false);
   const [openC, setOpenC] = useState(false);
@@ -91,6 +106,10 @@ const Quanly = () => {
   const [ghe, setGhe] = useState<Ghe[]>([]);
   const [rap, setRap] = useState<Rap[]>([]);
   const [phim, setPhim] = useState<Phim[]>([]);
+  const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
+  const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
+
+
   const [tenTTTT, setTenTTTT] = useState('');
   const [diachi, setDiachi] = useState('');
 
@@ -145,23 +164,23 @@ const Quanly = () => {
         console.log(error);
       }
     }
-    // const handleLayTTRap = async () => {
-    //   try {
-    //     const params = {
-    //       key: 'ALL',
-    //     };
-    //     // console.log("searchdate", params);
-    //     const response = await LayTTCumrap(params);
-    //     const res: Cumrap[] = response.cumraps;
-    //     // console.log("check api searchdate ghe: ", response);
-    //     // console.log("length", res.length);
-    //     setCumrap(res);
-    //     // console.log(res.length)
+    const handleLayTTLoaiphim = async () => {
+      try {
+        const params = {
+          id: 'ALL',
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTLoaiphim(params);
+        const res: Loaiphim[] = response.loaiphims;
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
+        setLoaiphim(res);
+        // console.log(res.length)
 
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     const handleLayTTRap = async () => {
       try {
         const params = {
@@ -194,10 +213,29 @@ const Quanly = () => {
         console.log(error);
       }
     }
+    const handleLayTTSuatchieu = async () => {
+      try {
+        const params = {
+          key: 'ALL',
+        };
+        // console.log("searchdate", params);
+        const response = await LayTTSuatchieu(params);
+        const res: Suatchieu[] = response.suatchieus;
+        // console.log("check api searchdate ghe: ", response);
+        // console.log("length", res.length);
+        setSuatchieu(res);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     handleLayTTCumrap()
     handleLayTTGhe()
     handleLayTTRap()
     handleLayTTPhim()
+    handleLayTTLoaiphim()
+    handleLayTTSuatchieu()
   }, [])
 
 
@@ -337,10 +375,30 @@ const Quanly = () => {
 
               </div>
             ) : null}
+            {option == 4 ? (
+              <div className="w-10/12 m-5">
+                <QLLoaiphim loaiphimP={loaiphim} />
+
+              </div>
+            ) : null}
             {option == 5 ? (
               <div className="w-10/12 m-5">
 
-                <QLPhim phimP={phim} />
+                <QLPhim phimP={phim} loaiphimP={loaiphim} />
+
+              </div>
+            ) : null}
+            {option == 6 ? (
+              <div className="w-10/12 m-5">
+
+                <QLSuatchieu suatchieuP={suatchieu} />
+
+              </div>
+            ) : null}
+            {option == 7 ? (
+              <div className="w-10/12 m-5">
+
+                <QLChieu suatchieuP={suatchieu} rapP={rap} phimP={phim} />
 
               </div>
             ) : null}
