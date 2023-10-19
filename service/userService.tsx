@@ -249,3 +249,66 @@ export async function LayTTLoaiphim(params: { id: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+export async function ThemTTCumrap(params: {  
+  tentttt: string,
+  diachi: string,
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTCumrap`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function SuaTTCumrap(params: {  
+  id: number,
+  tentttt: string,
+  diachi: string,
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTCumrap`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTCumrap(params: {  
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTCumrap`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+
+
+// const XoaTTCumrap = (Id: number) => {
+//   return axios.delete("/api/XoaTTCumrap", {
+//     data: {
+//       id: Id,
+//     },
+//   });
+// };
