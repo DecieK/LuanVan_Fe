@@ -258,12 +258,13 @@ const Quanly = () => {
             <div className="w-2/12 uppercase text-xl space-y-5 border-r-2">
               <ListItemButton
                 className={`           
-                ${option == 1 ? 'text-blue-600' : ''} `}>
+                ${option == 1 ? 'text-blue-600' : ''} `}
+                onClick={() => setOption(1)}>
 
                 <ListItemIcon>
                   <LocationOnIcon />
                 </ListItemIcon>
-                <ListItemText onClick={() => setOption(1)} primary="Cụm rap" />
+                <ListItemText  primary="Cụm rap" />
               </ListItemButton>
 
               <ListItemButton
@@ -280,18 +281,20 @@ const Quanly = () => {
               <Collapse in={openC} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}
-                    className={`${option == 2 ? 'text-blue-600' : ''} `}>
+                    className={`${option == 2 ? 'text-blue-600' : ''} `}
+                    onClick={() => setOption(2)}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(2)} primary="Rạp" />
+                    <ListItemText  primary="Rạp" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
-                    className={`${option == 3 ? 'text-blue-600' : ''} `}>
+                    className={`${option == 3 ? 'text-blue-600' : ''} `}
+                    onClick={() => setOption(3)} >
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(3)} primary="Ghế" />
+                    <ListItemText primary="Ghế" />
                   </ListItemButton>
                 </List>
               </Collapse>
@@ -307,18 +310,20 @@ const Quanly = () => {
               <Collapse in={openP} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}
-                    className={`${option == 4 ? 'text-blue-600' : ''} `}>
+                    className={`${option == 4 ? 'text-blue-600' : ''} `}
+                    onClick={() => setOption(4)}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(4)} primary="Loại phim" />
+                    <ListItemText  primary="Loại phim" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
-                    className={`${option == 5 ? 'text-blue-600' : ''} `}>
+                    className={`${option == 5 ? 'text-blue-600' : ''} `}
+                    onClick={() => setOption(5)}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(5)} primary="Phim" />
+                    <ListItemText  primary="Phim" />
                   </ListItemButton>
                 </List>
               </Collapse>
@@ -338,18 +343,20 @@ const Quanly = () => {
               <Collapse in={openL} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}
-                    className={`${option == 6 ? 'text-blue-600' : ''} `}>
+                    className={`${option == 6 ? 'text-blue-600' : ''} `}
+                    onClick={() => setOption(6)}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(6)} primary="Suất chiếu" />
+                    <ListItemText  primary="Suất chiếu" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
-                    className={`${option == 7 ? 'text-blue-600' : ''} `}>
+                    className={`${option == 7 ? 'text-blue-600' : ''} `}
+                    onClick={() => setOption(7)}>
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText onClick={() => setOption(7)} primary="Chiếu" />
+                    <ListItemText  primary="Chiếu" />
                   </ListItemButton>
                 </List>
               </Collapse>

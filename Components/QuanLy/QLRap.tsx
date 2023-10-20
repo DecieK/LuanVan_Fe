@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
-import { LayTTRap_idcumrap } from "@/service/userService";
+import { LayTTRap_idcumrap, SuaTTRap, ThemTTRap, XoaTTRap } from "@/service/userService";
 
 
 const noto_serif = Noto_Serif({
@@ -36,14 +36,16 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
         slghe: number;
         id_cumrap: number;
     }
-    const [tenTTTT, setTenTTTT] = useState('');
-    const [diachi, setDiachi] = useState('');
+    const [tenrap, setTenrap] = useState('');
+    const [slg, setSlg] = useState('');
     const [cumrap, setCumrap] = useState<Cumrap[]>([]);
     const [ghe, setGhe] = useState<Ghe[]>([]);
     const [rap, setRap] = useState<Rap[]>([]);
     const [valueCumrap, setValueCumrap] = useState('');
     const [valueRap, setValueRap] = useState('');
+    const [id_rap, setId_rap] = useState(Number);
     const [id_cr, setId_cr] = useState(Number);
+
 
     const handleLayttRap = (value: string) => {
         setValueCumrap(value)
@@ -66,6 +68,88 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
 
         })
 
+    }
+    const handleThemTTRap = async () => {
+        console.log("tenTTTT", tenrap)
+        console.log("diachi", slg)
+        console.log("diachi", id_cr)
+
+        let res = await ThemTTRap(
+            {
+                id_cr: id_cr,
+                tenrap: tenrap,
+                slg: Number(slg)
+            });
+        if (res && res.errCode === 0) {
+            console.log(res)
+
+            setSlg('')
+            setTenrap('')
+            // setId_cr()
+            handleLayttRap(valueCumrap)
+            alert("Thêm thông tin rạp mới thành thông")
+
+            // handleCloseClick();
+        } else {
+
+            console.log(res)
+            alert("Thêm thông tin rạp mới KHÔNG thành thông")
+
+        };
+    }
+
+    const handleCapnhatTTRap = async () => {
+
+        let res = await SuaTTRap(
+            {
+                id: id_rap,
+                id_cr: id_cr,
+                tenrap: tenrap,
+                slg: Number(slg)
+            });
+        if (res && res.errCode === 0) {
+
+            setSlg('')
+            setTenrap('')
+            // setId_cr()
+            handleLayttRap(valueCumrap)
+            alert("Cập nhật thông tin rạp thành thông")
+
+            // handleCloseClick();
+        } else {
+
+            console.log(res)
+            alert("Cập nhật thông tin rạp KHÔNG thành thông")
+
+        };
+    }
+
+    const handleXoaTTRap = async (id: number) => {
+        let res = await XoaTTRap(
+            {
+                id: id
+            });
+        if (res && res.errCode === 0) {
+
+            // console.log(res)
+            setSlg('')
+            setTenrap('')
+            // setId_cr()
+            handleLayttRap(valueCumrap)
+            alert("Xóa thông tin rạp thành thông")
+
+            // handleCloseClick();
+        } else {
+
+            console.log(res)
+            alert("Xóa thông tin rạp KHÔNG thành thông")
+
+        };
+    }
+    const handleSuaTTRap = async (ten: string, slg: number, id: number) => {
+        setTenrap(ten)
+        setId_rap(id)
+        setSlg(slg.toString())
     }
 
     useEffect(() => {
@@ -97,17 +181,26 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tên rạp</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setTenTTTT(event.target.value)}
+                        onChange={(event) => setTenrap(event.target.value)}
+                        value={tenrap}
                     ></input>
                 </div>
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Số lượng ghế</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setDiachi(event.target.value)}
+                        onChange={(event) => setSlg(event.target.value)}
+                        value={slg}
                     ></input>
                 </div>
                 <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40">Lưu thông tin</button></div>
+                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                    onClick={()=>handleCapnhatTTRap()}
+                    >Cập nhật thông tin</button>
+
+                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                        onClick={() => handleThemTTRap()}
+                    >Lưu thông tin</button>
+                </div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>
@@ -134,8 +227,11 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
                                 {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
 
                                 <td className="border border-slate-300 text-center">
-                                    <EditIcon className="cursor-pointer" />
-                                    <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} />
+                                    <EditIcon className="cursor-pointer"
+                                     onClick={() => handleSuaTTRap(item.ten_rap, item.slghe, item.id)} />
+                                    <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} 
+                                    onClick={() => handleXoaTTRap(item.id)} 
+                                    />
                                 </td>
 
                             </tr>
