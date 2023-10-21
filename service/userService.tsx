@@ -417,3 +417,56 @@ export async function XoaTTGhe(params: {
     return data;
   }
   
+
+
+  export async function ThemTTLoaiphim(params: {  
+    tenloai: string
+  }): Promise<any> {
+    const response = await fetch(
+      `http://localhost:8080/api/ThemTTLoaiphim`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      }
+    );
+    const data = await response.json();
+    return data;
+  }
+  export async function SuaTTLoaiphim(params: {  
+    id: number,
+    tenloai: string
+   
+  }): Promise<any> {
+    const response = await fetch(
+      `http://localhost:8080/api/SuaTTLoaiphim`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      }
+    );
+    const data = await response.json();
+    return data;
+  }
+  
+  export async function XoaTTLoaiphim(params: {  
+    id: number
+    }): Promise<any> {
+      const response = await fetch(
+        `http://localhost:8080/api/XoaTTLoaiphim`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(params),
+        }
+      );
+      const data = await response.json();
+      return data;
+    }
