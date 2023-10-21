@@ -360,3 +360,60 @@ id: number
   const data = await response.json();
   return data;
 }
+
+
+export async function ThemTTGhe(params: {  
+  idr: number,
+  maghe: string,
+  loaighe: string
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTGhe`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+export async function SuaTTGhe(params: {  
+  id: number,
+  idr: number,
+  maghe: string,
+  loaighe: string
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTGhe`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTGhe(params: {  
+  id: number
+  }): Promise<any> {
+    const response = await fetch(
+      `http://localhost:8080/api/XoaTTGhe`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      }
+    );
+    const data = await response.json();
+    return data;
+  }
+  
