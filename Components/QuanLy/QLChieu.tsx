@@ -4,7 +4,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
-import { LayTTRap_idcumrap } from "@/service/userService";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { LayTTRap_idcumrap, SuaTTChieu, ThemTTChieu, XoaTTChieu, layTTChieu } from "@/service/userService";
 
 
 const noto_serif = Noto_Serif({
@@ -15,11 +17,11 @@ const noto_serif = Noto_Serif({
 type Props = {
     suatchieuP: any,
     rapP: any,
-    phimP: any
-
+    phimP: any,
+    chieuP: any
 
 };
-const QLChieu = ({ suatchieuP, rapP, phimP }: Props) => {
+const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
     interface Chieu {
         id: number;
         ngaychieu: string;
@@ -55,8 +57,8 @@ const QLChieu = ({ suatchieuP, rapP, phimP }: Props) => {
         nsx: string;
         trangthai: string;
     }
-    const [tenTTTT, setTenTTTT] = useState('');
-    const [diachi, setDiachi] = useState('');
+    const [ngaychieu, setNgaychieu] = useState(new Date());
+    const [giave, setGiave] = useState('');
     const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
     const [rap, setRap] = useState<Rap[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
@@ -65,49 +67,199 @@ const QLChieu = ({ suatchieuP, rapP, phimP }: Props) => {
     const [valuePhim, setValuePhim] = useState('');
     const [valueRap, setValueRap] = useState('');
     const [valueSuatchieu, setValueSuatchieu] = useState('');
-
-    // const handleLayttRap = (value: string) => {
-    //     setValueCumrap(value)
-    //     setValueRap('')
-    //     cumrap.map(async (item) => {
-    //         if (value === item.ten_tttt) {
-    //             setId_cr(item.id)
-    //             const params = {
-    //                 key: item.id,
-    //             };
-    //             // console.log("searchdate", params);
-    //             const response = await LayTTRap_idcumrap(params);
-    //             const res: Rap[] = response.raps;
-    //             // console.log("check api searchdate ghe: ", response);
-    //             // console.log("length", res.length);
-    //             setRap(res);
+    const [id_p, setId_p] = useState(Number);
+    const [id_r, setId_r] = useState(Number);
+    const [id_sc, setId_sc] = useState(Number);
+    const [id_c, setId_c] = useState(Number);
+    const [startDate, setStartDate] = useState(new Date());
 
 
-    //         }
+    const handleLayTTChieu = async () => {
+        try {
+            const params = {
+                ngaychieu: 'ALL',
+                id_phim: 'ALL',
+                id_rap: 'ALL'
 
-    //     })
+            };
+            // console.log("searchdate", params);
+            const response = await layTTChieu(params);
+            const res: Chieu[] = response.ttchieu;
+            console.log("check api searchdate chieu: ", response);
+            // console.log("length", res.length);
+            setChieu(res);
+            // console.log(res.length)
 
-    // }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleLayTTPhim = (value: string) => {
+        setValuePhim(value)
+        // setValueRap('')
+        phim.map(async (item) => {
+            if (value === item.tenphim) {
+                setId_p(item.id)
+            }
+        })
+    }
+    const handleLayTTRap = (value: string) => {
+        setValueRap(value)
+        // setValueRap('')
+        rap.map(async (item) => {
+            if (value === item.ten_rap) {
+                setId_r(item.id)
+            }
+        })
+    }
+    const handleLayTTSuatchieu = (value: string) => {
+        setValueSuatchieu(value)
+        // setValueRap('')
+        suatchieu.map(async (item) => {
+            if (value === (item.giobatdau + ' - ' + item.gioketthuc)) {
+                setId_sc(item.id)
+            }
+        })
+    }
+
+    const handleThemTTChieu = async () => {
+        console.log("ngaychieu", ngaychieu)
+        console.log("giave", giave)
+        console.log("id_r", id_r)
+        console.log("id_p", id_p)
+        console.log("id_sc", id_sc)
+
+        let res = await ThemTTChieu(
+            {
+                ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
+                giave: Number(giave),
+                idr: id_r,
+                idp: id_p,
+                idsc: id_sc
+            });
+        if (res && res.errCode === 0) {
+            console.log(res)
+
+            setNgaychieu(new Date())
+            setGiave('')
+            // setId_cr()
+            handleLayTTChieu()
+            alert("Thêm thông tin chiếu mới thành thông")
+
+            // handleCloseClick();
+        } else {
+
+            console.log(res)
+            alert("Thêm thông tin chiếu mới KHÔNG thành thông")
+
+        };
+    }
+
+    const handleCapnhatTTChieu = async () => {
+        console.log("ngaychieu", ngaychieu)
+        console.log("giave", giave)
+        console.log("id_r", id_r)
+        console.log("id_p", id_p)
+        console.log("id_sc", id_sc)
+        let res = await SuaTTChieu(
+            {
+                ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
+                giave: Number(giave),
+                idr: id_r,
+                idp: id_p,
+                idsc: id_sc,
+                id: id_c
+            });
+        if (res && res.errCode === 0) {
+
+            console.log(res)
+
+            setNgaychieu(new Date())
+            setGiave('')
+            // setId_cr()
+            handleLayTTChieu()
+            alert("Cập nhật thông tin chiếu mới thành thông")
+
+
+            // handleCloseClick();
+        } else {
+
+            console.log(res)
+            alert("Cập nhật thông tin chiếu KHÔNG thành thông")
+
+        };
+    }
+
+    const handleXoaTTChieu = async (id: number) => {
+        let res = await XoaTTChieu(
+            {
+                id: id
+            });
+        if (res && res.errCode === 0) {
+
+            console.log(res)
+
+            setNgaychieu(new Date())
+            setGiave('')
+            // setId_cr()
+            handleLayTTChieu()
+            alert("Xóa thông tin chiếu mới thành thông")
+        } else {
+
+            console.log(res)
+            alert("Xóa thông tin chiếu KHÔNG thành thông")
+
+        };
+    }
+    const handleSuaTTChieu = async (ngay: string, gv: number, id: number, idp: number, idr: number, idsc: number) => {
+        let date1 = new Date(ngay)
+        setId_c(id)
+
+        setNgaychieu(date1)
+        setGiave(gv.toString())
+        phim.map((item) => {
+            if (idp === item.id) {
+                setValuePhim(item.tenphim)
+                setId_p(item.id)
+            }
+        })
+        rap.map((item) => {
+            if (idr === item.id) {
+                setValueRap(item.ten_rap)
+                setId_r(item.id)
+            }
+        })
+        suatchieu.map((item) => {
+            if (idsc === item.id) {
+                setId_sc(item.id)
+                setValueSuatchieu(item.giobatdau + ' - ' + item.gioketthuc)
+            }
+        })
+    }
+
+
 
     useEffect(() => {
         setSuatchieu(suatchieuP)
         setPhim(phimP)
         setRap(rapP)
+        setChieu(chieuP)
 
-    }, [phimP, rapP, suatchieuP])
-    //chọn TTTT, chọn rạp => lưu tt ghế
+    }, [chieuP, phimP, rapP, suatchieuP])
     return (
         <div>
             <div className="space-y-5">
-            <Autocomplete
-                    value={valueRap}
+                <Autocomplete
+                    value={valuePhim}
                     disablePortal
                     id="combo-box-demo"
                     options={phim.map((option) => option.tenphim)}
                     // options={}
                     onChange={(event: any, newValue: string | null) => {
                         // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? setValuePhim(newValue) : null }
+                        { newValue ? handleLayTTPhim(newValue) : null }
 
                     }}
                     sx={{ width: 300 }}
@@ -121,21 +273,21 @@ const QLChieu = ({ suatchieuP, rapP, phimP }: Props) => {
                     // options={}
                     onChange={(event: any, newValue: string | null) => {
                         // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? setValueRap(newValue) : null }
+                        { newValue ? handleLayTTRap(newValue) : null }
 
                     }}
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Rạp" />}
                 />
                 <Autocomplete
-                    value={valueRap}
+                    value={valueSuatchieu}
                     disablePortal
                     id="combo-box-demo"
-                    options={suatchieu.map((option) => option.giobatdau)}
+                    options={suatchieu.map((option) => (option.giobatdau + " - " + option.gioketthuc))}
                     // options={}
                     onChange={(event: any, newValue: string | null) => {
                         // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? setValueSuatchieu(newValue) : null }
+                        { newValue ? handleLayTTSuatchieu(newValue) : null }
 
                     }}
                     sx={{ width: 300 }}
@@ -144,18 +296,35 @@ const QLChieu = ({ suatchieuP, rapP, phimP }: Props) => {
 
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Ngày chiếu</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setTenTTTT(event.target.value)}
-                    ></input>
+                    <DatePicker
+                        className=""
+                        // type="datetime"
+                        selected={ngaychieu}
+                        // onChange={handlSearchLichkham}
+                        // onChange={(date: Date) => handleLayTTChieu(date)}
+                        onChange={(date: Date) => setNgaychieu(date)}
+                        // onChange={(date: Date) => handlSearchDate((date))}
+                        dateFormat="dd/MM/yyyy"
+                    />
+                    {/* <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                        onChange={(event) => setNgaychieu(event.target.value)}
+                    ></input> */}
                 </div>
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Giá vé</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setDiachi(event.target.value)}
+                       value={giave}
+                       onChange={(event) => setGiave(event.target.value)}
                     ></input>
                 </div>
                 <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40">Lưu thông tin</button></div>
+                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                        onClick={() => handleCapnhatTTChieu()}
+                    >Cập nhật thông tin</button>
+                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                        onClick={() => handleThemTTChieu()}
+                    >Lưu thông tin</button>
+                </div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>
@@ -178,11 +347,17 @@ const QLChieu = ({ suatchieuP, rapP, phimP }: Props) => {
                                 <td className="border border-slate-300 text-center">{item.id_suatchieu}</td>
                                 <td className="border border-slate-300 text-center">{item.ngaychieu}</td>
                                 <td className="border border-slate-300 text-center">{item.giave}</td>
-                                {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
+                                {/* <td className="border border-slate-300 text-center">{item.giave }</td> */}
 
                                 <td className="border border-slate-300 text-center">
-                                    <EditIcon className="cursor-pointer" />
-                                    <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} />
+                                    <EditIcon className="cursor-pointer"
+                                        onClick={() => handleSuaTTChieu(item.ngaychieu, item.giave, item.id, item.id_phim, item.id_rap, item.id_suatchieu)}
+
+                                    />
+                                    <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
+                                        onClick={() => handleXoaTTChieu(item.id)}
+
+                                    />
                                 </td>
 
                             </tr>

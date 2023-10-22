@@ -91,9 +91,9 @@ export async function LayTTGhe_idrap(params: { id_rap: any }): Promise<any> {
 
 
 export async function layTTChieu(params: {
-  ngaychieu: string;
-  id_phim: number;
-  id_rap: number;
+  ngaychieu: any;
+  id_phim: any;
+  id_rap: any;
 
 
 }): Promise<any> {
@@ -250,7 +250,7 @@ export async function LayTTLoaiphim(params: { id: any }): Promise<any> {
   return data;
 }
 
-export async function ThemTTCumrap(params: {  
+export async function ThemTTCumrap(params: {
   tentttt: string,
   diachi: string,
 }): Promise<any> {
@@ -268,7 +268,7 @@ export async function ThemTTCumrap(params: {
   return data;
 }
 
-export async function SuaTTCumrap(params: {  
+export async function SuaTTCumrap(params: {
   id: number,
   tentttt: string,
   diachi: string,
@@ -287,8 +287,8 @@ export async function SuaTTCumrap(params: {
   return data;
 }
 
-export async function XoaTTCumrap(params: {  
-id: number
+export async function XoaTTCumrap(params: {
+  id: number
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/XoaTTCumrap`,
@@ -306,7 +306,7 @@ id: number
 
 
 
-export async function ThemTTRap(params: {  
+export async function ThemTTRap(params: {
   id_cr: number,
   tenrap: string,
   slg: number
@@ -324,7 +324,7 @@ export async function ThemTTRap(params: {
   const data = await response.json();
   return data;
 }
-export async function SuaTTRap(params: {  
+export async function SuaTTRap(params: {
   id: number,
   id_cr: number,
   tenrap: string,
@@ -344,8 +344,8 @@ export async function SuaTTRap(params: {
   return data;
 }
 
-export async function XoaTTRap(params: {  
-id: number
+export async function XoaTTRap(params: {
+  id: number
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/XoaTTRap`,
@@ -362,7 +362,7 @@ id: number
 }
 
 
-export async function ThemTTGhe(params: {  
+export async function ThemTTGhe(params: {
   idr: number,
   maghe: string,
   loaighe: string
@@ -380,7 +380,7 @@ export async function ThemTTGhe(params: {
   const data = await response.json();
   return data;
 }
-export async function SuaTTGhe(params: {  
+export async function SuaTTGhe(params: {
   id: number,
   idr: number,
   maghe: string,
@@ -400,130 +400,190 @@ export async function SuaTTGhe(params: {
   return data;
 }
 
-export async function XoaTTGhe(params: {  
+export async function XoaTTGhe(params: {
   id: number
-  }): Promise<any> {
-    const response = await fetch(
-      `http://localhost:8080/api/XoaTTGhe`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      }
-    );
-    const data = await response.json();
-    return data;
-  }
-  
-
-
-  export async function ThemTTLoaiphim(params: {  
-    tenloai: string
-  }): Promise<any> {
-    const response = await fetch(
-      `http://localhost:8080/api/ThemTTLoaiphim`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      }
-    );
-    const data = await response.json();
-    return data;
-  }
-  export async function SuaTTLoaiphim(params: {  
-    id: number,
-    tenloai: string
-   
-  }): Promise<any> {
-    const response = await fetch(
-      `http://localhost:8080/api/SuaTTLoaiphim`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      }
-    );
-    const data = await response.json();
-    return data;
-  }
-  
-  export async function XoaTTLoaiphim(params: {  
-    id: number
-    }): Promise<any> {
-      const response = await fetch(
-        `http://localhost:8080/api/XoaTTLoaiphim`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(params),
-        }
-      );
-      const data = await response.json();
-      return data;
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTGhe`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
     }
+  );
+  const data = await response.json();
+  return data;
+}
 
 
 
-    export async function ThemTTSuatchieu(params: {  
-      giobd: string,
-      giokt: string
-    }): Promise<any> {
-      const response = await fetch(
-        `http://localhost:8080/api/ThemTTSuatchieu`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(params),
-        }
-      );
-      const data = await response.json();
-      return data;
+export async function ThemTTLoaiphim(params: {
+  tenloai: string
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTLoaiphim`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
     }
-    export async function SuaTTSuatchieu(params: {  
-      id: number,
-      giobd: string,
-      giokt: string
+  );
+  const data = await response.json();
+  return data;
+}
+export async function SuaTTLoaiphim(params: {
+  id: number,
+  tenloai: string
 
-     
-    }): Promise<any> {
-      const response = await fetch(
-        `http://localhost:8080/api/SuaTTSuatchieu`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(params),
-        }
-      );
-      const data = await response.json();
-      return data;
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTLoaiphim`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
     }
-    
-    export async function XoaTTSuatchieu(params: {  
-      id: number
-      }): Promise<any> {
-        const response = await fetch(
-          `http://localhost:8080/api/XoaTTSuatchieu`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(params),
-          }
-        );
-        const data = await response.json();
-        return data;
-      }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTLoaiphim(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTLoaiphim`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+
+
+export async function ThemTTSuatchieu(params: {
+  giobd: string,
+  giokt: string
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTSuatchieu`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+export async function SuaTTSuatchieu(params: {
+  id: number,
+  giobd: string,
+  giokt: string
+
+
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTSuatchieu`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTSuatchieu(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTSuatchieu`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function ThemTTChieu(params: {
+ ngaychieu: string,
+  giave: number,
+  idr: number,
+  idp: number,
+  idsc: number
+
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTChieu`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+export async function SuaTTChieu(params: {
+  id: number,
+  ngaychieu: string,
+  giave: number,
+  idr: number,
+  idp: number,
+  idsc: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTChieu`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTChieu(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTChieu`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}

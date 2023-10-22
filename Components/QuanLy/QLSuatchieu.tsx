@@ -49,8 +49,6 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
     const handleThemTTSuatchieu = async () => {
         console.log("starttime", starttime)
         console.log("endtime", endtime)
-
-
         let res = await ThemTTSuatchieu(
             {
                 giobd: starttime,
@@ -61,14 +59,10 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
             setStarttime('')
             setEndtime('')
             handleLayTTSuatchieu()
-            alert("Thêm thông tin suất chiếu mới thành thông")
-
-            // handleCloseClick();
+            alert("Thêm thông tin suất chiếu mới thành thông") 
         } else {
-
             console.log(res)
             alert("Thêm thông tin suất chiếu mới KHÔNG thành thông")
-
         };
     }
     const handleSuaTTSuatchieu = async (bd: string, kt: string, id: number) => {
@@ -87,17 +81,14 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
 
             });
         if (res && res.errCode === 0) {
-
             console.log(res)
             setStarttime('')
             setEndtime('')
             handleLayTTSuatchieu()
             alert("Cập nhật thông tin suất chiếu thành thông")
         } else {
-
             console.log(res)
             alert("Cập nhật thông tin suất chiếu KHÔNG thành thông")
-
         };
     }
 
@@ -113,39 +104,28 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
             handleLayTTSuatchieu()
             alert("Xóa thông tin suất chiếu thành thông")
         } else {
-
             console.log(res)
             alert("Xóa thông tin suất chiếu KHÔNG thành thông")
-
         };
     }
 
     useEffect(() => {
-        setSuatchieu(suatchieuP)
-        // const res: Cumrap[] = cumrapP;
-        // console.log("ádasd",res)
-
-
+        setSuatchieu(suatchieuP)  
     }, [suatchieuP])
-    //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
             <div className="space-y-5">
-
-
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Thời gian bắt đầu</p>
-                    <input type="time" id="appt" name="appt"
+                    <input className="border-2 border-gray-500 outline-none" type="time" id="appt" name="appt"
                         value={starttime}
                         onChange={(event) => setStarttime(event.target.value)} />
                 </div>
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Thời gian kết thúc</p>
-                    <input type="time" id="appt" name="appt"
+                    <input className="border-2 border-gray-500 outline-none" type="time" id="appt" name="appt"
                         value={endtime}
                         onChange={(event) => setEndtime(event.target.value)} />
-
-
                 </div>
                 <div className=" w-8/12 ">
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
@@ -153,9 +133,7 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
                     >Lưu thông tin</button>
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
                         onClick={() => handleCapnhatTTSuatchieu()}
-
                     >Cấp nhật thông tin</button>
-
                 </div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
@@ -164,10 +142,6 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
                         <th className="border border-slate-300 text-center">#</th>
                         <th className="border border-slate-300 text-center">Giờ bắt đâu</th>
                         <th className="border border-slate-300 text-center">Giờ kết thúc</th>
-
-
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -177,15 +151,12 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
                                 <td className="border border-slate-300 text-center">{item.id}</td>
                                 <td className="border border-slate-300 text-center">{item.giobatdau}</td>
                                 <td className="border border-slate-300 text-center">{item.gioketthuc}</td>
-                                {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
-
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
                                         onClick={() => handleSuaTTSuatchieu(item.giobatdau, item.gioketthuc, item.id)}
                                     />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
                                         onClick={() => handleXoaTTSuatchieu(item.id)}
-
                                     />
                                 </td>
 

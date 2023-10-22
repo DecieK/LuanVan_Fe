@@ -42,7 +42,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import MovieIcon from '@mui/icons-material/Movie';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Blog from '@/Components/Blog';
-import { LayTTCumrap, LayTTGhe, LayTTLoaiphim, LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu } from '@/service/userService';
+import { LayTTCumrap, LayTTGhe, LayTTLoaiphim, LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu, layTTChieu } from '@/service/userService';
 import QLCumrap from "@/Components/QuanLy/QLCumrap";
 import QLGhe from "@/Components/QuanLy/QLGhe";
 import QLRap from "@/Components/QuanLy/QLRap";
@@ -95,6 +95,16 @@ const Quanly = () => {
     giobatdau: string;
     gioketthuc: string;
   }
+  interface Chieu {
+    id: number;
+    ngaychieu: string;
+    giave: number;
+    id_rap: number;
+    id_phim: number;
+    id_suatchieu: number;
+
+
+  }
 
   const [value, setValue] = useState('1');
   const [openP, setOpenP] = useState(false);
@@ -108,6 +118,8 @@ const Quanly = () => {
   const [phim, setPhim] = useState<Phim[]>([]);
   const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
   const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
+  const [chieu, setChieu] = useState<Chieu[]>([]);
+
 
 
   const [tenTTTT, setTenTTTT] = useState('');
@@ -147,6 +159,29 @@ const Quanly = () => {
         console.log(error);
       }
     }
+
+    const handleLayTTChieu = async () => {
+      try {
+        const params = {
+          ngaychieu: 'ALL',
+          id_phim: 'ALL',
+          id_rap: 'ALL'
+
+        };
+        // console.log("searchdate", params);
+        const response = await layTTChieu(params);
+        const res: Chieu[] = response.ttchieu;
+        console.log("check api searchdate chieu: ", response);
+        // console.log("length", res.length);
+        setChieu(res);
+        // console.log(res.length)
+
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     const handleLayTTGhe = async () => {
       try {
         const params = {
@@ -236,6 +271,7 @@ const Quanly = () => {
     handleLayTTPhim()
     handleLayTTLoaiphim()
     handleLayTTSuatchieu()
+    handleLayTTChieu()
   }, [])
 
 
@@ -264,7 +300,7 @@ const Quanly = () => {
                 <ListItemIcon>
                   <LocationOnIcon />
                 </ListItemIcon>
-                <ListItemText  primary="Cụm rap" />
+                <ListItemText primary="Cụm rap" />
               </ListItemButton>
 
               <ListItemButton
@@ -286,7 +322,7 @@ const Quanly = () => {
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText  primary="Rạp" />
+                    <ListItemText primary="Rạp" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
                     className={`${option == 3 ? 'text-blue-600' : ''} `}
@@ -315,7 +351,7 @@ const Quanly = () => {
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText  primary="Loại phim" />
+                    <ListItemText primary="Loại phim" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
                     className={`${option == 5 ? 'text-blue-600' : ''} `}
@@ -323,7 +359,7 @@ const Quanly = () => {
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText  primary="Phim" />
+                    <ListItemText primary="Phim" />
                   </ListItemButton>
                 </List>
               </Collapse>
@@ -348,7 +384,7 @@ const Quanly = () => {
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText  primary="Suất chiếu" />
+                    <ListItemText primary="Suất chiếu" />
                   </ListItemButton>
                   <ListItemButton sx={{ pl: 4 }}
                     className={`${option == 7 ? 'text-blue-600' : ''} `}
@@ -356,7 +392,7 @@ const Quanly = () => {
                     {/* <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon> */}
-                    <ListItemText  primary="Chiếu" />
+                    <ListItemText primary="Chiếu" />
                   </ListItemButton>
                 </List>
               </Collapse>
@@ -405,7 +441,7 @@ const Quanly = () => {
             {option == 7 ? (
               <div className="w-10/12 m-5">
 
-                <QLChieu suatchieuP={suatchieu} rapP={rap} phimP={phim} />
+                <QLChieu chieuP={chieu} suatchieuP={suatchieu} rapP={rap} phimP={phim} />
 
               </div>
             ) : null}
