@@ -95,6 +95,23 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
         })
 
     }
+    const handleLayTTGheALL = async () => {
+        try {
+          const params = {
+            key: 'ALL',
+          };
+          // console.log("searchdate", params);
+          const response = await LayTTGhe(params);
+          const res: Ghe[] = response.ghes;
+          // console.log("check api searchdate ghe: ", response);
+          // console.log("length", res.length);
+          setGhe(res);
+          // console.log(res.length)
+  
+        } catch (error) {
+          console.log(error);
+        }
+      }
     const handleThemTTGhe = async () => {
         console.log("maghe", maghe)
         console.log("loaighe", loaighe)
@@ -112,7 +129,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
             setMaghe('')
             setLoaighe('')
             // setId_cr()
-            handleLayTTGhe(valueRap)
+            handleLayTTGheALL()
             alert("Thêm thông tin ghể mới thành thông")
 
             // handleCloseClick();
@@ -145,7 +162,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
             setMaghe('')
             setLoaighe('')
             // setId_cr()
-            handleLayTTGhe(valueRap)
+            handleLayTTGheALL()
             alert("Cập nhật thông tin ghể thành thông")
 
 
@@ -169,7 +186,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
             setMaghe('')
             setLoaighe('')
             // setId_cr()
-            handleLayTTGhe(valueRap)
+            handleLayTTGheALL()
             alert("Xóa thông tin ghế thành thông")
 
             // handleCloseClick();
