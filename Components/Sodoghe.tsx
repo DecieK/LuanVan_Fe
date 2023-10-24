@@ -473,194 +473,195 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
 
   return (
     <div>
-      {
-        ghe.map((ghes) => {
-          let gheVIP = ghes.loaiGhe === 'VIP';
-          // let gheVIP = 'bg-pink-200'
-
-          gheArr.push(ghes.id)
-          // console.log("gheArr", gheArr);
-          // console.log("chitietveArr", chitietveArr[1]);
-          // console.log(chitietveArr.includes(ghes.id));
-          let gheDadat = chitietveArr.includes(ghes.id)
-          if (gheDadat) {
-            gheVIP = false
-          }
-          let disabled = gheDadat === true
-          // const handleLike = (id) => {
-          //   setJokes(jokes.map(joke => {
-          //     if (joke.id === id) {
-          //       return {...joke, likes: joke.likes + joke*t}
-          //     } else {
-          //       return joke
-          //     }
-          //   }))
-          // }
-
-          //ghế đang dặt
-          let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
-          let classGhedangdat = ghedangdat != -1
-          if (gheVIP && classGhedangdat) {
-            gheVIP = false
-          }
-          return <>
-            <button
-              onClick={async () => {
-                if (!classGhedangdat) {
-                  const params = {
-                    key: ghes.id,
-                  };
-                  console.log("searchdate", params);
-                  const response = await LayTTGhe(params);
-                  const res: DSGheDangDat[] = response.ghes;
-                  console.log("check api searchdate ghe: ", response);
-                  console.log("length", res.length);
-                  setDsghe(res);
-                  console.log(res)
-                  res.map((res) => (
-                    handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
-
-                  ));
-
-                } else {
-                  handleDeleteJoke(ghes.id)
-                }
-                console.log("classGhedangdat", classGhedangdat);
-                console.log("ghedangdattttttttttttt1", dsgheDDs);
-                // setSoluongghe(dsgheDDs.length)
-                setId_ghe(ghes.id)
-                dsgheDDs.map((item) => {
-                  let sum = 0;
-                  dsgheDDs.forEach(item => {
-                    sum += item.gia;
-                  });
-                  sumsum = sum
-                  setTongtien(sum)
-                })
-
-
-              }
-              }
-              key={ghes.id}
-              className={`h-14 w-14 items-center m-2             
-                ${gheVIP ? 'bg-yellow-200' : ''}
-                ${classGhedangdat ? 'bg-blue-500' : ''}
-
-                ${gheDadat ? 'bg-black text-red-500' : ''}
-                // ${!gheDadat && !gheVIP && !classGhedangdat ? 'bg-slate-400' : ''}
-                ${gheVIP && classGhedangdat ? 'bg-blue-500' : ''}
-
-
-
-              
-               
-              `}
-              disabled={disabled}
-            // onChange={handlechange}              
-            >
-              {gheDadat === true ? 'X' : ghes.maGhe}
-            </button >
-          </>
-        },
-          // chitietve.map((chitietves) => {
-          //   chitietveArr.push(chitietves.id_ghe)
-          // })
-          DSchitietves.map((chitietves) => {
-            chitietveArr.push(chitietves.id_ghe)
-          })
-        )
-      }
-
-
-      {/* check dkien 
-  + nếu 1 vé đặt 1 ghế là insert dữ liệu bth
-  + nếu nhiều hơn 1 ghế thì check length mãng mã ghế xong for để insert dữ liệu */}
-
-      <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
-
-      <div className='flex p-1 m-1'>
-        danh sách ghế đã chọn:
-        {
-          dsgheDDs.map((element, index) => {
-
-            let sum = 0;
-
-
-            dsgheDDs.forEach(element => {
-              sum += element.gia;
-            });
-            sumsum = sum
-
-            // setTonggiave(sum)
-            return (
-              <div key={index} className=''>
-                <label className='pr-1'> {element.ma_ghe} </label>
-                {/* <div>{sum}</div> */}
-              </div>
-            );
-
-          })
-        }
+      <div className='flex'>
+        <div className='boder border-2 w-8/12'>Áasdf</div>
+        <div className='boder border-2 w-4/12'>sdfsdf</div>
       </div>
-      <div>
-        <div className='cursor-pointer' onClick={(e) => handleDoan(trangthaidoan)}>chọn bắp nước</div>
-        {
-          trangthaidoan === true
-            ?
-            <div>
-              {
-                doan.map((doans, index) => {
-                  // console.log("doans.id",doans.id)
+    </div>
 
-                  return (
-                    <>
-                      <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
-                        onClick={() => handleSetdoan(doans.id, doans.gia)}
-                      // onClick={() => setTienDA(doans.gia)}
+    //   <div>
+    //     {
+    //       ghe.map((ghes) => {
+    //         let gheVIP = ghes.loaiGhe === 'VIP';
+    //         // let gheVIP = 'bg-pink-200'
 
-                      >{doans.ten} size: {doans.size}</button>
-                    </>
-                  )
-                })
-              }
-            </div>
-            : ""
-        }
+    //         gheArr.push(ghes.id)
+    //         // console.log("gheArr", gheArr);
+    //         // console.log("chitietveArr", chitietveArr[1]);
+    //         // console.log(chitietveArr.includes(ghes.id));
+    //         let gheDadat = chitietveArr.includes(ghes.id)
+    //         if (gheDadat) {
+    //           gheVIP = false
+    //         }
+    //         let disabled = gheDadat === true
+    //         // const handleLike = (id) => {
+    //         //   setJokes(jokes.map(joke => {
+    //         //     if (joke.id === id) {
+    //         //       return {...joke, likes: joke.likes + joke*t}
+    //         //     } else {
+    //         //       return joke
+    //         //     }
+    //         //   }))
+    //         // }
 
-      </div>
-      <div>
-        <div className='cursor-pointer' onClick={() => handleKM(km)}>khuyến mãi</div>
-        {
-          km === true
-            ?
-            <div>
-              {
-                khuyenmai.map((khuyenmais, index) => {
-                  return (
-                    <>
-                      <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
-                        onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-                      // onClick={() => setTienKM(khuyenmais.tile_KM)}
+    //         //ghế đang dặt
+    //         let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
+    //         let classGhedangdat = ghedangdat != -1
+    //         if (gheVIP && classGhedangdat) {
+    //           gheVIP = false
+    //         }
+    //         return <>
+    //           <button
+    //             onClick={async () => {
+    //               if (!classGhedangdat) {
+    //                 const params = {
+    //                   key: ghes.id,
+    //                 };
+    //                 console.log("searchdate", params);
+    //                 const response = await LayTTGhe(params);
+    //                 const res: DSGheDangDat[] = response.ghes;
+    //                 console.log("check api searchdate ghe: ", response);
+    //                 console.log("length", res.length);
+    //                 setDsghe(res);
+    //                 console.log(res)
+    //                 res.map((res) => (
+    //                   handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
 
-                      >{khuyenmais.ten_KM}</button>
-                    </>
-                  )
-                })
-              }
+    //                 ));
 
-            </div>
-            : ""
-        }
+    //               } else {
+    //                 handleDeleteJoke(ghes.id)
+    //               }
+    //               console.log("classGhedangdat", classGhedangdat);
+    //               console.log("ghedangdattttttttttttt1", dsgheDDs);
+    //               // setSoluongghe(dsgheDDs.length)
+    //               setId_ghe(ghes.id)
+    //               dsgheDDs.map((item) => {
+    //                 let sum = 0;
+    //                 dsgheDDs.forEach(item => {
+    //                   sum += item.gia;
+    //                 });
+    //                 sumsum = sum
+    //                 setTongtien(sum)
+    //               })
 
-      </div>
 
-      {/* <div>{tienDA}</div> */}
-      {/* <div>{(tienKM / 100)}</div> */}
-      <div>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}</div>
+    //             }
+    //             }
+    //             key={ghes.id}
+    //             className={`h-14 w-14 items-center m-2             
+    //               ${gheVIP ? 'bg-yellow-200' : ''}
+    //               ${classGhedangdat ? 'bg-blue-500' : ''}
+    //               ${gheDadat ? 'bg-black text-red-500' : ''}
+    //               // ${!gheDadat && !gheVIP && !classGhedangdat ? 'bg-slate-400' : ''}
+    //               ${gheVIP && classGhedangdat ? 'bg-blue-500' : ''}                             
+    //             `}
+    //             disabled={disabled}
+    //           // onChange={handlechange}              
+    //           >
+    //             {gheDadat === true ? 'X' : ghes.maGhe}
+    //           </button >
+    //         </>
+    //       },
+    //         // chitietve.map((chitietves) => {
+    //         //   chitietveArr.push(chitietves.id_ghe)
+    //         // })
+    //         DSchitietves.map((chitietves) => {
+    //           chitietveArr.push(chitietves.id_ghe)
+    //         })
+    //       )
+    //     }
 
-      <button onClick={() => console.log(chitietve)}>chitietveee</button>
 
-    </div >
+    //     {/* check dkien 
+    // + nếu 1 vé đặt 1 ghế là insert dữ liệu bth
+    // + nếu nhiều hơn 1 ghế thì check length mãng mã ghế xong for để insert dữ liệu */}
+
+    //     <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
+
+    //     <div className='flex p-1 m-1'>
+    //       danh sách ghế đã chọn:
+    //       {
+    //         dsgheDDs.map((element, index) => {
+
+    //           let sum = 0;
+
+
+    //           dsgheDDs.forEach(element => {
+    //             sum += element.gia;
+    //           });
+    //           sumsum = sum
+
+    //           // setTonggiave(sum)
+    //           return (
+    //             <div key={index} className=''>
+    //               <label className='pr-1'> {element.ma_ghe} </label>
+    //               {/* <div>{sum}</div> */}
+    //             </div>
+    //           );
+
+    //         })
+    //       }
+    //     </div>
+    //     <div>
+    //       <div className='cursor-pointer' onClick={(e) => handleDoan(trangthaidoan)}>chọn bắp nước</div>
+    //       {
+    //         trangthaidoan === true
+    //           ?
+    //           <div>
+    //             {
+    //               doan.map((doans, index) => {
+    //                 // console.log("doans.id",doans.id)
+
+    //                 return (
+    //                   <>
+    //                     <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
+    //                       onClick={() => handleSetdoan(doans.id, doans.gia)}
+    //                     // onClick={() => setTienDA(doans.gia)}
+
+    //                     >{doans.ten} size: {doans.size}</button>
+    //                   </>
+    //                 )
+    //               })
+    //             }
+    //           </div>
+    //           : ""
+    //       }
+
+    //     </div>
+    //     <div>
+    //       <div className='cursor-pointer' onClick={() => handleKM(km)}>khuyến mãi</div>
+    //       {
+    //         km === true
+    //           ?
+    //           <div>
+    //             {
+    //               khuyenmai.map((khuyenmais, index) => {
+    //                 return (
+    //                   <>
+    //                     <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
+    //                       onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+    //                     // onClick={() => setTienKM(khuyenmais.tile_KM)}
+
+    //                     >{khuyenmais.ten_KM}</button>
+    //                   </>
+    //                 )
+    //               })
+    //             }
+
+    //           </div>
+    //           : ""
+    //       }
+
+    //     </div>
+
+    //     {/* <div>{tienDA}</div> */}
+    //     {/* <div>{(tienKM / 100)}</div> */}
+    //     <div>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}</div>
+
+    //     <button onClick={() => console.log(chitietve)}>chitietveee</button>
+
+    //   </div >
   );
 }
 
