@@ -26,7 +26,7 @@ const TestDatVe = ({id_phim, id_rap, ngaychieu}:codeProductProps) => {
 <div>
     <Header/>
     <Sodoghe id_phimP={id_phim} id_rapP={id_rap} ngaychieuP={ngaychieu}/>
-    <Footer />  
+    {/* <Footer />   */}
 </div>
   );
 }

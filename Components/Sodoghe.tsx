@@ -1,16 +1,23 @@
 //goldclass 32,64
 //104,118,128,164
-import { Datve, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
+import { Datve, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
+import ModalBapnuoc from './ModalBapnuoc';
+import ModalKhuyenmai from './ModalKhuyenmai';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Checkbox from '@mui/material/Checkbox';
+
+
 type Props = {
   id_phimP: any;
   id_rapP: any;
   ngaychieuP: any;
 }
+
 const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   interface Chitetve {
     id: number;
@@ -71,7 +78,22 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     id_NV: number;
     id_DA: number;
   }
-
+  interface Phim {
+    id: number;
+    tenphim: string;
+    dieukien: number;
+    trailer: string;
+    poster: string;
+    dienvien: string;
+    ngonngu: string;
+    daodien: string;
+    thoiluong: number;
+    ngaychieu: string;
+    quocgia: string;
+    tomtat: string;
+    nsx: string;
+    trangthai: string;
+  }
 
   const [id_ve, setId_ve] = useState("")
   const [id_chieu, setId_chieu] = useState(Number)
@@ -89,6 +111,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   const [id_NV, setId_NV] = useState(Number);
   const [id_doan, setId_doan] = useState(Number);
   const [chitietve, setChitietve] = useState<Chitetve[]>([]);
+  const [phim, setPhim] = useState<Phim[]>([]);
   const [ve, setVe] = useState<Ve[]>([]);
   const [ghe, setGhe] = useState<Ghe[]>([]);
   const [dsghe, setDsghe] = useState<DSGheDangDat[]>([]);
@@ -109,6 +132,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   // const [sumsum1, setSumsum1] = useState(Number)
   const [arrIdghe, setArrIdghe] = useState<number[]>([]);
   // const [arrIdghe, setArrIdghe] = useState<number[]>([]);
+  const [showModalDA, setShowModalDA] = useState(false);
+  const [showModalKM, setShowModalKM] = useState(false);
 
 
 
@@ -283,6 +308,30 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   }
 
   useEffect(() => {
+    const handleLayTTPhim = async () => {
+
+      try {
+        const params = {
+          key: id_phimP
+
+        };
+        console.log("searchdate", params);
+        const response = await LayTTPhim(params);
+        const res: Phim[] = response.phims;
+        console.log("check api handleLayTTChieu: ", response);
+        // console.log("length", res.length);
+        setPhim(res);
+        console.log(res.length)
+        //   res.map((res) => (
+        //     setGiave(res.giave),
+        //     console.log("giave", res.giave)
+
+        //   ));
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
     dsgheDDs.map((item) => {
       if (item.id_ghe === 0) {
         dsgheDDs.splice(0, dsgheDDs.length);
@@ -446,8 +495,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     handleLayTTGhe();
     // handleLayTTchitietve();
     handleLayTTKM();
-    handleLayTTDoan();
-
+    // handleLayTTDoan();
+    handleLayTTPhim()
 
     setHten_KH("Luong Vu Khoa")
     // console.log(Object.entries(dsgheDDs));
@@ -473,195 +522,287 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
 
   return (
     <div>
-      <div className='flex'>
-        <div className='boder border-2 w-8/12'>Áasdf</div>
-        <div className='boder border-2 w-4/12'>sdfsdf</div>
+      <div className='flex mt-3'>
+        <div className=' w-8/12'>
+          <div className='h-3 w-9/12 bg-black m-auto'></div>
+          <p className='text-center text-yellow-600'>Màn hình</p>
+          <div className='w-8/12 m-auto'>
+            {
+              ghe.map((ghes) => {
+                let gheVIP = ghes.loaiGhe === 'VIP';
+                let ghedoi = ghes.maGhe.length > 3
+                // console.log("ghes.maGhe.length", ghes.maGhe.length);
+
+                // let gheVIP = 'bg-pink-200'
+
+                gheArr.push(ghes.id)
+                // console.log("gheArr", gheArr);
+                // console.log("chitietveArr", chitietveArr[1]);
+                // console.log(chitietveArr.includes(ghes.id));
+                let gheDadat = chitietveArr.includes(ghes.id)
+                if (gheDadat) {
+                  gheVIP = false
+                }
+                let disabled = gheDadat === true
+                // const handleLike = (id) => {
+                //   setJokes(jokes.map(joke => {
+                //     if (joke.id === id) {
+                //       return {...joke, likes: joke.likes + joke*t}
+                //     } else {
+                //       return joke
+                //     }
+                //   }))
+                // }
+
+                //ghế đang dặt
+                let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
+                let classGhedangdat = ghedangdat != -1
+                if (gheVIP && classGhedangdat) {
+                  gheVIP = false
+                }
+                return <>
+                  <button
+                    onClick={async () => {
+                      if (!classGhedangdat) {
+                        const params = {
+                          key: ghes.id,
+                        };
+                        console.log("searchdate", params);
+                        const response = await LayTTGhe(params);
+                        const res: DSGheDangDat[] = response.ghes;
+                        console.log("check api searchdate ghe: ", response);
+                        console.log("length", res.length);
+                        setDsghe(res);
+                        console.log(res)
+                        res.map((res) => (
+                          handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
+
+                        ));
+
+                      } else {
+                        handleDeleteJoke(ghes.id)
+                      }
+                      console.log("classGhedangdat", classGhedangdat);
+                      console.log("ghedangdattttttttttttt1", dsgheDDs);
+                      // setSoluongghe(dsgheDDs.length)
+                      setId_ghe(ghes.id)
+                      dsgheDDs.map((item) => {
+                        let sum = 0;
+                        dsgheDDs.forEach(item => {
+                          sum += item.gia;
+                        });
+                        sumsum = sum
+                        setTongtien(sum)
+                      })
+                    }
+                    }
+                    key={ghes.id}
+                    className={`h-10 w-10  m-2  
+                      ${ghedoi ? 'w-20 rounded-xl h-8 ' : ''}           
+                      ${gheVIP ? 'border-2 border-yellow-500' : ''}
+                      ${classGhedangdat ? 'bg-blue-400' : ''}
+                      ${gheDadat ? 'bg-gray-600 text-red-500' : ''}
+                      // ${!gheDadat && !gheVIP && !classGhedangdat ? 'border-2 border-gray-500' : ''}
+                      ${gheVIP && classGhedangdat ? 'bg-blue-500' : ''}                             
+                    `}
+                    disabled={disabled}
+                  // onChange={handlechange}              
+                  >
+                    {gheDadat === true ? 'X' : ghes.maGhe}
+                  </button >
+                </>
+              },
+                // chitietve.map((chitietves) => {
+                //   chitietveArr.push(chitietves.id_ghe)
+                // })
+                DSchitietves.map((chitietves) => {
+                  chitietveArr.push(chitietves.id_ghe)
+                })
+              )
+            }
+
+
+          </div>
+          <div className='grid grid-cols-2 m-auto mt-6 w-9/12 justify-items-center '>
+            <div className='col-span-1 space-y-2'>
+              <div className='flex space-x-2'>
+                <div className='h-10 w-10 border-2 border-gray-500 '></div>
+                <p>Ghế bình thường trống</p>
+              </div>
+              <div className='flex space-x-2'>
+                <div className='h-10  w-10 border-2 border-yellow-500 '></div>
+                <p>Ghế VIP trống</p>
+              </div>
+            </div>
+            <div className='col-span-1 space-y-2'>
+              <div className='flex space-x-2'>
+                <div className='h-10 w-10  border-2 bg-blue-400 '></div>
+                <p>Ghế đang chọn</p>
+              </div>
+              <div className='flex space-x-2'>
+                <div className='h-10 w-10  border-2 bg-gray-600 text-red-500'></div>
+                <p>Ghế đã đặt</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className=' w-4/12'>
+          {phim.map((p, index) => {
+            return (
+              <>
+                <p className='m-auto text-2xl font-bold  '>{p.tenphim}</p>
+              </>
+            )
+          })}
+          <hr />
+          <div className='flex space-x-10 mt-5'>
+            <img height={100} width={100} src='poster1.jpg' />
+            <div>
+              <p className='text-2xl'>Vincom Xuân khánh <br /> Rạp 01</p>
+              <p className='text-xl pt-3'>30/10/2023 - 20:00</p>
+            </div>
+          </div>
+          <hr className='my-3' />
+          <div className='flex'>
+            Danh sách ghế:
+            {
+
+              dsgheDDs.slice().reverse().map((element, index) => {
+
+                let sum = 0;
+
+
+                dsgheDDs.forEach(element => {
+                  sum += element.gia;
+                });
+                sumsum = sum
+
+                // setTonggiave(sum)
+                return (
+                  <div key={index} className='px-1'>
+                    <label className='pr-1'> {element.ma_ghe} </label>
+                    {/* <div>{sum}</div> */}
+                  </div>
+                );
+
+              })
+            }
+          </div>
+          <div>
+            <div className='cursor-pointer'
+
+              onClick={() => setShowModalDA(true)}
+            //  onClick={(e) => handleDoan(trangthaidoan)}
+            >Chọn bắp nước
+              <AddCircleOutlineIcon />
+
+            </div>
+            {
+              trangthaidoan === true
+                ?
+                <div>
+                  {
+                    doan.map((doans, index) => {
+                      // console.log("doans.id",doans.id)
+
+                      return (
+                        <>
+                          <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
+                            onClick={() => handleSetdoan(doans.id, doans.gia)}
+                          // onClick={() => setTienDA(doans.gia)}
+
+                          >{doans.ten} size: {doans.size}</button>
+                        </>
+                      )
+                    })
+                  }
+                </div>
+                : ""
+            }
+
+          </div>
+          <div>
+            <div className='cursor-pointer'
+              //  onClick={() => handleKM(km)}
+              onClick={() => setShowModalKM(true)}
+
+            >Khuyến mãi</div>
+            {
+
+              showModalKM === true
+                ?
+                <div>
+                  {
+                    khuyenmai.map((khuyenmais, index) => {
+                      return (
+                        <>
+                         <div className='flex'>
+                         <p key={index} className='p-2'
+                            onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                          // onClick={() => setTienKM(khuyenmais.tile_KM)}
+
+                          >{khuyenmais.ten_KM}</p>
+                          <Checkbox defaultChecked />
+                         </div>
+
+                          <hr />
+                        </>
+                      )
+                    })
+                  }
+
+                </div>
+                : ""
+            }
+
+            {/* {
+              km === true
+                ?
+                <div>
+                  {
+                    khuyenmai.map((khuyenmais, index) => {
+                      return (
+                        <>
+                          <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
+                            onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                          // onClick={() => setTienKM(khuyenmais.tile_KM)}
+
+                          >{khuyenmais.ten_KM}</button>
+                        </>
+                      )
+                    })
+                  }
+
+                </div>
+                : ""
+            } */}
+
+          </div>
+
+          <div>
+            {/* <p>Tổng tiền</p> */}
+            <div className='text-2xl'>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)} VNĐ</div>
+
+          </div>
+          {/* <div className='flex m-auto'> */}
+          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '>Đặt vé</button>
+
+          {/* </div> */}
+        </div>
       </div>
+      <ModalBapnuoc
+        // id_phim={id_phim}
+        onCloseDA={() => setShowModalDA(false)}
+        showDA={showModalDA}
+      ></ModalBapnuoc>
+      {/* <ModalKhuyenmai
+        // id_phim={id_phim}
+        onCloseKM={() => setShowModalKM(false)}
+        showKM={showModalKM}
+      ></ModalKhuyenmai> */}
     </div>
 
-    //   <div>
-    //     {
-    //       ghe.map((ghes) => {
-    //         let gheVIP = ghes.loaiGhe === 'VIP';
-    //         // let gheVIP = 'bg-pink-200'
 
-    //         gheArr.push(ghes.id)
-    //         // console.log("gheArr", gheArr);
-    //         // console.log("chitietveArr", chitietveArr[1]);
-    //         // console.log(chitietveArr.includes(ghes.id));
-    //         let gheDadat = chitietveArr.includes(ghes.id)
-    //         if (gheDadat) {
-    //           gheVIP = false
-    //         }
-    //         let disabled = gheDadat === true
-    //         // const handleLike = (id) => {
-    //         //   setJokes(jokes.map(joke => {
-    //         //     if (joke.id === id) {
-    //         //       return {...joke, likes: joke.likes + joke*t}
-    //         //     } else {
-    //         //       return joke
-    //         //     }
-    //         //   }))
-    //         // }
-
-    //         //ghế đang dặt
-    //         let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
-    //         let classGhedangdat = ghedangdat != -1
-    //         if (gheVIP && classGhedangdat) {
-    //           gheVIP = false
-    //         }
-    //         return <>
-    //           <button
-    //             onClick={async () => {
-    //               if (!classGhedangdat) {
-    //                 const params = {
-    //                   key: ghes.id,
-    //                 };
-    //                 console.log("searchdate", params);
-    //                 const response = await LayTTGhe(params);
-    //                 const res: DSGheDangDat[] = response.ghes;
-    //                 console.log("check api searchdate ghe: ", response);
-    //                 console.log("length", res.length);
-    //                 setDsghe(res);
-    //                 console.log(res)
-    //                 res.map((res) => (
-    //                   handleChonghedangdat(ghes.id, res.maGhe, res.loaiGhe)
-
-    //                 ));
-
-    //               } else {
-    //                 handleDeleteJoke(ghes.id)
-    //               }
-    //               console.log("classGhedangdat", classGhedangdat);
-    //               console.log("ghedangdattttttttttttt1", dsgheDDs);
-    //               // setSoluongghe(dsgheDDs.length)
-    //               setId_ghe(ghes.id)
-    //               dsgheDDs.map((item) => {
-    //                 let sum = 0;
-    //                 dsgheDDs.forEach(item => {
-    //                   sum += item.gia;
-    //                 });
-    //                 sumsum = sum
-    //                 setTongtien(sum)
-    //               })
-
-
-    //             }
-    //             }
-    //             key={ghes.id}
-    //             className={`h-14 w-14 items-center m-2             
-    //               ${gheVIP ? 'bg-yellow-200' : ''}
-    //               ${classGhedangdat ? 'bg-blue-500' : ''}
-    //               ${gheDadat ? 'bg-black text-red-500' : ''}
-    //               // ${!gheDadat && !gheVIP && !classGhedangdat ? 'bg-slate-400' : ''}
-    //               ${gheVIP && classGhedangdat ? 'bg-blue-500' : ''}                             
-    //             `}
-    //             disabled={disabled}
-    //           // onChange={handlechange}              
-    //           >
-    //             {gheDadat === true ? 'X' : ghes.maGhe}
-    //           </button >
-    //         </>
-    //       },
-    //         // chitietve.map((chitietves) => {
-    //         //   chitietveArr.push(chitietves.id_ghe)
-    //         // })
-    //         DSchitietves.map((chitietves) => {
-    //           chitietveArr.push(chitietves.id_ghe)
-    //         })
-    //       )
-    //     }
-
-
-    //     {/* check dkien 
-    // + nếu 1 vé đặt 1 ghế là insert dữ liệu bth
-    // + nếu nhiều hơn 1 ghế thì check length mãng mã ghế xong for để insert dữ liệu */}
-
-    //     <button onClick={handleDatve} className=' m-32 flex justify-center items-center border border-red-200 bg-red-500'>Dat</button>
-
-    //     <div className='flex p-1 m-1'>
-    //       danh sách ghế đã chọn:
-    //       {
-    //         dsgheDDs.map((element, index) => {
-
-    //           let sum = 0;
-
-
-    //           dsgheDDs.forEach(element => {
-    //             sum += element.gia;
-    //           });
-    //           sumsum = sum
-
-    //           // setTonggiave(sum)
-    //           return (
-    //             <div key={index} className=''>
-    //               <label className='pr-1'> {element.ma_ghe} </label>
-    //               {/* <div>{sum}</div> */}
-    //             </div>
-    //           );
-
-    //         })
-    //       }
-    //     </div>
-    //     <div>
-    //       <div className='cursor-pointer' onClick={(e) => handleDoan(trangthaidoan)}>chọn bắp nước</div>
-    //       {
-    //         trangthaidoan === true
-    //           ?
-    //           <div>
-    //             {
-    //               doan.map((doans, index) => {
-    //                 // console.log("doans.id",doans.id)
-
-    //                 return (
-    //                   <>
-    //                     <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
-    //                       onClick={() => handleSetdoan(doans.id, doans.gia)}
-    //                     // onClick={() => setTienDA(doans.gia)}
-
-    //                     >{doans.ten} size: {doans.size}</button>
-    //                   </>
-    //                 )
-    //               })
-    //             }
-    //           </div>
-    //           : ""
-    //       }
-
-    //     </div>
-    //     <div>
-    //       <div className='cursor-pointer' onClick={() => handleKM(km)}>khuyến mãi</div>
-    //       {
-    //         km === true
-    //           ?
-    //           <div>
-    //             {
-    //               khuyenmai.map((khuyenmais, index) => {
-    //                 return (
-    //                   <>
-    //                     <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
-    //                       onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-    //                     // onClick={() => setTienKM(khuyenmais.tile_KM)}
-
-    //                     >{khuyenmais.ten_KM}</button>
-    //                   </>
-    //                 )
-    //               })
-    //             }
-
-    //           </div>
-    //           : ""
-    //       }
-
-    //     </div>
-
-    //     {/* <div>{tienDA}</div> */}
-    //     {/* <div>{(tienKM / 100)}</div> */}
-    //     <div>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}</div>
-
-    //     <button onClick={() => console.log(chitietve)}>chitietveee</button>
-
-    //   </div >
   );
 }
 
