@@ -587,3 +587,25 @@ export async function XoaTTChieu(params: {
   const data = await response.json();
   return data;
 }
+
+export async function ThemTTDoan(params: {
+  Ten : string
+  Anhminhhoa : string
+  Loai : string
+  Mota : string
+  Gia : number
+  Size : string
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTDoan`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}

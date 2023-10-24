@@ -33,22 +33,6 @@ const Upload = () => {
         trangthai: string;
     }
 
-    // interface Phim {
-    //     id: number;
-    //     tenphim: string;
-    //     dieukien: number;
-    //     trailer: string;
-    //     poster: string;
-    //     dienvien: string;
-    //     ngonngu: string;
-    //     daodien: string;
-    //     thoiluong: number;
-    //     ngaychieu: string;
-    //     quocgia: string;
-    //     tomtat: string;
-    //     nsx: string;
-    //     trangthai: string;
-    // }
     const [isBrowser, setIsBrowser] = useState(false);
     const [tenphim, setTenphim] = useState("");
     const [dieukien, setDieukien] = useState(Number);

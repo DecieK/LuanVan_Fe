@@ -50,6 +50,7 @@ import QLPhim from "@/Components/QuanLy/QLPhim";
 import QLLoaiphim from "@/Components/QuanLy/QLLoaiphim";
 import QLSuatchieu from "@/Components/QuanLy/QLSuatchieu";
 import QLChieu from "@/Components/QuanLy/QLChieu";
+import QLDoan from "@/Components/QuanLy/QLDoan";
 
 
 const Quanly = () => {
@@ -442,7 +443,7 @@ const Quanly = () => {
               <div className="w-10/12 m-5">
 
                 <QLChieu chieuP={chieu} suatchieuP={suatchieu} rapP={rap} phimP={phim} />
-
+                {/* <QLDoan /> */}
               </div>
             ) : null}
           </div>

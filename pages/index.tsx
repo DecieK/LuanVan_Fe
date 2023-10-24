@@ -12,7 +12,7 @@ import Dangnhap from "@/Components/Dangnhap";
 import Quenmatkhau from "@/Components/Quenmatkhau";
 import MySlider from "./MySlider";
 import ThemTTphim from "@/Components/ThemTTphim";
-import UploadVideos from "@/Components/UpLoadVideos";
+import UploadVideos from "@/Components/ThemTT";
 import { LayTTPhim } from "@/service/userService";
 import Blog from "@/Components/Blog";
 import Phim from "@/Components/Phim";

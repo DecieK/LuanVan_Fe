@@ -134,9 +134,21 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   // const [arrIdghe, setArrIdghe] = useState<number[]>([]);
   const [showModalDA, setShowModalDA] = useState(false);
   const [showModalKM, setShowModalKM] = useState(false);
+  const [r, setR] = useState(Number)
 
 
-
+  const [dsdoans, setDsdoans] = useState([
+    {
+      id: 0,
+      ten: '',
+      anhminhhoa: '',
+      loai: '',
+      mota: '',
+      gia: 0,
+      size: '',
+      sl: 0
+    },
+  ])
 
 
 
@@ -306,10 +318,17 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     console.log("tienKM", tienKM)
 
   }
-
+  // dsdoans.map((da) => {
+  //   if (da.ten === "") {
+  //     dsdoans.splice(0, dsdoans.length);
+  //   }
+  // })
+  const handleLayDuLieuTuModalBapNuoc = (arr : any)=>{
+    setDsdoans(arr)
+  }
   useEffect(() => {
     const handleLayTTPhim = async () => {
-
+      
       try {
         const params = {
           key: id_phimP
@@ -481,12 +500,6 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
         // console.log("check api Doan: ", response);
         // console.log("length", res.length);
         setDoan(res);
-        // console.log(res)
-        // res.map((res) => (
-
-        // ));
-        // console.log("gheArr",gheArr);
-
       } catch (error) {
         console.log(error);
       }
@@ -792,6 +805,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
       </div>
       <ModalBapnuoc
         // id_phim={id_phim}
+        handleLayDuLieuTuModalBapNuoc = {handleLayDuLieuTuModalBapNuoc}
         onCloseDA={() => setShowModalDA(false)}
         showDA={showModalDA}
       ></ModalBapnuoc>
@@ -800,6 +814,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
         onCloseKM={() => setShowModalKM(false)}
         showKM={showModalKM}
       ></ModalKhuyenmai> */}
+      <button onClick={()=> console.log("ádas",dsdoans)}>click</button>
     </div>
 
 
