@@ -454,17 +454,17 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 }
               })
             }
-            <button
+            {/* <button
               // onClick={() => console.log("suatchieus", suatchieus)}
               onClick={() => handleLayTTSuatchieu()}
-            >click</button>
+            >click</button> */}
 
 
 
-            <button
+            {/* <button
               onClick={() => console.log("suatchieus", suatchieus)}
             // onClick={() => console.log("chieu", chieus)}
-            >chieus</button>
+            >chieus</button> */}
           </div>
         </StyledModalBody>
       </StyledModal>
