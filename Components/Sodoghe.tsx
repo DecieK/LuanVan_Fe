@@ -10,15 +10,22 @@ import ModalBapnuoc from './ModalBapnuoc';
 import ModalKhuyenmai from './ModalKhuyenmai';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Checkbox from '@mui/material/Checkbox';
+import Image from 'next/image'
 
 
 type Props = {
   id_phimP: any;
   id_rapP: any;
   ngaychieuP: any;
+  tenP: any;
+  tenrapP: any;
+  giobdP: any;
+  gioktP: any;
+  tencumrapP: any
+
 }
 
-const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
+const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP, tencumrapP }: Props) => {
   interface Chitetve {
     id: number;
     id_ve: number;
@@ -94,6 +101,16 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     nsx: string;
     trangthai: string;
   }
+  interface DSDichVu {
+    id: number,
+    ten: string,
+    anhminhhoa: string,
+    loai: string,
+    mota: string,
+    gia: number,
+    size: string,
+    sl: number
+  }
 
   const [id_ve, setId_ve] = useState("")
   const [id_chieu, setId_chieu] = useState(Number)
@@ -135,20 +152,22 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   const [showModalDA, setShowModalDA] = useState(false);
   const [showModalKM, setShowModalKM] = useState(false);
   const [r, setR] = useState(Number)
+  const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
 
 
-  const [dsdoans, setDsdoans] = useState([
-    {
-      id: 0,
-      ten: '',
-      anhminhhoa: '',
-      loai: '',
-      mota: '',
-      gia: 0,
-      size: '',
-      sl: 0
-    },
-  ])
+
+  // const [dsdoans, setDsdoans] = useState([
+  //   {
+  //     id: 0,
+  //     ten: '',
+  //     anhminhhoa: '',
+  //     loai: '',
+  //     mota: '',
+  //     gia: 0,
+  //     size: '',
+  //     sl: 0
+  //   },
+  // ])
 
 
 
@@ -232,13 +251,13 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
     if (res && res.errCode === 0) {
 
       console.log(res)
-      alert("Đăng ký thành công")
+      alert("Đặt vé thành công")
 
       // handleCloseClick();
     } else {
 
       console.log(res)
-      alert("Đăng ký không thành công")
+      alert("Đặt vé không thành công")
 
     };
     // console.log("arrghe", gheArr)
@@ -323,12 +342,24 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
   //     dsdoans.splice(0, dsdoans.length);
   //   }
   // })
-  const handleLayDuLieuTuModalBapNuoc = (arr : any)=>{
+  const handleLayDuLieuTuModalBapNuoc = (arr: any) => {
+    // let sumDV = 0
     setDsdoans(arr)
+    const res1: DSDichVu[] = arr;
+    console.log("res1",res1)
+
+    res1.map((item) => {
+      sumsum2 = sumsum2 + item.sl * item.gia
+      // console.log("item.ten", item.sl)
+
+      console.log("item.ten",item.sl * item.gia)
+    })
+    console.log("sumsum2",sumsum2)
+    setTienDA(sumsum2)
   }
   useEffect(() => {
     const handleLayTTPhim = async () => {
-      
+
       try {
         const params = {
           key: id_phimP
@@ -669,10 +700,17 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
           })}
           <hr />
           <div className='flex space-x-10 mt-5'>
-            <img height={100} width={100} src='poster1.jpg' />
+            <Image
+              className=""
+              src="/poster1.jpg"
+              width={100}
+              height={100}
+              alt="Picture of the author"
+            />
+            {/* <img height={100} width={100} src='poster1.jpg' /> */}
             <div>
-              <p className='text-2xl'>Vincom Xuân khánh <br /> Rạp 01</p>
-              <p className='text-xl pt-3'>30/10/2023 - 20:00</p>
+              <p className='text-2xl'>{tencumrapP} <br /> {tenrapP}</p>
+              <p className='text-xl pt-3'>{ngaychieuP} <br /> {giobdP} - {gioktP}</p>
             </div>
           </div>
           <hr className='my-3' />
@@ -706,32 +744,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
 
               onClick={() => setShowModalDA(true)}
             //  onClick={(e) => handleDoan(trangthaidoan)}
-            >Chọn bắp nước
+            >Chọn dịch vụ
               <AddCircleOutlineIcon />
 
             </div>
-            {
-              trangthaidoan === true
-                ?
-                <div>
-                  {
-                    doan.map((doans, index) => {
-                      // console.log("doans.id",doans.id)
-
-                      return (
-                        <>
-                          <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
-                            onClick={() => handleSetdoan(doans.id, doans.gia)}
-                          // onClick={() => setTienDA(doans.gia)}
-
-                          >{doans.ten} size: {doans.size}</button>
-                        </>
-                      )
-                    })
-                  }
-                </div>
-                : ""
-            }
 
           </div>
           <div>
@@ -749,14 +765,14 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
                     khuyenmai.map((khuyenmais, index) => {
                       return (
                         <>
-                         <div className='flex'>
-                         <p key={index} className='p-2'
-                            onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-                          // onClick={() => setTienKM(khuyenmais.tile_KM)}
+                          <div className='flex'>
+                            <p key={index} className='p-2'
+                              onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                            // onClick={() => setTienKM(khuyenmais.tile_KM)}
 
-                          >{khuyenmais.ten_KM}</p>
-                          <Checkbox defaultChecked />
-                         </div>
+                            >{khuyenmais.ten_KM}</p>
+                            <Checkbox defaultChecked />
+                          </div>
 
                           <hr />
                         </>
@@ -798,14 +814,14 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
 
           </div>
           {/* <div className='flex m-auto'> */}
-          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '>Đặt vé</button>
+          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl ' onClick={() => handleDatve()}>Đặt vé</button>
 
           {/* </div> */}
         </div>
       </div>
       <ModalBapnuoc
         // id_phim={id_phim}
-        handleLayDuLieuTuModalBapNuoc = {handleLayDuLieuTuModalBapNuoc}
+        handleLayDuLieuTuModalBapNuoc={handleLayDuLieuTuModalBapNuoc}
         onCloseDA={() => setShowModalDA(false)}
         showDA={showModalDA}
       ></ModalBapnuoc>
@@ -814,7 +830,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP }: Props) => {
         onCloseKM={() => setShowModalKM(false)}
         showKM={showModalKM}
       ></ModalKhuyenmai> */}
-      <button onClick={()=> console.log("ádas",dsdoans)}>click</button>
+      {/* <button onClick={() => console.log("ádas", tienDA)}>click</button> */}
     </div>
 
 

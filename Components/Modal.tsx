@@ -7,7 +7,7 @@ import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, button } from "@material-tailwind/react";
-import { LayTTCumrap, LayTTRap_idcumrap, LayTTSuatchieu, layTTChieu } from "@/service/userService";
+import { LayTTCumrap, LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu, layTTChieu } from "@/service/userService";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 
@@ -56,6 +56,22 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
     slghe: number;
     id_cumrap: number;
   }
+  interface Phim {
+    id: number;
+    tenphim: string;
+    dieukien: number;
+    trailer: string;
+    poster: string;
+    dienvien: string;
+    ngonngu: string;
+    daodien: string;
+    thoiluong: number;
+    ngaychieu: string;
+    quocgia: string;
+    tomtat: string;
+    nsx: string;
+    trangthai: string;
+}
 
   const [Ngaysinh, setNgaysinh] = useState<any>()
   const [isBrowser, setIsBrowser] = useState(false);
@@ -69,6 +85,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   const [idcumrap, setIdcumrap] = useState(Number);
   const [id_rap, setIdRap] = useState(Number);
   const [ngaychieu, setNgaychieu] = useState(Date);
+  const [phim, setPhim] = useState<Phim[]>([]);
+
 
   const [chieus, setDschieus] = useState([
     {
@@ -195,37 +213,37 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
             ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
             id_rap: res.id
           });
-        
+
         const res1: Chieu[] = resChieu.ttchieu;
-        console.log("asdassssssssssssss",resChieu.ttchieu)
-        console.log("res1",res1)
+        console.log("asdassssssssssssss", resChieu.ttchieu)
+        console.log("res1", res1)
 
         setChieu(res1)
         res1.map(async (res1) => {
           // setIdRap(res1.id_rap)
           suatchieus.splice(0, suatchieus.length);
 
-          console.log("gia", res1.giave)      
-                const params = {
-                  key: res1.id_suatchieu
-                };
-                console.log("suatchieuparams", params);
-                const response = await LayTTSuatchieu(params);
-                const ressuatchieu: Suatchieu[] = response.suatchieus;
-                console.log("check api searchdate Suatchieu: ", response);
-                // console.log("length", res.length);
-                setSuatchieu(ressuatchieu);
+          console.log("gia", res1.giave)
+          const params = {
+            key: res1.id_suatchieu
+          };
+          console.log("suatchieuparams", params);
+          const response = await LayTTSuatchieu(params);
+          const ressuatchieu: Suatchieu[] = response.suatchieus;
+          console.log("check api searchdate Suatchieu: ", response);
+          // console.log("length", res.length);
+          setSuatchieu(ressuatchieu);
 
-                ressuatchieu.map((res) => {
-                  suatchieus.push({
-                    id: res.id,
-                    giobatdau: res.giobatdau,
-                    gioketthuc: res.gioketthuc
-                  });
-                }) 
-                console.log(ressuatchieu.length)
-             
-              
+          ressuatchieu.map((res) => {
+            suatchieus.push({
+              id: res.id,
+              giobatdau: res.giobatdau,
+              gioketthuc: res.gioketthuc
+            });
+          })
+          console.log(ressuatchieu.length)
+
+
           // items.push({
           //   id_rap: res.id,
           //   ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
@@ -274,41 +292,62 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         console.log(error);
       }
     })
-    // try {
-    //   const params = {
-    //     // key: idSuatchieu,
-    //     key: 'ALL'
-    //   };
-    // console.log("searchdate", params);
-    //   const response = await LayTTSuatchieu(params);
-    //   const res: Suatchieu[] = response.suatchieus;
-    //   // console.log("check api searchdate Suatchieu: ", response);
-    //   console.log("length", res.length);
-    //   setSuatchieu(res);
-    //   res.map((res) => {
-    //     const test = {
-    //       text: res.giobatdau
-    //     }
-    //     setTests([test, ...tests])
-    //   })
-    //   // console.log(res.length)
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
   }
   const router = useRouter();
 
-  const handleDatve = (id_sc: number) => {
-    // console.log("suatchieu",suatchieus)
-    // let idrr
-    // suatchieus.map((item)=>{
-    //   if(id_sc === item.id){
-    //     idrr = item.
-    //   }
-    // })
+  const handleDatve = (id_r: number, bd: string, kt: string) => {
+    let tenP
+    let tenrapP
+    let tencumrapP
+    rap.map((r) => {
+      if (r.id === id_r) {
+        tenrapP = r.ten_rap
+      }
+    })
+    cumrap.map((cr)=>{
+      if(cr.id === idcumrap){
+        tencumrapP = cr.ten_tttt
+      }
+    })
+    const handleLayTTPhim = async () => {
+
+      try {
+        const params = {
+          key: id_phim
+
+        };
+        console.log("searchdate", params);
+        const response = await LayTTPhim(params);
+        const res: Phim[] = response.phims;
+        console.log("check api handleLayTTChieu: ", response);
+        // console.log("length", res.length);
+        setPhim(res);
+        console.log(res.length)
+          res.map((res) => (
+            tenP = res.tenphim
+
+          ));
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    handleLayTTPhim()
+
+
     router.push({
       pathname: '/datve',
-      query: { id_phim: id_phim, id_rap: id_sc, ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate()},
+      query: {
+        id_phim: id_phim,
+        id_rap: id_r,
+        ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
+        tenP: tenP,
+        tenrapP: tenrapP,
+        giobdP: bd,
+        gioktP: kt,
+        tencumrapP: tencumrapP
+          },
 
     })
 
@@ -333,7 +372,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         console.log(error);
       }
     }
- 
+
     handleLayTTCumrap();
     setIsBrowser(true);
   }, [chieu, chieus, idSuatchieu, suatchieus]);
@@ -407,7 +446,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                   return (
                     <>
                       {/* <div key={index}> */}
-                      <Button onClick={()=>handleDatve(chieus[index].id_rap)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
+                      <Button onClick={() => handleDatve(chieus[index].id_rap ,item.giobatdau, item.gioketthuc)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
                       {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
                       {/* </div> */}
                     </>

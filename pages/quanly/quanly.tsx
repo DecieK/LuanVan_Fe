@@ -285,7 +285,7 @@ const Quanly = () => {
 
             <Tab label="Rạp" value="1" />
             <Tab label="Khách hàng" value="2" />
-            <Tab label="Khuyến mãi" value="3" />
+            <Tab label="Dịch vụ" value="3" />
             <Tab label="Nhân Viên" value="4" />
             <Tab label="Doanh Thu" value="5" />
           </TabList>
@@ -415,7 +415,7 @@ const Quanly = () => {
             {option == 3 ? (
               <div className="w-10/12 m-5">
 
-                <QLGhe gheP={ghe} cumrapP={cumrap} />
+                <QLGhe gheP={ghe} cumrapP={cumrap} rapP={rap} />
 
               </div>
             ) : null}

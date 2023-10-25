@@ -18,10 +18,11 @@ const noto_serif = Noto_Serif({
 })
 type Props = {
     gheP: any,
-    cumrapP: any
+    cumrapP: any,
+    rapP: any
 
 };
-const QLGhe = ({ gheP, cumrapP }: Props) => {
+const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
 
     interface Ghe {
         id: number;
@@ -56,6 +57,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
     const handleLayttRap = (value: string) => {
         setValueCumrap(value)
         setValueRap('')
+        ghe.splice(0,ghe.length)
         cumrap.map(async (item) => {
             if (value === item.ten_tttt) {
                 setId_cr(item.id)
@@ -95,23 +97,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
         })
 
     }
-    const handleLayTTGheALL = async () => {
-        try {
-          const params = {
-            key: 'ALL',
-          };
-          // console.log("searchdate", params);
-          const response = await LayTTGhe(params);
-          const res: Ghe[] = response.ghes;
-          // console.log("check api searchdate ghe: ", response);
-          // console.log("length", res.length);
-          setGhe(res);
-          // console.log(res.length)
-  
-        } catch (error) {
-          console.log(error);
-        }
-      }
+    
     const handleThemTTGhe = async () => {
         console.log("maghe", maghe)
         console.log("loaighe", loaighe)
@@ -128,8 +114,11 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
 
             setMaghe('')
             setLoaighe('')
-            // setId_cr()
-            handleLayTTGheALL()
+            // setValueCumrap('')
+            // setValueRap('')
+            handleLayttRap(valueCumrap)
+            handleLayTTGhe(valueRap)
+            // handleLayTTGheALL()
             alert("Thêm thông tin ghể mới thành thông")
 
             // handleCloseClick();
@@ -144,6 +133,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
         setMaghe(mg)
         setId_g(id)
         setLoaighe(lg)
+
     }
 
     const handleCapnhatTTGhe = async () => {
@@ -161,8 +151,9 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
 
             setMaghe('')
             setLoaighe('')
-            // setId_cr()
-            handleLayTTGheALL()
+            handleLayttRap(valueCumrap)
+            handleLayTTGhe(valueRap)
+            // handleLayTTGheALL()
             alert("Cập nhật thông tin ghể thành thông")
 
 
@@ -185,8 +176,9 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
             // console.log(res)
             setMaghe('')
             setLoaighe('')
-            // setId_cr()
-            handleLayTTGheALL()
+            handleLayttRap(valueCumrap)
+            handleLayTTGhe(valueRap)
+            // handleLayTTGheALL()
             alert("Xóa thông tin ghế thành thông")
 
             // handleCloseClick();
@@ -201,11 +193,12 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
     useEffect(() => {
         setGhe(gheP)
         setCumrap(cumrapP)
+        setRap(rapP)
         // const res: Cumrap[] = cumrapP;
         // console.log("ádasd",res)
 
 
-    }, [cumrapP, gheP])
+    }, [cumrapP, gheP, rapP])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
@@ -254,7 +247,7 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
                 </div>
                 <div className=" w-8/12 ">
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                                onClick={() => handleCapnhatTTGhe()}
+                        onClick={() => handleCapnhatTTGhe()}
 
                     >Cập nhật thông tin</button>
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
@@ -268,8 +261,8 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
                         <th className="border border-slate-300 text-center">#</th>
                         <th className="border border-slate-300 text-center">Mã ghế</th>
                         <th className="border border-slate-300 text-center">Loại ghế</th>
-                        <th className="border border-slate-300 text-center">Tên cụm rạp</th>
-                        <th className="border border-slate-300 text-center">Rạp</th>
+                        <th className="border border-slate-300 text-center">Tên rạp</th>
+                        {/* <th className="border border-slate-300 text-center">Rạp</th> */}
                         <th className="border border-slate-300 text-center">Tác vụ</th>
 
 
@@ -284,13 +277,17 @@ const QLGhe = ({ gheP, cumrapP }: Props) => {
                                 <td className="border border-slate-300 text-center">{item.maGhe}</td>
                                 <td className="border border-slate-300 text-center">{item.loaiGhe}</td>
                                 {/* <td className="border border-slate-300 text-center">{valueCumrap}</td> */}
-                                <td className="border border-slate-300 text-center">{item.id_rap}</td>
+                                <td className="border border-slate-300 text-center">
+                                    {
+                                        rap.map((r) => r.id === item.id_rap ? r.ten_rap : null)
+                                    }
+                                </td>
 
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
                                         onClick={() => handleSuaTTGhe(item.maGhe, item.loaiGhe, item.id)} />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
-                                    onClick={() => handleXoaTTGhe(item.id)} 
+                                        onClick={() => handleXoaTTGhe(item.id)}
                                     />
                                 </td>
 

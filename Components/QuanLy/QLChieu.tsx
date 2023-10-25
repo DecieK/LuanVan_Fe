@@ -313,8 +313,8 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Giá vé</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                       value={giave}
-                       onChange={(event) => setGiave(event.target.value)}
+                        value={giave}
+                        onChange={(event) => setGiave(event.target.value)}
                     ></input>
                 </div>
                 <div className=" w-8/12 ">
@@ -330,11 +330,13 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                 <thead>
                     <tr>
                         <th className="border border-slate-300 text-center">#</th>
-                        <th className="border border-slate-300 text-center">id phim</th>
-                        <th className="border border-slate-300 text-center">id rạp</th>
-                        <th className="border border-slate-300 text-center">id suất chiếu</th>
-                        <th className="border border-slate-300 text-center">Giờ bắt đâu</th>
-                        <th className="border border-slate-300 text-center">Giờ kết thúc</th>
+                        <th className="border border-slate-300 text-center">Tên phim</th>
+                        <th className="border border-slate-300 text-center">Tên rạp</th>
+                        <th className="border border-slate-300 text-center">Thời gian chiếu</th>
+                        <th className="border border-slate-300 text-center">Ngày chiếu</th>
+                        <th className="border border-slate-300 text-center">Giá vé</th>
+                        <th className="border border-slate-300 text-center">Tác vụ</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -342,11 +344,23 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>
-                                <td className="border border-slate-300 text-center">{item.id_phim}</td>
-                                <td className="border border-slate-300 text-center">{item.id_rap}</td>
-                                <td className="border border-slate-300 text-center">{item.id_suatchieu}</td>
+                                <td className="border border-slate-300 text-center">
+                                    {
+                                        phim.map((p) => p.id === item.id_phim ? p.tenphim : null)
+                                    }
+                                </td>
+                                <td className="border border-slate-300 text-center">
+                                    {
+                                        rap.map((r) => r.id === item.id_rap ? r.ten_rap : null)
+                                    }
+                                </td>
+                                <td className="border border-slate-300 text-center">
+                                    {
+                                        suatchieu.map((sc) => sc.id === item.id_suatchieu ? sc.giobatdau + " - " + sc.gioketthuc : null)
+                                    }
+                                </td>
                                 <td className="border border-slate-300 text-center">{item.ngaychieu}</td>
-                                <td className="border border-slate-300 text-center">{item.giave}</td>
+                                <td className="border border-slate-300 text-center">{item.giave} VNĐ</td>
                                 {/* <td className="border border-slate-300 text-center">{item.giave }</td> */}
 
                                 <td className="border border-slate-300 text-center">

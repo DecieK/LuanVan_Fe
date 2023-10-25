@@ -22,7 +22,7 @@ import Image from 'next/image'
 type Props = {
   showDA: any;
   onCloseDA: any;
-  handleLayDuLieuTuModalBapNuoc : any;
+  handleLayDuLieuTuModalBapNuoc: any;
 };
 const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Props) => {
 
@@ -54,6 +54,21 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
     },
   ])
 
+  const handelesubtractionDoan = (id: number, sl: number) => {
+    console.log("id", id)
+
+
+    setDsdoans(dsdoans.map(item => {
+      if (item.id === id) {
+        return { ...item, sl: item.sl - 1 }
+      } else {
+        return item
+      }
+    }))
+
+    // console.log("dsdoans", dsdoans)
+
+  }
   const handeleAddDoan = (id: number, sl: number) => {
     console.log("id", id)
 
@@ -65,65 +80,8 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
         return item
       }
     }))
-    // setDsdoans(dsdoans.map(dsdoan => {
-    //   if (dsdoan.id_da === id) {
-    //     return { ...dsdoan, sl_da: dsdoan.sl_da + 1 }
-    //   } else {
-    //     return {
-    //       ...dsdoan,
-    //       id_da: id,
-    //       ten_da: ten,
-    //       gia_da: gia_da,
-    //       sl_da: i
-    //     }
-    //   }
-    // }))
 
-    //     dsdoans.map((da) => {
-    //       if (da.ten_da === "") {
-    //         dsdoans.splice(0, dsdoans.length);
-    //       }
-    //       if (da.id_da === id) {
-    //         dsdoans.push(
-    //           {
-    //             ...da, sl_da: da.sl_da + 1,
-    //           }
-    //         )
-    //       }
-    //       else {
-    //     dsdoans.push(
-    //         {
-    //           id_da: id,
-    //           ten_da: ten,
-    //           gia_da: gia_da,
-    //           sl_da: i
-    //         }
-    //       )
-    //   }
-    // })
-    // dsdoans.map((item) => {
-    //   if (item.ten_da === "") {
-    //     dsdoans.splice(0, dsdoans.length);
-    //   }
-
-    // if (item.id_da === id) {
-    //   dsdoans.push({
-    //     id_da: id,
-    //     ten_da: ten,
-    //     gia_da: gia_da,
-    //     sl_da: item.sl_da + 1
-    //   })
-    // } else {
-    // dsdoans.push({
-    //   id_da: id,
-    //   ten_da: ten,
-    //   gia_da: gia_da,
-    //   sl_da: sl
-    // })
-
-    // }
-    // })
-    console.log("dsdoans", dsdoans)
+    // console.log("dsdoans", dsdoans)
 
   }
 
@@ -166,7 +124,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
     }
     handleLayTTDoan()
     setIsBrowser(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCloseClick = () => {
@@ -175,7 +133,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
     console.log(showDA)
 
   }
-  const handleTruyenduLieuveSodoghe = ()=>{
+  const handleTruyenduLieuveSodoghe = () => {
     handleCloseClick()
     handleLayDuLieuTuModalBapNuoc(dsdoans)
   }
@@ -188,7 +146,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
         <StyledModalHeader className=" bg-blue-300  ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
-              Bắp nước
+              Dịch vụ
             </span>
             <button
               // href="#"
@@ -233,7 +191,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
                         <p>Giá: 199.000,00 ₫</p>
                         <div className="flex">
                           <RemoveCircleOutlineIcon
-
+                            onClick={() => handelesubtractionDoan(item.id, item.sl)}
                           />
                           <div>{item.sl}</div>
                           {/* {dsdoans.map((item1, index1) => {
@@ -277,7 +235,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
             </div>
 
           </div>
-          <button onClick={()=>handleTruyenduLieuveSodoghe()}>Xác nhận</button>
+          <button onClick={() => handleTruyenduLieuveSodoghe()}>Xác nhận</button>
         </StyledModalBody>
       </StyledModal>
     </StyledModalOverlay>

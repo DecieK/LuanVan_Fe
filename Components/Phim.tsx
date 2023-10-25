@@ -88,7 +88,7 @@ const Phim = () => {
                                     <div className="absolute inset-0 bg-gradient-to-b  group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
                                     <div className="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
                                         {/* <h1 className="font-dmserif text-3xl font-bold text-white">Beauty</h1> */}
-                                        <div className="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                        <div className="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-0 group-hover:opacity-100">
                                             <p className="">{item.tenphim}</p>
                                             <p className="">{item.tomtat.slice(0,90)}...</p>
                                             <div className="space-x-5  space-y-3">

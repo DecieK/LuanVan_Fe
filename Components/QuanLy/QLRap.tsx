@@ -223,7 +223,10 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
                                 <td className="border border-slate-300 text-center">{item.id}</td>
                                 <td className="border border-slate-300 text-center">{item.ten_rap}</td>
                                 <td className="border border-slate-300 text-center">{item.slghe}</td>
-                                <td className="border border-slate-300 text-center">{valueCumrap ? valueCumrap : item.id_cumrap}</td>
+                                <td className="border border-slate-300 text-center">{
+
+                                    cumrap.map((cr)=> cr.id === item.id_cumrap ? cr.ten_tttt : null)
+                                }</td>
                                 {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
 
                                 <td className="border border-slate-300 text-center">
