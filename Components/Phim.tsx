@@ -70,12 +70,12 @@ const Phim = () => {
     return (
         <div className={noto_serif.className}>
             <div className="grid grid-cols-3 gap-2 w-11/12 m-auto mt-5 ">
-
                 {
                     phim.map((item, index) => {
                         return (
                             <>
-                                <div className="col-span-1 group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30">
+                                <div className="col-span-1 group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow
+                                 hover:shadow-xl hover:shadow-black/30">
                                     <div className="">
                                         <Image
                                             className="w-11/12 h-64  transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
@@ -88,7 +88,8 @@ const Phim = () => {
                                     <div className="absolute inset-0 bg-gradient-to-b  group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
                                     <div className="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
                                         {/* <h1 className="font-dmserif text-3xl font-bold text-white">Beauty</h1> */}
-                                        <div className="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                        <div className="mb-3 text-lg italic text-white opacity-0 transition-opacity 
+                                        duration-0 group-hover:opacity-100">
                                             <p className="">{item.tenphim}</p>
                                             <p className="">{item.tomtat.slice(0,90)}...</p>
                                             <div className="space-x-5  space-y-3">
