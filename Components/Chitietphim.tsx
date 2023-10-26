@@ -5,8 +5,9 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import InfoIcon from '@mui/icons-material/Info';
 import { useRouter } from 'next/router';
-import { LayTTPhim } from '@/service/userService';
+import { LayTTCTLoaiphim_idP, LayTTLoaiphim, LayTTPhim } from '@/service/userService';
 import Modal from './Modal';
+import dayjs from "dayjs"
 
 type Props = {
     id_phim: any;
@@ -28,17 +29,38 @@ const Chitietphim = ({ id_phim }: Props) => {
         nsx: string;
         trangthai: string;
     }
+    interface Chitietloaiphim {
+        id: number;
+        id_phim: number;
+        id_loaiphim: number;
+    }
+    interface Loaiphim {
+        id: number;
+        tenloai: string;
+    }
     const [phim, setPhim] = useState<Phim[]>([]);
+    const [chitietloaiphim, setChitietloaiphim] = useState<Chitietloaiphim[]>([]);
+    const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
     const [domLoaded, setDomLoaded] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
+    const [dsloaiphims, setDsloaiphims] = useState([
+        {
+            id_lp: 0,
+            tenloaiphim: ""
+        },
+    ])
     const handleXemchitiet = () => {
         router.push("/xemchitiet");
 
     };
     useEffect(() => {
-
+        dsloaiphims.map((item) => {
+            if (item.tenloaiphim === '') {
+                dsloaiphims.splice(0, dsloaiphims.length)
+            }
+        })
         const handleLayTTPhim = async () => {
 
             try {
@@ -63,9 +85,43 @@ const Chitietphim = ({ id_phim }: Props) => {
                 console.log(error);
             }
         }
+        const handleLayTTCTLoaiphim_idP = async () => {
+
+            try {
+                const params = {
+                    id: id_phim
+
+                };
+                console.log("searchdate", params);
+                const response = await LayTTCTLoaiphim_idP(params);
+                const res: Chitietloaiphim[] = response.chitietloaiphims;
+                console.log("check api handleLayTTChieu: ", response);
+                // console.log("length", res.length);
+                setChitietloaiphim(res);
+                console.log(res.length)
+                res.map(async (res) => {
+                    const params = {
+                        id: res.id_loaiphim,
+                    };
+                    const response1 = await LayTTLoaiphim(params);
+                    const res1: Loaiphim[] = response1.loaiphims;
+                    setLoaiphim(res1);
+                    res1.map((item) => {
+                        dsloaiphims.push({
+                            id_lp: item.id,
+                            tenloaiphim: item.tenloai
+                        })
+                    })
+                });
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
         setDomLoaded(true)
         handleLayTTPhim()
-    }, [id_phim]);
+        handleLayTTCTLoaiphim_idP()
+    }, [dsloaiphims, id_phim]);
     return (
         <div className=' w-10/12 m-auto mt-7  '>
             {phim.map((item, index) => {
@@ -81,39 +137,53 @@ const Chitietphim = ({ id_phim }: Props) => {
                                     // playing={true}
                                     controls={true}
                                     poster
-                                    url="https://www.youtube.com/watch?v=JBh7SlUwPUg"></ReactPlayer>
+                                    url={item.trailer}></ReactPlayer>
                             </div>
                             <div className='basis-5/12  space-y-2'>
-                                <p className='uppercase text-2xl font-normal mb-1 text-red-500'>wolfoo và hòn đảo kỳ bí</p>
+                                <p className='uppercase text-2xl font-normal mb-1 text-red-500'>{item.tenphim}</p>
                                 <div className='flex space-x-2 mb-3'>
                                     <div className='flex '>
                                         <AccessTimeIcon />
-                                        <p className='pl-2'>100 phút</p>
+                                        <p className='pl-2'>{item.thoiluong} phút</p>
                                     </div>
                                     <div className='pl-5  flex'>
                                         <CalendarTodayIcon />
-                                        <p className='pl-2'>13-10-2023</p>
+                                        <p className='pl-2'>
+                                            {dayjs(item.ngaychieu).format("DD/MM/YYYY")
+                                            }
+                                        </p>
                                     </div>
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Quốc gia:</p>
-                                    <p>Việt Nam</p>
+                                    <p>{item.quocgia}</p>
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Đạo diễn:</p>
-                                    <p>Phan Thị Thơ</p>
+                                    <p>{item.daodien}</p>
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Nhà sản xuất:</p>
-                                    <p>Sconnect</p>
+                                    <p>{item.nsx}</p>
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Thể loại:</p>
-                                    <p>Hoạt hình, Hài</p>
+                                    {
+                                        dsloaiphims.map((item) => {
+                                            return (
+                                                <>
+                                                    <p>
+                                                        {item.tenloaiphim}
+                                                    </p>
+                                                </>
+                                            )
+
+                                        })
+                                    }
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Diễn viên:</p>
-                                    <p>Sony Minh Hiếu, Đạt Phi, Như Ý</p>
+                                    <p>{item.dienvien}</p>
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'></p>

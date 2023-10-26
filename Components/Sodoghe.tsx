@@ -112,6 +112,22 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
     sl: number
   }
 
+  interface Khachhang {
+    id: number;
+    Hten_KH: string;
+    Sdt_KH: string;
+    Email_KH: string;
+    Ngaysinh_KH: Date;
+    Tuoi_KH: number;
+    Diachi_KH: string;
+    Gioitinh_KH: string;
+    Cccd_KH: string;
+    Mathethanhvien_KH: number;
+    Diemtichluy_KH: number;
+    Taikhoan_KH: string;
+    Matkhau_KH: string;
+  }
+
   const [id_ve, setId_ve] = useState("")
   const [id_chieu, setId_chieu] = useState(Number)
   const [hten_KH, setHten_KH] = useState("");
@@ -311,6 +327,7 @@ if(checked === id_km){
   setChecked(id_km)
   khuyenmai.map((item)=>{
     if(item.id === id_km){
+      // kiem tra xem có nằm trong thời gian khuyến mãi hay k
       setTienKM(item.tile_KM)
     }
   })
@@ -521,6 +538,24 @@ if(checked === id_km){
         console.log(error);
       }
     }
+
+    const khachhangs = JSON.parse(
+      localStorage.getItem("khachhang") || "{}"
+    );
+    if (Object.keys(khachhangs).length === 0) {
+      // setTrangthai(true)
+      console.log("true");
+    } else {
+      // setTrangthai(false)
+      console.log("false");
+      const res: Khachhang[] = khachhangs;
+      console.log("Ád",res)
+
+      res.map((item) => {
+        setDiemtichluyKH(item.Diemtichluy_KH)
+      });
+    }
+
     handleLayTTChieu();
     handleLayTTGhe();
     // handleLayTTchitietve();

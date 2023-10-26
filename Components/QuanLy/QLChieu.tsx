@@ -406,7 +406,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                     ))}
                 </tbody>
             </table>
-            <button onClick={handleLayTTChieu}>click</button>
+            {/* <button onClick={handleLayTTChieu}>click</button> */}
         </div>
     );
 };

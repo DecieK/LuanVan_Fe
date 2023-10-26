@@ -28,13 +28,14 @@ const Dangnhap = ({ onClose, show }: Props) => {
     Diemtichluy_KH: number;
     Taikhoan_KH: string;
     Matkhau_KH: string;
-}
+  }
 
   const [isBrowser, setIsBrowser] = useState(false);
 
   const [showModalDangky, setShowModalDangky] = useState(false);
   const [showModalQuenMk, setShowModalQuenMK] = useState(false);
   const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
+  const [items, setItems] = useState([]);
 
 
   const [passwordType, setPasswordType] = useState("password");
@@ -66,6 +67,7 @@ const Dangnhap = ({ onClose, show }: Props) => {
 
   useEffect(() => {
     setIsBrowser(true);
+    // localStorage.setItem('khachhang', JSON.stringify(items));
 
   }, []);
 
@@ -83,35 +85,41 @@ const Dangnhap = ({ onClose, show }: Props) => {
     Axios.post("http://localhost:8080/api/Dangnhap", {
       Taikhoan_KH: username,
       Matkhau_KH: password,
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.data.errCode) {
         setLoginStatus(response.data.errCode);
         console.log("không thành công", loginStatus)
 
 
       } else {
-        localStorage.setItem("res", khachhang)
 
         console.log("thành công")
-        const handleLayTTkhachhang = async () => {
-          try {
-            const params = {
-              tenkhachhang: 'ALL',
-            };
-            // console.log("searchdate", params);
-            const response = await LayTTKhachhang(params);
-            const res: Khachhang[] = response.khachhangs;
-            // console.log("check api searchdate ghe: ", response);
-            // console.log("length", res.length);
-            setKhachhang(res);
-            // console.log(res.length)
+        // const handleLayTTkhachhang = async () => {
+        try {
+          const params = {
+            tenkhachhang: 'ALL',
+          };
+          // console.log("searchdate", params);
+          const response = await LayTTKhachhang(params);
 
-          } catch (error) {
-            console.log(error);
-          }
+          setItems(response)
+
+          const res: Khachhang[] = response.khachhangs;
+          localStorage.setItem('khachhang', JSON.stringify(res));
+
+          // console.log("check api searchdate ghe: ", response);
+          // console.log("length", res.length);
+          setKhachhang(res);
+          // console.log(res.length)
+
+        } catch (error) {
+          console.log(error);
         }
       }
+
+      // }
     })
+
   }
 
   const modalContent = show ? (

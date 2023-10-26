@@ -618,3 +618,13 @@ export async function LayTTKhachhang(params: { tenkhachhang: any }): Promise<any
   const data = await response.json();
   return data;
 }
+
+
+export async function LayTTCTLoaiphim_idP(params: { id: any }): Promise<any> {
+  const { id } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTCTLoaiphim_idP?id=${id}`
+  );
+  const data = await response.json();
+  return data;
+}

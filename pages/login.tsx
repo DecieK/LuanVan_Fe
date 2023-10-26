@@ -9,6 +9,7 @@ import Router from 'next/router'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useRef, ChangeEvent, BaseSyntheticEvent } from "react";
 import Axios from "axios";
+import { LayTTKhachhang } from "@/service/userService";
 
 const noto_serif = Noto_Serif({
   weight: '400',
@@ -18,11 +19,26 @@ const noto_serif = Noto_Serif({
 
 
 const Login = () => {
-
+  interface Khachhang {
+    id: number;
+    Hten_KH: string;
+    Sdt_KH: string;
+    Email_KH: string;
+    Ngaysinh_KH: Date;
+    Tuoi_KH: number;
+    Diachi_KH: string;
+    Gioitinh_KH: string;
+    Cccd_KH: string;
+    Mathethanhvien_KH: number;
+    Diemtichluy_KH: number;
+    Taikhoan_KH: string;
+    Matkhau_KH: string;
+  }
   const [isBrowser, setIsBrowser] = useState(false);
 
   const [showModalDangky, setShowModalDangky] = useState(false);
   const [showModalQuenMk, setShowModalQuenMK] = useState(false);
+  const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
 
 
   const [passwordType, setPasswordType] = useState("password");
@@ -64,7 +80,7 @@ const Login = () => {
     Axios.post("http://localhost:8080/api/Dangnhap", {
       Taikhoan_KH: username,
       Matkhau_KH: password,
-    }).then((response) => {
+    }).then(async (response) => {
       if (response.data.errCode) {
         setLoginStatus(response.data.errCode);
         console.log("status2", loginStatus)
@@ -72,6 +88,19 @@ const Login = () => {
 
       } else {
         console.log("asdasdasdasd")
+        console.log("thành công")
+        // const handleLayTTkhachhang = async () => {
+        try {
+          const params = {
+            tenkhachhang: 'ALL',
+          };
+          const response = await LayTTKhachhang(params);
+          const res: Khachhang[] = response.khachhangs;
+          localStorage.setItem('khachhang', JSON.stringify(res));
+          setKhachhang(res);
+        } catch (error) {
+          console.log(error);
+        }
         router.push({
           pathname: '/',
           // query: { username: username },
@@ -124,7 +153,7 @@ const Login = () => {
             </div>
 
             <button className="mt-10 uppercase text-white bg-red-400 rounded-md h-9 w-3/4"
-            onClick={login}
+              onClick={login}
             >đăng nhập</button>
             <button onClick={handleBackPage} className="text-left pt-3 ">Trở về</button>
             {/* <button onClick={() => Router.back()} className="text-left pt-3 ">Trở về</button> */}
