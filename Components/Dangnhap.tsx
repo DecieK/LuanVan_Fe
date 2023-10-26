@@ -5,6 +5,7 @@ import Dangky from "./Dangky";
 import QuenMk from "./QuenMK";
 import router from "next/router";
 import Axios from "axios";
+import { LayTTKhachhang } from "@/service/userService";
 
 
 type Props = {
@@ -13,11 +14,27 @@ type Props = {
 };
 
 const Dangnhap = ({ onClose, show }: Props) => {
+  interface Khachhang {
+    id: number;
+    Hten_KH: string;
+    Sdt_KH: string;
+    Email_KH: string;
+    Ngaysinh_KH: Date;
+    Tuoi_KH: number;
+    Diachi_KH: string;
+    Gioitinh_KH: string;
+    Cccd_KH: string;
+    Mathethanhvien_KH: number;
+    Diemtichluy_KH: number;
+    Taikhoan_KH: string;
+    Matkhau_KH: string;
+}
 
   const [isBrowser, setIsBrowser] = useState(false);
 
   const [showModalDangky, setShowModalDangky] = useState(false);
   const [showModalQuenMk, setShowModalQuenMK] = useState(false);
+  const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
 
 
   const [passwordType, setPasswordType] = useState("password");
@@ -69,15 +86,30 @@ const Dangnhap = ({ onClose, show }: Props) => {
     }).then((response) => {
       if (response.data.errCode) {
         setLoginStatus(response.data.errCode);
-        console.log("status2", loginStatus)
+        console.log("không thành công", loginStatus)
 
 
       } else {
-        console.log("asdasdasdasd")
-        // router.push({
-        //   pathname: '/bookinglist',
-        //   query: { username: username },
-        // })
+        localStorage.setItem("res", khachhang)
+
+        console.log("thành công")
+        const handleLayTTkhachhang = async () => {
+          try {
+            const params = {
+              tenkhachhang: 'ALL',
+            };
+            // console.log("searchdate", params);
+            const response = await LayTTKhachhang(params);
+            const res: Khachhang[] = response.khachhangs;
+            // console.log("check api searchdate ghe: ", response);
+            // console.log("length", res.length);
+            setKhachhang(res);
+            // console.log(res.length)
+
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
     })
   }
@@ -117,9 +149,9 @@ const Dangnhap = ({ onClose, show }: Props) => {
               <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="tài khoản" onChange={(e) => { setUsername(e.target.value) }} />
               <input className="w-[70%] border-slate-500 border-dotted  p-1 m-2 outline-none" placeholder="mật khẩu" name="password" type={passwordType} onChange={(e) => { setPassword(e.target.value) }} value={password} />
               <button onClick={togglePassword}>
-                {passwordType === "password" 
-                ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/Hienps.png')]"></button> 
-                : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/Anps.png')]"></button>}
+                {passwordType === "password"
+                  ? <button className="  h-[20px] w-[20px] bg-no-repeat bg-[url('../public/Hienps.png')]"></button>
+                  : <button className=" h-[20px] w-[20px] bg-no-repeat bg-[url('../public/Anps.png')]"></button>}
               </button>
               <a className="flex pl-2 col-span-1 hover:text-red-600 cursor-pointer italic text-xs "
                 onClick={handleSignOTP}>

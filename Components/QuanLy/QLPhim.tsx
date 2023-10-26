@@ -9,6 +9,8 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import { aborted } from "util";
 import { LayTTRap_idcumrap } from "@/service/userService";
+import Image from 'next/image'
+import dayjs from "dayjs"
 
 
 const noto_serif = Noto_Serif({
@@ -112,7 +114,7 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40">Lưu thông tin</button></div>
             </div>
             <div className="w-full overflow-x-auto">
-                <table className=" border-separate  border border-slate-400 w-[1500px] ">
+                <table className=" border-separate  border border-slate-400 w-full ">
                     <thead>
                         <tr>
                             <th className="border border-slate-300 text-center ">#</th>
@@ -145,10 +147,22 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                                     <td className="border border-slate-300 text-center">{item.dienvien}</td>
                                     <td className="border border-slate-300 text-center">{item.nsx}</td>
                                     <td className="border border-slate-300 text-center">{item.ngonngu}</td>
-                                    <td className="border border-slate-300 text-center">{item.ngaychieu}</td>
+                                    <td className="border border-slate-300 text-center">
+                                        {
+                                            dayjs(item.ngaychieu).format("DD/MM/YYYY")
+                                        }
+
+                                    </td>
                                     <td className="border border-slate-300 text-center">{item.tomtat}</td>
                                     <td className="border border-slate-300 text-center">{item.thoiluong}</td>
-                                    <td className="border border-slate-300 text-center">{}</td>
+                                    <td className="border border-slate-300 text-center">{
+                                        <Image
+                                            src={new Buffer(item.poster, "base64").toString("binary")}
+                                            width={300}
+                                            height={300}
+                                            alt="Picture of the author"
+                                        />
+                                    }</td>
                                     <td className="border border-slate-300 text-center">{item.trailer}</td>
                                     <td className="border border-slate-300 text-center">{item.trangthai}</td>
                                     <td className="border border-slate-300 text-center">{item.dieukien}</td>

@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { LayTTRap_idcumrap, SuaTTChieu, ThemTTChieu, XoaTTChieu, layTTChieu } from "@/service/userService";
+import index from "@/pages";
+import dayjs from "dayjs"
 
 
 const noto_serif = Noto_Serif({
@@ -24,7 +26,7 @@ type Props = {
 const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
     interface Chieu {
         id: number;
-        ngaychieu: string;
+        ngaychieu: Date;
         giave: number;
         id_rap: number;
         id_suatchieu: number;
@@ -72,7 +74,13 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
     const [id_sc, setId_sc] = useState(Number);
     const [id_c, setId_c] = useState(Number);
     const [startDate, setStartDate] = useState(new Date());
+    const [DSngaychieus, setDSngaychieus] = useState([
+        {
+            id: 0,
+            ngaychieu: new Date(),
 
+        },
+    ])
 
     const handleLayTTChieu = async () => {
         try {
@@ -88,7 +96,9 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
             console.log("check api searchdate chieu: ", response);
             // console.log("length", res.length);
             setChieu(res);
-            // console.log(res.length)
+            res.map((res) => {
+                console.log("asdasdasdas", res.ngaychieu.getDate())
+            })
 
 
         } catch (error) {
@@ -213,7 +223,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
 
         };
     }
-    const handleSuaTTChieu = async (ngay: string, gv: number, id: number, idp: number, idr: number, idsc: number) => {
+    const handleSuaTTChieu = async (ngay: Date, gv: number, id: number, idp: number, idr: number, idsc: number) => {
         let date1 = new Date(ngay)
         setId_c(id)
 
@@ -242,12 +252,24 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
 
 
     useEffect(() => {
+        DSngaychieus.map((item)=>{
+            if(item.id === 0){
+                DSngaychieus.splice(0, DSngaychieus.length)
+            }
+        })
         setSuatchieu(suatchieuP)
         setPhim(phimP)
         setRap(rapP)
         setChieu(chieuP)
+        const res: Chieu[] = chieuP
+        res.map((item)=>{
+            DSngaychieus.push({
+                id: item.id,
+                ngaychieu: item.ngaychieu
+            })
+        })
 
-    }, [chieuP, phimP, rapP, suatchieuP])
+    }, [DSngaychieus, chieuP, phimP, rapP, suatchieuP])
     return (
         <div>
             <div className="space-y-5">
@@ -340,7 +362,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {chieu.map((item) => (
+                    {chieu.map((item, index) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>
@@ -359,7 +381,12 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                                         suatchieu.map((sc) => sc.id === item.id_suatchieu ? sc.giobatdau + " - " + sc.gioketthuc : null)
                                     }
                                 </td>
-                                <td className="border border-slate-300 text-center">{item.ngaychieu}</td>
+                                <td className="border border-slate-300 text-center">
+                                    {
+                                        dayjs(item.ngaychieu).format("DD/MM/YYYY")
+                                        // (new Date(item.ngaychieu)).toLocaleDateString() 
+                                    }   
+                                </td>
                                 <td className="border border-slate-300 text-center">{item.giave} VNĐ</td>
                                 {/* <td className="border border-slate-300 text-center">{item.giave }</td> */}
 
@@ -379,6 +406,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                     ))}
                 </tbody>
             </table>
+            <button onClick={handleLayTTChieu}>click</button>
         </div>
     );
 };

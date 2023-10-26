@@ -609,3 +609,12 @@ export async function ThemTTDoan(params: {
   const data = await response.json();
   return data;
 }
+
+export async function LayTTKhachhang(params: { tenkhachhang: any }): Promise<any> {
+  const { tenkhachhang } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTKhachhang?keyword=${tenkhachhang}`
+  );
+  const data = await response.json();
+  return data;
+}

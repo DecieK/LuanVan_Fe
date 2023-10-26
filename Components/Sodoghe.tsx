@@ -143,7 +143,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   // const [tonggiave, setTonggiave] = useState(Number)
   // const [tileKM, setTileKM] = useState(Number)
   // const [giaDA, setGiaDA] = useState(Number)
-  // const [sumsum1, setSumsum1] = useState(Number)
+  const [diemtichluyKH, setDiemtichluyKH] = useState(11)
   const [tienDA, setTienDA] = useState(Number)
   const [tienKM, setTienKM] = useState(Number)
   // const [sumsum1, setSumsum1] = useState(Number)
@@ -153,6 +153,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   const [showModalKM, setShowModalKM] = useState(false);
   const [r, setR] = useState(Number)
   const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
+  const [checked, setChecked] = React.useState(0);
 
 
 
@@ -298,63 +299,48 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
   }
 
-  const handleDoan = (trangthai: boolean) => {
-    if (trangthai === true) {
-      setTrangthaidoan(false)
-    }
-    else setTrangthaidoan(true)
 
-  }
-  const handleKM = (trangthai: boolean) => {
-    if (trangthai === true) {
-      setKm(false)
-    }
-    else setKm(true)
 
-  }
 
-  const handleSetdoan = (id_da: number, giaDA: number) => {
-    if (id_da === id_doan) {
-      setId_doan(0)
-      setTienDA(0)
+  
+  const handleSetkm = (id_km: number) => {
+if(checked === id_km){
+  setChecked(0)
+  setTienKM(0)
+}else{
+  setChecked(id_km)
+  khuyenmai.map((item)=>{
+    if(item.id === id_km){
+      setTienKM(item.tile_KM)
     }
-    else {
-      setId_doan(id_da)
-      setTienDA(giaDA)
-    }
-    console.log("tienDA", tienDA)
-  }
-  const handleSetkm = (id_km: number, tile: number) => {
-    if (id_km === id_KM) {
-      setId_KM(0)
-      setTienKM(0)
-    }
-    else {
-      setId_KM(id_km)
-      setTienKM(tile)
-    }
+  })
+}
+    
+    // if (id_km === id_KM) {
+    //   setId_KM(0)
+    //   setTienKM(0)
+    // }
+    // else {
+    //   setId_KM(id_km)
+    //   setTienKM(tile)
+    // }
 
     console.log("tienKM", tienKM)
 
   }
-  // dsdoans.map((da) => {
-  //   if (da.ten === "") {
-  //     dsdoans.splice(0, dsdoans.length);
-  //   }
-  // })
+
   const handleLayDuLieuTuModalBapNuoc = (arr: any) => {
     // let sumDV = 0
     setDsdoans(arr)
     const res1: DSDichVu[] = arr;
-    console.log("res1",res1)
+    console.log("res1", res1)
 
     res1.map((item) => {
       sumsum2 = sumsum2 + item.sl * item.gia
       // console.log("item.ten", item.sl)
-
-      console.log("item.ten",item.sl * item.gia)
+      // console.log("item.ten", item.sl * item.gia)
     })
-    console.log("sumsum2",sumsum2)
+    // console.log("sumsum2", sumsum2)
     setTienDA(sumsum2)
   }
   useEffect(() => {
@@ -753,58 +739,40 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
           <div>
             <div className='cursor-pointer'
               //  onClick={() => handleKM(km)}
-              onClick={() => setShowModalKM(true)}
+              onClick={() => setShowModalKM(!showModalKM)}
 
             >Khuyến mãi</div>
             {
-
               showModalKM === true
                 ?
                 <div>
                   {
                     khuyenmai.map((khuyenmais, index) => {
-                      return (
-                        <>
-                          <div className='flex'>
-                            <p key={index} className='p-2'
-                              onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-                            // onClick={() => setTienKM(khuyenmais.tile_KM)}
+                      if (khuyenmais.dieukien_KM < diemtichluyKH) {
+                        return (
+                          <>
+                            <div className='flex'>
+                              <p key={index} className='p-2'
+                                // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                              // onClick={() => setTienKM(khuyenmais.tile_KM)}
+                              >{khuyenmais.ten_KM}</p>
+                              <Checkbox
+                                checked={khuyenmais.id === checked ? true : false}
+                                // onChange={()=>setChecked(!checked)}
+                                onClick={()=>handleSetkm(khuyenmais.id)} 
+                                />
+                            </div>
+                            <hr />
+                          </>
+                        )
+                      }
 
-                            >{khuyenmais.ten_KM}</p>
-                            <Checkbox defaultChecked />
-                          </div>
-
-                          <hr />
-                        </>
-                      )
                     })
                   }
 
                 </div>
                 : ""
             }
-
-            {/* {
-              km === true
-                ?
-                <div>
-                  {
-                    khuyenmai.map((khuyenmais, index) => {
-                      return (
-                        <>
-                          <button key={index} className='p-2 border-solid border-2 border-indigo-600 bg-teal-500'
-                            onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-                          // onClick={() => setTienKM(khuyenmais.tile_KM)}
-
-                          >{khuyenmais.ten_KM}</button>
-                        </>
-                      )
-                    })
-                  }
-
-                </div>
-                : ""
-            } */}
 
           </div>
 
