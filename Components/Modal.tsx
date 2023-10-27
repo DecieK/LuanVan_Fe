@@ -71,7 +71,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
     tomtat: string;
     nsx: string;
     trangthai: string;
-}
+  }
 
   const [Ngaysinh, setNgaysinh] = useState<any>()
   const [isBrowser, setIsBrowser] = useState(false);
@@ -305,8 +305,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         tenrapP = r.ten_rap
       }
     })
-    cumrap.map((cr)=>{
-      if(cr.id === idcumrap){
+    cumrap.map((cr) => {
+      if (cr.id === idcumrap) {
         tencumrapP = cr.ten_tttt
       }
     })
@@ -324,10 +324,10 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         // console.log("length", res.length);
         setPhim(res);
         console.log(res.length)
-          res.map((res) => (
-            tenP = res.tenphim
+        res.map((res) => (
+          tenP = res.tenphim
 
-          ));
+        ));
 
       } catch (error) {
         console.log(error);
@@ -347,7 +347,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         giobdP: bd,
         gioktP: kt,
         tencumrapP: tencumrapP
-          },
+      },
 
     })
 
@@ -419,8 +419,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 className=""
                 // type="datetime"
                 selected={startDate}
-                // onChange={handlSearchLichkham}
-                // onChange={(date: Date) => handleLayTTChieu(date)}
+                minDate={new Date()}
+                // maxDate={new Date("10-29-2023")}
                 onChange={(date: Date) => setStartDate(date)}
                 // onChange={(date: Date) => handlSearchDate((date))}
                 dateFormat="dd/MM/yyyy"
@@ -446,7 +446,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                   return (
                     <>
                       {/* <div key={index}> */}
-                      <Button onClick={() => handleDatve(chieus[index].id_rap ,item.giobatdau, item.gioketthuc)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
+                      <Button onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
                       {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
                       {/* </div> */}
                     </>

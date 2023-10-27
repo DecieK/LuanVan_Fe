@@ -23,9 +23,9 @@ const Card = ({ poster }: Props) => {
 
     return (
         <div>
-            <div className=" m-auto  ">
+            <div className=" m-auto shadow-xl ">
                 <Image
-                    className="h-[700px] w-10/12  rounded-xl m-auto  bg-no-repeat"
+                    className="h-[500px] w-9/12  rounded-xl m-auto  bg-no-repeat"
                     src={poster}
                     width={1500}
                     height={1500}

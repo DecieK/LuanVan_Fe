@@ -384,7 +384,6 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                                 <td className="border border-slate-300 text-center">
                                     {
                                         dayjs(item.ngaychieu).format("DD/MM/YYYY")
-                                        // (new Date(item.ngaychieu)).toLocaleDateString() 
                                     }   
                                 </td>
                                 <td className="border border-slate-300 text-center">{item.giave} VNĐ</td>

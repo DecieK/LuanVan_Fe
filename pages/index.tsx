@@ -10,7 +10,7 @@ import QuenMk from "@/Components/QuenMK";
 import { useEffect, useState } from "react";
 import Dangnhap from "@/Components/Dangnhap";
 import Quenmatkhau from "@/Components/Quenmatkhau";
-import MySlider from "./MySlider";
+import MySlider from "../Components/MySlider";
 import ThemTTphim from "@/Components/ThemTTphim";
 import UploadVideos from "@/Components/ThemTT";
 import { LayTTPhim } from "@/service/userService";
@@ -35,12 +35,12 @@ const index = () => {
 
        <Header />
       <MySlider />
-      <p>Phim đăng chiếu | Phim sắp chiếu</p>
+      {/* <p>Phim đăng chiếu | Phim sắp chiếu</p> */}
       <Phim />
       <Blog />
       <Footer /> 
 
-    {/* <ThemTTphim /> */}
+    <ThemTTphim />
       {/* <Sodoghe id_phimP={1} id_rapP={1} ngaychieuP={2023-10-20} /> */}
     </div>
 
