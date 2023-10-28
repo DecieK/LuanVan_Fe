@@ -86,6 +86,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   const [id_rap, setIdRap] = useState(Number);
   const [ngaychieu, setNgaychieu] = useState(Date);
   const [phim, setPhim] = useState<Phim[]>([]);
+  const [checkdate, setCheckdate] = useState(Boolean);
 
 
   const [chieus, setDschieus] = useState([
@@ -182,12 +183,29 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
   }
 
+  const handleKiemtraNgay = (date: Date) => {
+    suatchieus.splice(0, suatchieus.length)
+
+    setStartDate(date)
+    let currdate = new Date()
+    currdate.setHours(0, 0, 0, 0)
+    date.setHours(0, 0, 0, 0)
+    if (date.getTime() === currdate.getTime()) {
+      setCheckdate(true)
+    } else {
+      setCheckdate(false)
+    }
+  }
+
   const deleteAllItems = () => {
     chieus.splice(0, chieus.length);
     // setDschieus([...chieus]); // Update the state with the modified array
   };
 
   const handleLayTTCumRap = async (id_cumrap: number) => {
+    if (id_cumrap != idcumrap) {
+      suatchieus.splice(0, suatchieus.length)
+    }
     setIdcumrap(id_cumrap)
     deleteAllItems()
     setNgaychieu(startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate())
@@ -219,44 +237,35 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         console.log("res1", res1)
 
         setChieu(res1)
-        res1.map(async (res1) => {
-          // setIdRap(res1.id_rap)
-          suatchieus.splice(0, suatchieus.length);
+        if (res1.length === 0) {
+          suatchieus.splice(0, suatchieus.length)
+        } else {
+          res1.map(async (res1) => {
+            // setIdRap(res1.id_rap)
+            suatchieus.splice(0, suatchieus.length);
 
-          console.log("gia", res1.giave)
-          const params = {
-            key: res1.id_suatchieu
-          };
-          console.log("suatchieuparams", params);
-          const response = await LayTTSuatchieu(params);
-          const ressuatchieu: Suatchieu[] = response.suatchieus;
-          console.log("check api searchdate Suatchieu: ", response);
-          // console.log("length", res.length);
-          setSuatchieu(ressuatchieu);
+            console.log("gia", res1.giave)
+            const params = {
+              key: res1.id_suatchieu
+            };
+            console.log("suatchieuparams", params);
+            const response = await LayTTSuatchieu(params);
+            const ressuatchieu: Suatchieu[] = response.suatchieus;
+            console.log("check api searchdate Suatchieu: ", response);
+            // console.log("length", res.length);
+            setSuatchieu(ressuatchieu);
 
-          ressuatchieu.map((res) => {
-            suatchieus.push({
-              id: res.id,
-              giobatdau: res.giobatdau,
-              gioketthuc: res.gioketthuc
-            });
+            ressuatchieu.map((res) => {
+              suatchieus.push({
+                id: res.id,
+                giobatdau: res.giobatdau,
+                gioketthuc: res.gioketthuc
+              });
+            })
+            console.log(ressuatchieu.length)
+            handlePushTTchieu(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
           })
-          console.log(ressuatchieu.length)
-
-
-          // items.push({
-          //   id_rap: res.id,
-          //   ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
-          //   // giave: 0,
-          //   id_phim: id_phim,
-          //   id_suatchieu: res1.id_suatchieu,
-          //   giobatdau: '',
-          //   gioketthuc: "",
-          //   slghe: res.slghe,
-          //   slghedadat: 0
-          // });
-          handlePushTTchieu(res1.id, res1.ngaychieu, res1.giave, res1.id_rap, res1.id_suatchieu, res1.id_suatchieu)
-        })
+        }
         // handleLayTTChieu(res.id)
       })
       console.log("lengasdasdasth rap");
@@ -420,9 +429,9 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 // type="datetime"
                 selected={startDate}
                 minDate={new Date()}
-                // maxDate={new Date("10-29-2023")}
-                onChange={(date: Date) => setStartDate(date)}
-                // onChange={(date: Date) => handlSearchDate((date))}
+                // maxDate={new Date("10-30-2023")}
+                // onChange={(date: Date) => setStartDate(date)}
+                onChange={(date: Date) => handleKiemtraNgay((date))}
                 dateFormat="dd/MM/yyyy"
               />
             </div>
@@ -438,26 +447,68 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 )
               })
             }
-
-
             {
               suatchieus.map((item, index) => {
-                if (item.giobatdau !== '') {
-                  return (
-                    <>
-                      {/* <div key={index}> */}
-                      <Button onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.giobatdau}~{item.gioketthuc} <br /> </Button>
-                      {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
-                      {/* </div> */}
-                    </>
-                  )
+                let datee = new Date()
+                // console.log("date",datee.getTime())
+                // console.log("startDate",startDate.getTime())
+
+                // {startDate.toUTCString() === datee.toUTCString() ? console.log("áda"): console.log("vxa")}
+
+                // if (item.giobatdau !== '') {
+                if (checkdate === true) {
+                  if (item.giobatdau !== '' && datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
+                    (datee.getHours() === Number(item.giobatdau.slice(0, 2)) &&
+                      (datee.getMinutes() + 10) < Number(item.giobatdau.slice(3, 5)))) {
+
+                    // console.log("gio + phut+ giay", datee.getHours() +""+datee.getMinutes()+""+datee.getSeconds())
+                    return (
+                      <>
+                        {/* <div key={index}> */}
+                        <Button
+                          onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
+                          key={index}
+                          className="h-28 w-28 bg-slate-600 m-4">
+                          {
+                            item.giobatdau + " - " + item.gioketthuc
+                            // (datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
+                            //   datee.getHours() === Number(item.giobatdau.slice(0, 2)) && (datee.getMinutes()+10) < Number(item.giobatdau.slice)
+                            //   ? item.giobatdau +" - "+ item.gioketthuc : null                            
+                            //   )
+                          }
+                        </Button>
+                      </>
+                    )
+                  }
+                } else {
+                  if (item.giobatdau !== '') {
+
+                    // console.log("gio + phut+ giay", datee.getHours() +""+datee.getMinutes()+""+datee.getSeconds())
+                    return (
+                      <>
+                        {/* <div key={index}> */}
+                        <Button
+                          onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
+                          key={index}
+                          className="h-28 w-28 bg-slate-600 m-4">
+                          {
+                            item.giobatdau + " - " + item.gioketthuc
+                            // (datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
+                            //   datee.getHours() === Number(item.giobatdau.slice(0, 2)) && (datee.getMinutes()+10) < Number(item.giobatdau.slice)
+                            //   ? item.giobatdau +" - "+ item.gioketthuc : null                            
+                            //   )
+                          }
+                        </Button>
+                      </>
+                    )
+                  }
                 }
               })
             }
-            {/* <button
-              // onClick={() => console.log("suatchieus", suatchieus)}
-              onClick={() => handleLayTTSuatchieu()}
-            >click</button> */}
+            <button
+              onClick={() => console.log("checkdate", checkdate)}
+            // onClick={() => handleLayTTSuatchieu()}
+            >click</button>
 
 
 
