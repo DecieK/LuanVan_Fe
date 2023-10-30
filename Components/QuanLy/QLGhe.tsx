@@ -8,7 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import { aborted } from "util";
-import { LayTTGhe, LayTTGhe_idrap, LayTTRap_idcumrap, SuaTTGhe, SuaTTRap, ThemTTGhe, XoaTTGhe } from "@/service/userService";
+import { LayTTCumrap, LayTTGhe, LayTTGhe_idrap, LayTTRap_idcumrap, SuaTTGhe, SuaTTRap, ThemTTGhe, XoaTTGhe } from "@/service/userService";
 
 
 const noto_serif = Noto_Serif({
@@ -16,13 +16,8 @@ const noto_serif = Noto_Serif({
     subsets: ['latin'],
     // display: 'swap',
 })
-type Props = {
-    gheP: any,
-    cumrapP: any,
-    rapP: any
 
-};
-const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
+const QLGhe = () => {
 
     interface Ghe {
         id: number;
@@ -57,7 +52,7 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
     const handleLayttRap = (value: string) => {
         setValueCumrap(value)
         setValueRap('')
-        ghe.splice(0,ghe.length)
+        ghe.splice(0, ghe.length)
         cumrap.map(async (item) => {
             if (value === item.ten_tttt) {
                 setId_cr(item.id)
@@ -97,7 +92,7 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
         })
 
     }
-    
+
     const handleThemTTGhe = async () => {
         console.log("maghe", maghe)
         console.log("loaighe", loaighe)
@@ -116,9 +111,10 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
             setLoaighe('')
             // setValueCumrap('')
             // setValueRap('')
+                        handleLayTTGheALL()
             handleLayttRap(valueCumrap)
             handleLayTTGhe(valueRap)
-            // handleLayTTGheALL()
+
             alert("Thêm thông tin ghể mới thành thông")
 
             // handleCloseClick();
@@ -129,10 +125,22 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
 
         };
     }
-    const handleSuaTTGhe = async (mg: string, lg: string, id: number) => {
+    const handleSuaTTGhe = async (mg: string, lg: string, id: number, idr: number) => {
         setMaghe(mg)
         setId_g(id)
         setLoaighe(lg)
+        rap.map((r) => {
+            if (r.id === idr) {
+                setValueRap(r.ten_rap)
+                cumrap.map((cr) => {
+                    if (r.id_cumrap === cr.id) {
+                        setValueCumrap(cr.ten_tttt)
+                    }
+                })
+            }
+
+        })
+
 
     }
 
@@ -151,9 +159,10 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
 
             setMaghe('')
             setLoaighe('')
+
+            handleLayTTGheALL()
             handleLayttRap(valueCumrap)
             handleLayTTGhe(valueRap)
-            // handleLayTTGheALL()
             alert("Cập nhật thông tin ghể thành thông")
 
 
@@ -178,7 +187,7 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
             setLoaighe('')
             handleLayttRap(valueCumrap)
             handleLayTTGhe(valueRap)
-            // handleLayTTGheALL()
+            handleLayTTGheALL()
             alert("Xóa thông tin ghế thành thông")
 
             // handleCloseClick();
@@ -189,16 +198,79 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
 
         };
     }
+    const handleLayTTGheALL = async () => {
+        try {
+            const params = {
+                key: 'ALL',
+            };
+            // console.log("searchdate", params);
+            const response = await LayTTGhe(params);
+            const res: Ghe[] = response.ghes;
+            // console.log("check api searchdate ghe: ", response);
+            // console.log("length", res.length);
+            setGhe(res);
+            // console.log(res.length)
 
+        } catch (error) {
+            console.log(error);
+        }
+    }
     useEffect(() => {
-        setGhe(gheP)
-        setCumrap(cumrapP)
-        setRap(rapP)
-        // const res: Cumrap[] = cumrapP;
-        // console.log("ádasd",res)
+        const handleLayTTGhe = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTGhe(params);
+                const res: Ghe[] = response.ghes;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setGhe(res);
+                // console.log(res.length)
 
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTCumrap = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTCumrap(params);
+                const res: Cumrap[] = response.cumraps;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setCumrap(res);
+                // console.log(res.length)
 
-    }, [cumrapP, gheP, rapP])
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTRap = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTRap_idcumrap(params);
+                const res: Rap[] = response.raps;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setRap(res);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        handleLayTTGhe()
+        handleLayTTCumrap()
+        handleLayTTRap()
+    }, [])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
@@ -285,7 +357,7 @@ const QLGhe = ({ gheP, cumrapP, rapP }: Props) => {
 
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                        onClick={() => handleSuaTTGhe(item.maGhe, item.loaiGhe, item.id)} />
+                                        onClick={() => handleSuaTTGhe(item.maGhe, item.loaiGhe, item.id, item.id_rap)} />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
                                         onClick={() => handleXoaTTGhe(item.id)}
                                     />

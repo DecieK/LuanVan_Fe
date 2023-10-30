@@ -6,7 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { LayTTRap_idcumrap, SuaTTChieu, ThemTTChieu, XoaTTChieu, layTTChieu } from "@/service/userService";
+import { LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu, SuaTTChieu, ThemTTChieu, XoaTTChieu, layTTChieu } from "@/service/userService";
 import index from "@/pages";
 import dayjs from "dayjs"
 
@@ -23,7 +23,7 @@ type Props = {
     chieuP: any
 
 };
-const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
+const QLChieu = () => {
     interface Chieu {
         id: number;
         ngaychieu: Date;
@@ -65,7 +65,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
     const [rap, setRap] = useState<Rap[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
     const [chieu, setChieu] = useState<Chieu[]>([]);
-
+    const [step, setStep] = useState('them');
     const [valuePhim, setValuePhim] = useState('');
     const [valueRap, setValueRap] = useState('');
     const [valueSuatchieu, setValueSuatchieu] = useState('');
@@ -74,13 +74,13 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
     const [id_sc, setId_sc] = useState(Number);
     const [id_c, setId_c] = useState(Number);
     const [startDate, setStartDate] = useState(new Date());
-    const [DSngaychieus, setDSngaychieus] = useState([
-        {
-            id: 0,
-            ngaychieu: new Date(),
+    // const [DSngaychieus, setDSngaychieus] = useState([
+    //     {
+    //         id: 0,
+    //         ngaychieu: new Date(),
 
-        },
-    ])
+    //     },
+    // ])
 
     const handleLayTTChieu = async () => {
         try {
@@ -224,6 +224,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
         };
     }
     const handleSuaTTChieu = async (ngay: Date, gv: number, id: number, idp: number, idr: number, idsc: number) => {
+       setStep('capnhat')
         let date1 = new Date(ngay)
         setId_c(id)
 
@@ -236,7 +237,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                 setId_p(item.id)
             }
         })
-        
+
         rap.map((item) => {
             if (idr === item.id) {
                 setValueRap(item.ten_rap)
@@ -254,24 +255,81 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
 
 
     useEffect(() => {
-        DSngaychieus.map((item)=>{
-            if(item.id === 0){
-                DSngaychieus.splice(0, DSngaychieus.length)
-            }
-        })
-        setSuatchieu(suatchieuP)
-        setPhim(phimP)
-        setRap(rapP)
-        setChieu(chieuP)
-        const res: Chieu[] = chieuP
-        res.map((item)=>{
-            DSngaychieus.push({
-                id: item.id,
-                ngaychieu: item.ngaychieu
-            })
-        })
 
-    }, [DSngaychieus, chieuP, phimP, rapP, suatchieuP])
+        const handleLayTTRap = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTRap_idcumrap(params);
+                const res: Rap[] = response.raps;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setRap(res);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTSuatchieu = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTSuatchieu(params);
+                const res: Suatchieu[] = response.suatchieus;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setSuatchieu(res);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTPhim = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTPhim(params);
+                const res: Phim[] = response.phims;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setPhim(res);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTChieu = async () => {
+            try {
+                const params = {
+                    ngaychieu: 'ALL',
+                    id_phim: 'ALL',
+                    id_rap: 'ALL'
+
+                };
+                // console.log("searchdate", params);
+                const response = await layTTChieu(params);
+                const res: Chieu[] = response.ttchieu;
+                console.log("check api searchdate chieu: ", response);
+                // console.log("length", res.length);
+                setChieu(res);
+                // console.log(res.length)
+
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        handleLayTTRap()
+        handleLayTTSuatchieu()
+        handleLayTTPhim()
+        handleLayTTChieu()
+    }, [])
     return (
         <div>
             <div className="space-y-5">
@@ -342,12 +400,22 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                     ></input>
                 </div>
                 <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleCapnhatTTChieu()}
-                    >Cập nhật thông tin</button>
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTChieu()}
-                    >Lưu thông tin</button>
+                    {/* {step === "them" &&
+                        ( */}
+                            <button onClick={()=>handleThemTTChieu()}
+                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                        >Thêm CSVC</button>
+{/* 
+                        )
+                    } */}
+                    {/* {step === "capnhat" &&
+                        ( */}
+                            <button onClick={()=>handleCapnhatTTChieu()}
+                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                        >Cập nhật nội quy</button>
+
+                         {/* ) */}
+                     {/* } */}
                 </div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
@@ -386,7 +454,7 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
                                 <td className="border border-slate-300 text-center">
                                     {
                                         dayjs(item.ngaychieu).format("DD/MM/YYYY")
-                                    }   
+                                    }
                                 </td>
                                 <td className="border border-slate-300 text-center">{item.giave} VNĐ</td>
                                 {/* <td className="border border-slate-300 text-center">{item.giave }</td> */}

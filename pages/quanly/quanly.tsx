@@ -50,9 +50,10 @@ import QLPhim from "@/Components/QuanLy/QLPhim";
 import QLLoaiphim from "@/Components/QuanLy/QLLoaiphim";
 import QLSuatchieu from "@/Components/QuanLy/QLSuatchieu";
 import QLChieu from "@/Components/QuanLy/QLChieu";
-import QLDoan from "@/Components/QuanLy/QLDoan";
+import QLDoan from "@/Components/QuanLy/QLKhuyenmai";
 import QLKhachhang from "@/Components/QuanLy/QLKhachhang";
 import QLDichvu from "@/Components/QuanLy/QLDichvu";
+import QLKhuyenmai from "@/Components/QuanLy/QLKhuyenmai";
 
 
 const Quanly = () => {
@@ -403,48 +404,48 @@ const Quanly = () => {
             {option == 1 ? (
               <div className="w-10/12 m-5">
 
-                <QLCumrap cumrapP={cumrap} />
+                <QLCumrap  />
 
               </div>
             ) : null}
             {option == 2 ? (
               <div className="w-10/12 m-5">
 
-                <QLRap rapP={rap} cumrapP={cumrap} />
+                <QLRap />
 
               </div>
             ) : null}
             {option == 3 ? (
               <div className="w-10/12 m-5">
 
-                <QLGhe gheP={ghe} cumrapP={cumrap} rapP={rap} />
+                <QLGhe />
 
               </div>
             ) : null}
             {option == 4 ? (
               <div className="w-10/12 m-5">
-                <QLLoaiphim loaiphimP={loaiphim} />
+                <QLLoaiphim  />
 
               </div>
             ) : null}
             {option == 5 ? (
               <div className="w-10/12 m-5">
 
-                <QLPhim phimP={phim} loaiphimP={loaiphim} />
+                <QLPhim phimP={undefined} loaiphimP={undefined}  />
 
               </div>
             ) : null}
             {option == 6 ? (
               <div className="w-10/12 m-5">
 
-                <QLSuatchieu suatchieuP={suatchieu} />
+                <QLSuatchieu />
 
               </div>
             ) : null}
             {option == 7 ? (
               <div className="w-10/12 m-5">
 
-                <QLChieu chieuP={chieu} suatchieuP={suatchieu} rapP={rap} phimP={phim} />
+                <QLChieu  />
                 {/* <QLDoan /> */}
               </div>
             ) : null}
@@ -479,6 +480,9 @@ const Quanly = () => {
             </div>
             {
               option === 8 ? <QLDichvu /> : null
+            }
+                        {
+              option === 9 ? <QLKhuyenmai /> : null
             }
           </div>
         </TabPanel>

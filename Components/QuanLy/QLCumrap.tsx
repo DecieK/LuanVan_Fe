@@ -13,10 +13,8 @@ const noto_serif = Noto_Serif({
     subsets: ['latin'],
     // display: 'swap',
 })
-type Props = {
-    cumrapP: any
-};
-const QLCumrap = ({ cumrapP }: Props) => {
+
+const QLCumrap = () => {
     interface Cumrap {
         id: number;
         ten_tttt: string;

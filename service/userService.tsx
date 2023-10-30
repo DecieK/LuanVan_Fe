@@ -667,3 +667,64 @@ export async function LayTTCTLoaiphim_idP(params: { id: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+
+export async function ThemTTkhuyenmai(params: {
+  ten: string,
+  tile: number,
+  mota: string,
+  dieukien: number,
+  thoigianbatdau: Date,
+  thoigianketthuc: Date
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTKhuyenmai`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+export async function SuaTTkhuyenmai(params: {
+  id: number,
+  ten: string,
+  tile: number,
+  mota: string,
+  dieukien: number,
+  thoigianbatdau: Date,
+  thoigianketthuc: Date
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTKhuyenmai`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTkhuyenmai(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTKhuyenmai`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}

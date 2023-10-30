@@ -17,7 +17,7 @@ type Props = {
     suatchieuP: any
 
 };
-const QLSuatchieu = ({ suatchieuP }: Props) => {
+const QLSuatchieu = () => {
 
     interface Suatchieu {
         id: number;
@@ -110,8 +110,24 @@ const QLSuatchieu = ({ suatchieuP }: Props) => {
     }
 
     useEffect(() => {
-        setSuatchieu(suatchieuP)  
-    }, [suatchieuP])
+        const handleLayTTSuatchieu = async () => {
+            try {
+              const params = {
+                key: 'ALL',
+              };
+              // console.log("searchdate", params);
+              const response = await LayTTSuatchieu(params);
+              const res: Suatchieu[] = response.suatchieus;
+              // console.log("check api searchdate ghe: ", response);
+              // console.log("length", res.length);
+              setSuatchieu(res);
+      
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          handleLayTTSuatchieu()
+    }, [])
     return (
         <div>
             <div className="space-y-5">

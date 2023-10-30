@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
-import { LayTTRap_idcumrap, SuaTTRap, ThemTTRap, XoaTTRap } from "@/service/userService";
+import { LayTTCumrap, LayTTRap_idcumrap, SuaTTRap, ThemTTRap, XoaTTRap } from "@/service/userService";
 
 
 const noto_serif = Noto_Serif({
@@ -17,7 +17,7 @@ type Props = {
     rapP: any
 
 };
-const QLRap = ({ cumrapP, rapP }: Props) => {
+const QLRap = () => {
 
     interface Ghe {
         id: number;
@@ -153,13 +153,43 @@ const QLRap = ({ cumrapP, rapP }: Props) => {
     }
 
     useEffect(() => {
-        setCumrap(cumrapP)
-        setRap(rapP)
-        // const res: Cumrap[] = cumrapP;
-        // console.log("ádasd",res)
+        const handleLayTTRap = async () => {
+            try {
+              const params = {
+                key: 'ALL',
+              };
+              // console.log("searchdate", params);
+              const response = await LayTTRap_idcumrap(params);
+              const res: Rap[] = response.raps;
+              // console.log("check api searchdate ghe: ", response);
+              // console.log("length", res.length);
+              setRap(res);
+      
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          const handleLayTTCumrap = async () => {
+            try {
+              const params = {
+                key: 'ALL',
+              };
+              // console.log("searchdate", params);
+              const response = await LayTTCumrap(params);
+              const res: Cumrap[] = response.cumraps;
+              // console.log("check api searchdate ghe: ", response);
+              // console.log("length", res.length);
+              setCumrap(res);
+              // console.log(res.length)
+      
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          handleLayTTRap()
+          handleLayTTCumrap()
 
-
-    }, [cumrapP, rapP])
+    }, [])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>

@@ -12,11 +12,9 @@ const noto_serif = Noto_Serif({
     subsets: ['latin'],
     // display: 'swap',
 })
-type Props = {
-    loaiphimP: any
-};
 
-const QLLoaiphim = ({ loaiphimP }: Props) => {
+
+const QLLoaiphim = () => {
 
     interface Loaiphim {
         id: number;
@@ -122,13 +120,25 @@ const QLLoaiphim = ({ loaiphimP }: Props) => {
     }
 
     useEffect(() => {
-        setLoaiphim(loaiphimP)
-
-        // const res: Cumrap[] = cumrapP;
-        // console.log("ádasd",res)
-
-
-    }, [loaiphimP])
+        const handleLayTTLoaiphim = async () => {
+            try {
+              const params = {
+                id: 'ALL',
+              };
+              // console.log("searchdate", params);
+              const response = await LayTTLoaiphim(params);
+              const res: Loaiphim[] = response.loaiphims;
+              // console.log("check api searchdate ghe: ", response);
+              // console.log("length", res.length);
+              setLoaiphim(res);
+              // console.log(res.length)
+      
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          handleLayTTLoaiphim()
+    }, [])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
