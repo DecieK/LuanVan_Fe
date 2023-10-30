@@ -6,7 +6,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 // import EditIcon from '@mui/icons-material/Edit';
 // import ClearIcon from '@mui/icons-material/Clear';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -51,6 +51,8 @@ import QLLoaiphim from "@/Components/QuanLy/QLLoaiphim";
 import QLSuatchieu from "@/Components/QuanLy/QLSuatchieu";
 import QLChieu from "@/Components/QuanLy/QLChieu";
 import QLDoan from "@/Components/QuanLy/QLDoan";
+import QLKhachhang from "@/Components/QuanLy/QLKhachhang";
+import QLDichvu from "@/Components/QuanLy/QLDichvu";
 
 
 const Quanly = () => {
@@ -448,8 +450,38 @@ const Quanly = () => {
             ) : null}
           </div>
         </TabPanel>
-        <TabPanel value="2"><Blog /></TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        <TabPanel value="2">
+
+          <QLKhachhang /></TabPanel>
+        <TabPanel value="3">
+          <div className="flex " >
+            <div className="w-2/12 uppercase text-xl space-y-5 border-r-2">
+              <ListItemButton
+                className={`           
+                ${option == 8 ? 'text-blue-600' : ''} `}
+                onClick={() => setOption(8)}>
+
+                <ListItemIcon>
+                  <FastfoodIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dịch vụ" />
+              </ListItemButton>
+              <ListItemButton
+                className={`           
+                ${option == 9 ? 'text-blue-600' : ''} `}
+                onClick={() => setOption(9)}>
+
+                <ListItemIcon>
+                  {/* <LocationOnIcon /> */}
+                </ListItemIcon>
+                <ListItemText primary="Khuyến mãi" />
+              </ListItemButton>
+            </div>
+            {
+              option === 8 ? <QLDichvu /> : null
+            }
+          </div>
+        </TabPanel>
       </TabContext>
     </Box >
   );

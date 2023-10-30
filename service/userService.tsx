@@ -609,11 +609,50 @@ export async function ThemTTDoan(params: {
   const data = await response.json();
   return data;
 }
-
-export async function LayTTKhachhang(params: { tenkhachhang: any }): Promise<any> {
-  const { tenkhachhang } = params;
+export async function SuaTTDichvu(params: {
+  id: number,
+  Ten : string
+  Anhminhhoa : string
+  Loai : string
+  Mota : string
+  Gia : number
+  Size : string
+}): Promise<any> {
   const response = await fetch(
-    `http://localhost:8080/api/LayTTKhachhang?keyword=${tenkhachhang}`
+    `http://localhost:8080/api/SuaTTDoan`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTDichvu(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTDoan`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function LayTTKhachhang(params: { tenTK: any }): Promise<any> {
+  const { tenTK } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTKhachhang?keyword=${tenTK}`
   );
   const data = await response.json();
   return data;

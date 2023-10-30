@@ -118,7 +118,7 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                     <thead>
                         <tr>
                             <th className="border border-slate-300 text-center ">#</th>
-                            <th className="border border-slate-300 text-center">Tên phim</th>
+                            <th className="border border-slate-300 text-center w-[100px]">Tên phim</th>
                             <th className="border border-slate-300 text-center">Đạo diễn</th>
                             <th className="border border-slate-300 text-center">Diễn viên</th>
                             <th className="border border-slate-300 text-center">Nhà sản xuất</th>
@@ -142,7 +142,7 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                             <>
                                 <tr key={item.id}>
                                     <td className="border border-slate-300 text-center">{item.id}</td>
-                                    <td className="border border-slate-300 text-center">{item.tenphim}</td>
+                                    <td className="border border-slate-300 text-center w-[100px]">{item.tenphim}</td>
                                     <td className="border border-slate-300 text-center">{item.daodien}</td>
                                     <td className="border border-slate-300 text-center">{item.dienvien}</td>
                                     <td className="border border-slate-300 text-center">{item.nsx}</td>

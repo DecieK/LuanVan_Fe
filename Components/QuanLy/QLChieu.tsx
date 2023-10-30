@@ -229,12 +229,14 @@ const QLChieu = ({ suatchieuP, rapP, phimP, chieuP }: Props) => {
 
         setNgaychieu(date1)
         setGiave(gv.toString())
+
         phim.map((item) => {
             if (idp === item.id) {
                 setValuePhim(item.tenphim)
                 setId_p(item.id)
             }
         })
+        
         rap.map((item) => {
             if (idr === item.id) {
                 setValueRap(item.ten_rap)
