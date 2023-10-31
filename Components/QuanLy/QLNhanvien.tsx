@@ -86,26 +86,17 @@ const QLNhanvien = () => {
 
         let res = await ThemTTNhanvien(
             {
-                // hten_nv: tennv,
-                // sdt_nv: sdt,
-                // ngaysinh_nv: ngaysinh,
-                // tuoi_nv: tuoi,
-                // diachi_nv: diachi,
-                // gioitinh_nv: gt_NV,
-                // cccd_nv: cccd,
-                // chucvu_nv: valueChucvu,
-                // taikhoan_nv: taikhoan,
-                // matkhau_nv: matkhau
-                hten_nv: 'adsasd',
-                sdt_nv: '211',
-                ngaysinh_nv: new Date(),
-                tuoi_nv: 22,
-                diachi_nv: 'asdasd',
-                gioitinh_nv: 'asdasd',
-                cccd_nv: '121',
-                chucvu_nv: 'asdsa',
-                taikhoan_nv: 'asdasd',
-                matkhau_nv: 'asdas'
+                hten_nv: tennv,
+                sdt_nv: sdt,
+                ngaysinh_nv: ngaysinh,
+                tuoi_nv: tuoi,
+                diachi_nv: diachi,
+                gioitinh_nv: gt_NV,
+                cccd_nv: cccd,
+                chucvu_nv: valueChucvu,
+                taikhoan_nv: taikhoan,
+                matkhau_nv: matkhau
+
             });
         if (res && res.errCode === 0) {
             console.log(res)
@@ -336,11 +327,11 @@ const QLNhanvien = () => {
 
                 <div className=" w-8/12 ">
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={() => handleCapnhatTTNhanvien()}
+                        onClick={() => handleCapnhatTTNhanvien()}
                     >Cập nhật thông tin</button>
 
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={() => handleThemTTNhanvien()}
+                        onClick={() => handleThemTTNhanvien()}
                     >Lưu thông tin</button>
                 </div>
             </div>
@@ -393,11 +384,11 @@ const QLNhanvien = () => {
                                 <td className="border border-slate-300 text-center">{item.Matkhau_NV} </td>
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                    onClick={() => handleSuaTTNhanvien(item.id, item.Hten_NV, item.Sdt_NV, item.Ngaysinh_NV, item.Tuoi_NV, item.Diachi_NV, item.Gioitinh_NV, item.Cccd_NV, item.Chucvu_NV,item.Taikhoan_NV, item.Matkhau_NV)}
+                                        onClick={() => handleSuaTTNhanvien(item.id, item.Hten_NV, item.Sdt_NV, item.Ngaysinh_NV, item.Tuoi_NV, item.Diachi_NV, item.Gioitinh_NV, item.Cccd_NV, item.Chucvu_NV, item.Taikhoan_NV, item.Matkhau_NV)}
 
                                     />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
-                                    onClick={() => handleXoaTTNhanvien(item.id)}
+                                        onClick={() => handleXoaTTNhanvien(item.id)}
 
                                     />
                                 </td>
