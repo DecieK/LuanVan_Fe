@@ -728,3 +728,81 @@ export async function XoaTTkhuyenmai(params: {
   const data = await response.json();
   return data;
 }
+
+export async function LayTTNhanvien(params: { tenTK: any }): Promise<any> {
+  const { tenTK } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTNhanvien?keyword=${tenTK}`
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function ThemTTNhanvien(params: {
+   hten_nv: string;
+   sdt_nv: string;
+   ngaysinh_nv: Date
+   tuoi_nv: number;
+   diachi_nv: string;
+   gioitinh_nv: string;
+   cccd_nv: string;
+   chucvu_nv : string;
+   taikhoan_nv : string;
+   matkhau_nv : string;
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/ThemTTNhanvien`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+export async function SuaTTNhanvien(params: {
+  id: number,
+  hten_nv: string;
+  sdt_nv: string;
+  ngaysinh_nv: Date
+  tuoi_nv: number;
+  diachi_nv: string;
+  gioitinh_nv: string;
+  cccd_nv: string;
+  chucvu_nv : string;
+  taikhoan_nv : string;
+  matkhau_nv : string;
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/SuaTTNhanvien`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function XoaTTNhanvien(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/XoaTTNhanvien`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}

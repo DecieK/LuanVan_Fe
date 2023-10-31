@@ -54,6 +54,7 @@ import QLDoan from "@/Components/QuanLy/QLKhuyenmai";
 import QLKhachhang from "@/Components/QuanLy/QLKhachhang";
 import QLDichvu from "@/Components/QuanLy/QLDichvu";
 import QLKhuyenmai from "@/Components/QuanLy/QLKhuyenmai";
+import QLNhanvien from "@/Components/QuanLy/QLNhanvien";
 
 
 const Quanly = () => {
@@ -404,7 +405,7 @@ const Quanly = () => {
             {option == 1 ? (
               <div className="w-10/12 m-5">
 
-                <QLCumrap  />
+                <QLCumrap />
 
               </div>
             ) : null}
@@ -424,14 +425,14 @@ const Quanly = () => {
             ) : null}
             {option == 4 ? (
               <div className="w-10/12 m-5">
-                <QLLoaiphim  />
+                <QLLoaiphim />
 
               </div>
             ) : null}
             {option == 5 ? (
               <div className="w-10/12 m-5">
 
-                <QLPhim phimP={undefined} loaiphimP={undefined}  />
+                <QLPhim phimP={undefined} loaiphimP={undefined} />
 
               </div>
             ) : null}
@@ -445,15 +446,15 @@ const Quanly = () => {
             {option == 7 ? (
               <div className="w-10/12 m-5">
 
-                <QLChieu  />
+                <QLChieu />
                 {/* <QLDoan /> */}
               </div>
             ) : null}
           </div>
         </TabPanel>
         <TabPanel value="2">
-
-          <QLKhachhang /></TabPanel>
+          <QLKhachhang />
+        </TabPanel>
         <TabPanel value="3">
           <div className="flex " >
             <div className="w-2/12 uppercase text-xl space-y-5 border-r-2">
@@ -481,10 +482,13 @@ const Quanly = () => {
             {
               option === 8 ? <QLDichvu /> : null
             }
-                        {
+            {
               option === 9 ? <QLKhuyenmai /> : null
             }
           </div>
+        </TabPanel>
+        <TabPanel value="4">
+          <QLNhanvien />
         </TabPanel>
       </TabContext>
     </Box >

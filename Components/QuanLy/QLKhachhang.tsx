@@ -81,7 +81,7 @@ const QLKhachhang = () => {
 
 
     useEffect(() => {
-        const handleLayTTCumrap = async () => {
+        const handleLayTTKhachhang = async () => {
             try {
                 const params = {
                     tenTK: 'ALL',
@@ -98,7 +98,7 @@ const QLKhachhang = () => {
                 console.log(error);
             }
         }
-        handleLayTTCumrap()
+        handleLayTTKhachhang()
     }, [])
     return (
         <div>
