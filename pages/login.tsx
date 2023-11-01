@@ -92,7 +92,7 @@ const Login = () => {
         // const handleLayTTkhachhang = async () => {
         try {
           const params = {
-            tenkhachhang: 'ALL',
+            tenTK: 'ALL',
           };
           const response = await LayTTKhachhang(params);
           const res: Khachhang[] = response.khachhangs;
