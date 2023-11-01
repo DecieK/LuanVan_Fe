@@ -97,7 +97,7 @@ const Dangnhap = ({ onClose, show }: Props) => {
         // const handleLayTTkhachhang = async () => {
         try {
           const params = {
-            tenkhachhang: 'ALL',
+            tenTK: 'ALL',
           };
           // console.log("searchdate", params);
           const response = await LayTTKhachhang(params);
