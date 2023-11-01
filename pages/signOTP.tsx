@@ -3,7 +3,7 @@ import { firebase, auth } from "./Firebase-config";
 import { getParseTreeNode } from "typescript";
 import { useRouter } from "next/router";
 // import lichsu from './lichsu'
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import App from "next/app";
 import Router from "next/router";
 
