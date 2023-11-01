@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
-import Modal from "@/pages/Modal";
 import Dangnhap from "@/Components/Dangnhap";
 import { Noto_Serif } from 'next/font/google'
 import { Navbar } from "@material-tailwind/react";
