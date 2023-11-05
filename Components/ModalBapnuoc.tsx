@@ -143,7 +143,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
     <StyledModalOverlay>
       { }
       <StyledModal className=" w-10/12  rounded-lg ">
-        <StyledModalHeader className=" bg-blue-300  ">
+        <StyledModalHeader className=" bg-red-500  ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
               Dịch vụ
@@ -169,32 +169,34 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
           <div className="modal">
             {/* <div className="flex"> */}
 
-            <div className="grid grid-cols-2 " >
+            <div className="grid grid-cols-2 m-3 gap-3 " >
               {dsdoans.map((item, index) => {
                 let i = 0
                 return (
                   <div key={index} className="col-span-1">
-                    <div className="flex">
+                    <div
+                      className="flex space-x-4">
                       <Image
-                        className="w-[150px] h-[100px]  transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
+                        className="h-44  w-36 bg-cover bg-center bg-[url('../public/DA3.png')] rounded-xl mt-4 "
                         src={new Buffer(item.anhminhhoa, "base64").toString("binary")}
                         width={150}
                         height={100}
                         alt="Picture of the author"
                       />
-                      <div className="">
-                        <p>{item.ten}</p>
-                        <p>01 ly nhân vật Peanuts (kèm nước)</p>
-                        <p>Nhận ngay trong ngày xong phim</p>
-                        <p>Thêm 39,000đ nhận ngay 1 bắp ngọt lớn</p>
-                        <p>Mẫu ly phụ thuộc vào số lượng của rạp</p>
-                        <p>Giá: 199.000,00 ₫</p>
-                        <div className="flex">
-                          <RemoveCircleOutlineIcon
-                            onClick={() => handelesubtractionDoan(item.id, item.sl)}
-                          />
-                          <div>{item.sl}</div>
-                          {/* {dsdoans.map((item1, index1) => {
+                      <div className=''>
+                        <p className='uppercase font-semibold text-xl'>MILO COMBO 2023</p>
+                        <div className='list-inside text-gray-600'>
+                          <li className=''>01 ly nhân vật Peanuts (kèm nước)</li>
+                          <li className=''>Nhận ngay trong ngày xong phim</li>
+                          <li className=''>Thêm 39,000đ nhận ngay 1 bắp ngọt lớn</li>
+                          <li className=''>Mẫu ly phụ thuộc vào số lượng của rạp</li>
+                          <li className=''>Giá: 199.000 ₫</li>
+                          <div className="flex">
+                            <RemoveCircleOutlineIcon
+                              onClick={() => handelesubtractionDoan(item.id, item.sl)}
+                            />
+                            <div>{item.sl}</div>
+                            {/* {dsdoans.map((item1, index1) => {
                               return (
                                 <div key={index1}>
                                   {item1.id_da === item.id ? (
@@ -206,9 +208,11 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
                                 </div>
                               )
                             })} */}
-                          <AddCircleOutlineIcon onClick={() => handeleAddDoan(item.id, item.sl)} />
+                            <AddCircleOutlineIcon onClick={() => handeleAddDoan(item.id, item.sl)} />
+                          </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 )
@@ -235,7 +239,13 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
             </div>
 
           </div>
-          <button onClick={() => handleTruyenduLieuveSodoghe()}>Xác nhận</button>
+          <div className='text-center mt-7 mb-7'>
+            <button
+              onClick={() => handleTruyenduLieuveSodoghe()}
+              className='bg-red-400 uppercase w-32 h-10 hover:bg-red-500 rounded-md'>
+              xác nhận
+            </button>
+          </div>
         </StyledModalBody>
       </StyledModal>
     </StyledModalOverlay>

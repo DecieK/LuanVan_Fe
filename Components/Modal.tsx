@@ -397,8 +397,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
     <StyledModalOverlay>
       { }
-      <StyledModal className="  w-[500px]  rounded-lg ">
-        <StyledModalHeader className=" bg-blue-300  ">
+      <StyledModal className="  w-[10/12]  rounded-lg ">
+        <StyledModalHeader className="bg-red-500 w-full h-14 uppercase pt-3 font-semibold text-2xl text-center ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
               Lịch chiếu CGV Cần
@@ -414,98 +414,111 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
           </div>
         </StyledModalHeader>
         {
-          // title  && 
           (
             <StyledModal>
-              {/* {title} */}
-              {/* <div></div> */}
             </StyledModal>
           )}
-        <StyledModalBody className="bg-gray-300 ">
+        <StyledModalBody className="bg-white">
           <div className="modal">
+            <div className='grid grid-cols-7 mt-5 gap-4 m-3'>
+              <button className='col-span-1 border-red-400 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Chủ nhật</p>
+                <p className='bg-red-400 text-2xl h-16 pt-4'>05/11</p>
+              </button>
+              <button className='col-span-1 border-gray-300 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Thứ 2</p>
+                <p className='bg-gray-300 text-2xl h-16 pt-4'>06/11</p>
+              </button>
+              <button className='col-span-1 border-gray-300 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Thứ 3</p>
+                <p className='bg-gray-300 text-2xl h-16 pt-4'>07/11</p>
+              </button>
+              <button className='col-span-1 border-gray-300 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Thứ 4</p>
+                <p className='bg-gray-300 text-2xl h-16 pt-4'>08/11</p>
+              </button>
+              <button className='col-span-1 border-gray-300 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Thứ 5</p>
+                <p className='bg-gray-300 text-2xl h-16 pt-4'>09/11</p>
+              </button>
+              <button className='col-span-1 border-gray-300 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Thứ 6</p>
+                <p className='bg-gray-300 text-2xl h-16 pt-4'>10/11</p>
+              </button>
+              <button className='col-span-1 border-gray-300 border-2 rounded-md'>
+                <p className='text-lg h-12 pt-2'>Thứ 7</p>
+                <p className='bg-gray-300 text-2xl h-16 pt-4'>11/11</p>
+              </button>
+            </div>
             <div className="flex pl-7">
               <DatePicker
                 className=""
-                // type="datetime"
                 selected={startDate}
                 minDate={new Date()}
-                // maxDate={new Date("10-30-2023")}
-                // onChange={(date: Date) => setStartDate(date)}
                 onChange={(date: Date) => handleKiemtraNgay((date))}
                 dateFormat="dd/MM/yyyy"
               />
             </div>
-            {
+            <div className='grid grid-cols-3 mt-10 place-items-center'>              {
               cumrap.map((item, index) => {
                 return (
                   <>
-                    {/* <div key={index}> */}
-                    <Button onClick={() => handleLayTTCumRap(item.id)} key={index} className="h-28 w-28 bg-slate-600 m-4">{item.ten_tttt}</Button>
-                    {/* <Button className="h-28 w-28 bg-slate-600 m-4">Vincom HÙng Vương</Button> */}
-                    {/* </div> */}
+                    <Button
+                      onClick={() => handleLayTTCumRap(item.id)}
+                      key={index}
+                      className='col-span-1 bg-red-400 h-20 w-40 rounded-md'                    >{item.ten_tttt}
+                    </Button>
                   </>
                 )
               })
             }
-            {
-              suatchieus.map((item, index) => {
-                let datee = new Date()
-                // console.log("date",datee.getTime())
-                // console.log("startDate",startDate.getTime())
-
-                // {startDate.toUTCString() === datee.toUTCString() ? console.log("áda"): console.log("vxa")}
-
-                // if (item.giobatdau !== '') {
-                if (checkdate === true) {
-                  if (item.giobatdau !== '' && datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
-                    (datee.getHours() === Number(item.giobatdau.slice(0, 2)) &&
-                      (datee.getMinutes() + 10) < Number(item.giobatdau.slice(3, 5)))) {
-
-                    // console.log("gio + phut+ giay", datee.getHours() +""+datee.getMinutes()+""+datee.getSeconds())
-                    return (
-                      <>
-                        {/* <div key={index}> */}
-                        <Button
-                          onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
-                          key={index}
-                          className="h-28 w-28 bg-slate-600 m-4">
-                          {
-                            item.giobatdau + " - " + item.gioketthuc
-                            // (datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
-                            //   datee.getHours() === Number(item.giobatdau.slice(0, 2)) && (datee.getMinutes()+10) < Number(item.giobatdau.slice)
-                            //   ? item.giobatdau +" - "+ item.gioketthuc : null                            
-                            //   )
-                          }
-                        </Button>
-                      </>
-                    )
+            </div>
+            <div className='grid grid-cols-4 mt-8 gap-4 place-items-center mb-10'>
+              {
+                suatchieus.map((item, index) => {
+                  let datee = new Date()
+                  if (checkdate === true) {
+                    if (item.giobatdau !== '' && datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
+                      (datee.getHours() === Number(item.giobatdau.slice(0, 2)) &&
+                        (datee.getMinutes() + 10) < Number(item.giobatdau.slice(3, 5)))) {
+                      return (
+                        <>
+                          <Button
+                            onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
+                            key={index}
+                            className="bg-gray-300 rounded-md h-10 w-32"
+                            >
+                            {
+                              item.giobatdau + " - " + item.gioketthuc
+                            }
+                          </Button>
+                        </>
+                      )
+                    }
+                  } else {
+                    if (item.giobatdau !== '') {
+                      return (
+                        <>
+                          <Button
+                            onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
+                            key={index}
+                            className="bg-gray-300 rounded-md h-10 w-32">
+                            {
+                              item.giobatdau + " - " + item.gioketthuc
+                              // (datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
+                              //   datee.getHours() === Number(item.giobatdau.slice(0, 2)) && (datee.getMinutes()+10) < Number(item.giobatdau.slice)
+                              //   ? item.giobatdau +" - "+ item.gioketthuc : null                            
+                              //   )
+                            }
+                          </Button>
+                        </>
+                      )
+                    }
                   }
-                } else {
-                  if (item.giobatdau !== '') {
-
-                    // console.log("gio + phut+ giay", datee.getHours() +""+datee.getMinutes()+""+datee.getSeconds())
-                    return (
-                      <>
-                        {/* <div key={index}> */}
-                        <Button
-                          onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
-                          key={index}
-                          className="h-28 w-28 bg-slate-600 m-4">
-                          {
-                            item.giobatdau + " - " + item.gioketthuc
-                            // (datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
-                            //   datee.getHours() === Number(item.giobatdau.slice(0, 2)) && (datee.getMinutes()+10) < Number(item.giobatdau.slice)
-                            //   ? item.giobatdau +" - "+ item.gioketthuc : null                            
-                            //   )
-                          }
-                        </Button>
-                      </>
-                    )
-                  }
-                }
-              })
-            }
-            <button
+                })
+              }
+            </div>
+            {/* <button
               value={new Date().getDate()}
               onClick={() => console.log("checkdate", checkdate)}
             >{new Date().getDate()}</button>
@@ -513,7 +526,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
             <button
               value={new Date().getDate()}
               onClick={() => console.log("checkdate", checkdate)}
-            >{(new Date().getDate() + ' ' + (new Date().getMonth() + 1) + ' ' + new Date().getDay())}</button>
+            >{(new Date().getDate() + ' ' + (new Date().getMonth() + 1) + ' ' + new Date().getDay())}
+            </button> */}
 
             {/* <button
               onClick={() => console.log("suatchieus", suatchieus)}
