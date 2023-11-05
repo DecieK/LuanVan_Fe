@@ -188,13 +188,13 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
     setStartDate(date)
     let currdate = new Date()
-    currdate.setHours(0, 0, 0, 0)
-    date.setHours(0, 0, 0, 0)
-    if (date.getTime() === currdate.getTime()) {
-      setCheckdate(true)
-    } else {
-      setCheckdate(false)
-    }
+    // currdate.setHours(0, 0, 0, 0)
+    // date.setHours(0, 0, 0, 0)
+    // if (date.getTime() === currdate.getTime()) {
+    //   setCheckdate(true)
+    // } else {
+    //   setCheckdate(false)
+    // }
   }
 
   const deleteAllItems = () => {
@@ -506,11 +506,14 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
               })
             }
             <button
+              value={new Date().getDate()}
               onClick={() => console.log("checkdate", checkdate)}
-            // onClick={() => handleLayTTSuatchieu()}
-            >click</button>
+            >{new Date().getDate()}</button>
 
-
+            <button
+              value={new Date().getDate()}
+              onClick={() => console.log("checkdate", checkdate)}
+            >{(new Date().getDate() + ' ' + (new Date().getMonth() + 1) + ' ' + new Date().getDay())}</button>
 
             {/* <button
               onClick={() => console.log("suatchieus", suatchieus)}

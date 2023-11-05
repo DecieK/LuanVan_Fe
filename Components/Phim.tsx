@@ -29,7 +29,7 @@ const Phim = () => {
     }
     const [phim, setPhim] = useState<Phim[]>([]);
     const [src, setSrc] = useState(String);
-    const [option, setOption] = React.useState(2)
+    const [option, setOption] = React.useState(1)
 
     const router = useRouter();
 
@@ -72,13 +72,17 @@ const Phim = () => {
     }, []);
     return (
         <div className={noto_serif.className}>
-            <div className="flex w-10/12 m-auto mt-16 text-3xl text-gray-500 space-x-10">
-                <button className=" uppercase" onClick={() => setOption(1)}>phim đang chiếu</button>
+            <div className="flex w-10/12 m-auto mt-16 mb-10 text-3xl text-gray-500 space-x-10">
+                <button
+                    className={`uppercase ${option === 1 ? 'text-red-500' : null}`}
+                    onClick={() => setOption(1)}>phim đang chiếu</button>
 
 
-                <p className="">|</p>
+                <p className={''}>|</p>
 
-                <button className=" uppercase" onClick={() => setOption(2)}>phim sắp chiếu</button>
+                <button
+                    className={`uppercase ${option === 2 ? 'text-red-500' : null}`}
+                    onClick={() => setOption(2)}>phim sắp chiếu</button>
 
 
 

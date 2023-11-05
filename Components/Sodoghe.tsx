@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 import ModalBapnuoc from './ModalBapnuoc';
-import ModalKhuyenmai from './ModalKhuyenmai';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image'

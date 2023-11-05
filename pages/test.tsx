@@ -8,7 +8,8 @@
 // import CssBaseline from "@material-ui/core/CssBaseline";
 // import theme from "src/createMiuitheme";
 
-import { LayTTGhe } from "@/service/userService";
+import { LayTTGhe, VNPay } from "@/service/userService";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPlayer from 'react-player';
 
@@ -52,6 +53,23 @@ const Test = () => {
       code: ''
     },
   ])
+  const handleXoaTTChieu = async () => {
+      try {
+          const params = {
+          };
+          // console.log("searchdate", params);
+          const response = await VNPay(params);
+          const res: Ghe[] = response.ghes;
+          // console.log("check api searchdate ghe: ", response);
+          // console.log("length", res.length);
+          setGhe(res);
+          // console.log(res.length)
+
+      } catch (error) {
+          console.log(error);
+      }
+  
+  }
   const handleTest = () => {
     for (let y = 0; y < 100; y++) {
       const dsgheDD = {
@@ -150,15 +168,15 @@ const Test = () => {
   //   )
   return (
     <>
-
-
+        <Link href="http://localhost:8080/order/create_payment_url">home</Link>
+{/* 
       <ReactPlayer
         height={300}
         width={300}
         // playing={true}
         controls={true}
         poster
-        url='https://www.youtube.com/watch?v=JBh7SlUwPUg' />
+        url='https://www.youtube.com/watch?v=JBh7SlUwPUg' /> */}
       {/* <ReactPlayer
         height={300}
         width={500}

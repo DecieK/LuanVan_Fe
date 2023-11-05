@@ -59,7 +59,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
 
 
     setDsdoans(dsdoans.map(item => {
-      if (item.id === id) {
+      if (item.id === id && item.sl > 0) {
         return { ...item, sl: item.sl - 1 }
       } else {
         return item

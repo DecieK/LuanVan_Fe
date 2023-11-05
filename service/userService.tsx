@@ -806,3 +806,28 @@ export async function XoaTTNhanvien(params: {
   const data = await response.json();
   return data;
 }
+
+// export async function VNPay(params: {
+//   id: number
+// }): Promise<any> {
+//   const response = await fetch(
+//     `http://localhost:8080/order/create_payment_url`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(params),
+//     }
+//   );
+//   const data = await response.json();
+//   return data;
+// }
+export async function VNPay(params: {  }): Promise<any> {
+  const {  } = params;
+  const response = await fetch(
+    `http://localhost:8080/order/create_payment_url`,
+  );
+  const data = await response.json();
+  return data;
+}

@@ -35,6 +35,7 @@ const Header = () => {
   const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
   const [tenKH, setTenKH] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenTT, setIsOpenTT] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -67,6 +68,7 @@ const Header = () => {
       setTrangthai(false)
       console.log("false");
       const res: Khachhang[] = khachhangs;
+      setKhachhang(res)
       res.map((item) => {
         setTenKH(item.Hten_KH)
       });
@@ -81,7 +83,7 @@ const Header = () => {
 
         {/* <div className="w-4/6uppercase text-center uppercase font-semibold space-x-20 m-auto"> */}
         <div className="w-4/6 uppercase text-center font-semibold space-x-20 m-auto">
-          <Link href=''
+          <div 
             className="inline-flex items-center"
             onClick={toggleDropdown}
           >
@@ -97,7 +99,7 @@ const Header = () => {
                 stroke-width="2"
                 d="m1 1 4 4 4-4" />
             </svg>
-          </Link>
+          </div>
 
           {isOpen && (
             <div className="origin-top-right absolute mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
@@ -139,8 +141,50 @@ const Header = () => {
                 <FontAwesomeIcon icon={faUser} size="2xl" color="#adb1b8" />
 
               </div>
-              : tenKH
+              : <div
+                className="inline-flex items-center"
+                onClick={() => setIsOpenTT(!isOpenTT)}
+              >
+                {tenKH}
+                {/* <svg className="w-2.5 h-2.5 ml-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6">
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg> */}
+              </div>
+
           }
+          {isOpenTT && (
+            <div className="origin-top-right absolute mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+              <ul role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                <li>
+                  <Link
+                    href="/phimdangchieu"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={()=>setIsOpenTT(false)}
+                  >
+                    Thông tin cá nhân
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/phimsapchieu"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={()=>setIsOpenTT(false)}
+                  >
+                    Lịch sử đặt vé
+                  </Link>
+                </li>
+
+              </ul>
+            </div>
+          )}
         </div>
 
       </div>
