@@ -39,7 +39,7 @@ export async function Datve(params: {
   id_cumrap: number;
   id_KM: number;
   id_NV: number;
-  id_doan: number;
+  id_doan: Array<number>;
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/Datve`,

@@ -274,35 +274,35 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
     }
     console.log("chieuschieus2222", chieus)
   }
-  const handleLayTTSuatchieu = async () => {
-    suatchieus.splice(0, suatchieus.length);
-    console.log("lengthchieus", chieus.length);
-    chieus.map(async (item) => {
-      try {
-        const params = {
-          // key: idSuatchieu,
-          key: item.id
-        };
-        console.log("suatchieuparams", params);
-        const response = await LayTTSuatchieu(params);
-        const res: Suatchieu[] = response.suatchieus;
-        console.log("check api searchdate Suatchieu: ", response);
-        // console.log("length", res.length);
-        setSuatchieu(res);
-        res.map((res) => {
-          suatchieus.push({
-            id: res.id,
-            giobatdau: res.giobatdau,
-            gioketthuc: res.gioketthuc
-          });
-        })
-        console.log(res.length)
-      } catch (error) {
-        console.log(error);
-      }
-    })
+  // const handleLayTTSuatchieu = async () => {
+  //   suatchieus.splice(0, suatchieus.length);
+  //   console.log("lengthchieus", chieus.length);
+  //   chieus.map(async (item) => {
+  //     try {
+  //       const params = {
+  //         // key: idSuatchieu,
+  //         key: item.id
+  //       };
+  //       console.log("suatchieuparams", params);
+  //       const response = await LayTTSuatchieu(params);
+  //       const res: Suatchieu[] = response.suatchieus;
+  //       console.log("check api searchdate Suatchieu: ", response);
+  //       // console.log("length", res.length);
+  //       setSuatchieu(res);
+  //       res.map((res) => {
+  //         suatchieus.push({
+  //           id: res.id,
+  //           giobatdau: res.giobatdau,
+  //           gioketthuc: res.gioketthuc
+  //         });
+  //       })
+  //       console.log(res.length)
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })
 
-  }
+  // }
   const router = useRouter();
 
   const handleDatve = (id_r: number, bd: string, kt: string) => {
@@ -502,7 +502,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                           <Button
                             onClick={() => handleDatve(chieus[index].id_rap, item.giobatdau, item.gioketthuc)}
                             key={index}
-                            className="bg-gray-300 rounded-md h-10 w-32">
+                            className="bg-gray-300 rounded-md h-10 w-32 mb-8">
                             {
                               item.giobatdau + " - " + item.gioketthuc
                               // (datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||

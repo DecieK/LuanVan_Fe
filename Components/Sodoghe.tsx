@@ -10,6 +10,7 @@ import ModalBapnuoc from './ModalBapnuoc';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image'
+import { ifError } from 'assert';
 
 
 type Props = {
@@ -82,7 +83,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
     id_cumrap: number;
     id_KM: number;
     id_NV: number;
-    id_DA: number;
+    // id_DA: number;
   }
   interface Phim {
     id: number;
@@ -163,6 +164,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   const [tienKM, setTienKM] = useState(Number)
   // const [sumsum1, setSumsum1] = useState(Number)
   const [arrIdghe, setArrIdghe] = useState<number[]>([]);
+  const [arrIdDV, setArrIdDV] = useState<number[]>([]);
   // const [arrIdghe, setArrIdghe] = useState<number[]>([]);
   const [showModalDA, setShowModalDA] = useState(false);
   const [showModalKM, setShowModalKM] = useState(false);
@@ -254,14 +256,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
         id_ghe: arrIdghe,
         id_suatchieu: id_suatchieu,
         id_rap: id_rapP,
-        // id_cumrap: id_cumrap,
-        // id_KM: id_KM,
-        // id_NV: id_NV,
-        // id_doan: id_doan
         id_cumrap: 1,
         id_KM: 1,
         id_NV: 1,
-        id_doan: 1,
+        id_doan: dsdoans,
         id_KH: 1
       });
     if (res && res.errCode === 0) {
@@ -353,12 +351,15 @@ if(checked === id_km){
 
     res1.map((item) => {
       sumsum2 = sumsum2 + item.sl * item.gia
-      // console.log("item.ten", item.sl)
-      // console.log("item.ten", item.sl * item.gia)
+      if(item.sl !=0 && (arrIdDV.includes(item.id) === false)){
+       
+        arrIdDV.push(item.id)
+      }
     })
     // console.log("sumsum2", sumsum2)
     setTienDA(sumsum2)
   }
+
   useEffect(() => {
     const handleLayTTPhim = async () => {
 

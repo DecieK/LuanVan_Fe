@@ -142,7 +142,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
 
     <StyledModalOverlay>
       { }
-      <StyledModal className=" w-10/12  rounded-lg ">
+      <StyledModal className=" w-80/12  rounded-lg ">
         <StyledModalHeader className=" bg-red-500  ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
@@ -239,10 +239,10 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
             </div>
 
           </div>
-          <div className='text-center mt-7 mb-7'>
+          <div className='text-center mt-7'>
             <button
               onClick={() => handleTruyenduLieuveSodoghe()}
-              className='bg-red-400 uppercase w-32 h-10 hover:bg-red-500 rounded-md'>
+              className='bg-red-400 uppercase w-32 mb-5 h-10 hover:bg-red-500 rounded-md'>
               xác nhận
             </button>
           </div>
