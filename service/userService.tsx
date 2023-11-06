@@ -24,7 +24,16 @@ export async function DangKy_KH(params: {
   const data = await response.json();
   return data;
 }
-
+interface DSDichVu {
+  id: number,
+  ten: string,
+  anhminhhoa: string,
+  loai: string,
+  mota: string,
+  gia: number,
+  size: string,
+  sl: number
+}
 export async function Datve(params: {
   hten_KH: string;
   httt: string;
@@ -39,7 +48,7 @@ export async function Datve(params: {
   id_cumrap: number;
   id_KM: number;
   id_NV: number;
-  id_doan: Array<number>;
+  id_doan: Array<DSDichVu>;
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/Datve`,

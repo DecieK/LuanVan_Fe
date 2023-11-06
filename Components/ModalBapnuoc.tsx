@@ -184,13 +184,13 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
                         alt="Picture of the author"
                       />
                       <div className=''>
-                        <p className='uppercase font-semibold text-xl'>MILO COMBO 2023</p>
+                        <p className='uppercase font-semibold text-xl'>{item.ten}</p>
                         <div className='list-inside text-gray-600'>
-                          <li className=''>01 ly nhân vật Peanuts (kèm nước)</li>
-                          <li className=''>Nhận ngay trong ngày xong phim</li>
+                          <li className=''>{item.mota}</li>
+                          {/* <li className=''>Nhận ngay trong ngày xong phim</li>
                           <li className=''>Thêm 39,000đ nhận ngay 1 bắp ngọt lớn</li>
-                          <li className=''>Mẫu ly phụ thuộc vào số lượng của rạp</li>
-                          <li className=''>Giá: 199.000 ₫</li>
+                          <li className=''>Mẫu ly phụ thuộc vào số lượng của rạp</li> */}
+                          <li className=''>Giá: {item.gia} ₫</li>
                           <div className="flex">
                             <RemoveCircleOutlineIcon
                               onClick={() => handelesubtractionDoan(item.id, item.sl)}

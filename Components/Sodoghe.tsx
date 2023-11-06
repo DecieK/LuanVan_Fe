@@ -238,12 +238,12 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
     console.log("id_cumrap", id_cumrap)
     console.log("id_KM", id_KM)
     console.log("id_NV", id_NV)
-    console.log("id_doan", id_doan)
+    console.log("id_doan", dsdoans)
     console.log("id_KH", id_KH)
     console.log("arrIdghe", arrIdghe)
     console.log("dsgheDDs", dsgheDDs)
     console.log("id_chieu", id_chieu)
-
+    console.log("arrId_da", arrIdDV)
     // Object.keys(numbers);
     let res = await Datve(
       {
@@ -315,21 +315,21 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
 
 
-  
+
   const handleSetkm = (id_km: number) => {
-if(checked === id_km){
-  setChecked(0)
-  setTienKM(0)
-}else{
-  setChecked(id_km)
-  khuyenmai.map((item)=>{
-    if(item.id === id_km){
-      // kiem tra xem có nằm trong thời gian khuyến mãi hay k
-      setTienKM(item.tile_KM)
+    if (checked === id_km) {
+      setChecked(0)
+      setTienKM(0)
+    } else {
+      setChecked(id_km)
+      khuyenmai.map((item) => {
+        if (item.id === id_km) {
+          // kiem tra xem có nằm trong thời gian khuyến mãi hay k
+          setTienKM(item.tile_KM)
+        }
+      })
     }
-  })
-}
-    
+
     // if (id_km === id_KM) {
     //   setId_KM(0)
     //   setTienKM(0)
@@ -344,15 +344,15 @@ if(checked === id_km){
   }
 
   const handleLayDuLieuTuModalBapNuoc = (arr: any) => {
-    // let sumDV = 0
+    arrIdDV.splice(0, arrIdDV.length)
     setDsdoans(arr)
     const res1: DSDichVu[] = arr;
     console.log("res1", res1)
 
     res1.map((item) => {
       sumsum2 = sumsum2 + item.sl * item.gia
-      if(item.sl !=0 && (arrIdDV.includes(item.id) === false)){
-       
+      if (item.sl != 0 && (arrIdDV.includes(item.id) === false)) {
+
         arrIdDV.push(item.id)
       }
     })
@@ -426,7 +426,7 @@ if(checked === id_km){
             resVe.map(async (itemve) => {
               try {
                 const params = {
-                  id_ve: itemve.id + 1
+                  id_ve: itemve.id
                 };
                 console.log("searchdate", params);
                 const response = await LayTTchitietve(params);
@@ -549,7 +549,7 @@ if(checked === id_km){
       // setTrangthai(false)
       console.log("false");
       const res: Khachhang[] = khachhangs;
-      console.log("Ád",res)
+      console.log("Ád", res)
 
       res.map((item) => {
         setDiemtichluyKH(item.Diemtichluy_KH)
@@ -783,19 +783,19 @@ if(checked === id_km){
                 <div>
                   {
                     khuyenmai.map((khuyenmais, index) => {
-                      if (khuyenmais.dieukien_KM < diemtichluyKH) {
+                      if (khuyenmais.dieukien_KM <= diemtichluyKH ) {
                         return (
                           <>
                             <div className='flex'>
                               <p key={index} className='p-2'
-                                // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                              // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
                               // onClick={() => setTienKM(khuyenmais.tile_KM)}
                               >{khuyenmais.ten_KM}</p>
                               <Checkbox
                                 checked={khuyenmais.id === checked ? true : false}
                                 // onChange={()=>setChecked(!checked)}
-                                onClick={()=>handleSetkm(khuyenmais.id)} 
-                                />
+                                onClick={() => handleSetkm(khuyenmais.id)}
+                              />
                             </div>
                             <hr />
                           </>
