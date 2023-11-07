@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from 'next/image'
+import Lichsudatve from "@/Components/Lichsudatve";
 
 type Props = {
     poster: any;
@@ -22,9 +23,9 @@ const Lichsu = ({ poster }: Props) => {
     // }, []);
 
     return (
-        <div>
-<Lichsudatve />
-        </div>
+      <div>
+        <Lichsudatve />
+      </div>
 
     )
 }

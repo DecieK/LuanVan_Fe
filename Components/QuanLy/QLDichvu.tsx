@@ -139,7 +139,7 @@ const QLDichvu = () => {
 
     const handleCapnhatTTDichvu = async () => {
         // console.log("ngaychieu", ngaychieu)
-        // console.log("giave", giave)
+        console.log("giave", anhminhhoa)
         // console.log("id_r", id_r)
         // console.log("id_p", id_p)
         // console.log("id_sc", id_sc)
@@ -201,11 +201,11 @@ const QLDichvu = () => {
     const handleSuaTTDichvu = async (id: number, ten: string, anh: string, ldv: string, mtdv: string, size: string, gia: number) => {
         // let date1 = new Date(ngay)
         // setId_c(id)
-
+        console.log("gg", anh)
         setId_dv(id)
         setTendv(ten)
         setPrevURLIMG(new Buffer(anh, "base64").toString("binary"))
-        setAnhminhhoa(anh)
+        // setAnhminhhoa(anh)
         setLoaidv(ldv)
         setMotadv(mtdv)
         setValueSize(size)
@@ -218,7 +218,7 @@ const QLDichvu = () => {
 
         let data = event.target.files;
         let file = data[0];
-
+        console.log("ádas", data)
         if (file) {
             let base64img = await CommonUtils.getBase64(file);
             console.log("check base64 img: ", base64img);
@@ -250,6 +250,10 @@ const QLDichvu = () => {
         }
     }
     useEffect(() => {
+
+        let reader = new FileReader();
+
+
         const handleLayTTDoan = async () => {
             try {
 
@@ -259,8 +263,17 @@ const QLDichvu = () => {
                 // console.log("searchdate", params);
                 const response = await LayTTDoan(params);
                 const res: Doan[] = response.doans;
-                // console.log("check api Doan: ", response);
-                // console.log("length", res.length);
+                res.map((i) => {
+                    console.log(i.anhminhhoa)
+                    // setAnhminhhoa(i.anhminhhoa.toString())
+                    setAnhminhhoa(new Buffer(i.anhminhhoa, "base64").toString("binary"))
+                    // reader.readAsDataURL(i.anhminhhoa);
+                    // reader.onloadend = function () {
+                    //     var base64data = reader.result;
+                    //     console.log(base64data);
+                    //     return;
+                    // }
+                })
                 setDoan(res);
             } catch (error) {
                 console.log(error);
@@ -345,7 +358,7 @@ const QLDichvu = () => {
                 </div>
                 <div className=" w-8/12 ">
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={()=> handleCapnhatTTDichvu()}
+                        onClick={() => handleCapnhatTTDichvu()}
                     >Cập nhật thông tin</button>
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
                         onClick={() => handleThemTTDichvu()}
@@ -398,11 +411,11 @@ const QLDichvu = () => {
 
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                    onClick={() => handleSuaTTDichvu(item.id, item.ten, item.anhminhhoa, item.loai, item.mota, item.size, item.gia)}
+                                        onClick={() => handleSuaTTDichvu(item.id, item.ten, item.anhminhhoa, item.loai, item.mota, item.size, item.gia)}
 
                                     />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
-                                    onClick={() => handleXoaTTDichvu(item.id)}
+                                        onClick={() => handleXoaTTDichvu(item.id)}
 
                                     />
                                 </td>

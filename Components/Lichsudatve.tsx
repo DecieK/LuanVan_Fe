@@ -5,7 +5,7 @@ type Props = {
     poster: any;
 }
 
-const Lichsudatve = ({ poster }: Props) => {
+const Lichsudatve = () => {
     // const [prevURLIMG, setPrevURLIMG] = useState("");
 
     // useEffect(() => {
@@ -24,13 +24,14 @@ const Lichsudatve = ({ poster }: Props) => {
     return (
         <div>
             <div className=" m-auto shadow-xl ">
-                <Image
+                ádas
+                {/* <Image
                     className="h-[500px] w-9/12  rounded-xl m-auto  bg-no-repeat"
                     src={poster}
                     width={1500}
                     height={1500}
                     alt="Picture of the author"
-                />
+                /> */}
                 {/* <div className="border-2 border-green-600 h-[700px] w-10/12  rounded-xl m-auto  bg-no-repeat" style={{
                     backgroundImage: `url(${poster})`,
                 }} > */}
