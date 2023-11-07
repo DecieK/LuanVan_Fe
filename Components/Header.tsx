@@ -33,6 +33,7 @@ const Header = () => {
     Diemtichluy_KH: number;
     Taikhoan_KH: string;
     Matkhau_KH: string;
+    createdAt: string;
   }
   const [trangthai, setTrangthai] = useState(Boolean);
   const [khachhang, setKhachhang] = useState<Khachhang[]>([]);

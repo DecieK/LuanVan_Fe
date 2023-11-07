@@ -93,7 +93,7 @@ const QLKhachhang = () => {
                 // console.log("length", res.length);
                 setKhachhang(res);
                 // console.log(res.length)s
-    
+
             } catch (error) {
                 console.log(error);
             }
@@ -115,9 +115,10 @@ const QLKhachhang = () => {
                         <th className="border border-slate-300 text-center">Email</th>
                         <th className="border border-slate-300 text-center">Mã thẻ thành viên</th>
                         <th className="border border-slate-300 text-center">Điểm tích lũy</th>
-                        <th className="border border-slate-300 text-center">Giới tính</th>
                         <th className="border border-slate-300 text-center">Tài khoản</th>
                         <th className="border border-slate-300 text-center">Mật khẩu</th>
+                        <th className="border border-slate-300 text-center">Tác vụ</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -159,11 +160,11 @@ const QLKhachhang = () => {
 
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                        // onClick={() => handleSuaTTChieu(item.ngaychieu, item.giave, item.id, item.id_phim, item.id_rap, item.id_suatchieu)}
+                                    // onClick={() => handleSuaTTChieu(item.ngaychieu, item.giave, item.id, item.id_phim, item.id_rap, item.id_suatchieu)}
 
                                     />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
-                                        // onClick={() => handleXoaTTChieu(item.id)}
+                                    // onClick={() => handleXoaTTChieu(item.id)}
 
                                     />
                                 </td>

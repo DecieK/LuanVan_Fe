@@ -1,0 +1,13 @@
+lấy tt vé xong:
++id_rap => tên rạp
++slghe
+ => id_ve => ctv: Mã ghế
+ => id_ve => ctdoan: (tên, sl, size)
++id_cr => ten cr, dia chi
++tongtien
++createdTime
++ma code	
+
+=> idchieu => ngaychieu
+	 +idp => tenphim
+=>idsuatchieu => giobatdau	

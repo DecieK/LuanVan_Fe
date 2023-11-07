@@ -816,26 +816,59 @@ export async function XoaTTNhanvien(params: {
   return data;
 }
 
-// export async function VNPay(params: {
-//   id: number
-// }): Promise<any> {
+export async function VNPay(params: {
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/order/create_payment_url`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+// export async function VNPay(params: {  }): Promise<any> {
+//   const {  } = params;
 //   const response = await fetch(
 //     `http://localhost:8080/order/create_payment_url`,
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(params),
-//     }
 //   );
 //   const data = await response.json();
 //   return data;
 // }
-export async function VNPay(params: {  }): Promise<any> {
-  const {  } = params;
+
+export async function LayTTVe_idKH(params: { id_kh: any }): Promise<any> {
+  const { id_kh } = params;
   const response = await fetch(
-    `http://localhost:8080/order/create_payment_url`,
+    `http://localhost:8080/api/LayTTVe_idKH?keyword=${id_kh}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function LayTTRap(params: { id: any }): Promise<any> {
+  const { id } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTRap?keyword=${id}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function LayTTChieu_idc(params: { id: any }): Promise<any> {
+  const { id } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTChieu_idc?keyword=${id}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function LayTTDoan_idve(params: { id_ve: any }): Promise<any> {
+  const { id_ve } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTDoan_idve?keyword=${id_ve}`
   );
   const data = await response.json();
   return data;

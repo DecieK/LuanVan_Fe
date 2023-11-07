@@ -56,6 +56,7 @@ const Test = () => {
   const handleXoaTTChieu = async () => {
       try {
           const params = {
+            id: 1
           };
           // console.log("searchdate", params);
           const response = await VNPay(params);
