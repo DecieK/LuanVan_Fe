@@ -1,0 +1,31 @@
+import { useEffect, useState } from "react";
+import Image from 'next/image'
+
+type Props = {
+    poster: any;
+}
+
+const Lichsu = ({ poster }: Props) => {
+    // const [prevURLIMG, setPrevURLIMG] = useState("");
+
+    // useEffect(() => {
+    //     // const handleEdit = () => {
+    //     //     let imageBase64 = "";
+    //     //     if (poster) {
+    //     //         imageBase64 = new Buffer(poster, "base64").toString("binary");
+    //     //     }
+    //     //     setPrevURLIMG(imageBase64),
+    //         console.log("poster", poster)
+
+    //     // }
+    //     // handleEdit
+    // }, []);
+
+    return (
+        <div>
+<Lichsudatve />
+        </div>
+
+    )
+}
+export default Lichsu;

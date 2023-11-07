@@ -171,7 +171,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   const [r, setR] = useState(Number)
   const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
   const [checked, setChecked] = React.useState(0);
-
+let temp: number
 
 
   // const [dsdoans, setDsdoans] = useState([
@@ -783,24 +783,27 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
                 <div>
                   {
                     khuyenmai.map((khuyenmais, index) => {
-                      if (khuyenmais.dieukien_KM <= diemtichluyKH ) {
-                        return (
-                          <>
-                            <div className='flex'>
-                              <p key={index} className='p-2'
-                              // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-                              // onClick={() => setTienKM(khuyenmais.tile_KM)}
-                              >{khuyenmais.ten_KM}</p>
-                              <Checkbox
-                                checked={khuyenmais.id === checked ? true : false}
-                                // onChange={()=>setChecked(!checked)}
-                                onClick={() => handleSetkm(khuyenmais.id)}
-                              />
-                            </div>
-                            <hr />
-                          </>
-                        )
-                      }
+                      // for (let i = 0; i < khuyenmai.length; i++) {
+                        if (khuyenmais.dieukien_KM <= diemtichluyKH  ) {
+                          temp = diemtichluyKH - khuyenmais.dieukien_KM
+                          return (
+                            <>
+                              <div className='flex'>
+                                <p key={index} className='p-2'
+                                // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                                // onClick={() => setTienKM(khuyenmais.tile_KM)}
+                                >{khuyenmais.ten_KM}</p>
+                                <Checkbox
+                                  checked={khuyenmais.id === checked ? true : false}
+                                  // onChange={()=>setChecked(!checked)}
+                                  onClick={() => handleSetkm(khuyenmais.id)}
+                                />
+                              </div>
+                              <hr />
+                            </>
+                          )
+                        }
+                      // }
 
                     })
                   }

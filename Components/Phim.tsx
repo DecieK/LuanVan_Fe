@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from "next/router";
 import React from "react";
 import { useEffect, useState } from "react";
+import Modal from "./Modal";
 
 const noto_serif = Noto_Serif({
     weight: '400',
@@ -30,6 +31,9 @@ const Phim = () => {
     const [phim, setPhim] = useState<Phim[]>([]);
     const [src, setSrc] = useState(String);
     const [option, setOption] = React.useState(1)
+    const [idp, setIdp] = React.useState(Number)
+
+    const [showModal, setShowModal] = useState(false);
 
     const router = useRouter();
 
@@ -42,6 +46,10 @@ const Phim = () => {
 
 
     };
+    const handleMuave = (id: number) => {
+        setShowModal(true)
+        setIdp(id)
+    }
 
     useEffect(() => {
         const handleLayTTPhim = async () => {
@@ -114,61 +122,76 @@ const Phim = () => {
                                                     <p className="">{item.tomtat.slice(0, 90)}...</p>
                                                     <div className="space-x-5  space-y-3">
                                                         <button onClick={() => handleXemchitiet(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
-                                                        <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
+                                                        <button
+                                                            className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60"
+                                                            onClick={() => handleMuave(item.id)}
+                                                        >
+                                                            Mua vé</button>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <Modal
+                                                id_phim={idp}
+                                                onClose={() => setShowModal(false)}
+                                                show={showModal}
+                                            ></Modal>
                                         </div>
+
                                     </>
                                 )
+
                             }
                             else null
                         })
                     }
-                </div>
-            ) : null}
-            {option == 2 ? (
-                <div className="grid grid-cols-3 gap-2 w-11/12 m-auto mt-5 ">
-                    {
-                        phim.map((item, index) => {
 
-                            if (item.trangthai === "Sắp chiếu") {
-                                return (
-                                    <>
-                                        <div className="col-span-1 group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow
+                </div>
+            ) : null
+            }
+            {
+                option == 2 ? (
+                    <div className="grid grid-cols-3 gap-2 w-11/12 m-auto mt-5 ">
+                        {
+                            phim.map((item, index) => {
+
+                                if (item.trangthai === "Sắp chiếu") {
+                                    return (
+                                        <>
+                                            <div className="col-span-1 group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow
                                  hover:shadow-xl hover:shadow-black/30">
-                                            <div className="">
-                                                <Image
-                                                    className="w-11/12 h-64  transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
-                                                    src={new Buffer(item.poster, "base64").toString("binary")}
-                                                    width={500}
-                                                    height={500}
-                                                    alt="Picture of the author"
-                                                />
-                                            </div>
-                                            <div className="absolute inset-0 bg-gradient-to-b  group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
-                                            <div className="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
-                                                {/* <h1 className="font-dmserif text-3xl font-bold text-white">Beauty</h1> */}
-                                                <div className="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                                    <p className="">{item.tenphim}</p>
-                                                    <p className="">{item.tomtat.slice(0, 90)}...</p>
-                                                    <div className="space-x-5  space-y-3">
-                                                        <button onClick={() => handleXemchitiet(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
-                                                        <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
+                                                <div className="">
+                                                    <Image
+                                                        className="w-11/12 h-64  transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
+                                                        src={new Buffer(item.poster, "base64").toString("binary")}
+                                                        width={500}
+                                                        height={500}
+                                                        alt="Picture of the author"
+                                                    />
+                                                </div>
+                                                <div className="absolute inset-0 bg-gradient-to-b  group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
+                                                <div className="absolute inset-0 flex translate-y-[60%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
+                                                    {/* <h1 className="font-dmserif text-3xl font-bold text-white">Beauty</h1> */}
+                                                    <div className="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                                        <p className="">{item.tenphim}</p>
+                                                        <p className="">{item.tomtat.slice(0, 90)}...</p>
+                                                        <div className="space-x-5  space-y-3">
+                                                            <button onClick={() => handleXemchitiet(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
+                                                            <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </>
-                                )
-                            }
-                            else null
-                        })
-                    }
-                </div>
-            ) : null}
+                                        </>
+                                    )
+                                }
+                                else null
+                            })
+                        }
+                    </div>
+                ) : null
+            }
 
-        </div>
+        </div >
     )
 }
 export default Phim;

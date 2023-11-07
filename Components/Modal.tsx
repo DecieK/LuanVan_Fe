@@ -203,6 +203,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   };
 
   const handleLayTTCumRap = async (id_cumrap: number) => {
+    console.log(id_phim)
     if (id_cumrap != idcumrap) {
       suatchieus.splice(0, suatchieus.length)
     }
@@ -384,7 +385,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
     handleLayTTCumrap();
     setIsBrowser(true);
-  }, [chieu, chieus, idSuatchieu, suatchieus]);
+  }, []);
 
   const handleCloseClick = () => {
     onClose()
@@ -466,7 +467,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                     <Button
                       onClick={() => handleLayTTCumRap(item.id)}
                       key={index}
-                      className='col-span-1 bg-red-400 h-20 w-40 rounded-md'                    >{item.ten_tttt}
+                      className='col-span-1 bg-red-400 h-20 w-40 rounded-md'>{item.ten_tttt}
                     </Button>
                   </>
                 )
