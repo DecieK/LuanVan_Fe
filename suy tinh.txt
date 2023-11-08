@@ -11,3 +11,22 @@ lấy tt vé xong:
 => idchieu => ngaychieu
 	 +idp => tenphim
 =>idsuatchieu => giobatdau	
+
+    
+	tao chuoi bat ky
+    let result = ' ';
+
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const  generateString = (length : number) => {
+        const charactersLength = characters.length;
+        for ( let i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        console.log("ressult",result)
+
+        return result;
+
+    }
+
+
+    chỉnh thêm code lúc đặt vé api datve

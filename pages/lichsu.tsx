@@ -25,7 +25,7 @@ const Lichsu = ({ poster }: Props) => {
     id_KM: number;
     id_NV: number;
     maCode: string;
-    createdAt: string;
+    createdAt: Date;
 
     // id_DA: number;
   }

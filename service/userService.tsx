@@ -873,3 +873,11 @@ export async function LayTTDoan_idve(params: { id_ve: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+export async function LayTTKhuyenmai(params: { id: any }): Promise<any> {
+  const { id} = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTKhuyenmai?keyword=${id}`
+  );
+  const data = await response.json();
+  return data;
+}

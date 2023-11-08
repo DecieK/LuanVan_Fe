@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Image from 'next/image'
-import { LayTTChieu_idc, LayTTCumrap, LayTTGhe, LayTTPhim, LayTTRap, LayTTSuatchieu, LayTTchitietve } from "@/service/userService";
+import { LayTTChieu_idc, LayTTCumrap, LayTTDoan, LayTTDoan_idve, LayTTGhe, LayTTKhuyenmai, LayTTPhim, LayTTRap, LayTTSuatchieu, LayTTchitietve } from "@/service/userService";
 import dayjs from "dayjs"
+import ModalCapnhat from "./ModalCapnhat";
 
 type Props = {
     ttve: any;
@@ -18,7 +19,7 @@ type Props = {
     id_cr: number;
     id_km: number;
     id_nv: number;
-    createdat: string;
+    createdat: Date;
     macode: string;
 
 }
@@ -57,7 +58,7 @@ const Lichsudatve = ({
         id_KM: number;
         id_NV: number;
         maCode: string;
-        createdAt: string;
+        createdAt: Date;
     }
     interface Rap {
         id: number;
@@ -110,7 +111,31 @@ const Lichsudatve = ({
         nsx: string;
         trangthai: string;
     }
-
+    interface Chitietdoan {
+        id: number,
+        slda: number,
+        id_ve: number,
+        id_doan: number
+    }
+    interface Doan {
+        id: number;
+        ten: string;
+        anhminhhoa: string;
+        loai: string;
+        mota: string;
+        gia: number;
+        size: string;
+        sl: number;
+    }
+    interface Khuyenmai {
+        id: number;
+        ten_KM: string;
+        tile_KM: number;
+        mota_KM: string;
+        dieukien_KM: number;
+        thoigianbatdau: Date;
+        thoigianketthuc: Date;
+    }
 
     const [trangthai, setTrangthai] = useState(true);
     const [ve, setVe] = useState<Ve[]>([]);
@@ -131,8 +156,12 @@ const Lichsudatve = ({
     const [phim, setPhim] = useState<Phim[]>([]);
     const [tenphim, setTenphim] = useState(String);
     const [step, setStep] = useState('chitiet');
-
-
+    const [chitietdoan, setChitietdoan] = useState<Chitietdoan[]>([]);
+    const [doan, setDoan] = useState<Doan[]>([]);
+    const [tgiangiaodich, settgiangiaodich] = useState(new Date());
+    const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
+    const [showModal, setShowModal] = useState(false);
+    const [idp, setIdp] = useState(Number);
 
 
     useEffect(() => {
@@ -150,6 +179,23 @@ const Lichsudatve = ({
                 res.map((raps) => {
                     setTenrap(raps.ten_rap)
                 })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTDoan_idve = async () => {
+            try {
+                const params = {
+                    id_ve: id,
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTDoan_idve(params);
+                const res: Chitietdoan[] = response.chitietdoans;
+                console.log("check api searchdate chitietdoans: ", response);
+                // console.log("length", res.length);
+                setChitietdoan(res);
+                // res.map((raps) => {
+                // })
             } catch (error) {
                 console.log(error);
             }
@@ -247,9 +293,41 @@ const Lichsudatve = ({
                     setPhim(res2)
                     res2.map((p) => {
                         setTenphim(p.tenphim)
-
+                        setIdp(p.id)
                     })
                 })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTDoan = async () => {
+            try {
+
+                const params = {
+                    key: "ALL",
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTDoan(params);
+                const res: Doan[] = response.doans;
+                // console.log("check api Doan: ", response);
+                // console.log("length", res.length);
+                setDoan(res);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTKhuyenmai = async () => {
+            try {
+                const params = {
+                    id: id_r,
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTKhuyenmai(params);
+                const res: Khuyenmai[] = response.khuyenmais;
+                // console.log("check api searchdate ve: ", response);
+                // console.log("length", res.length);
+                setKhuyenmai(res);
+
             } catch (error) {
                 console.log(error);
             }
@@ -260,19 +338,22 @@ const Lichsudatve = ({
 
 
 
+
+
         setVe(ttve)
         const res: Ve[] = ttve
-        // ve.map((item) => {
-        //     setSlghe(item.SLghe)
-        // });
+        settgiangiaodich(new Date(createdat))
         handleLayTTRap()
         handleLayTTCumrap()
         handleLayTTchitietve()
         handleLayTTSuatchieu()
         handleLayTTChieu_idc()
+        handleLayTTDoan_idve()
+        handleLayTTDoan()
+        handleLayTTKhuyenmai()
 
 
-    }, [id, id_c, id_cr, id_r, id_sc, magheArr, ttve, ve]);
+    }, [createdat, id, id_c, id_cr, id_r, id_sc, magheArr, ttve, ve]);
 
     return (
         <div className="">
@@ -315,11 +396,9 @@ const Lichsudatve = ({
                             <button
                                 className={`bg-green-700 text-white rounded-full h-8 w-24 
                                 `}
-                            // onClick={handleReceive}
-                            // disabled={data.active === 1}
+                                onClick={() => setShowModal(true)}
                             >
-                                {/* {data.active === 1 ? "Đã nhận" : "Tiếp nhận"}  */}
-                                Đã sử dụng
+                                Thay đổi suất chiếu
                             </button>
                             {/* <button
                                     // onClick={handleOpenModal}
@@ -332,49 +411,7 @@ const Lichsudatve = ({
 
 
                 </div>
-                {/* {
-                trangthai === true ?
-                    <div>
-                        <div>
-                            <div>
-                                Phòng chiếu: {tenrap}
-                            </div>
-                            <div>
-                                Số ghế: {sLghe}
-                            </div>
-                            <div>
-                                Mã ghế:
-                                {
-                                    magheArr.map((ghes, index) => {
-                                        return (
-                                            <>
-                                                <p key={index}>{ghes}</p>
-                                            </>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                        <div>
-                            Thức ăn kèm: sl, tên
-                        </div>
-                        <div>
-                            Rạp chiếu
-                            <div>
-                                <p>tên : {tencumrap}</p>
-                                <p>địa chỉ: {diachicr}</p>
-                            </div>
-                        </div>
-                        <div>
-                            Tổng tiền: {tongtien}
-                            <div>
-                                <p>Thời gian giao dịch : {createdat}</p>
-                                <p>Mã giao dịch: {macode}</p>
-                            </div>
-                        </div>
-                    </div>
-                    : null
-            } */}
+
             </div>
 
             {step === "chitiet" &&
@@ -398,10 +435,30 @@ const Lichsudatve = ({
                             }</p>
                         </div>
                         <hr className="my-2" />
-                        <div className="">
-                            <p className="text-gray-600">Thức ăn kèm</p>
-                            <p className="font-semibold">1 x MY COMBO</p>
-                        </div>
+                        {
+                            chitietdoan.map((ctda, index) => {
+                                return (
+                                    <>
+                                        <div className="">
+                                            <p className="text-gray-600">Thức ăn kèm</p>
+                                            <p className="font-semibold">{ctda.slda} x {doan.map((da) => ctda.id_doan === da.id ? da.ten : null)}</p>
+                                        </div>
+                                    </>
+                                )
+                            })
+                        }
+                        {
+                            khuyenmai.map((km, index) => {
+                                return (
+                                    <>
+                                        <div className="">
+                                            <p className="text-gray-600">Khuyến mãi</p>
+                                            <p className="font-semibold">{doan.map((da) => km.id === id_km ? km.ten_KM : null)} : {km.tile_KM}%</p>
+                                        </div>
+                                    </>
+                                )
+                            })
+                        }
                         <hr className="my-2" />
                         <div className="">
                             <p className=" text-gray-600">Rạp chiếu</p>
@@ -416,14 +473,22 @@ const Lichsudatve = ({
                             </div>
                             <div className="w-1/2 text-right">
                                 <p>{tongtien}</p>
-                                <p>{createdat}</p>
-                                <p>đfgfgh</p>
+                                <p>qwrerr</p>
+                                <p>
+                                    {dayjs(createdat).format("DD/MM/YYYY") + ' - ' + tgiangiaodich.getHours() + ':' + tgiangiaodich.getMinutes() + ':' + tgiangiaodich.getSeconds()
+                                    }
+                                </p>
                             </div>
 
                         </div>
                     </div>
 
                 )}
+            <ModalCapnhat
+                id_phim={idp}
+                onClose={() => setShowModal(false)}
+                show={showModal}
+            ></ModalCapnhat>
         </div>
     )
 }
