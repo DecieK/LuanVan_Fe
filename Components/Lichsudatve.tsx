@@ -130,6 +130,8 @@ const Lichsudatve = ({
     const [ngaychieu, setNgaychieu] = useState(new Date());
     const [phim, setPhim] = useState<Phim[]>([]);
     const [tenphim, setTenphim] = useState(String);
+    const [step, setStep] = useState('chitiet');
+
 
 
 
@@ -273,38 +275,39 @@ const Lichsudatve = ({
     }, [id, id_c, id_cr, id_r, id_sc, magheArr, ttve, ve]);
 
     return (
+        <div className="">
+            <div className='flex pt-10 w-6/12 m-auto h-44'>
+                <div className='bg-gray-100 basis-1/5  rounded-xl'>
+                    <Image
+                        className="m-auto pt-[30%]"
+                        src='/cgvlogo-small.png'
+                        width={100}
+                        height={100}
+                        alt="Picture of the author"
+                    />
+                </div>
+                <div className='bg-gray-200  basis-4/5  rounded-xl border-gray-300 border-l-2 border-dashed'>
+                    <div className=" flex rounded-lg mx-7 my-3">
+                        <div className="w-2/6 m-auto mt-[3%] ">
 
-        <div className='flex pl-10 pt-10 w-5/12 m-auto h-44'>
-            <div className='bg-gray-200 basis-1/5  rounded-xl'>
-                <Image
-                    className=""
-                    src='/cgvlogo-small.png'
-                    width={100}
-                    height={100}
-                    alt="Picture of the author"
-                />
-            </div>
-            <div className='bg-gray-200  basis-4/5  rounded-xl border-gray-300 border-l-2 border-dashed'>
-                <div className=" m-auto ">
-                    <div className=" flex rounded-lg m-1">
-                        <div className="w-1/5 m-auto">
                             <Image
-                                className=""
+                                className="w-96 h-20"
                                 src='/poster11.jpg'
                                 width={3500}
                                 height={3500}
                                 alt="Picture of the author"
                             />
                         </div>
-                        <div className="w-3/5 space-y-3 pt-2 ml-[3%] ">
-                            <p className="font-bold text-2xl">
-                                {tenphim}
+                        <div className="w-3/6 space-y-2 pt-2  ml-[3%] ">
+                            <p className="font-bold text-xl">
+                                Người vợ cuối cùng
                             </p>
                             <p className="font-thin text-lg">
                                 {tencumrap}
                             </p>
-                            <p className="font-thin text-lg">{giobd} - {dayjs(ngaychieu).format("DD/MM/YYYY")
-                            }</p>
+                            <p className="font-thin text-lg">
+                                {giobd} - {dayjs(ngaychieu).format("DD/MM/YYYY")}
+                            </p>
 
                         </div>
                         <div className="flex space-x-3  items-center" >
@@ -326,10 +329,10 @@ const Lichsudatve = ({
                                 </button> */}
                         </div>
                     </div>
-                </div>
 
-            </div>
-            {
+
+                </div>
+                {/* {
                 trangthai === true ?
                     <div>
                         <div>
@@ -371,9 +374,57 @@ const Lichsudatve = ({
                         </div>
                     </div>
                     : null
-            }
-        </div>
+            } */}
+            </div>
 
+            {step === "chitiet" &&
+                (
+                    <div className="w-4/12 border-2 p-4 border-green-400 m-auto">
+                        <div className="flex  text-gray-600">
+                            <p className="w-1/3">Phòng chiếu</p>
+                            <p className="w-1/3">Số vé</p>
+                            <p className="w-1/3">Số ghế</p>
+                        </div>
+                        <div className="flex font-semibold">
+                            <p className="w-1/3">{tenrap}</p>
+                            <p className="w-1/3">{sLghe}</p>
+                            <p className="flex w-1/3 space-x-3">{magheArr.map((ghes, index) => {
+                                return (
+                                    <>
+                                        <p className="" key={index}>{ghes}</p>
+                                    </>
+                                )
+                            })
+                            }</p>
+                        </div>
+                        <hr className="my-2" />
+                        <div className="">
+                            <p className="text-gray-600">Thức ăn kèm</p>
+                            <p className="font-semibold">1 x MY COMBO</p>
+                        </div>
+                        <hr className="my-2" />
+                        <div className="">
+                            <p className=" text-gray-600">Rạp chiếu</p>
+                            <p className="font-semibold">{tencumrap}</p>
+                            <p>{diachicr}</p>
+                        </div>
+                        <div className="flex my-3">
+                            <div className="w-1/2">
+                                <p>Tổng tiền</p>
+                                <p>Mã giao dịch</p>
+                                <p>Thời gian giao dịch</p>
+                            </div>
+                            <div className="w-1/2 text-right">
+                                <p>{tongtien}</p>
+                                <p>{createdat}</p>
+                                <p>đfgfgh</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                )}
+        </div>
     )
 }
 export default Lichsudatve;
