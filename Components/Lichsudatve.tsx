@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import Image from 'next/image'
 import { LayTTChieu_idc, LayTTCumrap, LayTTGhe, LayTTPhim, LayTTRap, LayTTSuatchieu, LayTTchitietve } from "@/service/userService";
 import dayjs from "dayjs"
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+
+
 
 type Props = {
     ttve: any;
@@ -130,12 +134,13 @@ const Lichsudatve = ({
     const [ngaychieu, setNgaychieu] = useState(new Date());
     const [phim, setPhim] = useState<Phim[]>([]);
     const [tenphim, setTenphim] = useState(String);
-    const [step, setStep] = useState('chitiet');
+    const [step, setStep] = useState('chung');
 
 
 
 
     useEffect(() => {
+
         const handleLayTTRap = async () => {
             try {
                 const params = {
@@ -212,7 +217,7 @@ const Lichsudatve = ({
                 // console.log("searchdate", params);
                 const response = await LayTTSuatchieu(params);
                 const res: Suatchieu[] = response.suatchieus;
-                console.log("check api searchdate sc: ", response);
+                // console.log("check api searchdate sc: ", response);
                 // console.log("length", res.length);
                 setSuatchieu(res)
                 res.map((sc) => {
@@ -231,7 +236,7 @@ const Lichsudatve = ({
                 // console.log("searchdate", params);
                 const response = await LayTTChieu_idc(params);
                 const res: Chieu[] = response.chieus;
-                console.log("check api searchdate sc: ", response);
+                // console.log("check api searchdate sc: ", response);
                 // console.log("length", res.length);
                 setChieu(res)
                 res.map(async (c) => {
@@ -242,7 +247,7 @@ const Lichsudatve = ({
                     // console.log("searchdate", params);
                     const response2 = await LayTTPhim(params);
                     const res2: Phim[] = response2.phims;
-                    console.log("check api searchdate sc: ", response);
+                    // console.log("check api searchdate sc: ", response);
                     // console.log("length", res.length);
                     setPhim(res2)
                     res2.map((p) => {
@@ -254,8 +259,6 @@ const Lichsudatve = ({
                 console.log(error);
             }
         }
-
-
 
 
 
@@ -319,7 +322,7 @@ const Lichsudatve = ({
                             // disabled={data.active === 1}
                             >
                                 {/* {data.active === 1 ? "Đã nhận" : "Tiếp nhận"}  */}
-                                Đã sử dụng
+                                Cập nhật
                             </button>
                             {/* <button
                                     // onClick={handleOpenModal}
@@ -328,6 +331,11 @@ const Lichsudatve = ({
                                     Cập nhật
                                 </button> */}
                         </div>
+                        {
+                            step === 'chung' ?
+                                <KeyboardDoubleArrowDownIcon onClick={() => setStep('chitiet')} />
+                                : null
+                        }
                     </div>
 
 
@@ -380,11 +388,12 @@ const Lichsudatve = ({
             {step === "chitiet" &&
                 (
                     <div className="w-4/12 border-2 p-4 border-green-400 m-auto">
+                        <KeyboardDoubleArrowUpIcon onClick={() => setStep('chung')} />
                         <div className="flex  text-gray-600">
                             <p className="w-1/3">Phòng chiếu</p>
                             <p className="w-1/3">Số vé</p>
                             <p className="w-1/3">Số ghế</p>
-                        </div>
+                            KeyboardDoubleArrowUpIcon</div>
                         <div className="flex font-semibold">
                             <p className="w-1/3">{tenrap}</p>
                             <p className="w-1/3">{sLghe}</p>
