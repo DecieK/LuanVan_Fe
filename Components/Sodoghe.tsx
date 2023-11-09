@@ -171,7 +171,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   const [r, setR] = useState(Number)
   const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
   const [checked, setChecked] = React.useState(0);
-let temp: number
+  let temp: number
 
 
   // const [dsdoans, setDsdoans] = useState([
@@ -191,6 +191,7 @@ let temp: number
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
+  const chitietveBeforeArr: number[] = []
   const dsghedangdat: number[] = []
   let sumsum = 0;
   // let sumsum1 = 0;
@@ -207,7 +208,12 @@ let temp: number
   ])
   const [DSchitietves, setDSchitietves] = useState([
     {
-      // id: 0,
+      id_ve: 0,
+      id_ghe: 0
+    },
+  ])
+  const [DSchitietvesBefore, setDSchitietvesBefore] = useState([
+    {
       id_ve: 0,
       id_ghe: 0
     },
@@ -361,6 +367,34 @@ let temp: number
   }
 
   useEffect(() => {
+    const handleCTVeBefore = async () => {
+      try {
+        const params = {
+          id_ve: id_phimP
+
+        };
+        console.log("searchdate", params);
+        const response = await LayTTchitietve(params);
+        const res: Chitetve[] = response.chitietves;
+        console.log("check api handleLayTTChieu: ", response);
+        // console.log("length", res.length);
+        // setc(res);
+        console.log(res.length)
+        res.map((itemctv) => {
+          let b = DSchitietvesBefore.findIndex(DSchitietvesBefore => DSchitietvesBefore.id_ghe === itemctv.id_ghe)
+          if (b) {
+            chitietveBeforeArr.push(itemctv.id_ghe)
+            DSchitietvesBefore.push({
+              id_ve: itemctv.id_ve,
+              id_ghe: itemctv.id_ghe
+            })
+          }
+        })
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
     const handleLayTTPhim = async () => {
 
       try {
@@ -481,25 +515,25 @@ let temp: number
         console.log(error);
       }
     }
-    const handleLayTTchitietve = async () => {
-      try {
+    // const handleLayTTchitietve = async () => {
+    //   try {
 
-        const params = {
-          id_ve: 'ALL'
-        };
-        console.log("searchdate", params);
-        const response = await LayTTchitietve(params);
-        const res: Chitetve[] = response.chitietves;
-        console.log("check api searchdate chitietve: ", response);
-        console.log("length", res.length);
-        setChitietve(res);
+    //     const params = {
+    //       id_ve: 'ALL'
+    //     };
+    //     console.log("searchdate", params);
+    //     const response = await LayTTchitietve(params);
+    //     const res: Chitetve[] = response.chitietves;
+    //     console.log("check api searchdate chitietve: ", response);
+    //     console.log("length", res.length);
+    //     setChitietve(res);
 
 
-      } catch (error) {
-        console.log(error);
-      }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
 
-    }
+    // }
     const handleLayTTKM = async () => {
       try {
 
@@ -562,7 +596,7 @@ let temp: number
     handleLayTTKM();
     // handleLayTTDoan();
     handleLayTTPhim()
-
+    handleCTVeBefore()
     setHten_KH("Luong Vu Khoa")
     // console.log(Object.entries(dsgheDDs));
     // setId_ghe()
@@ -579,7 +613,7 @@ let temp: number
 
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
-  }, [DSchitietves, dsgheDDs, giave, id_phim, id_phimP, id_rap, id_rapP, id_suatchieu, id_ve, ngaychieuP]);
+  }, [DSchitietves, DSchitietvesBefore, chitietveBeforeArr, dsgheDDs, id_phimP, id_rapP, id_ve, ngaychieuP]);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);
@@ -604,11 +638,24 @@ let temp: number
                 // console.log("gheArr", gheArr);
                 // console.log("chitietveArr", chitietveArr[1]);
                 // console.log(chitietveArr.includes(ghes.id));
+
+
+                // ghe da dat
                 let gheDadat = chitietveArr.includes(ghes.id)
                 if (gheDadat) {
                   gheVIP = false
                 }
                 let disabled = gheDadat === true
+
+
+                //ghe da dat truoc do
+                let gheDadatBefore = DSchitietvesBefore.includes(ghes.id)
+                if (gheDadatBefore) {
+                  gheVIP = false
+                }
+
+
+
                 // const handleLike = (id) => {
                 //   setJokes(jokes.map(joke => {
                 //     if (joke.id === id) {
@@ -677,12 +724,12 @@ let temp: number
                   </button >
                 </>
               },
-                // chitietve.map((chitietves) => {
-                //   chitietveArr.push(chitietves.id_ghe)
-                // })
+
+
                 DSchitietves.map((chitietves) => {
                   chitietveArr.push(chitietves.id_ghe)
                 })
+
               )
             }
 
@@ -784,25 +831,25 @@ let temp: number
                   {
                     khuyenmai.map((khuyenmais, index) => {
                       // for (let i = 0; i < khuyenmai.length; i++) {
-                        if (khuyenmais.dieukien_KM <= diemtichluyKH  ) {
-                          temp = diemtichluyKH - khuyenmais.dieukien_KM
-                          return (
-                            <>
-                              <div className='flex'>
-                                <p key={index} className='p-2'
-                                // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
-                                // onClick={() => setTienKM(khuyenmais.tile_KM)}
-                                >{khuyenmais.ten_KM}</p>
-                                <Checkbox
-                                  checked={khuyenmais.id === checked ? true : false}
-                                  // onChange={()=>setChecked(!checked)}
-                                  onClick={() => handleSetkm(khuyenmais.id)}
-                                />
-                              </div>
-                              <hr />
-                            </>
-                          )
-                        }
+                      if (khuyenmais.dieukien_KM <= diemtichluyKH) {
+                        temp = diemtichluyKH - khuyenmais.dieukien_KM
+                        return (
+                          <>
+                            <div className='flex'>
+                              <p key={index} className='p-2'
+                              // onClick={() => handleSetkm(khuyenmais.id, khuyenmais.tile_KM)}
+                              // onClick={() => setTienKM(khuyenmais.tile_KM)}
+                              >{khuyenmais.ten_KM}</p>
+                              <Checkbox
+                                checked={khuyenmais.id === checked ? true : false}
+                                // onChange={()=>setChecked(!checked)}
+                                onClick={() => handleSetkm(khuyenmais.id)}
+                              />
+                            </div>
+                            <hr />
+                          </>
+                        )
+                      }
                       // }
 
                     })

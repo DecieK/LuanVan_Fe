@@ -64,6 +64,40 @@ export async function Datve(params: {
   return data;
 }
 
+
+export async function CapnhatTTve(params: {
+  id: number;
+  hten_KH: string;
+  httt: string;
+  tongtien: number;
+  soluongghe: number;
+  ngaymuave: Date;
+  id_KH: number;
+  id_ghe: Array<number>
+  id_chieu: number;
+  id_suatchieu: number;
+  id_rap: number;
+  id_cumrap: number;
+  id_KM: number;
+  id_NV: number;
+  id_doan: Array<DSDichVu>;
+  macode: StaticRange;
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/CapnhatTTve`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+
+
 export async function LayTTchitietve(params: { id_ve: any }): Promise<any> {
   const { id_ve } = params;
   const response = await fetch(
@@ -869,6 +903,14 @@ export async function LayTTDoan_idve(params: { id_ve: any }): Promise<any> {
   const { id_ve } = params;
   const response = await fetch(
     `http://localhost:8080/api/LayTTDoan_idve?keyword=${id_ve}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function LayTTKhuyenmai(params: { id: any }): Promise<any> {
+  const { id} = params;
+  const response = await fetch(
+    `http://localhost:8080/api/LayTTKhuyenmai?keyword=${id}`
   );
   const data = await response.json();
   return data;
