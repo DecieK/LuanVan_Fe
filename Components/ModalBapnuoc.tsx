@@ -20,6 +20,7 @@ import Image from 'next/image'
 
 
 type Props = {
+  // ctdoan: any
   showDA: any;
   onCloseDA: any;
   handleLayDuLieuTuModalBapNuoc: any;
@@ -36,10 +37,18 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
     size: string;
     sl: number;
   }
+  interface Chitietdoan {
+    id: number,
+    slda: number,
+    id_ve: number,
+    id_doan: number
+  }
 
   const [isBrowser, setIsBrowser] = useState(false);
   const [doan, setDoan] = useState<Doan[]>([]);
   const [sl, setSl] = useState(Number);
+  const [chitietdoan, setChitietdoan] = useState<Chitietdoan[]>([]);
+
 
   const [dsdoans, setDsdoans] = useState([
     {
@@ -86,6 +95,12 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
   }
 
   useEffect(() => {
+
+    // console.log("asdasd", chitietdoan)
+    // const res: Chitietdoan[] = ctdoan;
+    // res.map((ctda)=>{
+    //   console.log("asdasd",ctda.id_doan)
+    // })
     const handleLayTTDoan = async () => {
       dsdoans.map((da) => {
         if (da.ten === "") {
@@ -100,7 +115,7 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
         // console.log("searchdate", params);
         const response = await LayTTDoan(params);
         const res: Doan[] = response.doans;
-        // console.log("check api Doan: ", response);
+        console.log("check api Doan: ", response);
         // console.log("length", res.length);
         setDoan(res);
         console.log(res)
@@ -195,19 +210,11 @@ const ModalBapnuoc = ({ showDA, onCloseDA, handleLayDuLieuTuModalBapNuoc }: Prop
                             <RemoveCircleOutlineIcon
                               onClick={() => handelesubtractionDoan(item.id, item.sl)}
                             />
-                            <div>{item.sl}</div>
-                            {/* {dsdoans.map((item1, index1) => {
-                              return (
-                                <div key={index1}>
-                                  {item1.id_da === item.id ? (
-                                    i = item1.sl_da,
-                                    <div
-                                      onChange={() => setSl(item1.sl_da)}
-                                    >{item1.sl_da}</div>
-                                  ) : i}
-                                </div>
-                              )
-                            })} */}
+                            <div>
+                              {item.sl}
+                              {/* {chitietdoan.map((ctda)=> ctda.id === item.id ? ctda.slda : item.sl)} */}
+                            </div>
+
                             <AddCircleOutlineIcon onClick={() => handeleAddDoan(item.id, item.sl)} />
                           </div>
                         </div>

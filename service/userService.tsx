@@ -81,7 +81,7 @@ export async function CapnhatTTve(params: {
   id_KM: number;
   id_NV: number;
   id_doan: Array<DSDichVu>;
-  macode: StaticRange;
+  macode: string;
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/CapnhatTTve`,
@@ -911,6 +911,39 @@ export async function LayTTKhuyenmai(params: { id: any }): Promise<any> {
   const { id} = params;
   const response = await fetch(
     `http://localhost:8080/api/LayTTKhuyenmai?keyword=${id}`
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function handleXoaCTDoan(params: {
+  id_ve: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/handleXoaCTDoan`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
+export async function handleXoaCTVe(params: {
+  id_ve: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/handleXoaCTVe`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
   );
   const data = await response.json();
   return data;

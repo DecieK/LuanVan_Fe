@@ -495,6 +495,7 @@ const Lichsudatve = ({
 
                 )}
             <ModalCapnhat
+                id_ve={id}
                 id_phim={idp}
                 onClose={() => setShowModal(false)}
                 show={showModal}

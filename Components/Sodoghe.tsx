@@ -1,6 +1,6 @@
 //goldclass 32,64
 //104,118,128,164
-import { Datve, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
+import { Datve, LayTTCumrap, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -127,6 +127,17 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
     Taikhoan_KH: string;
     Matkhau_KH: string;
   }
+  interface Rap {
+    id: number;
+    ten_rap: string;
+    slghe: number;
+    id_cumrap: number;
+  }
+  interface Cumrap {
+    id: number;
+    ten_tttt: string;
+    diachi: string;
+  }
 
   const [id_ve, setId_ve] = useState("")
   const [id_chieu, setId_chieu] = useState(Number)
@@ -155,10 +166,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   const [trangthaidoan, setTrangthaidoan] = useState(false)
   const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
   const [doan, setDoan] = useState<Doan[]>([]);
-  // const [id_ghe1, setId_ghe1] = useState(Array);
+  const [cumrap, setCumrap] = useState<Cumrap[]>([]);
   // const [tonggiave, setTonggiave] = useState(Number)
   // const [tileKM, setTileKM] = useState(Number)
-  // const [giaDA, setGiaDA] = useState(Number)
+  const [rap, setRap] = useState<Rap[]>([]);
   const [diemtichluyKH, setDiemtichluyKH] = useState(11)
   const [tienDA, setTienDA] = useState(Number)
   const [tienKM, setTienKM] = useState(Number)
@@ -191,7 +202,6 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
-  const chitietveBeforeArr: number[] = []
   const dsghedangdat: number[] = []
   let sumsum = 0;
   // let sumsum1 = 0;
@@ -262,8 +272,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
         id_ghe: arrIdghe,
         id_suatchieu: id_suatchieu,
         id_rap: id_rapP,
-        id_cumrap: 1,
-        id_KM: 1,
+        id_cumrap: id_cumrap,
+        id_KM: id_KM,
         id_NV: 1,
         id_doan: dsdoans,
         id_KH: 1
@@ -330,6 +340,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
       setChecked(id_km)
       khuyenmai.map((item) => {
         if (item.id === id_km) {
+          setId_KM(item.id)
           // kiem tra xem có nằm trong thời gian khuyến mãi hay k
           setTienKM(item.tile_KM)
         }
@@ -367,34 +378,36 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   }
 
   useEffect(() => {
-    const handleCTVeBefore = async () => {
+    const handleLayTTRap = async () => {
       try {
         const params = {
-          id_ve: id_phimP
-
+          id: id_rapP,
         };
-        console.log("searchdate", params);
-        const response = await LayTTchitietve(params);
-        const res: Chitetve[] = response.chitietves;
-        console.log("check api handleLayTTChieu: ", response);
+        // console.log("searchdate", params);
+        const response = await LayTTRap(params);
+        const res: Rap[] = response.raps;
+        // console.log("check api searchdate ve: ", response);
         // console.log("length", res.length);
-        // setc(res);
-        console.log(res.length)
-        res.map((itemctv) => {
-          let b = DSchitietvesBefore.findIndex(DSchitietvesBefore => DSchitietvesBefore.id_ghe === itemctv.id_ghe)
-          if (b) {
-            chitietveBeforeArr.push(itemctv.id_ghe)
-            DSchitietvesBefore.push({
-              id_ve: itemctv.id_ve,
-              id_ghe: itemctv.id_ghe
-            })
-          }
+        setRap(res);
+        res.map(async (raps) => {
+          const params = {
+            key: raps.id_cumrap,
+          };
+          // console.log("searchdate", params);
+          const response = await LayTTCumrap(params);
+          const res: Cumrap[] = response.cumraps;
+          // console.log("check api searchdate ve: ", response);
+          // console.log("length", res.length);
+          setCumrap(res);
+          res.map((cr) => {
+            setId_cumrap(cr.id)
+          })
         })
-
       } catch (error) {
         console.log(error);
       }
     }
+
     const handleLayTTPhim = async () => {
 
       try {
@@ -589,14 +602,13 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
         setDiemtichluyKH(item.Diemtichluy_KH)
       });
     }
-
+    handleLayTTRap()
     handleLayTTChieu();
     handleLayTTGhe();
     // handleLayTTchitietve();
     handleLayTTKM();
     // handleLayTTDoan();
     handleLayTTPhim()
-    handleCTVeBefore()
     setHten_KH("Luong Vu Khoa")
     // console.log(Object.entries(dsgheDDs));
     // setId_ghe()
@@ -613,7 +625,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
     // localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
 
-  }, [DSchitietves, DSchitietvesBefore, chitietveBeforeArr, dsgheDDs, id_phimP, id_rapP, id_ve, ngaychieuP]);
+  }, [DSchitietves, dsgheDDs, id_phimP, id_rapP, id_ve, ngaychieuP]);
   // useEffect(() => {
   //   localStorage.setItem('dsgheDDs', JSON.stringify(dsgheDDs));
   // }, [dsgheDDs]);
@@ -649,10 +661,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
 
                 //ghe da dat truoc do
-                let gheDadatBefore = DSchitietvesBefore.includes(ghes.id)
-                if (gheDadatBefore) {
-                  gheVIP = false
-                }
+                // let gheDadatBefore = DSchitietvesBefore.includes(ghes.id)
+                // if (gheDadatBefore) {
+                //   gheVIP = false
+                // }
 
 
 

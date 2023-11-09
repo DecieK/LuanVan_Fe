@@ -20,6 +20,8 @@ type Props = {
   show: any;
   onClose: any;
   id_phim: number;
+  id_ve: number;
+
 };
 // export type thongtinbenhnhan = {
 //   id: number;
@@ -30,7 +32,7 @@ type Props = {
 //   Diachi: string;
 //   Hovaten: string;
 // };
-const ModalCapnhat = ({ show, onClose, id_phim }: Props) => {
+const ModalCapnhat = ({ show, onClose, id_phim, id_ve }: Props) => {
   interface Chieu {
     id: number;
     ngaychieu: string;
@@ -313,8 +315,9 @@ const ModalCapnhat = ({ show, onClose, id_phim }: Props) => {
 
 
     router.push({
-      pathname: '/datve',
+      pathname: '/capnhat',
       query: {
+        id_ve:id_ve,
         id_phim: id_phim,
         id_rap: id_r,
         ngaychieu: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),

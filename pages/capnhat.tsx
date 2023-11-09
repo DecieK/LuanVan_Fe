@@ -1,5 +1,6 @@
 // import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
+import SodoPhongChieu from '@/Components/SodoPhongChieu';
 // import La from '@/Components/La';
 // import SodoPhongChieu from '@/Components/SodoPhongChieu';
 import Sodoghe from '@/Components/Sodoghe';
@@ -12,6 +13,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 
 interface codeProductProps {
+  id_ve: string | null;
   id_phim: string | null;
   id_rap: string | null;
   ngaychieu: string | null;
@@ -23,7 +25,7 @@ interface codeProductProps {
 
 }
 
-const TestDatVe = ({id_phim, id_rap, ngaychieu, tenP, tenrapP, giobdP, gioktP,tencumrapP}:codeProductProps) => {
+const CapNhatVe = ({id_phim,id_ve, id_rap, ngaychieu, tenP, tenrapP, giobdP, gioktP,tencumrapP}:codeProductProps) => {
    useEffect(() => {
     
   }, [ ]);
@@ -31,7 +33,7 @@ const TestDatVe = ({id_phim, id_rap, ngaychieu, tenP, tenrapP, giobdP, gioktP,te
   return (
 <div>
     <Header/>
-    <Sodoghe id_phimP={id_phim} id_rapP={id_rap} ngaychieuP={ngaychieu} tenP={tenP} tenrapP={tenrapP} giobdP={giobdP} gioktP={gioktP} tencumrapP={tencumrapP} />
+    <SodoPhongChieu id_ve={id_ve} id_phimP={id_phim} id_rapP={id_rap} ngaychieuP={ngaychieu} tenP={tenP} tenrapP={tenrapP} giobdP={giobdP} gioktP={gioktP} tencumrapP={tencumrapP} />
     {/* <Footer />   */}
 </div>
   );
@@ -39,6 +41,7 @@ const TestDatVe = ({id_phim, id_rap, ngaychieu, tenP, tenrapP, giobdP, gioktP,te
 export const getServerSideProps: GetServerSideProps<codeProductProps> = async (
   context
 ) => {
+  const { id_ve } = context.query;
   const { id_rap } = context.query;
   const { id_phim } = context.query;
   const { ngaychieu } = context.query;
@@ -51,6 +54,7 @@ export const getServerSideProps: GetServerSideProps<codeProductProps> = async (
 
   return {
     props: {
+      id_ve: id_ve as string | null,
       id_rap: id_rap as string | null,
       id_phim: id_phim as string | null,
       ngaychieu: ngaychieu as string | null,
@@ -63,4 +67,4 @@ export const getServerSideProps: GetServerSideProps<codeProductProps> = async (
     },
   };
 };
-export default TestDatVe;
+export default CapNhatVe;
