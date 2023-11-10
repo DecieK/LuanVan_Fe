@@ -1,6 +1,6 @@
 //goldclass 32,64
 //104,118,128,164
-import { Datve, LayTTCumrap, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
+import { Datve, LayTTCumrap, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, VNPay, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -11,6 +11,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image'
 import { ifError } from 'assert';
+import Link from 'next/link';
 
 
 type Props = {
@@ -230,18 +231,29 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   ])
 
   const handleDatve = async () => {
-    // console.log("sumsum", sumsum)
-    // setTongtien(sumsum)
-    // setSoluongghe(dsgheDDs.length-1)
-    // setHttt("Online")
-    // console.log("alalalal", dsgheDDs.length-1)
 
-    // dsgheDDs.map((item) => {
-    //   // id_ghe1.indexOf(item.ma_ghe)
-    //   if(id_ghe1.indexOf(item.ma_ghe) < 0){
-    //     id_ghe1.push(item.ma_ghe)
+    try {
+      const params = {
+        amount: 1000000,
+      };
+      // console.log("searchdate", params);
+      const response = await VNPay(params);
+      console.log("check api searchdate VNPay: ", response);
+      // console.log("length", res.length);
+
+    } catch (error) {
+      console.log(error);
+    }
+    // fetch(`http://localhost:8080/order/create_payment_url?keyword=${tongtien}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'X-RapidAPI-Key': 'your-rapid-key',
+    //     'X-RapidAPI-Host': 'famous-quotes4.p.rapidapi.com'
     //   }
-    // } )
+    // })
+    //   .then(response => response)
+    //   .then(vnp_Params => console.log(vnp_Params))
+    //   .catch(err => console.error(err));
 
     console.log("hoten", hten_KH)
     console.log("httt", httt)
@@ -260,40 +272,39 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
     console.log("dsgheDDs", dsgheDDs)
     console.log("id_chieu", id_chieu)
     console.log("arrId_da", arrIdDV)
-    // Object.keys(numbers);
-    let res = await Datve(
-      {
-        hten_KH: hten_KH,
-        httt: httt,
-        tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
-        soluongghe: dsgheDDs.length,
-        ngaymuave: ngaymuave,
-        id_chieu: id_chieu,
-        id_ghe: arrIdghe,
-        id_suatchieu: id_suatchieu,
-        id_rap: id_rapP,
-        id_cumrap: id_cumrap,
-        id_KM: id_KM,
-        id_NV: 1,
-        id_doan: dsdoans,
-        id_KH: 1
-      });
-    if (res && res.errCode === 0) {
 
-      console.log(res)
-      alert("Đặt vé thành công")
 
-      // handleCloseClick();
-    } else {
 
-      console.log(res)
-      alert("Đặt vé không thành công")
+    // let res = await Datve(
+    //   {
+    //     hten_KH: hten_KH,
+    //     httt: httt,
+    //     tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+    //     soluongghe: dsgheDDs.length,
+    //     ngaymuave: ngaymuave,
+    //     id_chieu: id_chieu,
+    //     id_ghe: arrIdghe,
+    //     id_suatchieu: id_suatchieu,
+    //     id_rap: id_rapP,
+    //     id_cumrap: id_cumrap,
+    //     id_KM: id_KM,
+    //     id_NV: 1,
+    //     id_doan: dsdoans,
+    //     id_KH: 1
+    //   });
+    // if (res && res.errCode === 0) {
 
-    };
-    // console.log("arrghe", gheArr)
-    // console.log("chitietveArr", chitietveArr)
-    // console.log("testclick");
-    // console.log("dsghedangdattttttttt", dsghedangdat);
+    //   console.log(res)
+    //   alert("Đặt vé thành công")
+
+    //   // handleCloseClick();
+    // } else {
+
+    //   console.log(res)
+    //   alert("Đặt vé không thành công")
+
+    // };
+
   }
   const handleDeleteJoke = (id: number) => {
     setDsgheDDs(dsgheDDs.filter(dsgheDDs => dsgheDDs.id_ghe !== id))
@@ -659,25 +670,6 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
                 }
                 let disabled = gheDadat === true
 
-
-                //ghe da dat truoc do
-                // let gheDadatBefore = DSchitietvesBefore.includes(ghes.id)
-                // if (gheDadatBefore) {
-                //   gheVIP = false
-                // }
-
-
-
-                // const handleLike = (id) => {
-                //   setJokes(jokes.map(joke => {
-                //     if (joke.id === id) {
-                //       return {...joke, likes: joke.likes + joke*t}
-                //     } else {
-                //       return joke
-                //     }
-                //   }))
-                // }
-
                 //ghế đang dặt
                 let ghedangdat = dsgheDDs.findIndex(dsgheDDs => ghes.id === dsgheDDs.id_ghe)
                 let classGhedangdat = ghedangdat != -1
@@ -878,8 +870,17 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
             <div className='text-2xl'>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)} VNĐ</div>
 
           </div>
-          {/* <div className='flex m-auto'> */}
-          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl ' onClick={() => handleDatve()}>Đặt vé</button>
+          {/* <Link
+            href={`http://localhost:8080/order/create_payment_url?keyword=${(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}`}
+          > */}
+          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
+            onClick={() => handleDatve()}
+          >
+            Đặt vé
+          </button>
+          {/* </Link> */}
+
+
 
           {/* </div> */}
         </div>

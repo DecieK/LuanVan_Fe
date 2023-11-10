@@ -18,8 +18,10 @@ import Blog from "@/Components/Blog";
 import Phim from "@/Components/Phim";
 import Sodoghe from "@/Components/Sodoghe";
 import Chitietphim from "@/Components/Chitietphim";
-
-const index = () => {
+type Props = {
+  vnp_ResponseCode: number
+}
+const index = ({vnp_ResponseCode}: Props) => {
   const handleLogin = () => {
     router.push("/login");
     console.log("hello")
@@ -28,7 +30,7 @@ const index = () => {
   const [showModalQuenMk, setShowModalQuenMK] = useState(false);
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
-
+  // console.log("adas",_GET['vnp_ResponseCode'])
   return (
 
     <div>
