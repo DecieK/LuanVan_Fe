@@ -850,11 +850,12 @@ export async function XoaTTNhanvien(params: {
   return data;
 }
 
-export async function VNPay2(params: {
-  id: number
+export async function VN_Query(params: {
+  orderId: number
+  transDate: string
 }): Promise<any> {
   const response = await fetch(
-    `http://localhost:8080/order/create_payment_url`,
+    `http://localhost:8080/order/querydr`,
     {
       method: "POST",
       headers: {
@@ -867,14 +868,14 @@ export async function VNPay2(params: {
   return data;
 }
 
-export async function VNPay(params: { amount: number }): Promise<any> {
-  const { amount } = params;
-  const response = await fetch(
-    `http://localhost:8080/order/create_payment_url?keyword=${amount}`,
-  );
-  // const data = await response.json();
-  // return data;
-}
+// export async function VNPay(params: { amount: number }): Promise<any> {
+//   const { amount } = params;
+//   const response = await fetch(
+//     `http://localhost:8080/order/create_payment_url?keyword=${amount}`,
+//   );
+//   const data = await response.json();
+//   return data;
+// }
 
 export async function LayTTVe_idKH(params: { id_kh: any }): Promise<any> {
   const { id_kh } = params;

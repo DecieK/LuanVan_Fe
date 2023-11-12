@@ -1,6 +1,6 @@
 //goldclass 32,64
 //104,118,128,164
-import { Datve, LayTTCumrap, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, VNPay, layTTChieu } from '@/service/userService';
+import { Datve, LayTTCumrap, LayTTDoan, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -232,18 +232,18 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
   const handleDatve = async () => {
 
-    try {
-      const params = {
-        amount: 1000000,
-      };
-      // console.log("searchdate", params);
-      const response = await VNPay(params);
-      console.log("check api searchdate VNPay: ", response);
-      // console.log("length", res.length);
+    // try {
+    //   const params = {
+    //     amount: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+    //   };
+    //   // console.log("searchdate", params);
+    //   const response = await VNPay(params);
+    //   console.log("check api searchdate VNPay: ", response);
+    //   // console.log("length", res.length);
 
-    } catch (error) {
-      console.log(error);
-    }
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // fetch(`http://localhost:8080/order/create_payment_url?keyword=${tongtien}`, {
     //   method: 'GET',
     //   headers: {
@@ -252,46 +252,71 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
     //   }
     // })
     //   .then(response => response)
-    //   .then(vnp_Params => console.log(vnp_Params))
-    //   .catch(err => console.error(err));
+    // .then(vnp_Params => console.log(vnp_Params))
+    // .catch(err => console.error(err));
 
-    console.log("hoten", hten_KH)
-    console.log("httt", httt)
-    console.log("tongtien", tongtien)
-    console.log("soluongghe", dsgheDDs.length)
-    console.log("ngaymuave", ngaymuave)
-    console.log("id_ghe", id_ghe)
-    console.log("id_suatchieu", id_suatchieu)
-    console.log("id_rap", id_rap)
-    console.log("id_cumrap", id_cumrap)
-    console.log("id_KM", id_KM)
+    // console.log("hoten", hten_KH)
+    // console.log("httt", httt)
+    // console.log("tongtien", tongtien)
+    // console.log("soluongghe", dsgheDDs.length)
+    // console.log("ngaymuave", ngaymuave)
+    // console.log("id_ghe", id_ghe)
+    // console.log("id_suatchieu", id_suatchieu)
+    // console.log("id_rap", id_rap)
+    // console.log("id_cumrap", id_cumrap)
+    // console.log("id_KM", id_KM)
     console.log("id_NV", id_NV)
-    console.log("id_doan", dsdoans)
-    console.log("id_KH", id_KH)
-    console.log("arrIdghe", arrIdghe)
-    console.log("dsgheDDs", dsgheDDs)
-    console.log("id_chieu", id_chieu)
-    console.log("arrId_da", arrIdDV)
+    // console.log("id_doan", dsdoans)
+    // console.log("id_KH", id_KH)
+    // console.log("arrIdghe", arrIdghe)
+    // console.log("dsgheDDs", dsgheDDs)
+    // console.log("id_chieu", id_chieu)
+    // console.log("arrId_da", arrIdDV)
 
 
 
     // let res = await Datve(
-    //   {
-    //     hten_KH: hten_KH,
-    //     httt: httt,
-    //     tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
-    //     soluongghe: dsgheDDs.length,
-    //     ngaymuave: ngaymuave,
-    //     id_chieu: id_chieu,
-    //     id_ghe: arrIdghe,
-    //     id_suatchieu: id_suatchieu,
-    //     id_rap: id_rapP,
-    //     id_cumrap: id_cumrap,
-    //     id_KM: id_KM,
-    //     id_NV: 1,
-    //     id_doan: dsdoans,
-    //     id_KH: 1
-    //   });
+    let Ve = {
+      TTVe: [
+        {
+          hten_KH: hten_KH,
+          httt: httt,
+          tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+          soluongghe: dsgheDDs.length,
+          ngaymuave: ngaymuave,
+          id_chieu: id_chieu,
+          id_ghe: arrIdghe,
+          id_suatchieu: id_suatchieu,
+          id_rap: id_rapP,
+          id_cumrap: id_cumrap,
+          id_KM: id_KM,
+          id_NV: 1,
+          id_doan: dsdoans,
+          id_KH: 1
+        }
+      ]
+    }
+    // let ve = ({
+    //   hten_KH: hten_KH,
+    //   httt: httt,
+    //   tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+    //   soluongghe: dsgheDDs.length,
+    //   ngaymuave: ngaymuave,
+    //   id_chieu: id_chieu,
+    //   id_ghe: arrIdghe,
+    //   id_suatchieu: id_suatchieu,
+    //   id_rap: id_rapP,
+    //   id_cumrap: id_cumrap,
+    //   id_KM: id_KM,
+    //   id_NV: 1,
+    //   id_doan: dsdoans,
+    //   id_KH: 1
+    // });
+    localStorage.setItem('ve', JSON.stringify(Ve.TTVe));
+
+    // console.log(">>>> check ve", ve)
+    // console.log(">>>> check dsdoan", dsdoans)
+
     // if (res && res.errCode === 0) {
 
     //   console.log(res)
@@ -870,15 +895,15 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
             <div className='text-2xl'>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)} VNĐ</div>
 
           </div>
-          {/* <Link
+          <Link
             href={`http://localhost:8080/order/create_payment_url?keyword=${(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}`}
-          > */}
-          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
-            onClick={() => handleDatve()}
           >
-            Đặt vé
-          </button>
-          {/* </Link> */}
+            <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
+              onClick={() => handleDatve()}
+            >
+              Đặt vé
+            </button>
+          </Link>
 
 
 

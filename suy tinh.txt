@@ -30,3 +30,23 @@ lấy tt vé xong:
 
 
     chỉnh thêm code lúc đặt vé api datve
+
+NCB 9704198526191432198
+NGUYEN VAN A
+07/15
+123456
+
+http://localhost:3000/thanhtoan?
+vnp_Amount=39800000
+&vnp_BankCode=NCB
+&vnp_BankTranNo=VNP14177115
+&vnp_CardType=ATM
+&vnp_OrderInfo=Thanh%20toan%20cho%20ve%3A178
+&vnp_PayDate=20231112025131 (Thời gian tạo giao dịch (vnp_TransactionDate)) yyyyMMddHHMMss
+&vnp_ResponseCode=00
+&vnp_TmnCode=DO4KCUCZ
+&vnp_TransactionNo=14177115
+&vnp_TransactionStatus=00
+&vnp_TxnRef=178 ( Mã giao dịch (vnp_TxnRef))
+&vnp_SecureHash=941bdac6f0546c941baace125fa2af8d5baa7094544bb39827d22f185440fd604c3c3e3bee73c441dd70b224d77212321e26c4b6c763c4c4c7b921cdc8fe6217
+tạo bảng Giaodich lưu mấy thông tin này lên + id ve

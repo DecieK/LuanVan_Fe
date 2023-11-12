@@ -8,7 +8,7 @@
 // import CssBaseline from "@material-ui/core/CssBaseline";
 // import theme from "src/createMiuitheme";
 
-import { LayTTGhe, VNPay } from "@/service/userService";
+import { LayTTGhe, VN_Query } from "@/service/userService";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPlayer from 'react-player';
@@ -54,22 +54,26 @@ const Test = () => {
     },
   ])
   const handleXoaTTChieu = async () => {
-      try {
-          const params = {
-            id: 1
-          };
-          // console.log("searchdate", params);
-          const response = await VNPay(params);
-          const res: Ghe[] = response.ghes;
-          // console.log("check api searchdate ghe: ", response);
-          // console.log("length", res.length);
-          setGhe(res);
-          // console.log(res.length)
+    let res = await VN_Query(
+      {
+        orderId: 83,
+        transDate: '20231112040133'
 
-      } catch (error) {
-          console.log(error);
-      }
-  
+      });
+      // console.log(">>>> check",res.response.body)
+
+    if (res && res.response.body.vnp_ResponseCode === '94') {
+
+
+      alert("Thêm thông tin chiếu mới thành thông")
+
+      // handleCloseClick();
+    } else {
+
+      console.log(res)
+      alert("Thêm thông tin chiếu mới KHÔNG thành thông")
+
+    };
   }
   const handleTest = () => {
     for (let y = 0; y < 100; y++) {
@@ -85,29 +89,7 @@ const Test = () => {
     }
   }
   useEffect(() => {
-    const handleLayTTGhe = async () => {
-      try {
-
-        const params = {
-          key: "ALL",
-        };
-        console.log("searchdate", params);
-        const response = await LayTTGhe(params);
-        const res: Ghe[] = response.ghes;
-        console.log("check api searchdate ghe: ", response);
-        console.log("length", res.length);
-        setGhe(res);
-        console.log(res)
-        // res.map((res) => (
-
-        // ));
-        // console.log("gheArr",gheArr);
-
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    handleLayTTGhe()
+    
   }, []);
 
 
@@ -169,8 +151,8 @@ const Test = () => {
   //   )
   return (
     <>
-        <Link href="http://localhost:8080/order/create_payment_url">home</Link>
-{/* 
+      {/* <Link href="http://localhost:8080/order/create_payment_url">home</Link> */}
+      {/* 
       <ReactPlayer
         height={300}
         width={300}
@@ -185,6 +167,7 @@ const Test = () => {
         controls={true}
         poster
         url="https://www.youtube.com/watch?v=JBh7SlUwPUg"></ReactPlayer> */}
+      <button onClick={handleXoaTTChieu}>click</button>
     </>
 
 

@@ -6,22 +6,16 @@ import Footer from "@/Components/Footer";
 import Slide from "@/Components/Slide";
 import DSPhim from "@/Components/DSPhim";
 import router from "next/router";
-import QuenMk from "@/Components/QuenMK";
 import { useEffect, useState } from "react";
-import Dangnhap from "@/Components/Dangnhap";
-import Quenmatkhau from "@/Components/Quenmatkhau";
 import MySlider from "../Components/MySlider";
 import ThemTTphim from "@/Components/ThemTTphim";
-import UploadVideos from "@/Components/ThemTT";
-import { LayTTPhim } from "@/service/userService";
 import Blog from "@/Components/Blog";
 import Phim from "@/Components/Phim";
-import Sodoghe from "@/Components/Sodoghe";
-import Chitietphim from "@/Components/Chitietphim";
-type Props = {
-  vnp_ResponseCode: number
-}
-const index = ({vnp_ResponseCode}: Props) => {
+
+
+const index = () => {
+
+
   const handleLogin = () => {
     router.push("/login");
     console.log("hello")
@@ -35,14 +29,14 @@ const index = ({vnp_ResponseCode}: Props) => {
 
     <div>
 
-       <Header />
+      <Header />
       <MySlider />
       {/* <p>Phim đăng chiếu | Phim sắp chiếu</p> */}
       <Phim />
       <Blog />
-      <Footer /> 
+      <Footer />
 
-    <ThemTTphim />
+      <ThemTTphim />
       {/* <Sodoghe id_phimP={1} id_rapP={1} ngaychieuP={2023-10-20} /> */}
     </div>
 
