@@ -5,7 +5,8 @@ import { Checkbox } from "@nextui-org/react";
 import React, { useEffect, useState } from 'react';
 import { DangKy_KH } from '@/service/userService';
 import { useRouter } from 'next/router';
-
+import auth from "./firebase";
+import firebase from "firebase";
 
 
 const noto_serif = Noto_Serif({
@@ -23,7 +24,7 @@ const Register = () => {
   const [cccd_KH, setCccd_KH] = useState("");
   const [email_KH, setEmail_KH] = useState("");
   const [diachi_KH, setDiachi_KH] = useState("");
-  const [taikhoan_KH, setTaikhoan_KH] = useState("");
+  // const [email_KH, setTaikhoan_KH] = useState("");
   const [matkhau_KH, setMatkhau_KH] = useState("");
 
 
@@ -37,6 +38,7 @@ const Register = () => {
   }
 
   const handleDangKy = async () => {
+
     console.log("hoten", hten_KH)
     console.log("Ngaysinh", Ngaysinh)
     console.log("gt", gt_KH)
@@ -44,7 +46,7 @@ const Register = () => {
     console.log("cccd_KH", cccd_KH)
     console.log("email_KH", email_KH)
     console.log("diachi_KH", diachi_KH)
-    console.log("taikhoan_KH", taikhoan_KH)
+    // console.log("taikhoan_KH", taikhoan_KH)
     console.log("matkhau_KH", matkhau_KH)
     let res = await DangKy_KH(
       {
@@ -55,7 +57,7 @@ const Register = () => {
         cccd_KH: cccd_KH,
         email_KH: email_KH,
         diachi_KH: diachi_KH,
-        taikhoan_KH: taikhoan_KH,
+        // taikhoan_KH: taikhoan_KH,
         matkhau_KH: matkhau_KH
 
       });
@@ -69,6 +71,34 @@ const Register = () => {
 
     };
   }
+  const signup = () => {
+    auth.createUserWithEmailAndPassword(email_KH, matkhau_KH)
+      .then((userCredential) => {
+        // send verification mail.
+        if (userCredential.user) {
+          handleDangKy()
+          userCredential.user.sendEmailVerification()
+            .then(function (response) {
+              console.log(response);
+              console.log("Successfully logged in.")
+              // router.push("/");
+            })
+            .catch(function (error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(errorCode);
+              console.log(errorMessage);
+            });
+        }
+        auth.signOut();
+        alert("Email sent");
+        // console.log('>>> 11')
+      })
+      .catch(alert);
+
+  };
+
+
   const router = useRouter();
   const handleBackPage = () => {
     router.push("/");
@@ -81,9 +111,9 @@ const Register = () => {
         <form className="text-black m-auto text-sm h-auto w-[450px] bg-yellow-900 bg-opacity-20 rounded-xl leading-normal">
           <h1 className="text-center uppercase text-3xl pt-6 ">Register</h1>
           <div className="pl-6">
-            <p>Tên đăng nhập:</p>
+            <p>Email:</p>
             <input placeholder="" className="w-[90%] border-b-2 bg-black bg-opacity-0 border-white"
-              onChange={(event) => setTaikhoan_KH(event.target.value)}
+              onChange={(event) => setEmail_KH(event.target.value)}
             ></input>
 
             <p>Mật khẩu:</p>
@@ -124,11 +154,11 @@ const Register = () => {
 
             ></input>
 
-            <p>Email:</p>
+            {/* <p>Email:</p>
             <input placeholder="" className="w-[90%] border-2 border-gray-300"
               onChange={(event) => setEmail_KH(event.target.value)}
 
-            ></input>
+            ></input> */}
 
             <p>Căn cước công dân:</p>
             <input placeholder="" className="w-[90%] border-2 border-gray-300"
@@ -143,7 +173,7 @@ const Register = () => {
             ></input>
 
             <button className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
-              onClick={handleDangKy}
+              onClick={signup}
 
             >Đăng kí</button>
             <button onClick={handleBackPage} className="text-left pt-3 "

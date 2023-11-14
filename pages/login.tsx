@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState, useRef, ChangeEvent, BaseSyntheticEvent } from "react";
 import Axios from "axios";
 import { LayTTKhachhang } from "@/service/userService";
+import auth from "./firebase";
 
 const noto_serif = Noto_Serif({
   weight: '400',
@@ -77,22 +78,13 @@ const Login = () => {
 
   const login = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    Axios.post("http://localhost:8080/api/Dangnhap", {
-      Taikhoan_KH: username,
-      Matkhau_KH: password,
-    }).then(async (response) => {
-      if (response.data.errCode) {
-        setLoginStatus(response.data.errCode);
-        console.log("status2", loginStatus)
-
-
-      } else {
-        console.log("asdasdasdasd")
-        console.log("thành công")
-        // const handleLayTTkhachhang = async () => {
+    auth.signInWithEmailAndPassword(username, password)
+      .then(async function (response) {
+        console.log(response);
+        console.log("Successfully logged in.")
         try {
           const params = {
-            tenTK: 'ALL',
+            Email_KH: username,
           };
           const response = await LayTTKhachhang(params);
           const res: Khachhang[] = response.khachhangs;
@@ -101,12 +93,44 @@ const Login = () => {
         } catch (error) {
           console.log(error);
         }
-        router.push({
-          pathname: '/',
-          // query: { username: username },
-        })
-      }
-    })
+        router.push("/");
+      })
+      .catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+      });
+    // Axios.post("http://localhost:8080/api/Dangnhap", {
+    //   Taikhoan_KH: username,
+    //   Matkhau_KH: password,
+    // }).then(async (response) => {
+    //   if (response.data.errCode) {
+    //     setLoginStatus(response.data.errCode);
+    //     console.log("status2", loginStatus)
+
+
+    //   } else {
+    //     console.log("asdasdasdasd")
+    //     console.log("thành công")
+    //     // const handleLayTTkhachhang = async () => {
+    //     try {
+    //       const params = {
+    //         tenTK: 'ALL',
+    //       };
+    //       const response = await LayTTKhachhang(params);
+    //       const res: Khachhang[] = response.khachhangs;
+    //       localStorage.setItem('khachhang', JSON.stringify(res));
+    //       setKhachhang(res);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //     router.push({
+    //       pathname: '/',
+    //       // query: { username: username },
+    //     })
+    //   }
+    // })
   }
 
 
@@ -136,7 +160,7 @@ const Login = () => {
             <h1 className="text-center uppercase text-3xl pt-6 text-white">Login</h1>
             <div className="mt-6">
               <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff", }} className="pr-3" />
-              <input placeholder="Tên đăng nhập" className="w-3/4  border-b-2 bg-black bg-opacity-0 border-white"
+              <input placeholder="Nhập email" className="w-3/4  border-b-2 bg-black bg-opacity-0 border-white"
                 onChange={(e) => { setUsername(e.target.value) }}
               ></input>
             </div>

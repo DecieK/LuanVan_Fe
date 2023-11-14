@@ -8,7 +8,7 @@ export async function DangKy_KH(params: {
   cccd_KH: string;
   email_KH: string;
   diachi_KH: string;
-  taikhoan_KH: string;
+  // taikhoan_KH: string;
   matkhau_KH: string;
 }): Promise<any> {
   const response = await fetch(
@@ -692,10 +692,10 @@ export async function XoaTTDichvu(params: {
   return data;
 }
 
-export async function LayTTKhachhang(params: { tenTK: any }): Promise<any> {
-  const { tenTK } = params;
+export async function LayTTKhachhang(params: { Email_KH: any }): Promise<any> {
+  const { Email_KH } = params;
   const response = await fetch(
-    `http://localhost:8080/api/LayTTKhachhang?keyword=${tenTK}`
+    `http://localhost:8080/api/LayTTKhachhang?keyword=${Email_KH}`
   );
   const data = await response.json();
   return data;
