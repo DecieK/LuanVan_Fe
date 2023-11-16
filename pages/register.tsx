@@ -71,32 +71,32 @@ const Register = () => {
 
     };
   }
-  const signup = () => {
-    auth.createUserWithEmailAndPassword(email_KH, matkhau_KH)
-      .then((userCredential) => {
-        // send verification mail.
-        if (userCredential.user) {
-          handleDangKy()
-          userCredential.user.sendEmailVerification()
-            .then(function (response) {
-              console.log(response);
-              console.log("Successfully logged in.")
-              // router.push("/");
-            })
-            .catch(function (error) {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log(errorCode);
-              console.log(errorMessage);
-            });
-        }
-        auth.signOut();
-        alert("Email sent");
-        // console.log('>>> 11')
-      })
-      .catch(alert);
+  // const signup = () => {
+  //   auth.createUserWithEmailAndPassword(email_KH, matkhau_KH)
+  //     .then((userCredential) => {
+  //       // send verification mail.
+  //       if (userCredential.user) {
+  //         handleDangKy()
+  //         userCredential.user.sendEmailVerification()
+  //           .then(function (response) {
+  //             console.log(response);
+  //             console.log("Successfully logged in.")
+  //             // router.push("/");
+  //           })
+  //           .catch(function (error) {
+  //             var errorCode = error.code;
+  //             var errorMessage = error.message;
+  //             console.log(errorCode);
+  //             console.log(errorMessage);
+  //           });
+  //       }
+  //       auth.signOut();
+  //       alert("Email sent");
+  //       // console.log('>>> 11')
+  //     })
+  //     .catch(alert);
 
-  };
+  // };
 
 
   const router = useRouter();
@@ -172,8 +172,8 @@ const Register = () => {
 
             ></input>
 
-            <button className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
-              onClick={signup}
+            <button type='button' className="uppercase w-[90%] h-8 mt-6 mb-6 bg-green-600"
+              onClick={handleDangKy}
 
             >Đăng kí</button>
             <button onClick={handleBackPage} className="text-left pt-3 "

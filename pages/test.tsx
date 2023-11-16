@@ -8,7 +8,7 @@
 // import CssBaseline from "@material-ui/core/CssBaseline";
 // import theme from "src/createMiuitheme";
 
-import { LayTTGhe, VN_Query } from "@/service/userService";
+import { LayTTGhe, Sendmail, VN_Query } from "@/service/userService";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPlayer from 'react-player';
@@ -53,23 +53,18 @@ const Test = () => {
       code: ''
     },
   ])
+
+
   const handleXoaTTChieu = async () => {
-    let res = await VN_Query(
+    let res = await Sendmail(
       {
-        orderId: 83,
-        transDate: '20231112040133'
+        email: 'luongvukhoa572001@gmail.com'
 
       });
-      // console.log(">>>> check",res.response.body)
-
-    if (res && res.response.body.vnp_ResponseCode === '94') {
-
-
+    if (res) {
       alert("Thêm thông tin chiếu mới thành thông")
 
-      // handleCloseClick();
     } else {
-
       console.log(res)
       alert("Thêm thông tin chiếu mới KHÔNG thành thông")
 
@@ -89,7 +84,7 @@ const Test = () => {
     }
   }
   useEffect(() => {
-    
+
   }, []);
 
 

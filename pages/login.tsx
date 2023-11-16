@@ -77,46 +77,14 @@ const Login = () => {
 
 
   const login = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    auth.signInWithEmailAndPassword(username, password)
-      .then(async function (response) {
-        console.log(response);
-        console.log("Successfully logged in.")
-        try {
-          const params = {
-            Email_KH: username,
-          };
-          const response = await LayTTKhachhang(params);
-          const res: Khachhang[] = response.khachhangs;
-          localStorage.setItem('khachhang', JSON.stringify(res));
-          setKhachhang(res);
-        } catch (error) {
-          console.log(error);
-        }
-        router.push("/");
-      })
-      .catch(function (error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
-    // Axios.post("http://localhost:8080/api/Dangnhap", {
-    //   Taikhoan_KH: username,
-    //   Matkhau_KH: password,
-    // }).then(async (response) => {
-    //   if (response.data.errCode) {
-    //     setLoginStatus(response.data.errCode);
-    //     console.log("status2", loginStatus)
-
-
-    //   } else {
-    //     console.log("asdasdasdasd")
-    //     console.log("thành công")
-    //     // const handleLayTTkhachhang = async () => {
+    // e.preventDefault();
+    // auth.signInWithEmailAndPassword(username, password)
+    //   .then(async function (response) {
+    //     console.log(response);
+    //     console.log("Successfully logged in.")
     //     try {
     //       const params = {
-    //         tenTK: 'ALL',
+    //         Email_KH: username,
     //       };
     //       const response = await LayTTKhachhang(params);
     //       const res: Khachhang[] = response.khachhangs;
@@ -125,12 +93,44 @@ const Login = () => {
     //     } catch (error) {
     //       console.log(error);
     //     }
-    //     router.push({
-    //       pathname: '/',
-    //       // query: { username: username },
-    //     })
-    //   }
-    // })
+    //     router.push("/");
+    //   })
+    //   .catch(function (error) {
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     console.log(errorCode);
+    //     console.log(errorMessage);
+    //   });
+    Axios.post("http://localhost:8080/api/Dangnhap", {
+      Taikhoan_KH: username,
+      Matkhau_KH: password,
+    }).then(async (response) => {
+      if (response.data.errCode) {
+        setLoginStatus(response.data.errCode);
+        console.log("status2", loginStatus)
+
+
+      } else {
+        console.log("asdasdasdasd")
+        console.log("thành công")
+        // const handleLayTTkhachhang = async () => {
+        try {
+          const params = {
+            Email_KH: 'ALL',
+          };
+          const response = await LayTTKhachhang(params);
+          const res: Khachhang[] = response.khachhangs;
+          localStorage.setItem('khachhang', JSON.stringify(res));
+          setKhachhang(res);
+        } catch (error) {
+          console.log(error);
+        }
+        router.push({
+          pathname: '/',
+          // query: { username: username },
+        })
+      }
+    })
   }
 
 
@@ -176,7 +176,7 @@ const Login = () => {
               <Link onClick={handleRegister} href="" className="float-right pr-8">Đăng ký</Link>
             </div>
 
-            <button className="mt-10 uppercase text-white bg-red-400 rounded-md h-9 w-3/4"
+            <button type="button" className="mt-10 uppercase text-white bg-red-400 rounded-md h-9 w-3/4"
               onClick={login}
             >đăng nhập</button>
             <button onClick={handleBackPage} className="text-left pt-3 ">Trở về</button>

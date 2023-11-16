@@ -64,6 +64,9 @@ const Header = () => {
   const handleHomePage = () => {
     router.push("/");
   };
+  const handleQuydinh = () => {
+    router.push("/quydinh");
+  };
 
   const handleLogin = () => {
     router.push("/login");
@@ -110,7 +113,7 @@ const Header = () => {
     }
   }, []);
   return (
-    <div className={noto_serif.className}>
+    <div >
       <div className="flex w-full h-16 ">
         <div className="w-1/6">
           <div className="  h-14 w-28 bg-cover m-auto bg-[url('../public/logoCGV.png')] cursor-pointer"
@@ -136,8 +139,20 @@ const Header = () => {
                 d="m1 1 4 4 4-4" />
             </svg>
           </div> */}
+
+          {/* <Link href='' onClick={() => handleHomePage()}>Trang chủ</Link> */}
           <Button
-            className="inline-flex items-center text-black font-bold"
+            className=" font-semibold text-gray-800 hover:text-red-500"
+            id="basic-button"
+
+            onClick={() => handleHomePage()}
+          >
+            Trang chủ
+          </Button>
+          <label>|</label>
+
+          <Button
+            className=" font-semibold text-gray-800 hover:text-red-500"
             id="basic-button"
             aria-controls={openP ? 'basic-menuP' : undefined}
             aria-haspopup="true"
@@ -186,11 +201,23 @@ const Header = () => {
             </div>
           )} */}
           <label>|</label>
-          <Link href=''>Rạp CGV</Link>
+          <Button
+            className=" font-semibold text-gray-800 hover:text-red-500"
+            id="basic-button"
+          >
+            Tin tức & ưu đãi
+          </Button>
+          {/* <Link href=''>Tin tức & ưu đãi</Link> */}
           <label>|</label>
-          <Link href=''>Tin tức & ưu đãi</Link>
-          <label>|</label>
-          <Link href=''>Quy định</Link>
+          <Button
+            className=" font-semibold text-gray-800 hover:text-red-500"
+            id="basic-button"
+
+            onClick={() => handleQuydinh()}
+          >
+            Quy định
+          </Button>
+          {/* <Link href='/quydinh'>Quy định</Link> */}
         </div>
 
         <div className="w-1/6 m-auto ">
