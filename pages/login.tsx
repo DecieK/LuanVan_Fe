@@ -61,9 +61,9 @@ const Login = () => {
     setPasswordType("password")
   }
 
-  const handleSignOTP = () => {
+  const handlequenmk = () => {
     router.push({
-      pathname: '/signOTP'
+      pathname: '/quenmatkhau'
       // query: { username: username },
     })
   }
@@ -77,32 +77,9 @@ const Login = () => {
 
 
   const login = (e: { preventDefault: () => void; }) => {
-    // e.preventDefault();
-    // auth.signInWithEmailAndPassword(username, password)
-    //   .then(async function (response) {
-    //     console.log(response);
-    //     console.log("Successfully logged in.")
-    //     try {
-    //       const params = {
-    //         Email_KH: username,
-    //       };
-    //       const response = await LayTTKhachhang(params);
-    //       const res: Khachhang[] = response.khachhangs;
-    //       localStorage.setItem('khachhang', JSON.stringify(res));
-    //       setKhachhang(res);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //     router.push("/");
-    //   })
-    //   .catch(function (error) {
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     console.log(errorCode);
-    //     console.log(errorMessage);
-    //   });
+    e.preventDefault();
     Axios.post("http://localhost:8080/api/Dangnhap", {
-      Taikhoan_KH: username,
+      Email_KH: username,
       Matkhau_KH: password,
     }).then(async (response) => {
       if (response.data.errCode) {
@@ -172,7 +149,7 @@ const Login = () => {
               {/* <button className=" h-5 w-5 bg-no-repeat bg-[url('../public/Hienps.png')]"></button> */}
             </div>
             <div className="mt-7 text-xs text-white">
-              <Link href="" className="float-left pl-9">Quên mật khẩu?</Link>
+              <Link onClick={handlequenmk} href="" className="float-left pl-9">Quên mật khẩu?</Link>
               <Link onClick={handleRegister} href="" className="float-right pr-8">Đăng ký</Link>
             </div>
 
