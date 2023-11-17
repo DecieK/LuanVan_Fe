@@ -33,7 +33,7 @@ const Quenmatkhau = () => {
             });
         if (res && res.errCode === 0) {
             console.log(res)
-            alert('Cập nhật thành công')
+            alert('Kiểm tra email để xác thực tài khoản')
             // router.push('/login')
         } else {
             console.log(res)

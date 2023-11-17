@@ -1,10 +1,10 @@
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import { useRouter } from 'next/router'
 import { Datve } from "@/service/userService";
-
+import Alert from "@mui/material/Alert";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 
 const Thanhtoan = () => {
@@ -200,22 +200,46 @@ const Thanhtoan = () => {
         //     //     console.log(">>>>> check kh", item.Hten_KH)
         //     // });
         //   }
-    }, []);
+        const params = new URLSearchParams(window.location.search) // id=123
+        let id = params.get('vnp_Amount') // 123 
+        console.log(">>>>check tong tien",id)
+    }, [tongtien]);
 
+    console.log(">>>>check tong tien222",tongtien)
 
 
     return (
 
         <div>
             <Header />
-            {/* {
-                ve.map((item, index) => {
-                    return ( */}
-            <button onClick={() => handleDatve()}>Thanh toán</button>
-
-            {/* )
-                })
-            } */}
+            <div className="w-4/12  m-auto mt-10 ">
+                <div className="h-20 bg-gradient-to-b from-red-400 capitalize text-center text-2xl pt-5 ">kết quả giao dịch</div>
+                <div className="shadow-2xl">
+                    <div className="text-center space-y-1 mb-3 font-semibold text-xl border-dashed border-b-2 border-gray-400">
+                        <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50, }} />
+                        <p  className="">{router.query.vnp_ResponseCode === '00' ? 'Giao dịch thành công' : 'Giao dịch không thành công'}</p>
+                        <p onLoad={()=>setTongtien(Number(router.query.vnp_Amount))} className="pb-3">{Number(router.query.vnp_Amount)/100} VND</p>
+                    </div>
+                    <div className="w-11/12 m-auto">
+                        {/* <Alert severity="info">Giao dịch đang được xử lý. */}
+                        {/* <br />Nếu sau 5 phút giao dịch vẫn chưa thành công, bạn nhấn <a>Liên hệ hỗ trợ</a> để được hỗ trợ ngay nha. */}
+                        {/* </Alert> */}
+                        <div className="flex justify-center">
+                            <div className="basis-1/2 text-gray-500 space-y-1">
+                                <p>Dịch vụ:</p>
+                                <p>Thời gian thanh toán:</p>
+                                <p>Chi tiết giao dịch:</p>
+                            </div>
+                            <div className="text-right space-y-1 font-semibold">
+                                <p>Mua vé xem phim</p>
+                                <p>{router.query.vnp_PayDate}</p>
+                                <p className="text-red-400">{router.query.vnp_TxnRef}</p>
+                            </div>
+                        </div>
+                        <button onClick={()=>router.push('/')} className=" border-2 border-gray-500 w-full mt-3 mb-5 h-9 rounded-lg">Đóng</button>
+                    </div>
+                </div>
+            </div>
             <Footer />
         </div>
 

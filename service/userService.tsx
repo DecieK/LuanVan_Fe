@@ -999,3 +999,25 @@ export async function handleQuenMatKhau(params: {
   const data = await response.json();
   return data;
 }
+
+export async function Hoantien_vnpay(params: {
+  orderId: string;
+  transDate: string;
+  amount: number;
+  transType: string;
+  user: string;
+ 
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/order/refund`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}

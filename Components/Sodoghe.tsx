@@ -292,7 +292,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
           id_KM: id_KM,
           id_NV: 1,
           id_doan: dsdoans,
-          id_KH: 1
+          id_KH: id_KH
         }
       ]
     }
@@ -635,6 +635,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
       console.log("Ád", res)
 
       res.map((item) => {
+        setId_KH(item.id)
         setDiemtichluyKH(item.Diemtichluy_KH)
       });
     }

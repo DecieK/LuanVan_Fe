@@ -328,7 +328,7 @@ const Lichsudatve = ({
         const handleLayTTKhuyenmai = async () => {
             try {
                 const params = {
-                    id: id_r,
+                    id: id_km,
                 };
                 // console.log("searchdate", params);
                 const response = await LayTTKhuyenmai(params);
@@ -360,7 +360,7 @@ const Lichsudatve = ({
         handleLayTTKhuyenmai()
 
 
-    }, [createdat, id, id_c, id_cr, id_r, id_sc, magheArr, ttve, ve]);
+    }, [createdat, id, id_c, id_cr, id_km, id_r, id_sc, magheArr, ttve, ve]);
     console.log("dđ", d)
     return (
         <div className="">
@@ -463,7 +463,7 @@ const Lichsudatve = ({
                                     <>
                                         <div className="">
                                             <p className="text-gray-600">Khuyến mãi</p>
-                                            <p className="font-semibold">{doan.map((da) => km.id === id_km ? km.ten_KM : null)} : {km.tile_KM}%</p>
+                                            <p className="font-semibold">{khuyenmai.map((km) => km.id === id_km ? km.ten_KM : null)} : {km.tile_KM}%</p>
                                         </div>
                                     </>
                                 )
