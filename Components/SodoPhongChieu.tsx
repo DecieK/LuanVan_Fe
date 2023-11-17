@@ -11,6 +11,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image'
 import { ifError } from 'assert';
+import Link from 'next/link';
 
 
 type Props = {
@@ -90,6 +91,9 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     id_cumrap: number;
     id_KM: number;
     id_NV: number;
+    maCode: string;
+    MaGD: string;
+    ThoigianGD: string
     // id_DA: number;
   }
   interface Phim {
@@ -186,14 +190,14 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
   // const [arrIdghe, setArrIdghe] = useState<number[]>([]);
   const [showModalDA, setShowModalDA] = useState(false);
   const [showModalKM, setShowModalKM] = useState(false);
-  const [r, setR] = useState(Number)
+  const [tongtienBefore, setTongtienBefore] = useState(Number)
   const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
   const [checked, setChecked] = React.useState(0);
   const [chitietveBeforeArr, setChitietveBeforeArr] = useState(Array);
   const [chitietdoanArr, setChitietdoanArr] = useState(Array);
   const [chitietdoan, setChitietdoan] = useState<Chitietdoan[]>([]);
   const [rap, setRap] = useState<Rap[]>([]);
-
+  const [macode, setMacode] = useState('')
 
 
 
@@ -232,19 +236,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     },
   ])
 
-  const handleDatve = async () => {
-    // console.log("sumsum", sumsum)
-    // setTongtien(sumsum)
-    // setSoluongghe(dsgheDDs.length-1)
-    // setHttt("Online")
-    // console.log("alalalal", dsgheDDs.length-1)
-
-    // dsgheDDs.map((item) => {
-    //   // id_ghe1.indexOf(item.ma_ghe)
-    //   if(id_ghe1.indexOf(item.ma_ghe) < 0){
-    //     id_ghe1.push(item.ma_ghe)
-    //   }
-    // } )
+  const handleUpdateve = async () => {
 
     console.log("id", id_ve)
     console.log("hten_KH", hten_KH)
@@ -258,47 +250,95 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     console.log("id_cumrap", id_cumrap)
     console.log("id_KM", id_KM)
     console.log("id_doan", dsdoans)
-    // console.log("id_KH", id_KH)
-    // console.log("arrIdghe", arrIdghe)
-    // console.log("dsgheDDs", dsgheDDs)
-    // console.log("id_chieu", id_chieu)
-    // console.log("id_suatchieu", id_suatchieu)
-    // Object.keys(numbers);
-    let res = await CapnhatTTve(
-      {
-        id: id_ve,
-        hten_KH: hten_KH,
-        httt: httt,
-        tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
-        soluongghe: dsgheDDs.length,
-        ngaymuave: ngaymuave,
-        id_chieu: id_chieu,
-        id_ghe: arrIdghe,
-        id_suatchieu: id_suatchieu,
-        id_rap: id_rapP,
-        id_cumrap: id_cumrap,
-        id_KM: id_KM,
-        id_NV: 1,
-        id_doan: dsdoans,
-        id_KH: 1,
-        macode: '1asdas'
-      });
-    if (res && res.errCode === 0) {
 
-      console.log(res)
-      alert("Đặt vé thành công")
+    if (tongtienBefore === ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100))) {
+      let res = await CapnhatTTve(
+        {
+          id: id_ve,
+          hten_KH: hten_KH,
+          httt: httt,
+          tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+          soluongghe: dsgheDDs.length,
+          ngaymuave: ngaymuave,
+          id_chieu: id_chieu,
+          id_ghe: arrIdghe,
+          id_suatchieu: id_suatchieu,
+          id_rap: id_rapP,
+          id_cumrap: id_cumrap,
+          id_KM: id_KM,
+          id_NV: 1,
+          id_doan: dsdoans,
+          id_KH: id_KH,
+          macode: macode
+        });
+      if (res && res.errCode === 0) {
 
-      // handleCloseClick();
-    } else {
+        console.log(res)
+        alert("Đặt vé thành công")
 
-      console.log(res)
-      alert("Đặt vé không thành công")
+        // handleCloseClick();
+      } else {
 
-    };
-    // console.log("arrghe", gheArr)
-    // console.log("chitietveArr", chitietveArr)
-    // console.log("testclick");
-    // console.log("dsghedangdattttttttt", dsghedangdat);
+        console.log(res)
+        alert("Đặt vé không thành công")
+
+      };
+    }
+
+  }
+  const handleTrathemtien = () => {
+    let Ve = {
+      TTVe: [
+        {
+          id: id_ve,
+          hten_KH: hten_KH,
+          httt: httt,
+          tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+          soluongghe: dsgheDDs.length,
+          ngaymuave: ngaymuave,
+          id_chieu: id_chieu,
+          id_ghe: arrIdghe,
+          id_suatchieu: id_suatchieu,
+          id_rap: id_rapP,
+          id_cumrap: id_cumrap,
+          id_KM: id_KM,
+          id_NV: 1,
+          id_doan: dsdoans,
+          id_KH: id_KH,
+          macode: macode
+        }
+      ]
+    }
+    localStorage.setItem('VeUpdate', JSON.stringify(Ve.TTVe));
+
+
+  }
+  const handleHoantien = () => {
+    let Ve = {
+      TTVe: [
+        {
+          id: id_ve,
+          hten_KH: hten_KH,
+          httt: httt,
+          tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+          soluongghe: dsgheDDs.length,
+          ngaymuave: ngaymuave,
+          id_chieu: id_chieu,
+          id_ghe: arrIdghe,
+          id_suatchieu: id_suatchieu,
+          id_rap: id_rapP,
+          id_cumrap: id_cumrap,
+          id_KM: id_KM,
+          id_NV: 1,
+          id_doan: dsdoans,
+          id_KH: id_KH,
+          macode: macode
+        }
+      ]
+    }
+    localStorage.setItem('VeUpdate', JSON.stringify(Ve.TTVe));
+
+
   }
   const handleDeleteJoke = (id: number) => {
     setDsgheDDs(dsgheDDs.filter(dsgheDDs => dsgheDDs.id_ghe !== id))
@@ -332,9 +372,6 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     (arrIdghe).push(id)
 
   }
-
-
-
 
 
   const handleSetkm = (id_km: number) => {
@@ -385,6 +422,23 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
 
   useEffect(() => {
+    // const khachhangs = JSON.parse(
+    //   localStorage.getItem("khachhang") || "{}"
+    // );
+    // if (Object.keys(khachhangs).length === 0) {
+    //   // setTrangthai(true)
+    //   console.log("true");
+    // } else {
+    //   // setTrangthai(false)
+    //   console.log("false");
+    //   const res: Khachhang[] = khachhangs;
+    //   console.log("Ád", res)
+
+    //   res.map((item) => {
+    //     setId_KH(item.id)
+    //     setDiemtichluyKH(item.Diemtichluy_KH)
+    //   });
+    // }
     const handleLayTTRap = async () => {
       try {
         const params = {
@@ -524,6 +578,8 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
             console.log("check api searchdate ve: ", response);
             setVe(resVe);
             resVe.map(async (itemve) => {
+              setTongtienBefore(itemve.Tongtien)
+              setMacode(itemve.maCode)
               try {
                 const params = {
                   id_ve: itemve.id
@@ -635,6 +691,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
       res.map((item) => {
         setDiemtichluyKH(item.Diemtichluy_KH)
+        setId_KH(item.id)
       });
     }
     handleLayTTRap()
@@ -910,10 +967,36 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
             <div className='text-2xl'>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)} VNĐ</div>
 
           </div>
-          {/* <div className='flex m-auto'> */}
-          <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl ' onClick={() => handleDatve()}>Đặt vé</button>
+          {
+            (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) > 0) ?
+              <button
+                className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
+                onClick={() => handleUpdateve()}
+              >
+                Đặt vé
+              </button>
+              :
+              (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) < 0) ?
+                <Link
+                  href={`http://localhost:8080/order/create_payment_url?keyword=${(((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100))-tongtienBefore)}`}
+                >
+                  <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
+                    onClick={() => handleTrathemtien()}
+                  >
+                    Đặt vé
+                  </button>
+                </Link>
+                :
+                <button
+                  className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
+                  onClick={() => handleUpdateve()}
+                >
+                  Đặt vé
+                </button>
 
-          {/* </div> */}
+          }
+
+
         </div>
       </div>
       <ModalBapnuoc

@@ -75,7 +75,7 @@ const Thanhtoan = () => {
     const [id_KM, setId_KM] = useState(Number);
     const [id_NV, setId_NV] = useState(Number);
     const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
-    const [id_KH, setId_KH] = useState(Number);
+    const [magd, setId_KH] = useState(Number);
     const [ve, setVe] = useState<VeDat[]>([]);
     const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
 
@@ -86,62 +86,64 @@ const Thanhtoan = () => {
     console.log(">>> query", router.query.vnp_ResponseCode)
 
 
-    const handleDatve = async () => {
+    // const handleDatve = async () => {
 
-        // ve.map((item) => {
-        //     console.log("asdas", item.hten_KH)
-        // })
+    //     // ve.map((item) => {
+    //     //     console.log("asdas", item.hten_KH)
+    //     // })
 
-        // console.log("hoten", hten_KH)
-        // console.log("httt", httt)
-        // console.log("tongtien", tongtien)
-        // console.log("soluongghe", dsgheDDs.length)
-        // console.log("ngaymuave", ngaymuave)
-        // console.log("id_ghe", id_ghe)
-        // console.log("id_suatchieu", id_suatchieu)
-        // console.log("id_rap", id_rap)
-        // console.log("id_cumrap", id_cumrap)
-        // console.log("id_KM", id_KM)
-        // console.log("id_NV", id_NV)
-        // console.log("id_doan", dsdoans)
-        // console.log("id_KH", id_KH)
-        // console.log("arrIdghe", arrIdghe)
-        // console.log("dsgheDDs", dsgheDDs)
-        // console.log("id_chieu", id_chieu)
-        // console.log("arrId_da", arrIdDV)
+    //     // console.log("hoten", hten_KH)
+    //     // console.log("httt", httt)
+    //     // console.log("tongtien", tongtien)
+    //     // console.log("soluongghe", dsgheDDs.length)
+    //     // console.log("ngaymuave", ngaymuave)
+    //     // console.log("id_ghe", id_ghe)
+    //     // console.log("id_suatchieu", id_suatchieu)
+    //     // console.log("id_rap", id_rap)
+    //     // console.log("id_cumrap", id_cumrap)
+    //     // console.log("id_KM", id_KM)
+    //     // console.log("id_NV", id_NV)
+    //     // console.log("id_doan", dsdoans)
+    //     // console.log("id_KH", id_KH)
+    //     // console.log("arrIdghe", arrIdghe)
+    //     // console.log("dsgheDDs", dsgheDDs)
+    //     // console.log("id_chieu", id_chieu)
+    //     // console.log("arrId_da", arrIdDV)
 
 
 
-        let res = await Datve({
-            hten_KH: hten_KH,
-            httt: httt,
-            tongtien: tongtien,
-            soluongghe: slghe,
-            ngaymuave: ngaymuave,
-            id_chieu: id_chieu,
-            id_ghe: arrIdghe,
-            id_suatchieu: id_suatchieu,
-            id_rap: id_rap,
-            id_cumrap: id_cumrap,
-            id_KM: id_KM,
-            id_NV: 1,
-            id_doan: dsdoans,
-            id_KH: 1
-        });
+    //     let res = await Datve({
+    //         hten_KH: hten_KH,
+    //         httt: httt,
+    //         tongtien: tongtien,
+    //         soluongghe: slghe,
+    //         ngaymuave: ngaymuave,
+    //         id_chieu: id_chieu,
+    //         id_ghe: arrIdghe,
+    //         id_suatchieu: id_suatchieu,
+    //         id_rap: id_rap,
+    //         id_cumrap: id_cumrap,
+    //         id_KM: id_KM,
+    //         id_NV: 1,
+    //         id_doan: dsdoans,
+    //         id_KH: 1
+    //     });
 
-        if (res && res.errCode === 0) {
-            console.log(res)
-            alert("Đặt vé thành công")
-            // handleCloseClick();
-        } else {
-            console.log(res)
-            alert("Đặt vé không thành công")
+    //     if (res && res.errCode === 0) {
+    //         console.log(res)
+    //         alert("Đặt vé thành công")
+    //         // handleCloseClick();
+    //     } else {
+    //         console.log(res)
+    //         alert("Đặt vé không thành công")
 
-        };
+    //     };
 
-    }
+    // }
 
     useEffect(() => {
+        const params = new URLSearchParams(window.location.search) // id=123
+
         const ves = JSON.parse(
             localStorage.getItem("ve") || "{}"
         );
@@ -154,34 +156,41 @@ const Thanhtoan = () => {
             const res: VeDat[] = ves;
             console.log(" >>>> check res Ve", res)
             setVe(res)
+            let thoigian = params.get('vnp_PayDate')
+            // console.log("thoigian",thoigian)
+
             res.map(async (item) => {
-                let res = await Datve({
-                    hten_KH: item.hten_KH,
-                    httt: item.httt,
-                    tongtien: item.tongtien,
-                    soluongghe: item.soluongghe,
-                    ngaymuave: item.ngaymuave,
-                    id_chieu: item.id_chieu,
-                    id_ghe: item.id_ghe,
-                    id_suatchieu: item.id_suatchieu,
-                    id_rap: item.id_rap,
-                    id_cumrap: item.id_cumrap,
-                    id_KM: item.id_KM,
-                    id_NV: item.id_NV,
-                    id_doan: item.id_doan,
-                    id_KH: item.id_KH
-                });
+                if (params.get('vnp_TxnRef') && params.get('vnp_PayDate') && params.get('vnp_ResponseCode')==='00' && thoigian) {
+                    let res = await Datve({
+                        hten_KH: item.hten_KH,
+                        httt: item.httt,
+                        tongtien: item.tongtien,
+                        soluongghe: item.soluongghe,
+                        ngaymuave: item.ngaymuave,
+                        id_chieu: item.id_chieu,
+                        id_ghe: item.id_ghe,
+                        id_suatchieu: item.id_suatchieu,
+                        id_rap: item.id_rap,
+                        id_cumrap: item.id_cumrap,
+                        id_KM: item.id_KM,
+                        id_NV: item.id_NV,
+                        id_doan: item.id_doan,
+                        id_KH: item.id_KH,
+                        magd: String(params.get('vnp_TxnRef')),
+                        thoigiangd: thoigian
+                    });
 
-                if (res && res.errCode === 0) {
-                    console.log(res)
-                    localStorage.removeItem("ve");
-                    alert("Đặt vé thành công")
-                    // handleCloseClick();
-                } else {
-                    console.log(res)
-                    alert("Đặt vé không thành công")
+                    if (res && res.errCode === 0) {
+                        console.log(res)
+                        localStorage.removeItem("ve");
+                        alert("Đặt vé thành công")
+                        // handleCloseClick();
+                    } else {
+                        console.log(res)
+                        alert("Đặt vé không thành công")
 
-                };
+                    };
+                }
             });
         }
         // const khachhangs = JSON.parse(
@@ -200,12 +209,11 @@ const Thanhtoan = () => {
         //     //     console.log(">>>>> check kh", item.Hten_KH)
         //     // });
         //   }
-        const params = new URLSearchParams(window.location.search) // id=123
-        let id = params.get('vnp_Amount') // 123 
-        console.log(">>>>check tong tien",id)
-    }, [tongtien]);
+        let id = params.get('vnp_PayDate') // 123 
+        console.log(">>>>check tong tien", id)
+    }, []);
 
-    console.log(">>>>check tong tien222",tongtien)
+    // console.log(">>>>check tong tien222",tongtien)
 
 
     return (
@@ -217,8 +225,8 @@ const Thanhtoan = () => {
                 <div className="shadow-2xl">
                     <div className="text-center space-y-1 mb-3 font-semibold text-xl border-dashed border-b-2 border-gray-400">
                         <CheckCircleOutlineIcon color="success" sx={{ fontSize: 50, }} />
-                        <p  className="">{router.query.vnp_ResponseCode === '00' ? 'Giao dịch thành công' : 'Giao dịch không thành công'}</p>
-                        <p onLoad={()=>setTongtien(Number(router.query.vnp_Amount))} className="pb-3">{Number(router.query.vnp_Amount)/100} VND</p>
+                        <p className="">{router.query.vnp_ResponseCode === '00' ? 'Giao dịch thành công' : 'Giao dịch không thành công'}</p>
+                        <p onLoad={() => setTongtien(Number(router.query.vnp_Amount))} className="pb-3">{Number(router.query.vnp_Amount) / 100} VND</p>
                     </div>
                     <div className="w-11/12 m-auto">
                         {/* <Alert severity="info">Giao dịch đang được xử lý. */}
@@ -236,7 +244,7 @@ const Thanhtoan = () => {
                                 <p className="text-red-400">{router.query.vnp_TxnRef}</p>
                             </div>
                         </div>
-                        <button onClick={()=>router.push('/')} className=" border-2 border-gray-500 w-full mt-3 mb-5 h-9 rounded-lg">Đóng</button>
+                        <button onClick={() => router.push('/')} className=" border-2 border-gray-500 w-full mt-3 mb-5 h-9 rounded-lg">Đóng</button>
                     </div>
                 </div>
             </div>

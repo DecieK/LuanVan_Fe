@@ -49,6 +49,8 @@ export async function Datve(params: {
   id_KM: number;
   id_NV: number;
   id_doan: Array<DSDichVu>;
+  magd: string;
+  thoigiangd:string;
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/Datve`,
