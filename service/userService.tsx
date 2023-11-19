@@ -952,6 +952,22 @@ export async function handleXoaCTVe(params: {
   const data = await response.json();
   return data;
 }
+export async function handleHuyVe(params: {
+  id_ve: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/HuyVe`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
 export async function Sendmail(params: { email: string
 }): Promise<any> {
   const response = await fetch(
@@ -1002,24 +1018,42 @@ export async function handleQuenMatKhau(params: {
   return data;
 }
 
-export async function Hoantien_vnpay(params: {
-  orderId: string;
-  transDate: string;
-  amount: number;
-  transType: string;
-  user: string;
- 
+// export async function Hoantien_vnpay(params: {
+//   orderId: string;
+//   transDate: string;
+//   amount: number;
+//   transType: string;
+//   user: string;
+
+// }): Promise<any> {
+//   const response = await fetch(
+//     `http://localhost:8080/api/order/refund`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(params),
+//     }
+//   );
+//   const data = await response.json();
+//   return data;
+// }
+export async function VNPayRefund(params:{  
+  orderId: number 
+  transDate: string
+  amount: number 
+  transType: string
+  user:string
 }): Promise<any> {
-  const response = await fetch(
-    `http://localhost:8080/api/order/refund`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(params),
-    }
-  );
-  const data = await response.json();
-  return data;
+const response = await fetch(`http://localhost:8080/order/refund`,
+{
+  method:"POST",
+  headers: {
+    "Content-Type":"application/json",
+  },
+  body: JSON.stringify(params),
+});
+const data = await response.json();
+return data;
 }

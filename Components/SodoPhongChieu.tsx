@@ -1,6 +1,6 @@
 //goldclass 32,64
 //104,118,128,164
-import { CapnhatTTve, Datve, LayTTCumrap, LayTTDoan, LayTTDoan_idve, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, layTTChieu } from '@/service/userService';
+import { CapnhatTTve, Datve, LayTTCumrap, LayTTDoan, LayTTDoan_idve, LayTTGhe, LayTTGhe_idrap, LayTTKM, LayTTPhim, LayTTRap, LayTTchitietve, LayTTve_idchieu, VNPayRefund, layTTChieu } from '@/service/userService';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -92,7 +92,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     id_KM: number;
     id_NV: number;
     maCode: string;
-    MaGD: string;
+    MaGD: number;
     ThoigianGD: string
     // id_DA: number;
   }
@@ -122,7 +122,6 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     size: string,
     sl: number
   }
-
   interface Khachhang {
     id: number;
     Hten_KH: string;
@@ -198,7 +197,8 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
   const [chitietdoan, setChitietdoan] = useState<Chitietdoan[]>([]);
   const [rap, setRap] = useState<Rap[]>([]);
   const [macode, setMacode] = useState('')
-
+  const [magd, setMagd] = useState(Number);
+  const [tggd, setTggd] = useState(String);
 
 
   let temp
@@ -251,39 +251,38 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     console.log("id_KM", id_KM)
     console.log("id_doan", dsdoans)
 
-    if (tongtienBefore === ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100))) {
-      let res = await CapnhatTTve(
-        {
-          id: id_ve,
-          hten_KH: hten_KH,
-          httt: httt,
-          tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
-          soluongghe: dsgheDDs.length,
-          ngaymuave: ngaymuave,
-          id_chieu: id_chieu,
-          id_ghe: arrIdghe,
-          id_suatchieu: id_suatchieu,
-          id_rap: id_rapP,
-          id_cumrap: id_cumrap,
-          id_KM: id_KM,
-          id_NV: 1,
-          id_doan: dsdoans,
-          id_KH: id_KH,
-          macode: macode
-        });
-      if (res && res.errCode === 0) {
+    let res = await CapnhatTTve(
+      {
+        id: id_ve,
+        hten_KH: hten_KH,
+        httt: httt,
+        tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+        soluongghe: dsgheDDs.length,
+        ngaymuave: ngaymuave,
+        id_chieu: id_chieu,
+        id_ghe: arrIdghe,
+        id_suatchieu: id_suatchieu,
+        id_rap: id_rapP,
+        id_cumrap: id_cumrap,
+        id_KM: id_KM,
+        id_NV: 1,
+        id_doan: dsdoans,
+        id_KH: id_KH,
+        macode: macode
+      });
+    if (res && res.errCode === 0) {
 
-        console.log(res)
-        alert("Đặt vé thành công")
+      console.log(res)
+      alert("Đặt vé thành công")
 
-        // handleCloseClick();
-      } else {
+      // handleCloseClick();
+    } else {
 
-        console.log(res)
-        alert("Đặt vé không thành công")
+      console.log(res)
+      alert("Đặt vé không thành công")
 
-      };
-    }
+    };
+
 
   }
   const handleTrathemtien = () => {
@@ -313,7 +312,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
 
   }
-  const handleHoantien = () => {
+  const handleHoantien = async () => {
     let Ve = {
       TTVe: [
         {
@@ -337,7 +336,50 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
       ]
     }
     localStorage.setItem('VeUpdate', JSON.stringify(Ve.TTVe));
+    let res = await VNPayRefund(
+      {
+        orderId: (magd),
+        transDate: tggd,
+        amount: (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100))),
+        transType: '03',
+        user: hten_KH
+      });
+    if (res && res.response.body.vnp_ResponseCode === '00') {
+      let res1 = await CapnhatTTve(
+        {
+          id: id_ve,
+          hten_KH: hten_KH,
+          httt: httt,
+          tongtien: (sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100),
+          soluongghe: dsgheDDs.length,
+          ngaymuave: ngaymuave,
+          id_chieu: id_chieu,
+          id_ghe: arrIdghe,
+          id_suatchieu: id_suatchieu,
+          id_rap: id_rapP,
+          id_cumrap: id_cumrap,
+          id_KM: id_KM,
+          id_NV: 1,
+          id_doan: dsdoans,
+          id_KH: id_KH,
+          macode: macode
+        });
+      if (res1 && res1.errCode === 0) {
+        console.log(res1)
+        alert("Cập nhật vé thành công thành công")
+        // handleCloseClick();
+      } else {
+        console.log(res1)
+        alert("Cập nhật vé KHÔNG thành công thành công")
 
+      };
+
+    } else {
+
+      console.log(res)
+      alert("Cập nhật vé KHÔNG thành công thành công")
+
+    };
 
   }
   const handleDeleteJoke = (id: number) => {
@@ -422,23 +464,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
 
   useEffect(() => {
-    // const khachhangs = JSON.parse(
-    //   localStorage.getItem("khachhang") || "{}"
-    // );
-    // if (Object.keys(khachhangs).length === 0) {
-    //   // setTrangthai(true)
-    //   console.log("true");
-    // } else {
-    //   // setTrangthai(false)
-    //   console.log("false");
-    //   const res: Khachhang[] = khachhangs;
-    //   console.log("Ád", res)
 
-    //   res.map((item) => {
-    //     setId_KH(item.id)
-    //     setDiemtichluyKH(item.Diemtichluy_KH)
-    //   });
-    // }
     const handleLayTTRap = async () => {
       try {
         const params = {
@@ -580,6 +606,8 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
             resVe.map(async (itemve) => {
               setTongtienBefore(itemve.Tongtien)
               setMacode(itemve.maCode)
+              setMagd(itemve.MaGD)
+              setTggd(itemve.ThoigianGD)
               try {
                 const params = {
                   id_ve: itemve.id
@@ -690,6 +718,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
       console.log("Ád", res)
 
       res.map((item) => {
+        setHten_KH(item.Hten_KH)
         setDiemtichluyKH(item.Diemtichluy_KH)
         setId_KH(item.id)
       });
@@ -703,7 +732,6 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     handleLayTTKM();
     // handleLayTTDoan();
     handleLayTTPhim()
-    setHten_KH("Luong Vu Khoa")
     // console.log(Object.entries(dsgheDDs));
     // setId_ghe()
     setHttt("Online")
@@ -968,7 +996,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
           </div>
           {
-            (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) > 0) ?
+            (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) === 0) ?
               <button
                 className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
                 onClick={() => handleUpdateve()}
@@ -978,7 +1006,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
               :
               (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) < 0) ?
                 <Link
-                  href={`http://localhost:8080/order/create_payment_url?keyword=${(((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100))-tongtienBefore)}`}
+                  href={`http://localhost:8080/order/create_payment_url?keyword=${(((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) - tongtienBefore)}`}
                 >
                   <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
                     onClick={() => handleTrathemtien()}
@@ -989,7 +1017,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
                 :
                 <button
                   className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
-                  onClick={() => handleUpdateve()}
+                  onClick={() => handleHoantien()}
                 >
                   Đặt vé
                 </button>

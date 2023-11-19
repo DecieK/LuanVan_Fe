@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Image from 'next/image'
-import { LayTTChieu_idc, LayTTCumrap, LayTTDoan, LayTTDoan_idve, LayTTGhe, LayTTKhuyenmai, LayTTPhim, LayTTRap, LayTTSuatchieu, LayTTchitietve } from "@/service/userService";
+import {
+    LayTTChieu_idc, LayTTCumrap, LayTTDoan, LayTTDoan_idve, LayTTGhe,
+    LayTTKhuyenmai, LayTTPhim, LayTTRap, LayTTSuatchieu, LayTTchitietve, VNPayRefund, handleHuyVe
+} from "@/service/userService";
 import dayjs from "dayjs"
 import ModalCapnhat from "./ModalCapnhat";
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
@@ -25,6 +28,8 @@ type Props = {
     id_nv: number;
     createdat: Date;
     macode: string;
+    magd: number;
+    tggd: string
 
 }
 
@@ -44,7 +49,9 @@ const Lichsudatve = ({
     id_km,
     id_nv,
     macode,
-    createdat
+    createdat,
+    magd,
+    tggd
 
 }: Props) => {
     interface Ve {
@@ -62,6 +69,8 @@ const Lichsudatve = ({
         id_KM: number;
         id_NV: number;
         maCode: string;
+        MaGD: number;
+        ThoigianGD: string
         createdAt: Date;
     }
     interface Rap {
@@ -141,7 +150,6 @@ const Lichsudatve = ({
         thoigianketthuc: Date;
     }
 
-    const [trangthai, setTrangthai] = useState(true);
     const [ve, setVe] = useState<Ve[]>([]);
     const [slghe, setSlghe] = useState(Number);
     const [rap, setRap] = useState<Rap[]>([]);
@@ -167,9 +175,42 @@ const Lichsudatve = ({
     const [idp, setIdp] = useState(Number);
     const [step, setStep] = useState('chung');
     let d = new Date(ngaychieu)
-    // const [, setCheckngayUpdate] = useState(new Date());
 
-    let checkngayUpdate: Date
+
+
+
+    const handleHuyVe1 = async () => {
+        let res = await VNPayRefund(
+            {
+                orderId: (magd),
+                transDate: tggd,
+                amount: tongtien,
+                transType: '02',
+                user: hten_KH
+            });
+        if (res && res.response.body.vnp_ResponseCode === '00') {
+            let res1 = await handleHuyVe(
+                {
+                    id_ve: id
+                });
+            if (res1 && res1.errCode === 0) {
+                console.log(res1)
+                alert('Bạn đã hủy vé thành công.Tiền sẽ được hoàn về số tài khoản lúc đặt')
+                window.location.reload();
+
+            }
+            else {
+                console.log(res1)
+                alert('Lỗi hủy vé')
+            }
+        } else {
+            console.log(res)
+
+            alert('Lỗi hoàn tiền vé')
+        }
+
+    }
+
 
     useEffect(() => {
         // console.log("asda", checkngayUpdate)
@@ -348,7 +389,6 @@ const Lichsudatve = ({
 
 
         setVe(ttve)
-        const res: Ve[] = ttve
         settgiangiaodich(new Date(createdat))
         handleLayTTRap()
         handleLayTTCumrap()
@@ -404,7 +444,11 @@ const Lichsudatve = ({
                                 (new Date().getTime()) < (new Date((d.getMonth() + 1) + '/' + (d.getDate() - 1) + '/' + d.getFullYear()).getTime())
 
                                     ?
-                                    <button onClick={()=>setShowModal(true)}>Cập nhật</button>
+                                    <>
+                                        <button onClick={() => setShowModal(true)}>Cập nhật</button>
+                                        <button onClick={() => handleHuyVe1()}>Hủy vé</button>
+                                    </>
+
                                     : "Quá hạn cập nhật"
 
                             }

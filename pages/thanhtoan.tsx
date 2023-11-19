@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import { useRouter } from 'next/router'
-import { Datve } from "@/service/userService";
+import { CapnhatTTve, Datve } from "@/service/userService";
 import Alert from "@mui/material/Alert";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
@@ -44,6 +44,24 @@ const Thanhtoan = () => {
         id_doan: Array<any>,
         id_KH: number
     }
+    interface VeUpdate {
+        id: number
+        hten_KH: string,
+        httt: string,
+        tongtien: number,
+        soluongghe: number,
+        ngaymuave: Date,
+        id_chieu: number,
+        id_ghe: Array<number>,
+        id_suatchieu: number,
+        id_rap: number,
+        id_cumrap: number,
+        id_KM: number,
+        id_NV: 1,
+        id_doan: Array<any>,
+        id_KH: number
+        macode: string
+    }
     interface Khachhang {
         id: number;
         Hten_KH: string;
@@ -78,11 +96,11 @@ const Thanhtoan = () => {
     const [magd, setId_KH] = useState(Number);
     const [ve, setVe] = useState<VeDat[]>([]);
     const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
+    const [veUpdate, setVeUpdate] = useState<VeUpdate[]>([]);
 
 
     const router = useRouter()
 
-    // console.log(">>> check params", useParams())
     console.log(">>> query", router.query.vnp_ResponseCode)
 
 
@@ -188,6 +206,57 @@ const Thanhtoan = () => {
                     } else {
                         console.log(res)
                         alert("Đặt vé không thành công")
+
+                    };
+                }
+            });
+        }
+
+
+        const VeUpdates = JSON.parse(
+            localStorage.getItem("VeUpdate") || "{}"
+        );
+        if (Object.keys(VeUpdates).length === 0) {
+            // setTrangthai(true)
+            console.log("true");
+        } else {
+            // setTrangthai(false)
+            console.log("false");
+            const resVeUpdates: VeUpdate[] = VeUpdates;
+            console.log(" >>>> check res Ve", resVeUpdates)
+            setVeUpdate(resVeUpdates)
+            let thoigian = params.get('vnp_PayDate')
+            // console.log("thoigian",thoigian)
+
+            resVeUpdates.map(async (item) => {
+                if (params.get('vnp_TxnRef') && params.get('vnp_PayDate') && params.get('vnp_ResponseCode')==='00' && thoigian) {
+                    let res = await CapnhatTTve({
+                        id:item.id,
+                        hten_KH: item.hten_KH,
+                        httt: item.httt,
+                        tongtien: item.tongtien,
+                        soluongghe: item.soluongghe,
+                        ngaymuave: item.ngaymuave,
+                        id_chieu: item.id_chieu,
+                        id_ghe: item.id_ghe,
+                        id_suatchieu: item.id_suatchieu,
+                        id_rap: item.id_rap,
+                        id_cumrap: item.id_cumrap,
+                        id_KM: item.id_KM,
+                        id_NV: item.id_NV,
+                        id_doan: item.id_doan,
+                        id_KH: item.id_KH,
+                        macode: item.macode
+                    });
+
+                    if (res && res.errCode === 0) {
+                        console.log(res)
+                        localStorage.removeItem("VeUpdate");
+                        alert("Cập nhật vé thành công")
+                        // handleCloseClick();
+                    } else {
+                        console.log(res)
+                        alert("Cập nhật vé không thành công")
 
                     };
                 }

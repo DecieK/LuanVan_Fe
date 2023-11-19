@@ -25,6 +25,8 @@ const Lichsu = ({ poster }: Props) => {
     id_KM: number;
     id_NV: number;
     maCode: string;
+    MaGD: number;
+    ThoigianGD: string
     createdAt: Date;
 
     // id_DA: number;
@@ -148,7 +150,10 @@ const Lichsu = ({ poster }: Props) => {
                   id_km={ves.id_KM}
                   id_nv={ves.id_NV}
                   createdat={ves.createdAt}
-                  macode={ves.maCode} />
+                  macode={ves.maCode} 
+                  magd ={ves.MaGD}
+                  tggd = {ves.ThoigianGD}
+                  />
               </>
             )
           })
