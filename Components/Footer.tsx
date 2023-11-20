@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <div className={noto_serif.className }>
       <hr className="border-1 border-black mt-12"/>
-      <div className="grid grid-cols-4 w-4/5  m-auto h-48 mt-3 text-sm text-gray-700">
+      <div className="grid lg:grid-cols-4 grid-cols-2 w-4/5 gap-3 m-auto  mt-3 text-sm text-gray-700">
         <div className="col-span-1   list-none capitalize space-y-2">
           <p className="font-bold">CGV Việt Nam</p>
           <li><Link href=''>Giới thiệu</Link></li>
@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="border-1 border-black"/>
-      <div className="w-4/5 h-44  m-auto flex items-center text-xs text-gray-700">
+      <div className="w-4/5  m-auto flex items-center text-xs text-gray-700">
         <div className="h-[120px] w-[300px] bg-cover  bg-[url('../public/logoFooter2.jpg')]"></div>
         <div className="pl-5 space-y-2">
           <p className="uppercase font-bold">công ty tnhh cj cgv vietnam</p>

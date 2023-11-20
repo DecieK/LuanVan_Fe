@@ -402,7 +402,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
         <StyledModalHeader className="bg-red-500 w-full h-14 uppercase pt-3 font-semibold text-2xl text-center ">
           <div className="flex text-xl p-2">
             <span className=" text-center uppercase w-full">
-              Lịch chiếu CGV Cần
+              Lịch chiếu CGV Cần Thơ
             </span>
 
             <button
@@ -421,7 +421,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
           )}
         <StyledModalBody className="bg-white">
           <div className="modal">
-            <div className='grid grid-cols-7 mt-5 gap-4 m-3'>
+            <div className='grid sm:grid-cols-7 grid-cols-4 mt-5 gap-4 m-3'>
               <button className='col-span-1 border-red-400 border-2 rounded-md'>
                 <p className='text-lg h-12 pt-2'>Chủ nhật</p>
                 <p className='bg-red-400 text-2xl h-16 pt-4'>05/11</p>
@@ -460,7 +460,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 dateFormat="dd/MM/yyyy"
               />
             </div>
-            <div className='grid grid-cols-3 mt-10 place-items-center'>              {
+            <div className='grid sm:grid-cols-3 grid-cols-2 mt-10 place-items-center'>              {
               cumrap.map((item, index) => {
                 return (
                   <>

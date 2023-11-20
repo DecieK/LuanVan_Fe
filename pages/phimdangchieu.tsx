@@ -82,7 +82,7 @@ const Phimdangchieu = () => {
                     >phim đang chiếu
                     </button>
                 </div>
-                <div className='grid grid-cols-3 gap-2 w-11/12 m-auto mt-5 '>
+                <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 md:w-11/12 w-9/12 m-auto mt-5 '>
                     {
                         phim.map((item, index) => {
 
@@ -90,7 +90,7 @@ const Phimdangchieu = () => {
                                 return (
                                     <>
                                         <div className="col-span-1 group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow
-                                 hover:shadow-xl hover:shadow-black/30">
+                                        hover:shadow-xl hover:shadow-black/30">
                                             <div className="">
                                                 <Image
                                                     className="w-11/12 h-64  transition-transform duration-500 group-hover:rotate-3 group-hover:scale-125"
@@ -119,7 +119,7 @@ const Phimdangchieu = () => {
                             else null
                         })
                     }
-                </div>
+                p</div>
                 <Footer />
 
             </div>

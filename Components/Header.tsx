@@ -115,32 +115,12 @@ const Header = () => {
   return (
     <div >
       <div className="flex w-full h-16 ">
-        <div className="w-1/6">
+        <div className="w-2/12">
           <div className="  h-14 w-28 bg-cover m-auto bg-[url('../public/logoCGV.png')] cursor-pointer"
             onClick={() => handleHomePage()}></div>
         </div>
 
-        {/* <div className="w-4/6uppercase text-center uppercase font-semibold space-x-20 m-auto"> */}
-        <div className="w-4/6 uppercase text-center font-semibold space-x-20 m-auto">
-          {/* <div
-            className="inline-flex items-center"
-            onClick={toggleDropdown}
-          >
-            phim
-            <svg className="w-2.5 h-2.5 ml-2.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none" viewBox="0 0 10 6">
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 4 4 4-4" />
-            </svg>
-          </div> */}
-
-          {/* <Link href='' onClick={() => handleHomePage()}>Trang chủ</Link> */}
+        <div className="w-9/12  uppercase text-center font-semibold space-x-14 m-auto">
           <Button
             className=" font-semibold text-gray-800 hover:text-red-500"
             id="basic-button"
@@ -172,34 +152,7 @@ const Header = () => {
           >
             <MenuItem onClick={handlePhimdangchieu}>Phim đang chiếu</MenuItem>
             <MenuItem onClick={handlePhimsapchieu}>Phim sắp chiếu</MenuItem>
-            {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
           </Menu>
-
-          {/* {isOpen && (
-            <div className="origin-top-right absolute mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-              <ul role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                <li>
-                  <Link
-                    href="/phimdangchieu"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={closeDropdown}
-                  >
-                    Phim đang chiếu
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/phimsapchieu"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={closeDropdown}
-                  >
-                    Phim sắp chiếu
-                  </Link>
-                </li>
-
-              </ul>
-            </div>
-          )} */}
           <label>|</label>
           <Button
             className=" font-semibold text-gray-800 hover:text-red-500"
@@ -207,7 +160,6 @@ const Header = () => {
           >
             Tin tức & ưu đãi
           </Button>
-          {/* <Link href=''>Tin tức & ưu đãi</Link> */}
           <label>|</label>
           <Button
             className=" font-semibold text-gray-800 hover:text-red-500"
@@ -217,10 +169,9 @@ const Header = () => {
           >
             Quy định
           </Button>
-          {/* <Link href='/quydinh'>Quy định</Link> */}
         </div>
 
-        <div className="w-1/6 m-auto ">
+        <div className="w-1/12 m-auto">
           {
             trangthai === true ?
               <div onClick={handleLogin} className="  text-center bg-cover ">
@@ -238,14 +189,6 @@ const Header = () => {
               >
                 {tenKH}
               </Button>
-            // <div
-            //   className="inline-flex items-center"
-            //   onClick={() => setIsOpenTT(!isOpenTT)}
-            // >
-            //   {tenKH}
-
-            // </div>
-
           }
           <Menu
             id="basic-menu"
@@ -261,44 +204,11 @@ const Header = () => {
             <MenuItem onClick={handleRomoveLocal}>Đăng xuất</MenuItem>
           </Menu>
 
-          {/* {isOpenTT && (
-            <div className="origin-top-right absolute mt-2 w-44 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-              <ul role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                <li>
-                  <Link
-                    href="/phimdangchieu"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => setIsOpenTT(false)}
-                  >
-                    Thông tin cá nhân
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/phimsapchieu"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => setIsOpenTT(false)}
-                  >
-                    Lịch sử đặt vé
-                  </Link>
-                  <Link
-                    href="/phimdangchieu"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => handleRomoveLocal()}
-                  >
-                    Đăng xuất
-                  </Link>
-                </li>
-
-              </ul>
-            </div>
-          )} */}
         </div>
 
       </div>
       <hr className="w-full" />
     </div>
-    // </div>
   );
 };
 

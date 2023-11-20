@@ -670,11 +670,11 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
   return (
     <div>
-      <div className='flex mt-3'>
-        <div className=' w-8/12'>
+      <div className='flex lg:flex-row flex-col mt-3'>
+        <div className=' lg:w-8/12 w-full '>
           <div className='h-3 w-9/12 bg-black m-auto'></div>
           <p className='text-center text-yellow-600'>Màn hình</p>
-          <div className='w-8/12 m-auto'>
+          <div className='md:w-10/12 w-full grid grid-cols-10 pt-3 pb-3 gap-3  m-auto'>
             {
               ghe.map((ghes) => {
                 let gheVIP = ghes.loaiGhe === 'VIP';
@@ -739,9 +739,9 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
                     }
                     }
                     key={ghes.id}
-                    className={`h-10 w-10  m-2  
-                      ${ghedoi ? 'w-20 rounded-xl h-8 ' : ''}           
-                      ${gheVIP ? 'border-2 border-yellow-500' : ''}
+                    className={`h-10 w-10 m-auto 
+                      ${ghedoi ? 'w-20 rounded-xl h-10 border-2 border-green-700' : ''}           
+                      ${gheVIP ? 'border-2 border-yellow-500 ' : ''}
                       ${classGhedangdat ? 'bg-blue-400' : ''}
                       ${gheDadat ? 'bg-gray-600 text-red-500' : ''}
                       // ${!gheDadat && !gheVIP && !classGhedangdat ? 'border-2 border-gray-500' : ''}
@@ -788,7 +788,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
             </div>
           </div>
         </div>
-        <div className=' w-4/12'>
+        <div className=' lg:w-4/12 w-8/12 lg:m-0 m-auto lg:mt-5 mt-5 '>
           {phim.map((p, index) => {
             return (
               <>
@@ -797,7 +797,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
             )
           })}
           <hr />
-          <div className='flex space-x-10 mt-5'>
+          <div className='flex space-x-10 pt-4'>
             <Image
               className=""
               src="/poster1.jpg"
@@ -808,10 +808,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
             {/* <img height={100} width={100} src='poster1.jpg' /> */}
             <div>
               <p className='text-2xl'>{tencumrapP} <br /> {tenrapP}</p>
-              <p className='text-xl pt-3'>{ngaychieuP} <br /> {giobdP} - {gioktP}</p>
+              <p className='text-lg pt-3'>{ngaychieuP} <br /> {giobdP} - {gioktP}</p>
             </div>
           </div>
-          <hr className='my-3' />
+          <hr className='my-4' />
           <div className='flex'>
             Danh sách ghế:
             {
@@ -838,11 +838,12 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
             }
           </div>
           <div>
-            <div className='cursor-pointer'
+            <div className='cursor-pointer space-x-2'
 
               onClick={() => setShowModalDA(true)}
             //  onClick={(e) => handleDoan(trangthaidoan)}
-            >Chọn dịch vụ
+            >
+              <span>Chọn dịch vụ</span>
               <AddCircleOutlineIcon />
 
             </div>
@@ -853,7 +854,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
               //  onClick={() => handleKM(km)}
               onClick={() => setShowModalKM(!showModalKM)}
 
-            >Khuyến mãi</div>
+            >Khuyến mãi:</div>
             {
               showModalKM === true
                 ?
@@ -891,15 +892,15 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
           </div>
 
-          <div>
-            {/* <p>Tổng tiền</p> */}
+          <div className='flex space-x-2'>
+            <p className='text-2xl'>Tổng tiền:</p>
             <div className='text-2xl'>{(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)} VNĐ</div>
 
           </div>
           <Link
             href={`http://localhost:8080/order/create_payment_url?keyword=${(sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)}`}
           >
-            <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
+            <button className='text-center h-12 mt-5 w-48 bg-red-500  rounded-lg text-3xl '
               onClick={() => handleDatve()}
             >
               Đặt vé
@@ -922,9 +923,9 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
         onCloseKM={() => setShowModalKM(false)}
         showKM={showModalKM}
       ></ModalKhuyenmai> */}
-      {/* <button onClick={() => console.log("ádas", tienDA)}>click</button> */}
-    </div>
+      <button onClick={() => console.log("ádas", dsgheDDs.length)}>click</button>
 
+    </div>
 
   );
 }

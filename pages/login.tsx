@@ -132,8 +132,8 @@ const Login = () => {
   return (
     <div className={noto_serif.className}>
       <center>
-        <div className="pt-28 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full h-screen">
-          <form className=" h-auto w-96 bg-black bg-opacity-10 rounded-xl ">
+        <div className="pt-28  w-full h-screen">
+          <form className=" h-auto w-96 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl ">
             <h1 className="text-center uppercase text-3xl pt-6 text-white">Login</h1>
             <div className="mt-6">
               <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff", }} className="pr-3" />

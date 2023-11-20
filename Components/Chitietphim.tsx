@@ -129,17 +129,18 @@ const Chitietphim = ({ id_phim }: Props) => {
                     <div key={index}>
                         <p className='text-3xl uppercase font-normal'>Nội dung phim</p>
                         <hr className='mt-2 border-black' />
-                        <div className='flex mt-6'>
-                            <div className='basis-7/12  '>
+                        <div className='flex lg:flex-row flex-col mt-6'>
+                            <div className='basis-6/12 m-auto  '>
                                 <ReactPlayer
+                                
                                     height={350}
-                                    width={650}
+                                    width={550}
                                     // playing={true}
                                     controls={true}
                                     poster
                                     url={item.trailer}></ReactPlayer>
                             </div>
-                            <div className='basis-5/12  space-y-2'>
+                            <div className='basis-6/12  space-y-2 p-4'>
                                 <p className='uppercase text-2xl font-normal mb-1 text-red-500'>{item.tenphim}</p>
                                 <div className='flex space-x-2 mb-3'>
                                     <div className='flex '>
