@@ -9,7 +9,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import { aborted } from "util";
-import { LayTTPhim, LayTTRap_idcumrap, Themttphim } from "@/service/userService";
+import { LayTTPhim, LayTTRap_idcumrap, SuaTTPhim, Themttphim, XoaTTPhim } from "@/service/userService";
 import Image from 'next/image'
 import dayjs from "dayjs"
 import CommonUtils from "../CommonUtils";
@@ -32,19 +32,18 @@ const QLPhim = () => {
         tenphim: string;
         dieukien: number;
         trailer: string;
-        // poster: string;
+        poster: string;
         dienvien: string;
         ngonngu: string;
         daodien: string;
         thoiluong: number;
-        ngaychieu: string;
+        ngaychieu: Date;
         quocgia: string;
         tomtat: string;
         nsx: string;
         trangthai: string;
     }
-    const [tenTTTT, setTenTTTT] = useState('');
-    const [diachi, setDiachi] = useState('');
+    const [id, setId] = useState(Number);
     const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
     const [valueloaiphim, setValueloaiphim] = useState('');
@@ -63,31 +62,99 @@ const QLPhim = () => {
     const [prevURLIMG, setPrevURLIMG] = useState("");
     const [poster, setPoster] = useState("");
     const [fileIMG, setFileIMG] = useState<File>()
-    const [fileVD, setFileVD] = useState<File>()
     const [open, setOpen] = useState(Boolean);
 
-    // const handleLayttRap = (value: string) => {
-    //     setValueCumrap(value)
-    //     setValueRap('')
-    //     cumrap.map(async (item) => {
-    //         if (value === item.ten_tttt) {
-    //             setId_cr(item.id)
-    //             const params = {
-    //                 key: item.id,
-    //             };
-    //             // console.log("searchdate", params);
-    //             const response = await LayTTRap_idcumrap(params);
-    //             const res: Rap[] = response.raps;
-    //             // console.log("check api searchdate ghe: ", response);
-    //             // console.log("length", res.length);
-    //             setRap(res);
+    const handleSuaTTPhim = (id: number, tenphim: string, daodien: string, dienvien: string, nsx: string, ngonngu: string, ngaychieu: Date, tomtat: string, thoiluong: number, poster: string, trailer: string, trangthai: string, dieukien: number, quocgia: string) => {
+        setTenphim(tenphim)
+        setDaodien(daodien)
+        setDienvien(dienvien)
+        setNsx(nsx)
+        setNgonngu(ngonngu)
+        let d = new Date(ngaychieu)
+        setNgaychieu(d)
+        setTomtat(tomtat)
+        setThoiluong(String(thoiluong))
+        setPrevURLIMG(new Buffer(poster, "base64").toString("binary"))
+        setPoster(poster)
+        setTrailer(trailer)
+        setTrangthai(trangthai)
+        setDieukien(dieukien)
+        setQuocgia(quocgia)
+        setId(id)
+    }
+    const handleCapnhatTTphim = async () => {
 
+        let res = await SuaTTPhim(
+            {
+                id: id,
+                Tenphim: tenphim,
+                Dieukien: dieukien,
+                Poster: poster,
+                Trailer: trailer,
+                Dienvien: dienvien,
+                Ngonngu: ngonngu,
+                Quocgia: quocgia,
+                Tomtat: tomtat,
+                Daodien: daodien,
+                Thoiluong: thoiluong,
+                Ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
+                Nsx: nsx,
+                Trangthai: trangthai
+            });
+        if (res && res.errCode === 0) {
+            console.log(res)
+            handleLayTTPhim()
+            setDaodien('')
+            setDienvien('')
+            setDieukien(0)
+            setNgaychieu(new Date())
+            setNgonngu('')
+            setNsx('')
+            setQuocgia('')
+            setTenphim('')
+            setTrangthai('')
+            setThoiluong('')
+            setTomtat('')
+            setTrailer('')
 
-    //         }
+            alert("Cập nhật thông tin phim thành thông")
+        } else {
 
-    //     })
+            console.log(res)
+            alert("Cập nhật thông tin phim KHÔNG thành thông")
 
-    // }
+        };
+    }
+    const handleXoaTTphim = async (id: number) => {
+        let res = await XoaTTPhim(
+            {
+                id: id
+            });
+        if (res && res.errCode === 0) {
+            console.log(res)
+            handleLayTTPhim()
+            setDaodien('')
+            setDienvien('')
+            setDieukien(0)
+            setNgaychieu(new Date())
+            setNgonngu('')
+            setNsx('')
+            setQuocgia('')
+            setTenphim('')
+            setTrangthai('')
+            setThoiluong('')
+            setTomtat('')
+            setTrailer('')
+
+            alert("Xóa thông tin phim thành thông")
+        } else {
+
+            console.log(res)
+            alert("Xóa thông tin phim KHÔNG thành thông")
+
+        };
+
+    }
     const openPreviewImg = () => {
         if (!prevURLIMG) return;
         setOpen(true)
@@ -222,14 +289,14 @@ const QLPhim = () => {
                     <div className="flex">
                         <p className="basis-3/12">Tên phim:</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
-                        value={tenphim}
+                            value={tenphim}
                             onChange={(event) => setTenphim(event.target.value)}
                         />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Đạo diễn</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
-                        value={daodien}
+                            value={daodien}
                             onChange={(event) => setDaodien(event.target.value)}
                         />
                     </div>
@@ -250,7 +317,7 @@ const QLPhim = () => {
                     <div className="flex">
                         <p className="basis-3/12">Ngôn ngữ</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
-                        value={ngonngu}
+                            value={ngonngu}
                             onChange={(event) => setNgonngu(event.target.value)}
                         />
                     </div>
@@ -296,14 +363,14 @@ const QLPhim = () => {
                     <div className="flex">
                         <p className="basis-3/12">Trailer</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
-                        value={trailer}
+                            value={trailer}
                             onChange={(event) => setTrailer(event.target.value)}
                         />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Trạng thái phim</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
-                        value={trangthai}
+                            value={trangthai}
                             onChange={(event) => setTrangthai(event.target.value)}
                         />
                     </div>
@@ -318,52 +385,54 @@ const QLPhim = () => {
                     <div className="flex">
                         <p className="basis-3/12">Quốc gia</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
-                        value={quocgia}
+                            value={quocgia}
                             onChange={(event) => setQuocgia(event.target.value)}
                         />
                     </div>
 
                 </div>
                 <div>
-                        <div className="  pb-20">
-                            <label>
-                                {/* <FormattedMessage id="" /> */}
+                    <div className="  pb-20">
+                        <label>
+                            {/* <FormattedMessage id="" /> */}
+                        </label>
+                        <div className="preview-img-container bg-slate-500">
+                            <input
+                                className="w-56 boder-2 bg-slate-400"
+                                id="preview-img"
+                                type="file"
+                                accept=".png,.jpg"
+                                hidden
+                                // onChange={(e) => setFileIMG(e.target.files?.[0])}
+                                onChange={(event) => handleOnChangeImage(event)}
+                            />
+                            <label className="lable-upload" htmlFor="preview-img">
+                                Tải ảnh <i className="fas fa-upload"></i>
                             </label>
-                            <div className="preview-img-container bg-slate-500">
-                                <input
-                                    className="w-56 boder-2 bg-slate-400"
-                                    id="preview-img"
-                                    type="file"
-                                    accept=".png,.jpg"
-                                    hidden
-                                    // onChange={(e) => setFileIMG(e.target.files?.[0])}
-                                    onChange={(event) => handleOnChangeImage(event)}
-                                />
-                                <label className="lable-upload" htmlFor="preview-img">
-                                    Tải ảnh <i className="fas fa-upload"></i>
-                                </label>
 
-                            </div>
                         </div>
-                        <div
-                            className="preview-img bg-no-repeat "
-
-                            style={{
-                                backgroundImage: `url(${prevURLIMG})`,
-                            }}
-                            onClick={() => openPreviewImg()}
-
-                        >
-                            review image:
-                        </div>
-                        {/* <img src={prevURLIMG}></img> */}
                     </div>
+                    <div
+                        className="preview-img bg-no-repeat "
+
+                        style={{
+                            backgroundImage: `url(${prevURLIMG})`,
+                        }}
+                        onClick={() => openPreviewImg()}
+
+                    >
+                        review image:
+                    </div>
+                    {/* <img src={prevURLIMG}></img> */}
+                </div>
                 {/* <div className="basis-4/12 border-2 border-green-300">
 
                 </div> */}
 
             </div>
             <button className="bg-red-500" onClick={handleThemTTPhim}>Thêm phim</button>
+            <button className="bg-red-500" onClick={handleCapnhatTTphim}>Cập nhật phim</button>
+
             <div className="w-full overflow-x-auto">
                 <table className=" border-separate  border border-slate-400 w-full ">
                     <thead>
@@ -377,7 +446,7 @@ const QLPhim = () => {
                             <th className="border border-slate-300 text-center">Ngày chiếu</th>
                             <th className="border border-slate-300 text-center">Tóm tắt</th>
                             <th className="border border-slate-300 text-center">Thời lượng</th>
-                            <th className="border border-slate-300 text-center">Poster</th>
+                            <th className="border border-slate-300 text-center w-96">Poster</th>
                             <th className="border border-slate-300 text-center">Trailer</th>
                             <th className="border border-slate-300 text-center">Trạng thái phim</th>
                             <th className="border border-slate-300 text-center">Giới hạn tuổi</th>
@@ -407,12 +476,12 @@ const QLPhim = () => {
                                     <td className="border border-slate-300 text-center">{item.tomtat}</td>
                                     <td className="border border-slate-300 text-center">{item.thoiluong}</td>
                                     <td className="border border-slate-300 text-center">{
-                                        // <Image
-                                        //     src={new Buffer(item.poster, "base64").toString("binary")}
-                                        //     width={300}
-                                        //     height={300}
-                                        //     alt="Picture of the author"
-                                        // />
+                                        <Image
+                                            src={new Buffer(item.poster, "base64").toString("binary")}
+                                            width={300}
+                                            height={300}
+                                            alt="Picture of the author"
+                                        />
                                     }</td>
                                     <td className="border border-slate-300 text-center">{item.trailer}</td>
                                     <td className="border border-slate-300 text-center">{item.trangthai}</td>
@@ -420,8 +489,8 @@ const QLPhim = () => {
                                     <td className="border border-slate-300 text-center">{item.quocgia}</td>
 
                                     <td className="border border-slate-300 text-center">
-                                        <EditIcon className="cursor-pointer" />
-                                        <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} />
+                                        <EditIcon onClick={() => handleSuaTTPhim(item.id, item.tenphim, item.daodien, item.dienvien, item.nsx, item.ngonngu, item.ngaychieu, item.tomtat, item.thoiluong, item.poster, item.trailer, item.trangthai, item.dieukien, item.quocgia)} className="cursor-pointer" />
+                                        <ClearIcon onClick={() => handleXoaTTphim(item.id)} className="cursor-pointer" sx={{ color: 'red' }} />
                                     </td>
 
                                 </tr>
@@ -429,7 +498,7 @@ const QLPhim = () => {
                         ))}
                     </tbody>
                 </table>
-                db</div>
+            </div>
         </div>
     );
 };

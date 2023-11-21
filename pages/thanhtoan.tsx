@@ -200,7 +200,7 @@ const Thanhtoan = () => {
 
                     if (res && res.errCode === 0) {
                         console.log(res)
-                        localStorage.removeItem("ve");
+                        // localStorage.removeItem("ve");
                         alert("Đặt vé thành công")
                         // handleCloseClick();
                     } else {

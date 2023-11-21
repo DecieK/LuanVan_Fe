@@ -77,7 +77,7 @@ const Login = () => {
 
 
   const login = (e: { preventDefault: () => void; }) => {
-    // e.preventDefault();
+    e.preventDefault();
     Axios.post("http://localhost:8080/api/Dangnhap", {
       Email_KH: username,
       Matkhau_KH: password,
@@ -91,7 +91,7 @@ const Login = () => {
         console.log("asdasdasdasd")
         console.log("thành công")
         // const handleLayTTkhachhang = async () => {
-        try {
+        // try {
           const params = {
             Email_KH: username,
           };
@@ -100,13 +100,13 @@ const Login = () => {
           console.log(res)
           localStorage.setItem('khachhang', JSON.stringify(res));
           setKhachhang(res);
-        } catch (error) {
-          console.log(error);
-        }
-        // router.push({
-        //   // pathname: '/',
-        //   // query: { username: username },
-        // })
+        // } catch (error) {
+        //   console.log(error);
+        // }
+        router.push({
+          pathname: '/',
+          // query: { username: username },
+        })
       }
     })
   }
