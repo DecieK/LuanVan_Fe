@@ -61,30 +61,30 @@ const QLKhachhang = () => {
         },
     ])
 
-    const handleLayTTCumrap = async () => {
-        try {
-            const params = {
-                tenTK: 'ALL',
-            };
-            // console.log("searchdate", params);
-            const response = await LayTTKhachhang(params);
-            const res: Khachhang[] = response.khachhangs;
-            // console.log("check api searchdate ghe: ", response);
-            // console.log("length", res.length);
-            setKhachhang(res);
-            // console.log(res.length)s
+    // const handleLayTTCumrap = async () => {
+    //     try {
+    //         const params = {
+    //             tenTK: 'ALL',
+    //         };
+    //         // console.log("searchdate", params);
+    //         const response = await LayTTKhachhang(params);
+    //         const res: Khachhang[] = response.khachhangs;
+    //         // console.log("check api searchdate ghe: ", response);
+    //         // console.log("length", res.length);
+    //         setKhachhang(res);
+    //         // console.log(res.length)s
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
 
     useEffect(() => {
         const handleLayTTKhachhang = async () => {
             try {
                 const params = {
-                    tenTK: 'ALL',
+                    Email_KH: 'ALL',
                 };
                 // console.log("searchdate", params);
                 const response = await LayTTKhachhang(params);

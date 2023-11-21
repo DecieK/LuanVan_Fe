@@ -8,7 +8,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import { aborted } from "util";
-import { LayTTRap_idcumrap } from "@/service/userService";
+import { LayTTPhim, LayTTRap_idcumrap } from "@/service/userService";
 import Image from 'next/image'
 import dayjs from "dayjs"
 
@@ -75,43 +75,98 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
     // }
 
     useEffect(() => {
-        setPhim(phimP)
-        setLoaiphim(loaiphimP)
+        const handleLayTTPhim = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTPhim(params);
+                const res: Phim[] = response.phims;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setPhim(res);
 
-    }, [loaiphimP, phimP])
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        handleLayTTPhim()
+
+    }, [])
+    // useEffect(() => {
+    //     setPhim(phimP)
+    //     setLoaiphim(loaiphimP)
+
+    // }, [loaiphimP, phimP])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
-            <div className="space-y-5">
-                <Autocomplete
-                    value={valueloaiphim}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={loaiphim.map((option) => option.tenloai)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        { newValue ? setValueloaiphim(newValue) : null }
-                        // { newValue ? handleLayttRap(newValue) : null }
+            <p className="uppercase text-center text-2xl font-semibold">danh sách phim</p>
+            <div className="w-11/12 flex m-auto mt-5 mb-5">
+                <div className="basis-6/12 space-y-3 ">
+                    <div className="flex">
+                        <p className="basis-3/12">Tên phim:</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Đạo diễn</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Diễn viên</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Nhà sản xuất</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Ngôn ngữ</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Ngày chiếu</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Tóm tắt</p>
+                        <textarea className="h-20 w-80 border-2 outline-none pl-2" />
+                    </div>
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Loại phim" />}
-                />
+                </div>
+                <div className="basis-6/12 space-y-3">
+                    <div className="flex">
+                        <p className="basis-3/12">Thời lượng</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Poster</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Trailer</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Trạng thái phim</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Giới hạn tuổi</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
+                    <div className="flex">
+                        <p className="basis-3/12">Quốc gia</p>
+                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                    </div>
 
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Tên rạp</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setTenTTTT(event.target.value)}
-                    ></input>
                 </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Số lượng ghế</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setDiachi(event.target.value)}
-                    ></input>
-                </div>
-                <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40">Lưu thông tin</button></div>
+                {/* <div className="basis-4/12 border-2 border-green-300">
+
+                </div> */}
+
             </div>
             <div className="w-full overflow-x-auto">
                 <table className=" border-separate  border border-slate-400 w-full ">
@@ -167,7 +222,6 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                                     <td className="border border-slate-300 text-center">{item.trangthai}</td>
                                     <td className="border border-slate-300 text-center">{item.dieukien}</td>
                                     <td className="border border-slate-300 text-center">{item.quocgia}</td>
-                                    {/* <td className="border border-slate-300 text-center">{valueRap ? valueRap : }</td> */}
 
                                     <td className="border border-slate-300 text-center">
                                         <EditIcon className="cursor-pointer" />
@@ -179,7 +233,7 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                         ))}
                     </tbody>
                 </table>
-            </div>
+                d</div>
         </div>
     );
 };
