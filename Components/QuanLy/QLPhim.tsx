@@ -131,7 +131,7 @@ const QLPhim = () => {
                 id: id
             });
         if (res && res.errCode === 0) {
-            console.log(res)
+           console.log(res)
             handleLayTTPhim()
             setDaodien('')
             setDienvien('')
