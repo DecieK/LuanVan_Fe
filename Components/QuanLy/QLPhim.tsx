@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Noto_Serif } from 'next/font/google'
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 // import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import { aborted } from "util";
-import { LayTTPhim, LayTTRap_idcumrap } from "@/service/userService";
+import { LayTTPhim, LayTTRap_idcumrap, Themttphim } from "@/service/userService";
 import Image from 'next/image'
 import dayjs from "dayjs"
+import CommonUtils from "../CommonUtils";
 
 
 const noto_serif = Noto_Serif({
@@ -18,12 +20,8 @@ const noto_serif = Noto_Serif({
     subsets: ['latin'],
     // display: 'swap',
 })
-type Props = {
-    phimP: any
-    loaiphimP: any
 
-};
-const QLPhim = ({ phimP, loaiphimP }: Props) => {
+const QLPhim = () => {
 
     interface Loaiphim {
         id: number;
@@ -34,7 +32,7 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
         tenphim: string;
         dieukien: number;
         trailer: string;
-        poster: string;
+        // poster: string;
         dienvien: string;
         ngonngu: string;
         daodien: string;
@@ -50,6 +48,23 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
     const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
     const [valueloaiphim, setValueloaiphim] = useState('');
+    const [tenphim, setTenphim] = useState("");
+    const [dieukien, setDieukien] = useState(Number);
+    const [trailer, setTrailer] = useState("");
+    const [dienvien, setDienvien] = useState("");
+    const [ngonngu, setNgonngu] = useState("");
+    const [quocgia, setQuocgia] = useState("");
+    const [daodien, setDaodien] = useState("");
+    const [thoiluong, setThoiluong] = React.useState('')
+    const [ngaychieu, setNgaychieu] = useState(new Date());
+    const [tomtat, setTomtat] = useState("");
+    const [nsx, setNsx] = useState("");
+    const [trangthai, setTrangthai] = useState("");
+    const [prevURLIMG, setPrevURLIMG] = useState("");
+    const [poster, setPoster] = useState("");
+    const [fileIMG, setFileIMG] = useState<File>()
+    const [fileVD, setFileVD] = useState<File>()
+    const [open, setOpen] = useState(Boolean);
 
     // const handleLayttRap = (value: string) => {
     //     setValueCumrap(value)
@@ -73,7 +88,105 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
     //     })
 
     // }
+    const openPreviewImg = () => {
+        if (!prevURLIMG) return;
+        setOpen(true)
 
+    };
+    const handleOnChangeImage = async (event: { target: { files: any; }; }) => {
+        console.log("img")
+        setFileIMG(event.target.files[0]);
+
+        let data = event.target.files;
+        let file = data[0];
+
+        if (file) {
+            let base64img = await CommonUtils.getBase64(file);
+            console.log("check base64 img: ", base64img);
+            let objectUrl = URL.createObjectURL(file);
+            console.log("check objectUrl img: ", objectUrl);
+
+            setPoster(base64img)
+            setPrevURLIMG(objectUrl)
+
+        }
+        console.log("setPrevURLIMG", prevURLIMG)
+
+    };
+    const handleLayTTPhim = async () => {
+        try {
+            const params = {
+                key: 'ALL',
+            };
+            // console.log("searchdate", params);
+            const response = await LayTTPhim(params);
+            const res: Phim[] = response.phims;
+            // console.log("check api searchdate ghe: ", response);
+            // console.log("length", res.length);
+            setPhim(res);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const handleThemTTPhim = async () => {
+        console.log("tenphim", tenphim)
+        console.log("dieukien", dieukien)
+        console.log("trailer", trailer)
+        console.log("dienvien", dienvien)
+        console.log("ngonngu", ngonngu)
+        console.log("quocgia", quocgia)
+        console.log("daodien", daodien)
+        console.log("tomtat", tomtat)
+        console.log("nsx", nsx)
+        console.log("trangthai", trangthai)
+        console.log("thoiluong", thoiluong)
+        console.log("ngaychieu", ngaychieu)
+
+        let res = await Themttphim(
+            {
+                Tenphim: tenphim,
+                Dieukien: dieukien,
+                Poster: poster,
+                Trailer: trailer,
+                Dienvien: dienvien,
+                Ngonngu: ngonngu,
+                Quocgia: quocgia,
+                Tomtat: tomtat,
+                Daodien: daodien,
+                Thoiluong: thoiluong,
+                Ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
+                Nsx: nsx,
+                Trangthai: trangthai
+
+            });
+        if (res && res.errCode === 0) {
+            console.log(res)
+            handleLayTTPhim()
+            setDaodien('')
+            setDienvien('')
+            setDieukien(0)
+            setNgaychieu(new Date())
+            setNgonngu('')
+            setNsx('')
+            setQuocgia('')
+            setTenphim('')
+            setTrangthai('')
+            setThoiluong('')
+            setTomtat('')
+            setTrailer('')
+
+
+            alert("Thêm thành công")
+
+
+
+        } else {
+            console.log(res)
+            alert("Thêm không thành công")
+
+        };
+    }
     useEffect(() => {
         const handleLayTTPhim = async () => {
             try {
@@ -108,66 +221,149 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                 <div className="basis-6/12 space-y-3 ">
                     <div className="flex">
                         <p className="basis-3/12">Tên phim:</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        value={tenphim}
+                            onChange={(event) => setTenphim(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Đạo diễn</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        value={daodien}
+                            onChange={(event) => setDaodien(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Diễn viên</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                            value={dienvien}
+                            onChange={(event) => setDienvien(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Nhà sản xuất</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                            value={nsx}
+                            onChange={(event) => setNsx(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Ngôn ngữ</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        value={ngonngu}
+                            onChange={(event) => setNgonngu(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Ngày chiếu</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        {/* <input className="h-9 w-80 border-2 outline-none pl-2"
+
+                        /> */}
+                        <DatePicker
+                            className=""
+                            // type="datetime"
+                            selected={ngaychieu}
+                            // onChange={handlSearchLichkham}
+                            // onChange={(date: Date) => handleLayTTChieu(date)}
+                            onChange={(date: Date) => setNgaychieu(date)}
+                            // onChange={(date: Date) => handlSearchDate((date))}
+                            dateFormat="dd/MM/yyyy"
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Tóm tắt</p>
-                        <textarea className="h-20 w-80 border-2 outline-none pl-2" />
+                        <textarea className="h-20 w-80 border-2 outline-none pl-2"
+                            value={tomtat}
+                            onChange={(event) => setTomtat(event.target.value)}
+                        />
                     </div>
 
                 </div>
                 <div className="basis-6/12 space-y-3">
                     <div className="flex">
                         <p className="basis-3/12">Thời lượng</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                            onChange={(event) => setThoiluong(event.target.value)}
+                            value={thoiluong}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Poster</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Trailer</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        value={trailer}
+                            onChange={(event) => setTrailer(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Trạng thái phim</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        value={trangthai}
+                            onChange={(event) => setTrangthai(event.target.value)}
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Giới hạn tuổi</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input type="number" className="h-9 w-80 border-2 outline-none pl-2"
+                            value={dieukien}
+                            onChange={(event) => setDieukien(event.target.valueAsNumber)}
+
+                        />
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Quốc gia</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2" />
+                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        value={quocgia}
+                            onChange={(event) => setQuocgia(event.target.value)}
+                        />
                     </div>
 
                 </div>
+                <div>
+                        <div className="  pb-20">
+                            <label>
+                                {/* <FormattedMessage id="" /> */}
+                            </label>
+                            <div className="preview-img-container bg-slate-500">
+                                <input
+                                    className="w-56 boder-2 bg-slate-400"
+                                    id="preview-img"
+                                    type="file"
+                                    accept=".png,.jpg"
+                                    hidden
+                                    // onChange={(e) => setFileIMG(e.target.files?.[0])}
+                                    onChange={(event) => handleOnChangeImage(event)}
+                                />
+                                <label className="lable-upload" htmlFor="preview-img">
+                                    Tải ảnh <i className="fas fa-upload"></i>
+                                </label>
+
+                            </div>
+                        </div>
+                        <div
+                            className="preview-img bg-no-repeat "
+
+                            style={{
+                                backgroundImage: `url(${prevURLIMG})`,
+                            }}
+                            onClick={() => openPreviewImg()}
+
+                        >
+                            review image:
+                        </div>
+                        {/* <img src={prevURLIMG}></img> */}
+                    </div>
                 {/* <div className="basis-4/12 border-2 border-green-300">
 
                 </div> */}
 
             </div>
+            <button className="bg-red-500" onClick={handleThemTTPhim}>Thêm phim</button>
             <div className="w-full overflow-x-auto">
                 <table className=" border-separate  border border-slate-400 w-full ">
                     <thead>
@@ -211,12 +407,12 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                                     <td className="border border-slate-300 text-center">{item.tomtat}</td>
                                     <td className="border border-slate-300 text-center">{item.thoiluong}</td>
                                     <td className="border border-slate-300 text-center">{
-                                        <Image
-                                            src={new Buffer(item.poster, "base64").toString("binary")}
-                                            width={300}
-                                            height={300}
-                                            alt="Picture of the author"
-                                        />
+                                        // <Image
+                                        //     src={new Buffer(item.poster, "base64").toString("binary")}
+                                        //     width={300}
+                                        //     height={300}
+                                        //     alt="Picture of the author"
+                                        // />
                                     }</td>
                                     <td className="border border-slate-300 text-center">{item.trailer}</td>
                                     <td className="border border-slate-300 text-center">{item.trangthai}</td>
@@ -233,7 +429,7 @@ const QLPhim = ({ phimP, loaiphimP }: Props) => {
                         ))}
                     </tbody>
                 </table>
-                d</div>
+                db</div>
         </div>
     );
 };
