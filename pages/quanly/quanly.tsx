@@ -55,6 +55,7 @@ import QLKhachhang from "@/Components/QuanLy/QLKhachhang";
 import QLDichvu from "@/Components/QuanLy/QLDichvu";
 import QLKhuyenmai from "@/Components/QuanLy/QLKhuyenmai";
 import QLNhanvien from "@/Components/QuanLy/QLNhanvien";
+import QLDoanhthu from "@/Components/QuanLy/QLDoanhthu";
 
 
 const Quanly = () => {
@@ -432,7 +433,7 @@ const Quanly = () => {
             {option == 5 ? (
               <div className="w-10/12 m-5">
 
-                <QLPhim phimP={undefined} loaiphimP={undefined} />
+                <QLPhim  />
 
               </div>
             ) : null}
@@ -489,6 +490,9 @@ const Quanly = () => {
         </TabPanel>
         <TabPanel value="4">
           <QLNhanvien />
+        </TabPanel>
+        <TabPanel value="5">
+          <QLDoanhthu />
         </TabPanel>
       </TabContext>
     </Box >
