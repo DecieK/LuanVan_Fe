@@ -96,9 +96,9 @@ const QLChieu = () => {
             console.log("check api searchdate chieu: ", response);
             // console.log("length", res.length);
             setChieu(res);
-            res.map((res) => {
-                console.log("asdasdasdas", res.ngaychieu.getDate())
-            })
+            // res.map((res) => {
+            //     console.log("asdasdasdas", res.ngaychieu.getDate())
+            // })
 
 
         } catch (error) {
