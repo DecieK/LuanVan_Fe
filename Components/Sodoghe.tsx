@@ -740,7 +740,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
                     }
                     key={ghes.id}
                     className={`h-10 w-10 m-auto 
-                      ${ghedoi ? 'w-20 rounded-xl h-10 border-2 border-green-700' : ''}           
+                      ${ghedoi ? 'w-20 rounded-xl h-10 border-2 border-green-700 ' : ''}           
                       ${gheVIP ? 'border-2 border-yellow-500 ' : ''}
                       ${classGhedangdat ? 'bg-blue-400' : ''}
                       ${gheDadat ? 'bg-gray-600 text-red-500' : ''}

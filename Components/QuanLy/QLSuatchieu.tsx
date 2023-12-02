@@ -158,6 +158,8 @@ const QLSuatchieu = () => {
                         <th className="border border-slate-300 text-center">#</th>
                         <th className="border border-slate-300 text-center">Giờ bắt đâu</th>
                         <th className="border border-slate-300 text-center">Giờ kết thúc</th>
+                        <th className="border border-slate-300 text-center">Tác vụ</th>
+
                     </tr>
                 </thead>
                 <tbody>

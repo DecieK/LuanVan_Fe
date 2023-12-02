@@ -60,7 +60,7 @@ const QLPhim = () => {
     const [nsx, setNsx] = useState("");
     const [trangthai, setTrangthai] = useState("");
     const [prevURLIMG, setPrevURLIMG] = useState("");
-    const [poster, setPoster] = useState("");
+    const [poster, setPoster] = useState<any>();
     const [fileIMG, setFileIMG] = useState<File>()
     const [open, setOpen] = useState(Boolean);
 
@@ -83,13 +83,13 @@ const QLPhim = () => {
         setId(id)
     }
     const handleCapnhatTTphim = async () => {
-
+        console.log("poster", poster)
         let res = await SuaTTPhim(
             {
                 id: id,
                 Tenphim: tenphim,
                 Dieukien: dieukien,
-                Poster: poster,
+                Poster: prevURLIMG,
                 Trailer: trailer,
                 Dienvien: dienvien,
                 Ngonngu: ngonngu,
@@ -131,7 +131,7 @@ const QLPhim = () => {
                 id: id
             });
         if (res && res.errCode === 0) {
-           console.log(res)
+            console.log(res)
             handleLayTTPhim()
             setDaodien('')
             setDienvien('')
@@ -211,6 +211,7 @@ const QLPhim = () => {
         console.log("ngaychieu", ngaychieu)
 
         let res = await Themttphim(
+
             {
                 Tenphim: tenphim,
                 Dieukien: dieukien,
@@ -430,8 +431,15 @@ const QLPhim = () => {
                 </div> */}
 
             </div>
-            <button className="bg-red-500" onClick={handleThemTTPhim}>Thêm phim</button>
-            <button className="bg-red-500" onClick={handleCapnhatTTphim}>Cập nhật phim</button>
+            <div className=" w-8/12 ">
+                <button
+                    className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+
+                    onClick={handleThemTTPhim}
+                >Thêm phim</button>
+                <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                    onClick={handleCapnhatTTphim}>Cập nhật phim</button>
+            </div>
 
             <div className="w-full overflow-x-auto">
                 <table className=" border-separate  border border-slate-400 w-full ">

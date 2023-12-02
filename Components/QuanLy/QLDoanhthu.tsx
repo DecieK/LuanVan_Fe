@@ -6,7 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu, SuaTTChieu, ThemTTChieu, Thongke_ngay, XoaTTChieu, layTTChieu } from "@/service/userService";
+import { LayTTPhim, LayTTRap_idcumrap, LayTTSuatchieu, SuaTTChieu, ThemTTChieu, Thongke_cumrap, Thongke_ngay, Thongke_phim, Thongke_thang, Thongke_tuan, XoaTTChieu, layTTChieu } from "@/service/userService";
 import index from "@/pages";
 import dayjs from "dayjs"
 
@@ -59,255 +59,295 @@ const QLDoanhthu = () => {
         nsx: string;
         trangthai: string;
     }
-    const [ngaychieu, setNgaychieu] = useState(new Date());
-    const [giave, setGiave] = useState('');
-    const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
-    const [rap, setRap] = useState<Rap[]>([]);
-    const [phim, setPhim] = useState<Phim[]>([]);
-    const [chieu, setChieu] = useState<Chieu[]>([]);
-    const [step, setStep] = useState('them');
-    const [valuePhim, setValuePhim] = useState('');
-    const [valueRap, setValueRap] = useState('');
-    const [valueSuatchieu, setValueSuatchieu] = useState('');
-    const [id_p, setId_p] = useState(Number);
-    const [id_r, setId_r] = useState(Number);
-    const [id_sc, setId_sc] = useState(Number);
-    const [id_c, setId_c] = useState(Number);
-    const [startDate, setStartDate] = useState(new Date());
-    // const [DSngaychieus, setDSngaychieus] = useState([
-    //     {
-    //         id: 0,
-    //         ngaychieu: new Date(),
 
-    //     },
-    // ])
+    const [thongke_ngay, setThongke_ngay] = useState<any[]>([]);
+    const [thongke_phim, setThongke_phim] = useState<any[]>([]);
+    const [thongke_cumrap, setThongke_cumrap] = useState<any[]>([]);
+    const [thongke_thang, setThongke_thang] = useState<any[]>([]);
+    const [thongke_tuan, setThongke_tuan] = useState<any[]>([]);
+    const options = ['Theo ngày', 'Theo tuần', 'Theo tháng', 'Theo phim', 'Theo TTTT'];
+    const [valueCBB, setValueCBB] = useState('')
+    let d
+    let d2
 
-
-
+    const handleCombobox = (value: string) => {
+        setValueCBB(value)
+    }
 
     useEffect(() => {
 
-        const handleLayTTRap = async () => {
+        const handleThongKe_Ngay = async () => {
             try {
                 const params = {
                     key: 'ALL',
                 };
                 // console.log("searchdate", params);
                 const response = await Thongke_ngay(params);
-                const res: Rap[] = response.raps;
+                setThongke_ngay(response.thongke)
                 // console.log("check api searchdate ghe: ", response);
-                // console.log("length", res.length);
-                setRap(res);
 
             } catch (error) {
                 console.log(error);
             }
         }
-        const handleLayTTSuatchieu = async () => {
+        const handleThongke_Phim = async () => {
             try {
                 const params = {
                     key: 'ALL',
                 };
                 // console.log("searchdate", params);
-                const response = await LayTTSuatchieu(params);
-                const res: Suatchieu[] = response.suatchieus;
-                // console.log("check api searchdate ghe: ", response);
-                // console.log("length", res.length);
-                setSuatchieu(res);
+                const response = await Thongke_phim(params);
+                setThongke_phim(response.thongke_phim)
+                // console.log("check api searchdate setThongke_phim: ", response);
 
             } catch (error) {
                 console.log(error);
             }
         }
-        const handleLayTTPhim = async () => {
+        const handleThongke_Cumrap = async () => {
             try {
                 const params = {
                     key: 'ALL',
                 };
                 // console.log("searchdate", params);
-                const response = await LayTTPhim(params);
-                const res: Phim[] = response.phims;
-                // console.log("check api searchdate ghe: ", response);
-                // console.log("length", res.length);
-                setPhim(res);
+                const response = await Thongke_cumrap(params);
+                setThongke_cumrap(response.thongke_cumrap)
+                // console.log("check api searchdate setThongke_cumrap: ", response);
 
             } catch (error) {
                 console.log(error);
             }
         }
-        const handleLayTTChieu = async () => {
+        const handleThongke_Thang = async () => {
             try {
                 const params = {
-                    ngaychieu: 'ALL',
-                    id_phim: 'ALL',
-                    id_rap: 'ALL'
-
+                    key: 'ALL',
                 };
                 // console.log("searchdate", params);
-                const response = await layTTChieu(params);
-                const res: Chieu[] = response.ttchieu;
-                console.log("check api searchdate chieu: ", response);
-                // console.log("length", res.length);
-                setChieu(res);
-                // console.log(res.length)
-
+                const response = await Thongke_thang(params);
+                setThongke_thang(response.thongke)
+                // console.log("check api searchdate handleThongke_Thang: ", response);
 
             } catch (error) {
                 console.log(error);
             }
         }
-        handleLayTTRap()
-        handleLayTTSuatchieu()
-        handleLayTTPhim()
-        handleLayTTChieu()
+        const handleThongke_Tuan = async () => {
+            try {
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await Thongke_tuan(params);
+                setThongke_tuan(response.thongke)
+                console.log("check api searchdate handleThongke_Tuan: ", response);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        handleThongKe_Ngay()
+        handleThongke_Phim()
+        handleThongke_Cumrap()
+        handleThongke_Thang()
+        handleThongke_Tuan()
     }, [])
     return (
         <div>
-            <div className="space-y-5">
-                <Autocomplete
-                    value={valuePhim}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={phim.map((option) => option.tenphim)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTPhim(newValue) : null }
+            <Autocomplete
+                value={valueCBB}
+                disablePortal
+                id="combo-box-demo"
+                options={options}
+                // options={}
+                onChange={(event: any, newValue: string | null) => {
+                    // {newValue ? setValueCumrap(newValue) : null}
+                    { newValue ? handleCombobox(newValue) : null }
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Phim" />}
-                />
-                <Autocomplete
-                    value={valueRap}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={rap.map((option) => option.ten_rap)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTRap(newValue) : null }
+                }}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Thống kê danh thu" />}
+            />
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Rạp" />}
-                />
-                <Autocomplete
-                    value={valueSuatchieu}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={suatchieu.map((option) => (option.giobatdau + " - " + option.gioketthuc))}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTSuatchieu(newValue) : null }
+            {
+                valueCBB === 'Theo ngày' ?
+                    <div className="w-full overflow-x-auto">
+                        <table className=" border-separate  border border-slate-400 w-full ">
+                            <thead>
+                                <tr>
+                                    <th className="border border-slate-300 text-center ">#</th>
+                                    <th className="border border-slate-300 text-center">Ngày chiếu</th>
+                                    <th className="border border-slate-300 text-center">Tổng tiền</th>
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Suất chiếu" />}
-                />
 
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Ngày chiếu</p>
-                    <DatePicker
-                        className=""
-                        // type="datetime"
-                        selected={ngaychieu}
-                        // onChange={handlSearchLichkham}
-                        // onChange={(date: Date) => handleLayTTChieu(date)}
-                        onChange={(date: Date) => setNgaychieu(date)}
-                        // onChange={(date: Date) => handlSearchDate((date))}
-                        dateFormat="dd/MM/yyyy"
-                    />
-                    {/* <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setNgaychieu(event.target.value)}
-                    ></input> */}
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Giá vé</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        value={giave}
-                        onChange={(event) => setGiave(event.target.value)}
-                    ></input>
-                </div>
-                <div className=" w-8/12 ">
-                    {/* {step === "them" &&
-                        ( */}
-                            <button onClick={()=>handleThemTTChieu()}
-                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        >Thêm CSVC</button>
-{/* 
-                        )
-                    } */}
-                    {/* {step === "capnhat" &&
-                        ( */}
-                            <button onClick={()=>handleCapnhatTTChieu()}
-                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        >Cập nhật nội quy</button>
 
-                         {/* ) */}
-                     {/* } */}
-                </div>
-            </div>
-            <table className=" border-separate  border border-slate-400 w-full  ">
-                <thead>
-                    <tr>
-                        <th className="border border-slate-300 text-center">#</th>
-                        <th className="border border-slate-300 text-center">Tên phim</th>
-                        <th className="border border-slate-300 text-center">Tên rạp</th>
-                        <th className="border border-slate-300 text-center">Thời gian chiếu</th>
-                        <th className="border border-slate-300 text-center">Ngày chiếu</th>
-                        <th className="border border-slate-300 text-center">Giá vé</th>
-                        <th className="border border-slate-300 text-center">Tác vụ</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {chieu.map((item, index) => (
-                        <>
-                            <tr key={item.id}>
-                                <td className="border border-slate-300 text-center">{item.id}</td>
-                                <td className="border border-slate-300 text-center">
-                                    {
-                                        phim.map((p) => p.id === item.id_phim ? p.tenphim : null)
-                                    }
-                                </td>
-                                <td className="border border-slate-300 text-center">
-                                    {
-                                        rap.map((r) => r.id === item.id_rap ? r.ten_rap : null)
-                                    }
-                                </td>
-                                <td className="border border-slate-300 text-center">
-                                    {
-                                        suatchieu.map((sc) => sc.id === item.id_suatchieu ? sc.giobatdau + " - " + sc.gioketthuc : null)
-                                    }
-                                </td>
-                                <td className="border border-slate-300 text-center">
-                                    {
-                                        dayjs(item.ngaychieu).format("DD/MM/YYYY")
-                                    }
-                                </td>
-                                <td className="border border-slate-300 text-center">{item.giave} VNĐ</td>
-                                {/* <td className="border border-slate-300 text-center">{item.giave }</td> */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {thongke_ngay.map((item, index) => (
+                                    <>
+                                        <tr key={index}>
+                                            <td className="border border-slate-300 text-center">#</td>
+                                            <td className="border border-slate-300 text-center ">
+                                                {
+                                                    dayjs(item.chieu.ngaychieu).format("DD/MM/YYYY")
 
-                                <td className="border border-slate-300 text-center">
-                                    <EditIcon className="cursor-pointer"
-                                        onClick={() => handleSuaTTChieu(item.ngaychieu, item.giave, item.id, item.id_phim, item.id_rap, item.id_suatchieu)}
+                                                }</td>
+                                            <td className="border border-slate-300 text-center">{item.total_amount} VNĐ</td>
 
-                                    />
-                                    <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
-                                        onClick={() => handleXoaTTChieu(item.id)}
 
-                                    />
-                                </td>
+
+                                        </tr>
+                                    </>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    : null
+            }
+            {valueCBB === 'Theo phim' ?
+                <div className="w-full overflow-x-auto">
+                    <table className=" border-separate  border border-slate-400 w-full ">
+                        <thead>
+                            <tr>
+                                <th className="border border-slate-300 text-center ">#</th>
+                                <th className="border border-slate-300 text-center ">Phim</th>
+                                <th className="border border-slate-300 text-center">Tổng tiền</th>
+
+
+
 
                             </tr>
-                        </>
-                    ))}
-                </tbody>
-            </table>
-            {/* <button onClick={handleLayTTChieu}>click</button> */}
-        </div>
+                        </thead>
+                        <tbody>
+                            {thongke_phim.map((item2, index2) => (
+                                <>
+                                    <tr key={index2}>
+                                        <td className="border border-slate-300 text-center">#</td>
+                                        <td className="border border-slate-300 text-center ">
+                                            {
+                                                item2.chieu.phim.tenphim
+
+                                            }</td>
+                                        <td className="border border-slate-300 text-center">{item2.total_amount} VNĐ</td>
+
+
+
+                                    </tr>
+                                </>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                : null
+            }
+            {valueCBB === 'Theo TTTT' ?
+                <div className="w-full overflow-x-auto">
+                    <table className=" border-separate  border border-slate-400 w-full ">
+                        <thead>
+                            <tr>
+                                <th className="border border-slate-300 text-center ">#</th>
+                                <th className="border border-slate-300 text-center ">Trung tâm thương mại</th>
+                                <th className="border border-slate-300 text-center">Tổng tiền</th>
+
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {thongke_cumrap.map((item3, index3) => (
+                                <>
+                                    <tr key={index3}>
+                                        <td className="border border-slate-300 text-center">#</td>
+                                        <td className="border border-slate-300 text-center ">
+                                            {
+                                                item3.qlcumrap.ten_tttt
+
+                                            }</td>
+                                        <td className="border border-slate-300 text-center">{item3.total_amount} VNĐ</td>
+
+
+
+                                    </tr>
+                                </>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                : null
+            }
+            {
+                valueCBB === 'Theo tháng' ?
+                    <div className="w-full overflow-x-auto">
+                        <table className=" border-separate  border border-slate-400 w-full ">
+                            <thead>
+                                <tr>
+                                    <th className="border border-slate-300 text-center ">#</th>
+                                    <th className="border border-slate-300 text-center">Tháng chiếu</th>
+                                    <th className="border border-slate-300 text-center">Tổng tiền</th>
+
+
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {thongke_thang.map((item4, index4) => (
+                                    <>
+                                        <tr key={index4}>
+                                            <td className="border border-slate-300 text-center">#</td>
+                                            <td className="border border-slate-300 text-center ">{item4.month}</td>
+                                            <td className="border border-slate-300 text-center">{item4.total_amount} VNĐ</td>
+
+
+
+                                        </tr>
+                                    </>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    : null
+            }
+            {
+                valueCBB === 'Theo tuần' ?
+                    <div className="w-full overflow-x-auto">
+                        <table className=" border-separate  border border-slate-400 w-full ">
+                            <thead>
+                                <tr>
+                                    <th className="border border-slate-300 text-center ">#</th>
+                                    <th className="border border-slate-300 text-center">Tuần</th>
+                                    <th className="border border-slate-300 text-center">Tổng tiền</th>
+
+
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {thongke_tuan.map((item5, index5) => {
+                                    d = new Date(item5.chieu.ngaychieu)
+                                    d2 = new Date(d.getFullYear(),0,(2+(item5.week-1)*7))
+                                    return (
+                                        <>
+                                            <tr key={index5}>
+                                                <td className="border border-slate-300 text-center">#</td>
+                                                <td className="border border-slate-300 text-center ">
+                                                    {dayjs(d2).format('DD/MM/YYYY')}
+                                                </td>
+                                                <td className="border border-slate-300 text-center">{item5.total_amount} VNĐ</td>
+                                            </tr>
+                                        </>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    : null
+            }
+        </div >
     );
 };
 

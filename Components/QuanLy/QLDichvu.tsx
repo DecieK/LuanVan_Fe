@@ -284,7 +284,7 @@ const QLDichvu = () => {
     }, [])
     return (
         <div>
-            <div className="space-y-5">
+            <div className="space-y-5 m-5">
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tên dịch vụ</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
@@ -294,9 +294,9 @@ const QLDichvu = () => {
                 </div>
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Ảnh minh họa</p>
-                    <div className="preview-img-container bg-slate-500">
+                    <div className="preview-img-container">
                         <input
-                            className="w-56 boder-2 bg-slate-400"
+                            // className="w-56 boder-2 bg-slate-400"
                             id="preview-img"
                             type="file"
                             accept=".png,.jpg"
@@ -365,7 +365,7 @@ const QLDichvu = () => {
                     >Lưu thông tin</button>
                 </div>
             </div>
-            <table className=" border-separate  border border-slate-400 w-full  ">
+            <table className=" border-separate  border border-slate-400 w-full m-5 ">
                 <thead>
                     <tr>
                         <th className="border border-slate-300 text-center">#</th>

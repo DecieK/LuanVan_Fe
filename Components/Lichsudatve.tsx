@@ -173,22 +173,22 @@ const Lichsudatve = ({
     const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [idp, setIdp] = useState(Number);
-    const [step, setStep] = useState('chung');
+    const [step, setStep] = useState(Boolean);
     let d = new Date(ngaychieu)
 
 
 
 
     const handleHuyVe1 = async () => {
-        let res = await VNPayRefund(
-            {
-                orderId: (magd),
-                transDate: tggd,
-                amount: tongtien,
-                transType: '02',
-                user: hten_KH
-            });
-        if (res && res.response.body.vnp_ResponseCode === '00') {
+        // let res = await VNPayRefund(
+        //     {
+        //         orderId: (magd),
+        //         transDate: tggd,
+        //         amount: tongtien,
+        //         transType: '02',
+        //         user: hten_KH
+        //     });
+        // if (res && res.response.body.vnp_ResponseCode === '00') {
             let res1 = await handleHuyVe(
                 {
                     id_ve: id
@@ -203,11 +203,11 @@ const Lichsudatve = ({
                 console.log(res1)
                 alert('Lỗi hủy vé')
             }
-        } else {
-            console.log(res)
+        // } else {
+        //     console.log(res)
 
-            alert('Lỗi hoàn tiền vé')
-        }
+        //     alert('Lỗi hoàn tiền vé')
+        // }
 
     }
 
@@ -415,7 +415,7 @@ const Lichsudatve = ({
                     />
                 </div>
                 <div className='bg-gray-200  basis-4/5  rounded-xl border-gray-300 border-l-2 border-dashed'>
-                    <div className=" flex rounded-lg mx-7 my-3">
+                    <div className=" flex rounded-lg mx-7 my-3" onClick={() => setStep(!step)}>
                         <div className="w-2/6 m-auto mt-[3%] ">
 
                             <Image
@@ -455,11 +455,11 @@ const Lichsudatve = ({
 
 
                         </div>
-                        {
+                        {/* {
                             step === 'chung' ?
                                 <KeyboardDoubleArrowDownIcon onClick={() => setStep('chitiet')} />
                                 : null
-                        }
+                        } */}
                     </div>
 
 
@@ -467,14 +467,14 @@ const Lichsudatve = ({
 
             </div>
 
-            {step === "chitiet" &&
+            {step === true &&
                 (
                     <div className="w-4/12 border-2 p-4 border-green-400 m-auto">
-                        <KeyboardDoubleArrowUpIcon onClick={() => setStep('chung')} />
+                        <KeyboardDoubleArrowUpIcon onClick={() => setStep(!step)} />
                         <div className="flex  text-gray-600">
                             <p className="w-1/3">Phòng chiếu</p>
-                            <p className="w-1/3">Số vé</p>
-                            <p className="w-1/3">Số ghế</p>
+                            <p className="w-1/3">Số lượng ghế</p>
+                            <p className="w-1/3">Mã ghế</p>
                         </div>
                         <div className="flex font-semibold">
                             <p className="w-1/3">{tenrap}</p>
@@ -522,12 +522,14 @@ const Lichsudatve = ({
                         <div className="flex my-3">
                             <div className="w-1/2">
                                 <p>Tổng tiền</p>
+                                <p>Mã code</p>
                                 <p>Mã giao dịch</p>
                                 <p>Thời gian giao dịch</p>
                             </div>
                             <div className="w-1/2 text-right">
                                 <p>{tongtien}</p>
-                                <p>qwrerr</p>
+                                <p>{macode}</p>
+                                <p>{magd}</p>
                                 <p>
                                     {dayjs(createdat).format("DD/MM/YYYY") + ' - ' + tgiangiaodich.getHours() + ':' + tgiangiaodich.getMinutes() + ':' + tgiangiaodich.getSeconds()
                                     }

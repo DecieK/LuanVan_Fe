@@ -9,8 +9,9 @@ import Router from 'next/router'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useRef, ChangeEvent, BaseSyntheticEvent } from "react";
 import Axios from "axios";
-import { LayTTKhachhang } from "@/service/userService";
+import { DangKy_KH, LayTTKhachhang } from "@/service/userService";
 import auth from "./firebase";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const noto_serif = Noto_Serif({
   weight: '400',
@@ -70,6 +71,43 @@ const Login = () => {
 
 
   useEffect(() => {
+    const handledangky = async () => {
+      const ttkhachhang = JSON.parse(
+        localStorage.getItem("dangkykh") || "{}"
+      );
+      if (Object.keys(ttkhachhang).length === 0) {
+        // setTrangthai(true)
+        console.log("true");
+      } else {
+        let res = await DangKy_KH(
+          {
+            hten_KH: ttkhachhang[0].hten_KH,
+            Ngaysinh: ttkhachhang[0].Ngaysinh,
+            gt_KH: ttkhachhang[0].gt_KH,
+            sdt_KH: ttkhachhang[0].sdt_KH,
+            cccd_KH: ttkhachhang[0].cccd_KH,
+            email_KH: ttkhachhang[0].email_KH,
+            diachi_KH: ttkhachhang[0].diachi_KH,
+            // taikhoan_KH: taikhoan_KH,
+            matkhau_KH: ttkhachhang[0].matkhau_KH
+
+          });
+        if (res && res.errCode === 0) {
+          console.log(res)
+          alert(res.errMessage)
+          localStorage.removeItem("dangkykh");
+
+        } else {
+          console.log(res)
+          alert(res.errMessage)
+          localStorage.removeItem("dangkykh");
+
+        };
+        console.log(" >>>> check res Ve", ttkhachhang[0].cccd_KH)
+
+      }
+    }
+    handledangky()
     setIsBrowser(true);
 
   }, []);
@@ -84,22 +122,21 @@ const Login = () => {
     }).then(async (response) => {
       if (response.data.errCode) {
         setLoginStatus(response.data.errCode);
-        console.log("status2", loginStatus)
-
+        alert("Thông tin đăng nhập không đúng")
 
       } else {
         console.log("asdasdasdasd")
         console.log("thành công")
         // const handleLayTTkhachhang = async () => {
         // try {
-          const params = {
-            Email_KH: username,
-          };
-          const response = await LayTTKhachhang(params);
-          const res: Khachhang[] = response.khachhangs;
-          console.log(res)
-          localStorage.setItem('khachhang', JSON.stringify(res));
-          setKhachhang(res);
+        const params = {
+          Email_KH: username,
+        };
+        const response = await LayTTKhachhang(params);
+        const res: Khachhang[] = response.khachhangs;
+        console.log(res)
+        localStorage.setItem('khachhang', JSON.stringify(res));
+        setKhachhang(res);
         // } catch (error) {
         //   console.log(error);
         // }
@@ -157,10 +194,12 @@ const Login = () => {
             <button type="button" className="mt-10 uppercase text-white bg-red-400 rounded-md h-9 w-3/4"
               onClick={login}
             >đăng nhập</button>
-            <button onClick={handleBackPage} className="text-left pt-3 ">Trở về</button>
-            {/* <button onClick={() => Router.back()} className="text-left pt-3 ">Trở về</button> */}
+            <div className='flex pt-5 pb-6 text-white'>
+              <ArrowBackIcon />
+              <button onClick={handleBackPage} className="text-left  text-white ">Trở về</button>
+            </div>            {/* <button onClick={() => Router.back()} className="text-left pt-3 ">Trở về</button> */}
 
-            <p className="mt-7 border-2 border-red-400 w-12 h-12 rounded-full text-white pt-2">hoặc</p>
+            {/* <p className="mt-7 border-2 border-red-400 w-12 h-12 rounded-full text-white pt-2">hoặc</p>
             <div className="mt-6 pb-7">
               <Link href=''>
                 <FontAwesomeIcon icon={faFacebook} style={{ color: "#3b5998", }} className="w-8 h-8" />
@@ -168,7 +207,7 @@ const Login = () => {
               <Link href='' className="pl-3">
                 <FontAwesomeIcon icon={faGooglePlusG} style={{ color: "#ffffff", }} className="w-8 h-8 bg-red-300 rounded-full" />
               </Link>
-            </div>
+            </div> */}
           </form>
         </div>
       </center>

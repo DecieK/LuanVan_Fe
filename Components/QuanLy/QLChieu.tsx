@@ -224,7 +224,7 @@ const QLChieu = () => {
         };
     }
     const handleSuaTTChieu = async (ngay: Date, gv: number, id: number, idp: number, idr: number, idsc: number) => {
-       setStep('capnhat')
+        setStep('capnhat')
         let date1 = new Date(ngay)
         setId_c(id)
 
@@ -333,89 +333,91 @@ const QLChieu = () => {
     return (
         <div>
             <div className="space-y-5">
-                <Autocomplete
-                    value={valuePhim}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={phim.map((option) => option.tenphim)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTPhim(newValue) : null }
+                <div className="grid grid-cols-3 justify-items-center gap-5 ">
+                    <Autocomplete
+                        value={valuePhim}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={phim.map((option) => option.tenphim)}
+                        // options={}
+                        onChange={(event: any, newValue: string | null) => {
+                            // {newValue ? setValueCumrap(newValue) : null}
+                            { newValue ? handleLayTTPhim(newValue) : null }
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Phim" />}
-                />
-                <Autocomplete
-                    value={valueRap}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={rap.map((option) => option.ten_rap)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTRap(newValue) : null }
-
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Rạp" />}
-                />
-                <Autocomplete
-                    value={valueSuatchieu}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={suatchieu.map((option) => (option.giobatdau + " - " + option.gioketthuc))}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTSuatchieu(newValue) : null }
-
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Suất chiếu" />}
-                />
-
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Ngày chiếu</p>
-                    <DatePicker
-                        className=""
-                        // type="datetime"
-                        selected={ngaychieu}
-                        // onChange={handlSearchLichkham}
-                        // onChange={(date: Date) => handleLayTTChieu(date)}
-                        onChange={(date: Date) => setNgaychieu(date)}
-                        // onChange={(date: Date) => handlSearchDate((date))}
-                        dateFormat="dd/MM/yyyy"
+                        }}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Phim" />}
                     />
-                    {/* <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                    <Autocomplete
+                        value={valueRap}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={rap.map((option) => option.ten_rap)}
+                        // options={}
+                        onChange={(event: any, newValue: string | null) => {
+                            // {newValue ? setValueCumrap(newValue) : null}
+                            { newValue ? handleLayTTRap(newValue) : null }
+
+                        }}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Rạp" />}
+                    />
+                    <Autocomplete
+                        value={valueSuatchieu}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={suatchieu.map((option) => (option.giobatdau + " - " + option.gioketthuc))}
+                        // options={}
+                        onChange={(event: any, newValue: string | null) => {
+                            // {newValue ? setValueCumrap(newValue) : null}
+                            { newValue ? handleLayTTSuatchieu(newValue) : null }
+
+                        }}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Suất chiếu" />}
+                    />
+
+                    <div className="flex space-x-2  ">
+                        <p className="basis-[40%]">Ngày chiếu</p>
+                        <DatePicker
+                            className="border-b-2 border-gray-300 pl-2"
+                            // type="datetime"
+                            selected={ngaychieu}
+                            // onChange={handlSearchLichkham}
+                            // onChange={(date: Date) => handleLayTTChieu(date)}
+                            onChange={(date: Date) => setNgaychieu(date)}
+                            // onChange={(date: Date) => handlSearchDate((date))}
+                            dateFormat="dd/MM/yyyy"
+                        />
+                        {/* <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
                         onChange={(event) => setNgaychieu(event.target.value)}
                     ></input> */}
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Giá vé</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        value={giave}
-                        onChange={(event) => setGiave(event.target.value)}
-                    ></input>
+                    </div>
+                    <div className="flex space-x-5">
+                        <p className="basis-[20%]">Giá vé</p>
+                        <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                            value={giave}
+                            onChange={(event) => setGiave(event.target.value)}
+                        ></input>
+                    </div>
                 </div>
                 <div className=" w-8/12 ">
                     {/* {step === "them" &&
                         ( */}
-                            <button onClick={()=>handleThemTTChieu()}
+                    <button onClick={() => handleThemTTChieu()}
                         className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        >Thêm CSVC</button>
-{/* 
+                    >Lưu thông tin</button>
+                    {/* 
                         )
                     } */}
                     {/* {step === "capnhat" &&
                         ( */}
-                            <button onClick={()=>handleCapnhatTTChieu()}
+                    <button onClick={() => handleCapnhatTTChieu()}
                         className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        >Cập nhật nội quy</button>
+                    >Cập nhật thông tin</button>
 
-                         {/* ) */}
-                     {/* } */}
+                    {/* ) */}
+                    {/* } */}
                 </div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">

@@ -176,10 +176,6 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
   const [trangthaidoan, setTrangthaidoan] = useState(false)
   const [khuyenmai, setKhuyenmai] = useState<Khuyenmai[]>([]);
   const [doan, setDoan] = useState<Doan[]>([]);
-  // const [id_ghe1, setId_ghe1] = useState(Array);
-  // const [tonggiave, setTonggiave] = useState(Number)
-  // const [tileKM, setTileKM] = useState(Number)
-  // const [giaDA, setGiaDA] = useState(Number)
   const [diemtichluyKH, setDiemtichluyKH] = useState(11)
   const [tienDA, setTienDA] = useState(Number)
   const [tienKM, setTienKM] = useState(Number)
@@ -202,9 +198,6 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
 
   let temp
-
-
-
 
   const gheArr: number[] = []
   const chitietveArr: number[] = []
@@ -273,13 +266,13 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
     if (res && res.errCode === 0) {
 
       console.log(res)
-      alert("Đặt vé thành công")
+      alert("Cập nhật vé thành công")
 
       // handleCloseClick();
     } else {
 
       console.log(res)
-      alert("Đặt vé không thành công")
+      alert("Cập nhật vé KHÔNG thành công")
 
     };
 
@@ -335,7 +328,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
         }
       ]
     }
-    localStorage.setItem('VeUpdate', JSON.stringify(Ve.TTVe));
+    // localStorage.setItem('VeUpdate', JSON.stringify(Ve.TTVe));
     let res = await VNPayRefund(
       {
         orderId: (magd),
@@ -1001,7 +994,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
                 className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
                 onClick={() => handleUpdateve()}
               >
-                Đặt vé
+                Cập nhật
               </button>
               :
               (tongtienBefore - ((sumsum + tienDA) - (sumsum + tienDA) * (tienKM / 100)) < 0) ?
@@ -1011,7 +1004,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
                   <button className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
                     onClick={() => handleTrathemtien()}
                   >
-                    Đặt vé
+                    Cập nhật
                   </button>
                 </Link>
                 :
@@ -1019,7 +1012,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
                   className='text-center h-14 w-48 border-green-600 border-2 bg-green-500 rounded-lg text-3xl '
                   onClick={() => handleHoantien()}
                 >
-                  Đặt vé
+                  Cập nhật  
                 </button>
 
           }

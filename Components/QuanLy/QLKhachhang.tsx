@@ -36,7 +36,7 @@ const QLKhachhang = () => {
         Cccd_KH: string;
         Mathethanhvien_KH: number;
         Diemtichluy_KH: number;
-        Taikhoan_KH: string;
+        // Taikhoan_KH: string;
         Matkhau_KH: string;
     }
 
@@ -115,9 +115,9 @@ const QLKhachhang = () => {
                         <th className="border border-slate-300 text-center">Email</th>
                         <th className="border border-slate-300 text-center">Mã thẻ thành viên</th>
                         <th className="border border-slate-300 text-center">Điểm tích lũy</th>
-                        <th className="border border-slate-300 text-center">Tài khoản</th>
-                        <th className="border border-slate-300 text-center">Mật khẩu</th>
-                        <th className="border border-slate-300 text-center">Tác vụ</th>
+                        {/* <th className="border border-slate-300 text-center">Tài khoản</th> */}
+                        {/* <th className="border border-slate-300 text-center">Mật khẩu</th> */}
+                        {/* <th className="border border-slate-300 text-center">Tác vụ</th> */}
 
                     </tr>
                 </thead>
@@ -152,13 +152,13 @@ const QLKhachhang = () => {
                                 {/* <td className="border border-slate-300 text-center">{item.Email_KH} </td> */}
                                 <td className="border border-slate-300 text-center">{item.Mathethanhvien_KH} </td>
                                 <td className="border border-slate-300 text-center">{item.Diemtichluy_KH} </td>
-                                <td className="border border-slate-300 text-center">{item.Taikhoan_KH} </td>
-                                <td className="border border-slate-300 text-center">{item.Matkhau_KH} </td>
+                                {/* <td className="border border-slate-300 text-center">{item.Taikhoan_KH} </td> */}
+                                {/* <td className="border border-slate-300 text-center">{item.Matkhau_KH} </td> */}
 
 
                                 {/* <td className="border border-slate-300 text-center">{item.giave }</td> */}
 
-                                <td className="border border-slate-300 text-center">
+                                {/* <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
                                     // onClick={() => handleSuaTTChieu(item.ngaychieu, item.giave, item.id, item.id_phim, item.id_rap, item.id_suatchieu)}
 
@@ -167,7 +167,7 @@ const QLKhachhang = () => {
                                     // onClick={() => handleXoaTTChieu(item.id)}
 
                                     />
-                                </td>
+                                </td> */}
 
                             </tr>
                         </>

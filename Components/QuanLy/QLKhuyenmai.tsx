@@ -218,7 +218,7 @@ const QLKhuyenmai = () => {
     }, [])
 
     return (
-        <div>
+        <div className="m-5">
             <div className="space-y-5">
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tên khuyến mãi</p>
@@ -283,7 +283,7 @@ const QLKhuyenmai = () => {
                     onClick={() => handleThemTTKhuyenmai()}
                 >Lưu thông tin</button>
             </div>
-            <table className=" border-separate  border border-slate-400 w-full  ">
+            <table className=" border-separate  border border-slate-400 w-full ">
                 <thead>
                     <tr>
                         <th className="border border-slate-300 text-center">#</th>

@@ -226,7 +226,7 @@ export async function SuaTTPhim(params: {
   id: number,
   Tenphim: string;
   Dieukien: number;
-  Poster: string,
+  Poster: string;
   Trailer: string,
   Dienvien: string;
   Ngonngu: string;
@@ -1086,6 +1086,69 @@ export async function Thongke_ngay(params: { key: any }): Promise<any> {
   const { key } = params;
   const response = await fetch(
     `http://localhost:8080/api/Thongke?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function Thongke_phim(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/Thongke_phim?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function Thongke_cumrap(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/Thongke_cumrap?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function Thongke_thang(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/Thongke_thang?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function Thongke_tuan(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/Thongke_tuan?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function Kiemtrataikhoan(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/kiemtrataikhoan?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function handleCapnhatTTKhachhang(params: {
+  // email_kh: string,
+  hten_kh: string,
+  sdt_kh: string,
+  ngaysinh_kh: Date,
+  diachi_kh: string,
+  gioitinh_kh: string,
+  cccd_kh: string,
+  id: number
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/CapnhatTTCanhan`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
   );
   const data = await response.json();
   return data;

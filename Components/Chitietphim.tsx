@@ -168,8 +168,9 @@ const Chitietphim = ({ id_phim }: Props) => {
                                     <p>{item.nsx}</p>
                                 </div>
                                 <div className='flex space-x-2'>
-                                    <p className='font-semibold'>Thể loại:</p>
-                                    {
+                                    <p className='font-semibold'>Thể loại: </p>
+                                    <p>Gia đình, Phiêu Lưu</p>
+                                    {/* {
                                         dsloaiphims.map((item) => {
                                             return (
                                                 <>
@@ -180,7 +181,7 @@ const Chitietphim = ({ id_phim }: Props) => {
                                             )
 
                                         })
-                                    }
+                                    } */}
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Diễn viên:</p>

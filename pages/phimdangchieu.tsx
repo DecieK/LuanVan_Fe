@@ -119,7 +119,7 @@ const Phimdangchieu = () => {
                             else null
                         })
                     }
-                p</div>
+                </div>
                 <Footer />
 
             </div>

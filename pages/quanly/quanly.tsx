@@ -125,6 +125,7 @@ const Quanly = () => {
   const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
   const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
   const [chieu, setChieu] = useState<Chieu[]>([]);
+  const [tennv, setTennv] = useState('');
 
 
 
@@ -148,6 +149,24 @@ const Quanly = () => {
 
 
   useEffect(() => {
+
+    const khachhangs = JSON.parse(
+      localStorage.getItem("khachhang") || "{}"
+    );
+    if (Object.keys(khachhangs).length === 0) {
+      // setTrangthai(true)
+      console.log("true");
+    } else {
+      // setTrangthai(false)
+      console.log("false");
+      // const res: Khachhang[] = khachhangs;
+      // setKhachhang(res)
+      // res.map((item) => {
+        setTennv(khachhangs[0].Hten_KH)
+        // console.log("áda",khachhangs.Hten_KH)
+      // });
+    }
+
     const handleLayTTCumrap = async () => {
       try {
         const params = {
@@ -293,6 +312,7 @@ const Quanly = () => {
             <Tab label="Dịch vụ" value="3" />
             <Tab label="Nhân Viên" value="4" />
             <Tab label="Doanh Thu" value="5" />
+            <button>{tennv}</button>
           </TabList>
         </Box>
         <TabPanel value="1">

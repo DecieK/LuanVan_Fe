@@ -34,7 +34,7 @@ const QLNhanvien = () => {
         Gioitinh_NV: string;
         Cccd_NV: string;
         Chucvu_NV: string;
-        Taikhoan_NV: string;
+        Email_NV: string;
         Matkhau_NV: string;
     }
 
@@ -237,93 +237,102 @@ const QLNhanvien = () => {
     return (
         <div>
             <div className="space-y-5">
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Tên nhân viên</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setTennv(event.target.value)}
-                        value={tennv}
-                    ></input>
-                </div>
+                <div className="flex m-auto w-10/12">
+                    <div className="basis-6/12  space-y-5">
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Tên nhân viên</p>
+                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setTennv(event.target.value)}
+                                value={tennv}
+                            ></input>
+                        </div>
 
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Ngày sinh</p>
-                    <DatePicker
-                        className=""
-                        // type="datetime"
-                        selected={ngaysinh}
-                        // minDate={new Date()}
-                        // maxDate={new Date("10-30-2023")}
-                        // onChange={(date: Date) => setStartDate(date)}
-                        onChange={(date: Date) => setNgaysinh((date))}
-                        dateFormat="dd/MM/yyyy"
-                    />
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Tuổi</p>
-                    <input type="number" placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setTuoi(event.target.valueAsNumber)}
-                        value={tuoi}
-                    ></input>
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Số điện thoại</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setSdt(event.target.value)}
-                        value={sdt}
-                    ></input>
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Giới tính</p>
-                    <div className="col-span-4 mx-10 ">
-                        <input onChange={(e) => setGT_NV(e.target.value)} type="radio" value="Nam" name='gt' checked={gt_NV === "Nam"} /> Nam
-                        <input className="ml-9" onChange={(e) => setGT_NV(e.target.value)} type="radio" value="Nu" name='gt' checked={gt_NV === "Nu"} /> Nữ
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Ngày sinh</p>
+                            <DatePicker
+                                className=""
+                                // type="datetime"
+                                selected={ngaysinh}
+                                // minDate={new Date()}
+                                // maxDate={new Date("10-30-2023")}
+                                // onChange={(date: Date) => setStartDate(date)}
+                                onChange={(date: Date) => setNgaysinh((date))}
+                                dateFormat="dd/MM/yyyy"
+                            />
+                        </div>
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Tuổi</p>
+                            <input type="number" placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setTuoi(event.target.valueAsNumber)}
+                                value={tuoi}
+                            ></input>
+                        </div>
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Số điện thoại</p>
+                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setSdt(event.target.value)}
+                                value={sdt}
+                            ></input>
+                        </div>
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Giới tính</p>
+                            <div className="col-span-4 mx-10 ">
+                                <input onChange={(e) => setGT_NV(e.target.value)} type="radio" value="Nam" name='gt' checked={gt_NV === "Nam"} /> Nam
+                                <input className="ml-9" onChange={(e) => setGT_NV(e.target.value)} type="radio" value="Nu" name='gt' checked={gt_NV === "Nu"} /> Nữ
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="basis-6/12 space-y-5">
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Địa chỉ</p>
+                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setDiachi(event.target.value)}
+                                value={diachi}
+                            ></input>
+                        </div>
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">CCCD/CMND</p>
+                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setCccd(event.target.value)}
+                                value={cccd}
+                            ></input>
+                        </div>
+
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Chức vụ</p>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={['Quản lý', 'Nhân viên']}
+                                value={valueChucvu}
+                                onChange={(event: any, newValue: string | null) => {
+                                    { newValue ? setValueChucvu(newValue) : null }
+                                    // { newValue ? handleLayttRap(newValue) : null }
+
+                                }}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Chức vụ" />}
+                            />
+                        </div>
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Tài khoản</p>
+                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setTaikhoan(event.target.value)}
+                                value={taikhoan}
+                            ></input>
+                        </div>
+                        <div className="flex space-x-5">
+                            <p className="basis-[20%]">Mật khẩu</p>
+                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => setMatkhau(event.target.value)}
+                                value={matkhau}
+                            ></input>
+                        </div>
                     </div>
                 </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Địa chỉ</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setDiachi(event.target.value)}
-                        value={diachi}
-                    ></input>
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">CCCD/CMND</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setCccd(event.target.value)}
-                        value={cccd}
-                    ></input>
-                </div>
 
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Chức vụ</p>
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={['Quản lý', 'Nhân viên']}
-                        value={valueChucvu}
-                        onChange={(event: any, newValue: string | null) => {
-                            { newValue ? setValueChucvu(newValue) : null }
-                            // { newValue ? handleLayttRap(newValue) : null }
 
-                        }}
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Chức vụ" />}
-                    />
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Tài khoản</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setTaikhoan(event.target.value)}
-                        value={taikhoan}
-                    ></input>
-                </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Mật khẩu</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        onChange={(event) => setMatkhau(event.target.value)}
-                        value={matkhau}
-                    ></input>
-                </div>
 
                 <div className=" w-8/12 ">
                     <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
@@ -380,11 +389,11 @@ const QLNhanvien = () => {
                                 {/* <td className="border border-slate-300 text-center">{item.Email_KH} </td> */}
                                 <td className="border border-slate-300 text-center">{item.Cccd_NV} </td>
                                 <td className="border border-slate-300 text-center">{item.Chucvu_NV} </td>
-                                <td className="border border-slate-300 text-center">{item.Taikhoan_NV} </td>
+                                <td className="border border-slate-300 text-center">{item.Email_NV} </td>
                                 <td className="border border-slate-300 text-center">{item.Matkhau_NV} </td>
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                        onClick={() => handleSuaTTNhanvien(item.id, item.Hten_NV, item.Sdt_NV, item.Ngaysinh_NV, item.Tuoi_NV, item.Diachi_NV, item.Gioitinh_NV, item.Cccd_NV, item.Chucvu_NV, item.Taikhoan_NV, item.Matkhau_NV)}
+                                        onClick={() => handleSuaTTNhanvien(item.id, item.Hten_NV, item.Sdt_NV, item.Ngaysinh_NV, item.Tuoi_NV, item.Diachi_NV, item.Gioitinh_NV, item.Cccd_NV, item.Chucvu_NV, item.Email_NV, item.Matkhau_NV)}
 
                                     />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}

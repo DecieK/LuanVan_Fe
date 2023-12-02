@@ -1,35 +1,6 @@
-lấy tt vé xong:
-+id_rap => tên rạp
-+slghe
- => id_ve => ctv: Mã ghế
- => id_ve => ctdoan: (tên, sl, size)
-+id_cr => ten cr, dia chi
-+tongtien
-+createdTime
-+ma code	
-
-=> idchieu => ngaychieu
-	 +idp => tenphim
-=>idsuatchieu => giobatdau	
-
-    
-	tao chuoi bat ky
-    let result = ' ';
-
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const  generateString = (length : number) => {
-        const charactersLength = characters.length;
-        for ( let i = 0; i < length; i++ ) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        console.log("ressult",result)
-
-        return result;
-
-    }
-
-
-    chỉnh thêm code lúc đặt vé api datve
+   
+Điều kiện vé qua ngày chiếu thì k cập nhật được
+Bỏ chức năng sửa xóa thông tin tài khoản ng dùng
 
 NCB 9704198526191432198
 NGUYEN VAN A
