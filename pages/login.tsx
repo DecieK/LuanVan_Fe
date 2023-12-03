@@ -9,7 +9,7 @@ import Router from 'next/router'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useRef, ChangeEvent, BaseSyntheticEvent } from "react";
 import Axios from "axios";
-import { DangKy_KH, LayTTKhachhang } from "@/service/userService";
+import { DangKy_KH, LayTTKhachhang, LayTTNhanvien } from "@/service/userService";
 import auth from "./firebase";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -36,6 +36,22 @@ const Login = () => {
     Taikhoan_KH: string;
     Matkhau_KH: string;
   }
+  interface Nhanvien {
+    id: number;
+    Hten_NV: string;
+    Sdt_NV: string;
+    Ngaysinh_NV: Date;
+    Tuoi_NV: number;
+    Diachi_NV: string;
+    Gioitinh_NV: string;
+    Cccd_NV: string;
+    Chucvu_NV: string;
+    Email_NV: string;
+    Matkhau_NV: string;
+}
+
+
+const [nhanvien, setNhanvien] = useState<Nhanvien[]>([]);
   const [isBrowser, setIsBrowser] = useState(false);
 
   const [showModalDangky, setShowModalDangky] = useState(false);
@@ -140,11 +156,24 @@ const Login = () => {
         // } catch (error) {
         //   console.log(error);
         // }
-        router.push({
-          pathname: '/',
-          // query: { username: username },
-        })
+
+        const params2 = {
+          tenTK: username,
+        };
+        const response2 = await LayTTNhanvien(params2);
+        const res2: Nhanvien[] = response2.nhanviens;
+        console.log(res2)
+        if (res.length === 1) {
+          router.push({
+            pathname: '/',
+          })
+        } else if (res2.length === 1) {
+          router.push({
+            pathname: '/quanly/quanly',
+          })
+        }
       }
+
     })
   }
 
@@ -172,7 +201,7 @@ const Login = () => {
       <center>
         <div className="pt-28  w-full h-screen">
           <form className=" h-auto w-96 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl ">
-            <h1 className="text-center uppercase text-3xl pt-6 text-white">Login</h1>
+            <h1 className="text-center uppercase text-3xl pt-6 text-white">Đăng nhập</h1>
             <div className="mt-6">
               <FontAwesomeIcon icon={faUser} style={{ color: "#ffffff", }} className="pr-3" />
               <input placeholder="Nhập email" className="w-3/4  border-b-2 bg-black bg-opacity-0 border-white"

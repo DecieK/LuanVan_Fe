@@ -208,6 +208,7 @@ export async function Themttphim(params: {
   Ngaychieu: string;
   Nsx: string;
   Trangthai: string;
+  arridLP: Array<any>;
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/ThemTTPhim`,
@@ -237,6 +238,7 @@ export async function SuaTTPhim(params: {
   Ngaychieu: string;
   Nsx: string;
   Trangthai: string;
+  ArrCTLP:Array<number>
 }): Promise<any> {
   const response = await fetch(
     `http://localhost:8080/api/SuaTTPhim`,
@@ -1149,6 +1151,15 @@ export async function handleCapnhatTTKhachhang(params: {
       },
       body: JSON.stringify(params),
     }
+  );
+  const data = await response.json();
+  return data;
+}
+
+export async function Search(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/search?keyword=${key}`
   );
   const data = await response.json();
   return data;

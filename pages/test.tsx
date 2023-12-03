@@ -1,171 +1,136 @@
-// import React from "react";
-// import { AppProps } from "next/app";
-// import Head from "next/head";
-// // import "@styles/global.scss";
-// import { Provider } from "react-redux";
-// import store from "@redux/store";  
-// import { MuiThemeProvider } from "@material-ui/core/styles";
-// import CssBaseline from "@material-ui/core/CssBaseline";
-// import theme from "src/createMiuitheme";
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 
-import { LayTTGhe, Sendmail, VN_Query } from "@/service/userService";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import ReactPlayer from 'react-player';
-
-
-// import "~slick-carousel/slick/slick.css";               //here
-// import "~slick-carousel/slick/slick-theme.css";         //here
-
-// function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-//   // const theme = responsiveFontSizes(createTheme());
-//   return (
-//     <>
-//       <Head>
-//         <link rel="shortcut icon" href="#" />
-//         <meta charSet="utf-8" />
-//         <meta
-//           name="viewport"
-//           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-//         />
-//         <meta name="theme-color" content={theme.palette.primary.main} />
-//       </Head>
-//       <Provider store={store}>
-//         <MuiThemeProvider theme={theme}>
-//         <CssBaseline />
-//           <Component {...pageProps} />
-//         </MuiThemeProvider>
-//       </Provider>
-//     </>
-//   );
-// }
-const Test = () => {
-  interface Ghe {
-    id: number;
-    maGhe: string;
-    loaiGhe: string;
-  }
-  const [i, setI] = useState(110);
-  const [ghe, setGhe] = useState<Ghe[]>([]);
-
-  const [dsgheDDs, setDsgheDDs] = useState([
-    {
-      code: ''
-    },
-  ])
-
-
-  const handleXoaTTChieu = async () => {
-    let res = await Sendmail(
-      {
-        email: 'luongvukhoa572001@gmail.com'
-
-      });
-    if (res) {
-      alert("Thêm thông tin chiếu mới thành thông")
-
-    } else {
-      console.log(res)
-      alert("Thêm thông tin chiếu mới KHÔNG thành thông")
-
-    };
-  }
-  const handleTest = () => {
-    for (let y = 0; y < 100; y++) {
-      const dsgheDD = {
-        // code:'asd',
-        code: 'INSERT INTO `ghes` (`id`, `maGhe`, `loaiGhe`, `id_rap`, `createdAt`, `updatedAt`) VALUES' + ' (' + { y } + ', A' + { y } + ', ' + 'Thường' + ', ' + '1' + ', ' + '2023-10-03 19:03:03.000000' + ', ' + '2023-10-03 19:03:03.000000' + ');'
-
-      }
-      setDsgheDDs([...dsgheDDs, dsgheDD])
-      console.log("y", y)
-      console.log("dsgheDDs", dsgheDDs)
-
-    }
-  }
-  useEffect(() => {
-
-  }, []);
-
-
-  //   return (
-
-  // <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-  //   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  //     <a href="#" className="flex items-center">
-  //         {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" /> */}
-  //         <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-  //     </a>
-  //     <button data-collapse-toggle="navbar-dropdown" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
-  //         <span className="sr-only">Open main menu</span>
-  //         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-  //             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-  //         </svg>
-  //     </button>
-  //     <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-  //       <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-  //         <li>
-  //           <a href="#" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Home</a>
-  //         </li>
-  //         <li>
-  //             <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" className="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Dropdown <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-  //     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-  //   </svg></button>
-  //             {/* <!-- Dropdown menu --> */}
-  //             <div id="dropdownNavbar" className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-  //                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-  //                   <li>
-  //                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-  //                   </li>
-  //                   <li>
-  //                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-  //                   </li>
-  //                   <li>
-  //                     <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-  //                   </li>
-  //                 </ul>
-  //                 <div className="py-1">
-  //                   <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Sign out</a>
-  //                 </div>
-  //             </div>
-  //         </li>
-  //         <li>
-  //           <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-  //         </li>
-  //         <li>
-  //           <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-  //         </li>
-  //         <li>
-  //           <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-  //         </li>
-  //       </ul>
-  //     </div>
-  //   </div>
-  // </nav>
-
-  //   )
-  return (
-    <>
-      {/* <Link href="http://localhost:8080/order/create_payment_url">home</Link> */}
-      {/* 
-      <ReactPlayer
-        height={300}
-        width={300}
-        // playing={true}
-        controls={true}
-        poster
-        url='https://www.youtube.com/watch?v=JBh7SlUwPUg' /> */}
-      {/* <ReactPlayer
-        height={300}
-        width={500}
-        // playing={true}
-        controls={true}
-        poster
-        url="https://www.youtube.com/watch?v=JBh7SlUwPUg"></ReactPlayer> */}
-      <button onClick={handleXoaTTChieu}>click</button>
-    </>
-
-
-  )
+function not(a: readonly number[], b: readonly number[]) {
+  return a.filter((value) => b.indexOf(value) === -1);
 }
-export default Test;
+
+function intersection(a: readonly number[], b: readonly number[]) {
+  return a.filter((value) => b.indexOf(value) !== -1);
+}
+
+function union(a: readonly number[], b: readonly number[]) {
+  return [...a, ...not(b, a)];
+}
+
+export default function SelectAllTransferList() {
+  const [checked, setChecked] = React.useState<readonly number[]>([]);
+  const [left, setLeft] = React.useState<readonly number[]>([0, 1, 2, 3]);
+  const [right, setRight] = React.useState<readonly number[]>([4, 5, 6, 7]);
+
+  const leftChecked = intersection(checked, left);
+  const rightChecked = intersection(checked, right);
+
+  const handleToggle = (value: number) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const numberOfChecked = (items: readonly number[]) =>
+    intersection(checked, items).length;
+
+  const handleToggleAll = (items: readonly number[]) => () => {
+    if (numberOfChecked(items) === items.length) {
+      setChecked(not(checked, items));
+    } else {
+      setChecked(union(checked, items));
+    }
+  };
+
+  const handleCheckedRight = () => {
+    setRight(right.concat(leftChecked));
+    setLeft(not(left, leftChecked));
+    setChecked(not(checked, leftChecked));
+  };
+
+  const handleCheckedLeft = () => {
+    setLeft(left.concat(rightChecked));
+    setRight(not(right, rightChecked));
+    setChecked(not(checked, rightChecked));
+  };
+
+  const customList = (title: React.ReactNode, items: readonly number[]) => (
+    <Card>
+      <CardHeader
+        sx={{ px: 2, py: 1 }}
+        avatar={
+          <Checkbox
+            onClick={handleToggleAll(items)}
+            checked={numberOfChecked(items) === items.length && items.length !== 0}
+            indeterminate={
+              numberOfChecked(items) !== items.length && numberOfChecked(items) !== 0
+            }
+            disabled={items.length === 0}
+            inputProps={{
+              'aria-label': 'all items selected',
+            }}
+          />
+        }
+        title={title}
+        subheader={`${numberOfChecked(items)}/${items.length} selected`}
+      />
+      <Divider />
+      <List
+        sx={{
+          width: 200,
+          height: 230,
+          bgcolor: 'background.paper',
+          overflow: 'auto',
+        }}
+        dense
+        component="div"
+        role="list"
+      >
+        {items.map((value: number) => {
+          const labelId = `transfer-list-all-item-${value}-label`;
+
+          return (
+            <ListItem
+              key={value}
+              role="listitem"
+              button
+              onClick={handleToggle(value)}
+            >
+              <ListItemIcon>
+                <Checkbox
+                  checked={checked.indexOf(value) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                  inputProps={{
+                    'aria-labelledby': labelId,
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+            </ListItem>
+          );
+        })}
+      </List>
+    </Card>
+  );
+
+  return (
+    <Grid container spacing={2} justifyContent="center" alignItems="center">
+      {/* <Grid item>{customList('Choices', left)}</Grid> */}
+      
+      <Grid item>{customList('Chosen', right)}</Grid>
+    </Grid>
+  );
+}

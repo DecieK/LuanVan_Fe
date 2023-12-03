@@ -4,7 +4,7 @@ import { Checkbox } from "@nextui-org/react";
 // import { useRouter } from "next/router";
 import React, { useEffect, useState } from 'react';
 import { DangKy_KH, Kiemtrataikhoan } from '@/service/userService';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import auth from "./firebase";
 import firebase from "firebase";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -73,9 +73,9 @@ const Register = () => {
             }
           ]
         }
-        localStorage.setItem('dangkykh', JSON.stringify(dangkykh.TTdangkykh)); 
+        localStorage.setItem('dangkykh', JSON.stringify(dangkykh.TTdangkykh));
         alert('Vui lòng xác nhận email để tạo tài khoản')
-      }else(
+      } else (
         alert(response.check.errMessage)
       )
     } catch (error) {
@@ -108,17 +108,20 @@ const Register = () => {
   }
 
 
-  const router = useRouter();
+  // const router = useRouter();
   const handleBackPage = () => {
-    router.push("/");
-    console.log("asdasd")
+    router.push({
+      pathname: '/index',
+
+    })
+    // console.log("asdasd")
     // bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500
   };
   return (
     <div className={noto_serif.className}>
       <div className="pt-5 w-full h-screen">
         <form className="text-white m-auto text-sm  w-[450px]   bg-gray-500 rounded-xl">
-          <h1 className="text-center uppercase text-3xl pt-6 ">Register</h1>
+          <h1 className="text-center uppercase text-3xl pt-6 ">Đăng ký</h1>
           <div className='w-11/12 m-auto'>
             <div className='flex pb-8'>
               <p className='w-3/12'>Email:</p>

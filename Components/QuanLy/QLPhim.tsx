@@ -9,10 +9,11 @@ import ClearIcon from '@mui/icons-material/Clear';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import { aborted } from "util";
-import { LayTTPhim, LayTTRap_idcumrap, SuaTTPhim, Themttphim, XoaTTPhim } from "@/service/userService";
+import { LayTTCTLoaiphim_idP, LayTTLoaiphim, LayTTPhim, LayTTRap_idcumrap, SuaTTPhim, Themttphim, XoaTTPhim } from "@/service/userService";
 import Image from 'next/image'
 import dayjs from "dayjs"
 import CommonUtils from "../CommonUtils";
+import Checkbox from '@mui/material/Checkbox';
 
 
 const noto_serif = Noto_Serif({
@@ -43,6 +44,14 @@ const QLPhim = () => {
         nsx: string;
         trangthai: string;
     }
+    interface Chitietloaiphim {
+        id: number;
+        id_phim: number;
+        id_loaiphim: number;
+        loaiphim: Loaiphim;
+    }
+    const [chitietloaiphim, setChitietloaiphim] = useState<Chitietloaiphim[]>([]);
+
     const [id, setId] = useState(Number);
     const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
@@ -63,6 +72,18 @@ const QLPhim = () => {
     const [poster, setPoster] = useState<any>();
     const [fileIMG, setFileIMG] = useState<File>()
     const [open, setOpen] = useState(Boolean);
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    const arrLP: number[] = []
+    const handleLoaiphim = (idlp: number) => {
+        console.log('checkk',)
+        if (arrLP.indexOf(idlp) === -1) {
+            arrLP.push(idlp)
+        } else {
+            arrLP.splice(arrLP.indexOf(idlp), arrLP.indexOf(idlp) + 1)
+            // arrLP = arrLP1
+        }
+        console.log('checkk', arrLP)
+    }
 
     const handleSuaTTPhim = (id: number, tenphim: string, daodien: string, dienvien: string, nsx: string, ngonngu: string, ngaychieu: Date, tomtat: string, thoiluong: number, poster: string, trailer: string, trangthai: string, dieukien: number, quocgia: string) => {
         setTenphim(tenphim)
@@ -99,7 +120,8 @@ const QLPhim = () => {
                 Thoiluong: thoiluong,
                 Ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
                 Nsx: nsx,
-                Trangthai: trangthai
+                Trangthai: trangthai,
+                ArrCTLP: arrLP
             });
         if (res && res.errCode === 0) {
             console.log(res)
@@ -225,7 +247,8 @@ const QLPhim = () => {
                 Thoiluong: thoiluong,
                 Ngaychieu: ngaychieu.getFullYear() + "-" + (ngaychieu.getMonth() + 1) + "-" + ngaychieu.getDate(),
                 Nsx: nsx,
-                Trangthai: trangthai
+                Trangthai: trangthai,
+                arridLP: arrLP
 
             });
         if (res && res.errCode === 0) {
@@ -255,7 +278,44 @@ const QLPhim = () => {
 
         };
     }
+    const handleCatchuoi = (str: string) => {
+        str.slice(0, str.length - 2)
+    }
     useEffect(() => {
+        const handleLayTTCTLoaiphim = async () => {
+            try {
+                const params = {
+                    id: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTCTLoaiphim_idP(params);
+                const res: Chitietloaiphim[] = response.chitietloaiphims;
+                console.log("check api searchdate ghe: ", response);
+                console.log("length", res);
+                setChitietloaiphim(res);
+                // console.log(res.length)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleLayTTLoaiphim = async () => {
+            try {
+                const params = {
+                    id: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTLoaiphim(params);
+                const res: Loaiphim[] = response.loaiphims;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setLoaiphim(res);
+                // console.log(res.length)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
         const handleLayTTPhim = async () => {
             try {
                 const params = {
@@ -272,7 +332,8 @@ const QLPhim = () => {
                 console.log(error);
             }
         }
-
+        handleLayTTCTLoaiphim()
+        handleLayTTLoaiphim()
         handleLayTTPhim()
 
     }, [])
@@ -344,6 +405,18 @@ const QLPhim = () => {
                             value={tomtat}
                             onChange={(event) => setTomtat(event.target.value)}
                         />
+                    </div>
+
+                    <div>
+                        {loaiphim.map((lp, index) => {
+                            return (
+                                <div key={index} className="flex">
+                                    <p>{lp.tenloai}</p>
+                                    <Checkbox onClick={() => handleLoaiphim(lp.id)} {...label} />
+
+                                </div>
+                            )
+                        })}
                     </div>
 
                 </div>
@@ -447,6 +520,7 @@ const QLPhim = () => {
                         <tr>
                             <th className="border border-slate-300 text-center ">#</th>
                             <th className="border border-slate-300 text-center w-[100px]">Tên phim</th>
+                            <th className="border border-slate-300 text-center w-[100px]">Loại phim</th>
                             <th className="border border-slate-300 text-center">Đạo diễn</th>
                             <th className="border border-slate-300 text-center">Diễn viên</th>
                             <th className="border border-slate-300 text-center">Nhà sản xuất</th>
@@ -461,48 +535,57 @@ const QLPhim = () => {
                             <th className="border border-slate-300 text-center">Quốc gia</th>
                             <th className="border border-slate-300 text-center">Tác vụ</th>
 
-
-
                         </tr>
                     </thead>
                     <tbody>
-                        {phim.map((item) => (
-                            <>
-                                <tr key={item.id}>
-                                    <td className="border border-slate-300 text-center">{item.id}</td>
-                                    <td className="border border-slate-300 text-center w-[100px]">{item.tenphim}</td>
-                                    <td className="border border-slate-300 text-center">{item.daodien}</td>
-                                    <td className="border border-slate-300 text-center">{item.dienvien}</td>
-                                    <td className="border border-slate-300 text-center">{item.nsx}</td>
-                                    <td className="border border-slate-300 text-center">{item.ngonngu}</td>
-                                    <td className="border border-slate-300 text-center">
-                                        {
-                                            dayjs(item.ngaychieu).format("DD/MM/YYYY")
-                                        }
+                        {phim.map((item) => (<>
+                            <tr key={item.id}>
+                                <td className="border border-slate-300 text-center">{item.id}</td>
+                                <td className="border border-slate-300 text-center w-[100px]">{item.tenphim}</td>
+                                <td className="border border-slate-300 text-center w-[1000px]">
+                                    {
+                                        chitietloaiphim.map((ctlp) => {
+                                            if (ctlp.id_phim === item.id) {
+                                                return (
+                                                    <>
+                                                        <p>{ctlp.loaiphim.tenloai} <br></br></p>
+                                                    </>
+                                                )
+                                            }
+                                        })
+                                    }
+                                </td>
+                                <td className="border border-slate-300 text-center">{item.daodien}</td>
+                                <td className="border border-slate-300 text-center">{item.dienvien}</td>
+                                <td className="border border-slate-300 text-center">{item.nsx}</td>
+                                <td className="border border-slate-300 text-center">{item.ngonngu}</td>
+                                <td className="border border-slate-300 text-center">
+                                    {
+                                        dayjs(item.ngaychieu).format("DD/MM/YYYY")
+                                    }
+                                </td>
+                                <td className="border border-slate-300 text-center w-[2000px]">{item.tomtat}</td>
+                                <td className="border border-slate-300 text-center">{item.thoiluong}</td>
+                                <td className="border border-slate-300 text-center">{
+                                    <Image
+                                        src={new Buffer(item.poster, "base64").toString("binary")}
+                                        width={300}
+                                        height={300}
+                                        alt="Picture of the author"
+                                    />
+                                }</td>
+                                <td className="border border-slate-300 text-center w-[100px]">{item.trailer}</td>
+                                <td className="border border-slate-300 text-center">{item.trangthai}</td>
+                                <td className="border border-slate-300 text-center">{item.dieukien}</td>
+                                <td className="border border-slate-300 text-center">{item.quocgia}</td>
 
-                                    </td>
-                                    <td className="border border-slate-300 text-center">{item.tomtat}</td>
-                                    <td className="border border-slate-300 text-center">{item.thoiluong}</td>
-                                    <td className="border border-slate-300 text-center">{
-                                        <Image
-                                            src={new Buffer(item.poster, "base64").toString("binary")}
-                                            width={300}
-                                            height={300}
-                                            alt="Picture of the author"
-                                        />
-                                    }</td>
-                                    <td className="border border-slate-300 text-center">{item.trailer}</td>
-                                    <td className="border border-slate-300 text-center">{item.trangthai}</td>
-                                    <td className="border border-slate-300 text-center">{item.dieukien}</td>
-                                    <td className="border border-slate-300 text-center">{item.quocgia}</td>
+                                <td className="border border-slate-300 text-center">
+                                    <EditIcon onClick={() => handleSuaTTPhim(item.id, item.tenphim, item.daodien, item.dienvien, item.nsx, item.ngonngu, item.ngaychieu, item.tomtat, item.thoiluong, item.poster, item.trailer, item.trangthai, item.dieukien, item.quocgia)} className="cursor-pointer" />
+                                    <ClearIcon onClick={() => handleXoaTTphim(item.id)} className="cursor-pointer" sx={{ color: 'red' }} />
+                                </td>
 
-                                    <td className="border border-slate-300 text-center">
-                                        <EditIcon onClick={() => handleSuaTTPhim(item.id, item.tenphim, item.daodien, item.dienvien, item.nsx, item.ngonngu, item.ngaychieu, item.tomtat, item.thoiluong, item.poster, item.trailer, item.trangthai, item.dieukien, item.quocgia)} className="cursor-pointer" />
-                                        <ClearIcon onClick={() => handleXoaTTphim(item.id)} className="cursor-pointer" sx={{ color: 'red' }} />
-                                    </td>
-
-                                </tr>
-                            </>
+                            </tr>
+                        </>
                         ))}
                     </tbody>
                 </table>
