@@ -407,16 +407,21 @@ const QLPhim = () => {
                         />
                     </div>
 
-                    <div>
-                        {loaiphim.map((lp, index) => {
-                            return (
-                                <div key={index} className="flex">
-                                    <p>{lp.tenloai}</p>
-                                    <Checkbox onClick={() => handleLoaiphim(lp.id)} {...label} />
+                    <div className="flex">
+                        <p className="basis-3/12">Loại phim</p>
+                        <div className="grid grid-cols-2">
+                            {loaiphim.map((lp, index) => {
+                                return (
+                                    <div key={index} className="flex">
 
-                                </div>
-                            )
-                        })}
+                                        <Checkbox onClick={() => handleLoaiphim(lp.id)} {...label} />
+                                        <p className="pt-2">{lp.tenloai}</p>
+
+                                    </div>
+                                )
+                            })}
+                        </div>
+
                     </div>
 
                 </div>
@@ -464,41 +469,41 @@ const QLPhim = () => {
                         />
                     </div>
 
-                </div>
-                <div>
-                    <div className="  pb-20">
-                        <label>
-                            {/* <FormattedMessage id="" /> */}
-                        </label>
-                        <div className="preview-img-container bg-slate-500">
-                            <input
-                                className="w-56 boder-2 bg-slate-400"
-                                id="preview-img"
-                                type="file"
-                                accept=".png,.jpg"
-                                hidden
-                                // onChange={(e) => setFileIMG(e.target.files?.[0])}
-                                onChange={(event) => handleOnChangeImage(event)}
-                            />
-                            <label className="lable-upload" htmlFor="preview-img">
-                                Tải ảnh <i className="fas fa-upload"></i>
-                            </label>
+                    <div className="flex space-x-6">
+                        <div className="basis-3/12 flex pb-20 space-x-6">
+
+                            <p  className="">Poster</p>
+                            <div className="preview-img-container ">
+                                <input
+                                    className="w-56 boder-2 bg-slate-400"
+                                    id="preview-img"
+                                    type="file"
+                                    accept=".png,.jpg"
+                                    hidden
+                                    // onChange={(e) => setFileIMG(e.target.files?.[0])}
+                                    onChange={(event) => handleOnChangeImage(event)}
+                                />
+                                <label className="lable-upload" htmlFor="preview-img">
+                                    Tải ảnh <i className="fas fa-upload"></i>
+                                </label>
+
+                            </div>
+                        </div>
+                        <div
+                            className="preview-img bg-no-repeat h-32 w-32 bg-contain"
+
+                            style={{
+                                backgroundImage: `url(${prevURLIMG})`,
+                            }}
+                            onClick={() => openPreviewImg()}
+
+                        >
 
                         </div>
+                        {/* <img src={prevURLIMG}></img> */}
                     </div>
-                    <div
-                        className="preview-img bg-no-repeat "
-
-                        style={{
-                            backgroundImage: `url(${prevURLIMG})`,
-                        }}
-                        onClick={() => openPreviewImg()}
-
-                    >
-                        review image:
-                    </div>
-                    {/* <img src={prevURLIMG}></img> */}
                 </div>
+
                 {/* <div className="basis-4/12 border-2 border-green-300">
 
                 </div> */}

@@ -188,7 +188,10 @@ const QLChieu = () => {
 
             setNgaychieu(new Date())
             setGiave('')
-            // setId_cr()
+            setValuePhim('')
+            setValueRap('')
+            setValueSuatchieu('')
+            setNgaychieu(new Date())
             handleLayTTChieu()
             alert("Cập nhật thông tin chiếu mới thành thông")
 

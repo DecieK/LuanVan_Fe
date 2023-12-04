@@ -421,7 +421,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
           )}
         <StyledModalBody className="bg-white">
           <div className="modal">
-            <div className='grid sm:grid-cols-7 grid-cols-4 mt-5 gap-4 m-3'>
+            {/* <div className='grid sm:grid-cols-7 grid-cols-4 mt-5 gap-4 m-3'>
               <button className='col-span-1 border-red-400 border-2 rounded-md'>
                 <p className='text-lg h-12 pt-2'>Chủ nhật</p>
                 <p className='bg-red-400 text-2xl h-16 pt-4'>05/11</p>
@@ -450,8 +450,8 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 <p className='text-lg h-12 pt-2'>Thứ 7</p>
                 <p className='bg-gray-300 text-2xl h-16 pt-4'>11/11</p>
               </button>
-            </div>
-            <div className="flex pl-7">
+            </div> */}
+            <div className="flex pl-7 w-96 h-20">
               <DatePicker
                 className=""
                 selected={startDate}

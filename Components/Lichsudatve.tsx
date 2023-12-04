@@ -167,6 +167,7 @@ const Lichsudatve = ({
     const [ngaychieu, setNgaychieu] = useState(new Date());
     const [phim, setPhim] = useState<Phim[]>([]);
     const [tenphim, setTenphim] = useState(String);
+    const [poster, setPoster] = useState(String);
     const [chitietdoan, setChitietdoan] = useState<Chitietdoan[]>([]);
     const [doan, setDoan] = useState<Doan[]>([]);
     const [tgiangiaodich, settgiangiaodich] = useState(new Date());
@@ -189,20 +190,20 @@ const Lichsudatve = ({
         //         user: hten_KH
         //     });
         // if (res && res.response.body.vnp_ResponseCode === '00') {
-            let res1 = await handleHuyVe(
-                {
-                    id_ve: id
-                });
-            if (res1 && res1.errCode === 0) {
-                console.log(res1)
-                alert('Bạn đã hủy vé thành công.Tiền sẽ được hoàn về số tài khoản lúc đặt')
-                window.location.reload();
+        let res1 = await handleHuyVe(
+            {
+                id_ve: id
+            });
+        if (res1 && res1.errCode === 0) {
+            console.log(res1)
+            alert('Bạn đã hủy vé thành công.Tiền sẽ được hoàn về số tài khoản lúc đặt')
+            window.location.reload();
 
-            }
-            else {
-                console.log(res1)
-                alert('Lỗi hủy vé')
-            }
+        }
+        else {
+            console.log(res1)
+            alert('Lỗi hủy vé')
+        }
         // } else {
         //     console.log(res)
 
@@ -344,6 +345,8 @@ const Lichsudatve = ({
                     res2.map((p) => {
                         setTenphim(p.tenphim)
                         setIdp(p.id)
+                        setPoster(new Buffer(p.poster, "base64").toString("binary"))
+
                     })
                 })
             } catch (error) {
@@ -406,13 +409,13 @@ const Lichsudatve = ({
         <div className="">
             <div className='flex pt-10 w-6/12 m-auto h-44'>
                 <div className='bg-gray-100 basis-1/5  rounded-xl'>
-                    <Image
+                    {/* <Image
                         className="m-auto pt-[30%]"
-                        src='/cgvlogo-small.png'
+                        src={poster}
                         width={100}
                         height={100}
                         alt="Picture of the author"
-                    />
+                    /> */}
                 </div>
                 <div className='bg-gray-200  basis-4/5  rounded-xl border-gray-300 border-l-2 border-dashed'>
                     <div className=" flex rounded-lg mx-7 my-3" onClick={() => setStep(!step)}>
@@ -420,15 +423,16 @@ const Lichsudatve = ({
 
                             <Image
                                 className="w-96 h-20"
-                                src='/poster11.jpg'
-                                width={3500}
-                                height={3500}
+                                src={poster}
+                                width={100}
+                                height={100}
                                 alt="Picture of the author"
                             />
                         </div>
                         <div className="w-3/6 space-y-2 pt-2  ml-[3%] ">
                             <p className="font-bold text-xl">
-                                Người vợ cuối cùng
+                                {tenphim.slice(0, 15) + '...'}
+                                {/* Người vợ cuối cùng */}
                             </p>
                             <p className="font-thin text-lg">
                                 {tencumrap}
@@ -471,6 +475,7 @@ const Lichsudatve = ({
                 (
                     <div className="w-4/12 border-2 p-4 border-green-400 m-auto">
                         <KeyboardDoubleArrowUpIcon onClick={() => setStep(!step)} />
+                        <p>{tenphim}</p>
                         <div className="flex  text-gray-600">
                             <p className="w-1/3">Phòng chiếu</p>
                             <p className="w-1/3">Số lượng ghế</p>
