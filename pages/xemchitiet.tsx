@@ -20,7 +20,7 @@ const xemchitiet = ({id_phim}: codeProductProps) => {
     <div>
       <Header />
       <Chitietphim id_phim={id_phim || null} />
-      <Binhluan />
+      <Binhluan id_phim={id_phim || null}/>
       <Footer />
     </div>
 

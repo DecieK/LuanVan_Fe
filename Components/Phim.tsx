@@ -51,6 +51,7 @@ const Phim = () => {
         setIdp(id)
     }
 
+
     useEffect(() => {
         const handleLayTTPhim = async () => {
             // let imageBase64 = "";
@@ -190,7 +191,11 @@ const Phim = () => {
                     </div>
                 ) : null
             }
-
+            <Modal
+                id_phim={idp}
+                onClose={() => setShowModal(false)}
+                show={showModal}
+            ></Modal>
         </div >
     )
 }

@@ -38,6 +38,23 @@ const Chitietphim = ({ id_phim }: Props) => {
         id: number;
         tenloai: string;
     }
+    interface Khachhang {
+        id: number;
+        Hten_KH: string;
+        Sdt_KH: string;
+        Email_KH: string;
+        Ngaysinh_KH: Date;
+        Tuoi_KH: number;
+        Diachi_KH: string;
+        Gioitinh_KH: string;
+        Cccd_KH: string;
+        Mathethanhvien_KH: number;
+        Diemtichluy_KH: number;
+        Taikhoan_KH: string;
+        Matkhau_KH: string;
+        createdAt: string;
+    }
+    const [khachhang, setKhachhang] = useState<Khachhang[]>([]);
     const [phim, setPhim] = useState<Phim[]>([]);
     const [chitietloaiphim, setChitietloaiphim] = useState<Chitietloaiphim[]>([]);
     const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
@@ -118,6 +135,22 @@ const Chitietphim = ({ id_phim }: Props) => {
                 console.log(error);
             }
         }
+        const khachhangs = JSON.parse(
+            localStorage.getItem("khachhang") || "{}"
+        );
+        if (Object.keys(khachhangs).length === 0) {
+            // setTrangthai(true)
+            // console.log("true");
+        } else {
+            // setTrangthai(false)
+            console.log("false");
+            const res: Khachhang[] = khachhangs;
+            setKhachhang(res)
+            // res.map((item) => {
+            //     setTenKH(item.Hten_KH)
+            //     setId_kh(item.id)
+            // });
+        }
         setDomLoaded(true)
         handleLayTTPhim()
         handleLayTTCTLoaiphim_idP()
@@ -132,7 +165,7 @@ const Chitietphim = ({ id_phim }: Props) => {
                         <div className='flex lg:flex-row flex-col mt-6'>
                             <div className='basis-6/12 m-auto  '>
                                 <ReactPlayer
-                                
+
                                     height={350}
                                     width={550}
                                     // playing={true}
@@ -197,7 +230,11 @@ const Chitietphim = ({ id_phim }: Props) => {
                                 </div>
 
                                 {/* <button className='uppercase font-semibold bg-red-400 w-36 h-8 rounded-tr-lg rounded-bl-lg ml-[18%]'>đặt vé</button> */}
-                                <button onClick={() => setShowModal(true)} className='uppercase font-semibold bg-red-400 w-36 h-8 rounded-tr-lg rounded-bl-lg ml-[18%]'>Đặt vé</button>
+                                <button disabled={khachhang.length === 0}  onClick={() => setShowModal(true)}
+                                    className='uppercase font-semibold bg-red-400 w-36 h-8 rounded-tr-lg rounded-bl-lg ml-[18%]'>
+                                    Đặt vé
+                                </button>
+                                <p className='text-red-600 italic'>{khachhang.length === 0 ? 'Vui lòng đăng nhập để đặt vé' : null}</p>
                             </div>
 
                         </div>

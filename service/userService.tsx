@@ -1164,3 +1164,31 @@ export async function Search(params: { key: any }): Promise<any> {
   const data = await response.json();
   return data;
 }
+export async function Laybinhluan(params: { key: any }): Promise<any> {
+  const { key } = params;
+  const response = await fetch(
+    `http://localhost:8080/api/Laybinhluan?keyword=${key}`
+  );
+  const data = await response.json();
+  return data;
+}
+export async function handleThembinhluan(params: {
+  sosao: number,
+  noidung: string,
+  id_kh: number,
+  id_phim: number,
+
+}): Promise<any> {
+  const response = await fetch(
+    `http://localhost:8080/api/Thembinhluan`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
+  );
+  const data = await response.json();
+  return data;
+}
