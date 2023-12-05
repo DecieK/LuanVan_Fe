@@ -230,7 +230,7 @@ const QLKhuyenmai = () => {
 
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tỉ lệ (%) khuyến mãi</p>
-                    <input type="number" placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                    <input type="number" min={1} placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
                         value={tile}
                         onChange={(event) => setTile(event.target.valueAsNumber)}
                     ></input>
@@ -246,7 +246,7 @@ const QLKhuyenmai = () => {
 
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Điều khiện nhận khuyến mãi<br />(Dựa theo điểm tích lũy)</p>
-                    <input type="number" placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                    <input type="number" min={1} placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
                         value={dieukien}
                         onChange={(event) => setDieukien(event.target.valueAsNumber)}
                     ></input>

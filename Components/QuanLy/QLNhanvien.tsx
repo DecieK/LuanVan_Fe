@@ -262,7 +262,7 @@ const QLNhanvien = () => {
                         </div>
                         <div className="flex space-x-5">
                             <p className="basis-[20%]">Tuổi</p>
-                            <input type="number" placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                            <input type="number" min={1} placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
                                 onChange={(event) => setTuoi(event.target.valueAsNumber)}
                                 value={tuoi}
                             ></input>

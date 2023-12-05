@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-
+import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -56,6 +56,7 @@ import QLDichvu from "@/Components/QuanLy/QLDichvu";
 import QLKhuyenmai from "@/Components/QuanLy/QLKhuyenmai";
 import QLNhanvien from "@/Components/QuanLy/QLNhanvien";
 import QLDoanhthu from "@/Components/QuanLy/QLDoanhthu";
+import Fab from "@mui/material/Fab";
 
 
 const Quanly = () => {
@@ -302,9 +303,9 @@ const Quanly = () => {
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext value={value}>
+      <TabContext value={value} >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList onChange={handleChange} aria-label="lab API tabs example" >
             {/* <Tab label=" Rạp" value="1" /> */}
 
             <Tab label="Rạp" value="1" />
@@ -515,6 +516,7 @@ const Quanly = () => {
           <QLDoanhthu />
         </TabPanel>
       </TabContext>
+      
     </Box >
   );
 }

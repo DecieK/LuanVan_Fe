@@ -351,7 +351,7 @@ const QLDichvu = () => {
                 </div>
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Giá</p>
-                    <input placeholder="" type="number" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                    <input placeholder="" type="number" min={1} className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
                         value={gia}
                         onChange={(event) => setGia(event.target.valueAsNumber)}
                     ></input>

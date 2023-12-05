@@ -54,9 +54,9 @@ const Timkiem = () => {
     }
     return (
         <center>
-            <div className=" relative w-5/12">
+            <div className=" relative w-5/12 ">
 
-                <input onChange={(e) => handleLayTTPhim(e.target.value)} className=" w-full h-10 mt-3 rounded-lg border-black border-2 pl-1" placeholder="Nhập thông tin bạn cần tìm kiếm" />
+                <input onChange={(e) => handleLayTTPhim(e.target.value)} className=" outline-none w-full h-10 mt-3  border-gray-200 border-2 pl-1" placeholder="Nhập thông tin bạn cần tìm kiếm" />
                 <SearchIcon className='absolute right-5 mt-5' />
 
 
@@ -65,7 +65,7 @@ const Timkiem = () => {
 
                         return (
                             <>
-                                <p>
+                                <p className=' border-r-2 border-l-2 border-t-0'>
                                     {phim.tenphim}
                                 </p>
                             </>

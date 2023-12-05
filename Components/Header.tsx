@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
-import Dangnhap from "@/Components/Dangnhap";
+// import Dangnhap from "@/Components/Dangnhap";
 import { Noto_Serif } from 'next/font/google'
 import { Navbar } from "@material-tailwind/react";
 import Head from "next/head";
@@ -67,6 +67,11 @@ const Header = () => {
   const handleQuydinh = () => {
     router.push("/quydinh");
   };
+
+  const handleTintuc = () => {
+    router.push("/tintucuudai");
+  };
+
 
   const handleLogin = () => {
     router.push("/login");
@@ -157,6 +162,7 @@ const Header = () => {
           <Button
             className=" font-semibold text-gray-800 hover:text-red-500"
             id="basic-button"
+            onClick={() => handleTintuc()}
           >
             Tin tức & ưu đãi
           </Button>

@@ -455,7 +455,7 @@ const QLPhim = () => {
                     </div>
                     <div className="flex">
                         <p className="basis-3/12">Giới hạn tuổi</p>
-                        <input type="number" className="h-9 w-80 border-2 outline-none pl-2"
+                        <input type="number" min={1} className="h-9 w-80 border-2 outline-none pl-2"
                             value={dieukien}
                             onChange={(event) => setDieukien(event.target.valueAsNumber)}
 
