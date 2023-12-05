@@ -181,34 +181,34 @@ const Lichsudatve = ({
 
 
     const handleHuyVe1 = async () => {
-        // let res = await VNPayRefund(
-        //     {
-        //         orderId: (magd),
-        //         transDate: tggd,
-        //         amount: tongtien,
-        //         transType: '02',
-        //         user: hten_KH
-        //     });
-        // if (res && res.response.body.vnp_ResponseCode === '00') {
-        let res1 = await handleHuyVe(
+        let res = await VNPayRefund(
             {
-                id_ve: id
+                orderId: (magd),
+                transDate: tggd,
+                amount: tongtien,
+                transType: '02',
+                user: hten_KH
             });
-        if (res1 && res1.errCode === 0) {
-            console.log(res1)
-            alert('Bạn đã hủy vé thành công.Tiền sẽ được hoàn về số tài khoản lúc đặt')
-            window.location.reload();
+        if (res && res.response.body.vnp_ResponseCode === '00') {
+            let res1 = await handleHuyVe(
+                {
+                    id_ve: id
+                });
+            if (res1 && res1.errCode === 0) {
+                console.log(res1)
+                alert('Bạn đã hủy vé thành công.Tiền sẽ được hoàn về số tài khoản lúc đặt')
+                window.location.reload();
 
-        }
-        else {
-            console.log(res1)
-            alert('Lỗi hủy vé')
-        }
-        // } else {
-        //     console.log(res)
+            }
+            else {
+                console.log(res1)
+                alert('Lỗi hủy vé')
+            }
+        } else {
+            console.log(res)
 
-        //     alert('Lỗi hoàn tiền vé')
-        // }
+            alert('Lỗi hoàn tiền vé')
+        }
 
     }
 

@@ -923,7 +923,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
         onCloseKM={() => setShowModalKM(false)}
         showKM={showModalKM}
       ></ModalKhuyenmai> */}
-      <button onClick={() => console.log("ádas", dsgheDDs.length)}>click</button>
+      {/* <button onClick={() => console.log("ádas", dsgheDDs.length)}>click</button> */}
 
     </div>
 

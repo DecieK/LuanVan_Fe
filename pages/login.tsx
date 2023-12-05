@@ -139,6 +139,7 @@ const [nhanvien, setNhanvien] = useState<Nhanvien[]>([]);
       if (response.data.errCode) {
         setLoginStatus(response.data.errCode);
         alert("Thông tin đăng nhập không đúng")
+        console.log("thành công",response.data.errCode)
 
       } else {
         console.log("asdasdasdasd")

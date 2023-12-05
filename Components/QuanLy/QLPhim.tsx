@@ -433,12 +433,12 @@ const QLPhim = () => {
                             value={thoiluong}
                         />
                     </div>
-                    <div className="flex">
+                    {/* <div className="flex">
                         <p className="basis-3/12">Poster</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"
 
                         />
-                    </div>
+                    </div> */}
                     <div className="flex">
                         <p className="basis-3/12">Trailer</p>
                         <input className="h-9 w-80 border-2 outline-none pl-2"

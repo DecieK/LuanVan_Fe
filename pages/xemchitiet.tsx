@@ -1,3 +1,4 @@
+import Binhluan from "@/Components/Binhluan";
 import Chitietphim from "@/Components/Chitietphim";
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
@@ -19,6 +20,7 @@ const xemchitiet = ({id_phim}: codeProductProps) => {
     <div>
       <Header />
       <Chitietphim id_phim={id_phim || null} />
+      <Binhluan />
       <Footer />
     </div>
 
