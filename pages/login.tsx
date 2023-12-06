@@ -169,6 +169,8 @@ const [nhanvien, setNhanvien] = useState<Nhanvien[]>([]);
             pathname: '/',
           })
         } else if (res2.length === 1) {
+          localStorage.setItem('nhanvien', JSON.stringify(res2));
+
           router.push({
             pathname: '/quanly/quanly',
           })
@@ -211,7 +213,7 @@ const [nhanvien, setNhanvien] = useState<Nhanvien[]>([]);
             </div>
             <div className="mt-6">
               <FontAwesomeIcon icon={faLock} style={{ color: "#ffffff", }} className="pr-3" />
-              <input placeholder="Mật khẩu" className="w-3/4  border-b-2 bg-black bg-opacity-0 border-white"
+              <input placeholder="Mật khẩu" type="password" className="w-3/4  border-b-2 bg-black bg-opacity-0 border-white"
                 onChange={(e) => { setPassword(e.target.value) }}
               ></input>
               {/* <button className=" h-5 w-5 bg-no-repeat bg-[url('../public/Hienps.png')]"></button> */}

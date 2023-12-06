@@ -72,6 +72,7 @@ const QLPhim = () => {
     const [poster, setPoster] = useState<any>();
     const [fileIMG, setFileIMG] = useState<File>()
     const [open, setOpen] = useState(Boolean);
+    const [step, setStep] = useState("them");
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const arrLP: number[] = []
     const handleLoaiphim = (idlp: number) => {
@@ -102,6 +103,7 @@ const QLPhim = () => {
         setDieukien(dieukien)
         setQuocgia(quocgia)
         setId(id)
+        setStep("capnhat")
     }
     const handleCapnhatTTphim = async () => {
         console.log("poster", poster)
@@ -138,12 +140,12 @@ const QLPhim = () => {
             setThoiluong('')
             setTomtat('')
             setTrailer('')
-
-            alert("Cập nhật thông tin phim thành thông")
+            setStep('them')
+            alert("Cập nhật thông tin phim thành công")
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin phim KHÔNG thành thông")
+            alert("Cập nhật thông tin phim KHÔNG thành công")
 
         };
     }
@@ -168,11 +170,11 @@ const QLPhim = () => {
             setTomtat('')
             setTrailer('')
 
-            alert("Xóa thông tin phim thành thông")
+            alert("Xóa thông tin phim thành công")
         } else {
 
             console.log(res)
-            alert("Xóa thông tin phim KHÔNG thành thông")
+            alert("Xóa thông tin phim KHÔNG thành công")
 
         };
 
@@ -472,7 +474,7 @@ const QLPhim = () => {
                     <div className="flex space-x-6">
                         <div className="basis-3/12 flex pb-20 space-x-6">
 
-                            <p  className="">Poster</p>
+                            <p className="">Poster</p>
                             <div className="preview-img-container ">
                                 <input
                                     className="w-56 boder-2 bg-slate-400"
@@ -509,14 +511,23 @@ const QLPhim = () => {
                 </div> */}
 
             </div>
-            <div className=" w-8/12 ">
-                <button
-                    className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
 
-                    onClick={handleThemTTPhim}
-                >Thêm phim</button>
-                <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={handleCapnhatTTphim}>Cập nhật phim</button>
+            <div className="w-8/12 pt-7">
+                {step === "them" &&
+                    (
+                        <button
+                            className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+
+                            onClick={handleThemTTPhim}
+                        >Thêm phim</button>
+                    )
+                }
+                {step === "capnhat" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={handleCapnhatTTphim}>Cập nhật phim</button>
+                    )
+                }
             </div>
 
             <div className="w-full overflow-x-auto">

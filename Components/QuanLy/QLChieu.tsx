@@ -156,13 +156,13 @@ const QLChieu = () => {
             setGiave('')
             // setId_cr()
             handleLayTTChieu()
-            alert("Thêm thông tin chiếu mới thành thông")
+            alert("Thêm thông tin chiếu mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin chiếu mới KHÔNG thành thông")
+            alert("Thêm thông tin chiếu mới KHÔNG thành công")
 
         };
     }
@@ -192,15 +192,16 @@ const QLChieu = () => {
             setValueRap('')
             setValueSuatchieu('')
             setNgaychieu(new Date())
+            setStep('them')
             handleLayTTChieu()
-            alert("Cập nhật thông tin chiếu mới thành thông")
+            alert("Cập nhật thông tin chiếu mới thành công")
 
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin chiếu KHÔNG thành thông")
+            alert("Cập nhật thông tin chiếu KHÔNG thành công")
 
         };
     }
@@ -218,11 +219,11 @@ const QLChieu = () => {
             setGiave('')
             // setId_cr()
             handleLayTTChieu()
-            alert("Xóa thông tin chiếu mới thành thông")
+            alert("Xóa thông tin chiếu mới thành công")
         } else {
 
             console.log(res)
-            alert("Xóa thông tin chiếu KHÔNG thành thông")
+            alert("Xóa thông tin chiếu KHÔNG thành công")
 
         };
     }
@@ -233,7 +234,6 @@ const QLChieu = () => {
 
         setNgaychieu(date1)
         setGiave(gv.toString())
-
         phim.map((item) => {
             if (idp === item.id) {
                 setValuePhim(item.tenphim)
@@ -405,22 +405,22 @@ const QLChieu = () => {
                     </div>
                 </div>
                 <div className=" w-8/12 ">
-                    {/* {step === "them" &&
-                        ( */}
-                    <button onClick={() => handleThemTTChieu()}
-                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    >Lưu thông tin</button>
-                    {/* 
-                        )
-                    } */}
-                    {/* {step === "capnhat" &&
-                        ( */}
-                    <button onClick={() => handleCapnhatTTChieu()}
-                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    >Cập nhật thông tin</button>
+                    {step === "them" &&
+                        (
+                            <button onClick={() => handleThemTTChieu()}
+                                className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            >Lưu thông tin</button>
 
-                    {/* ) */}
-                    {/* } */}
+                        )
+                    }
+                    {step === "capnhat" &&
+                        (
+                            <button onClick={() => handleCapnhatTTChieu()}
+                                className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            >Cập nhật thông tin</button>
+
+                        )
+                    }
                 </div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">

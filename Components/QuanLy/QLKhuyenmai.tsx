@@ -48,6 +48,7 @@ const QLKhuyenmai = () => {
     const [prevURLIMG, setPrevURLIMG] = useState("");
     const [ngaybatdau, setNgaybatdau] = useState(new Date());
     const [ngayketthuc, setNgayketthuc] = useState(new Date());
+    const [step, setStep] = useState("them");
 
 
 
@@ -66,30 +67,32 @@ const QLKhuyenmai = () => {
                 tile: tile,
                 mota: mota,
                 dieukien: dieukien,
-                thoigianbatdau:ngaybatdau,
-                thoigianketthuc:ngayketthuc
+                thoigianbatdau: ngaybatdau,
+                thoigianketthuc: ngayketthuc
             });
         if (res && res.errCode === 0) {
             console.log(res)
 
-            // setNgaychieu(new Date())
-            // setGiave('')
-            // setId_cr()
-            // handleLayTTDoan()
-            alert("Thêm khuyến mãi mới thành thông")
+            setTen('')
+            setTile(0)
+            setDieukien(0)
+            setMota('')
+            setNgaybatdau(new Date())
+            setNgayketthuc(new Date())
+            alert("Thêm khuyến mãi mới thành công")
             handleLayTTKM()
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm khuyến mãi mới KHÔNG thành thông")
+            alert("Thêm khuyến mãi mới KHÔNG thành công")
 
         };
     }
 
 
-    
+
     const handleLayTTKM = async () => {
         try {
 
@@ -126,6 +129,7 @@ const QLKhuyenmai = () => {
         setDieukien(dieukien)
         setNgaybatdau(date1)
         setNgayketthuc(date2)
+        setStep("capnhat")
 
     }
 
@@ -154,14 +158,14 @@ const QLKhuyenmai = () => {
             setMota('')
             setNgaybatdau(new Date())
             setNgayketthuc(new Date())
-
+            setStep('them')
             handleLayTTKM()
-            alert("Cập nhật khuyến mãi mới thành thông")
+            alert("Cập nhật khuyến mãi mới thành công")
 
         } else {
 
             console.log(res)
-            alert("Cập nhật khuyến mãi KHÔNG thành thông")
+            alert("Cập nhật khuyến mãi KHÔNG thành công")
 
         };
     }
@@ -182,11 +186,11 @@ const QLKhuyenmai = () => {
             setNgayketthuc(new Date())
 
             handleLayTTKM()
-            alert("Xóa thông tin khuyến mãi mới thành thông")
+            alert("Xóa thông tin khuyến mãi mới thành công")
         } else {
 
             console.log(res)
-            alert("Xóa thông tin khuyến mãi KHÔNG thành thông")
+            alert("Xóa thông tin khuyến mãi KHÔNG thành công")
 
         };
     }
@@ -256,7 +260,7 @@ const QLKhuyenmai = () => {
                     <div>
                         <p className="basis-[20%]">Thời gian bắt đầu</p>
                         <DatePicker
-                            className=""
+                            className="border-b-2 border-gray-500"
                             // type="datetime"
                             selected={ngaybatdau}
                             onChange={(date: Date) => setNgaybatdau(date)}
@@ -266,7 +270,7 @@ const QLKhuyenmai = () => {
                     <div>
                         <p className="basis-[20%]">Thời gian kết thúc</p>
                         <DatePicker
-                            className=""
+                            className="border-b-2 border-gray-500"
                             // type="datetime"
                             selected={ngayketthuc}
                             onChange={(date: Date) => setNgayketthuc(date)}
@@ -275,14 +279,24 @@ const QLKhuyenmai = () => {
                     </div>
                 </div>
             </div>
-            <div className=" w-8/12 ">
-                <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                onClick={() => handleCapnhatTTKhuyemai()}
-                >Cập nhật thông tin</button>
-                <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={() => handleThemTTKhuyenmai()}
-                >Lưu thông tin</button>
+
+            <div className="w-8/12 pb-7">
+                {step === "them" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleThemTTKhuyenmai()}
+                        >Lưu thông tin</button>
+                    )
+                }
+                {step === "capnhat" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleCapnhatTTKhuyemai()}
+                        >Cập nhật thông tin</button>
+                    )
+                }
             </div>
+
             <table className=" border-separate  border border-slate-400 w-full ">
                 <thead>
                     <tr>
@@ -321,11 +335,11 @@ const QLKhuyenmai = () => {
 
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                    onClick={() => handleSuaTTKhuyemai(item.id, item.ten_KM, item.tile_KM, item.mota_KM, item.dieukien_KM, item.thoigianbatdau, item.thoigianketthuc)}
+                                        onClick={() => handleSuaTTKhuyemai(item.id, item.ten_KM, item.tile_KM, item.mota_KM, item.dieukien_KM, item.thoigianbatdau, item.thoigianketthuc)}
 
                                     />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }}
-                                    onClick={() => handleXoaTTKhuyenmai(item.id)}
+                                        onClick={() => handleXoaTTKhuyenmai(item.id)}
 
                                     />
                                 </td>

@@ -28,7 +28,7 @@ const QLSuatchieu = () => {
     const [endtime, setEndtime] = useState('');
     const [id_sc, setId_sc] = useState(Number);
     const [suatchieu, setSuatchieu] = useState<Suatchieu[]>([]);
-
+    const [step, setStep] = useState("them");
     const handleLayTTSuatchieu = async () => {
         try {
             const params = {
@@ -59,16 +59,17 @@ const QLSuatchieu = () => {
             setStarttime('')
             setEndtime('')
             handleLayTTSuatchieu()
-            alert("Thêm thông tin suất chiếu mới thành thông") 
+            alert("Thêm thông tin suất chiếu mới thành công")
         } else {
             console.log(res)
-            alert("Thêm thông tin suất chiếu mới KHÔNG thành thông")
+            alert("Thêm thông tin suất chiếu mới KHÔNG thành công")
         };
     }
     const handleSuaTTSuatchieu = async (bd: string, kt: string, id: number) => {
         setStarttime(bd)
         setEndtime(kt)
         setId_sc(id)
+        setStep("capnhat")
     }
 
     const handleCapnhatTTSuatchieu = async () => {
@@ -84,11 +85,12 @@ const QLSuatchieu = () => {
             console.log(res)
             setStarttime('')
             setEndtime('')
+            setStep('them')
             handleLayTTSuatchieu()
-            alert("Cập nhật thông tin suất chiếu thành thông")
+            alert("Cập nhật thông tin suất chiếu thành công")
         } else {
             console.log(res)
-            alert("Cập nhật thông tin suất chiếu KHÔNG thành thông")
+            alert("Cập nhật thông tin suất chiếu KHÔNG thành công")
         };
     }
 
@@ -102,31 +104,31 @@ const QLSuatchieu = () => {
             setStarttime('')
             setEndtime('')
             handleLayTTSuatchieu()
-            alert("Xóa thông tin suất chiếu thành thông")
+            alert("Xóa thông tin suất chiếu thành công")
         } else {
             console.log(res)
-            alert("Xóa thông tin suất chiếu KHÔNG thành thông")
+            alert("Xóa thông tin suất chiếu KHÔNG thành công")
         };
     }
 
     useEffect(() => {
         const handleLayTTSuatchieu = async () => {
             try {
-              const params = {
-                key: 'ALL',
-              };
-              // console.log("searchdate", params);
-              const response = await LayTTSuatchieu(params);
-              const res: Suatchieu[] = response.suatchieus;
-              // console.log("check api searchdate ghe: ", response);
-              // console.log("length", res.length);
-              setSuatchieu(res);
-      
+                const params = {
+                    key: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTSuatchieu(params);
+                const res: Suatchieu[] = response.suatchieus;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setSuatchieu(res);
+
             } catch (error) {
-              console.log(error);
+                console.log(error);
             }
-          }
-          handleLayTTSuatchieu()
+        }
+        handleLayTTSuatchieu()
     }, [])
     return (
         <div>
@@ -143,14 +145,26 @@ const QLSuatchieu = () => {
                         value={endtime}
                         onChange={(event) => setEndtime(event.target.value)} />
                 </div>
-                <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTSuatchieu()}
-                    >Lưu thông tin</button>
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleCapnhatTTSuatchieu()}
-                    >Cấp nhật thông tin</button>
+
+
+
+                <div className="w-8/12 pt-7">
+                    {step === "them" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleThemTTSuatchieu()}
+                            >Lưu thông tin</button>
+                        )
+                    }
+                    {step === "capnhat" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleCapnhatTTSuatchieu()}
+                            >Cập nhật thông tin</button>
+                        )
+                    }
                 </div>
+
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>

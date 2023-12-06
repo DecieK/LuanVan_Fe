@@ -36,7 +36,7 @@ const QLDichvu = () => {
 
     const [valueSize, setValueSize] = useState('');
     const [id_dv, setId_dv] = useState(Number);
-    const [anhminhhoa, setAnhminhhoa] = useState('');
+    const [anhminhhoa, setAnhminhhoa] = useState<any>();
     const [doan, setDoan] = useState<Doan[]>([]);
     const [prevURLIMG, setPrevURLIMG] = useState('');
     const Size = [
@@ -45,6 +45,7 @@ const QLDichvu = () => {
     const [tendv, setTendv] = useState('');
     const [loaidv, setLoaidv] = useState('');
     const [motadv, setMotadv] = useState('');
+    const [step, setStep] = useState("them");
 
 
     // const handleLayTTChieu = async () => {
@@ -126,28 +127,31 @@ const QLDichvu = () => {
             setValueSize('')
 
             handleLayTTDoan()
-            alert("Thêm thông tin dịch vụ mới thành thông")
+            alert("Thêm thông tin dịch vụ mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin dịch vụ mới KHÔNG thành thông")
+            alert("Thêm thông tin dịch vụ mới KHÔNG thành công")
 
         };
     }
 
     const handleCapnhatTTDichvu = async () => {
-        // console.log("ngaychieu", ngaychieu)
-        console.log("giave", anhminhhoa)
-        // console.log("id_r", id_r)
-        // console.log("id_p", id_p)
-        // console.log("id_sc", id_sc)
+        console.log("gia", gia)
+        console.log("motadv", motadv)
+        console.log("id_r", id_dv)
+        console.log("id_p", tendv)
+        console.log("id_sc", loaidv)
+        console.log("id_sc", valueSize)
+        console.log("id_sc", prevURLIMG)
+
         let res = await SuaTTDichvu(
             {
                 id: id_dv,
                 Ten: tendv,
-                Anhminhhoa: anhminhhoa,
+                Anhminhhoa: prevURLIMG,
                 Loai: loaidv,
                 Mota: motadv,
                 Gia: gia,
@@ -162,14 +166,14 @@ const QLDichvu = () => {
             setMotadv('')
             setGia(0)
             setValueSize('')
-
+            setStep('them')
             handleLayTTDoan()
-            alert("Cập nhật thông tin dịch vụ mới thành thông")
+            alert("Cập nhật thông tin dịch vụ mới thành công")
 
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin dịch vụ KHÔNG thành thông")
+            alert("Cập nhật thông tin dịch vụ KHÔNG thành công")
 
         };
     }
@@ -190,27 +194,27 @@ const QLDichvu = () => {
             setValueSize('')
 
             handleLayTTDoan()
-            alert("Xóa thông tin dịch vụ mới thành thông")
+            alert("Xóa thông tin dịch vụ mới thành công")
         } else {
 
             console.log(res)
-            alert("Xóa thông tin dịch vụ KHÔNG thành thông")
+            alert("Xóa thông tin dịch vụ KHÔNG thành công")
 
         };
     }
-    const handleSuaTTDichvu = async (id: number, ten: string, anh: string, ldv: string, mtdv: string, size: string, gia: number) => {
+    const handleSuaTTDichvu = async (id: number, ten: string, anh: any, ldv: string, mtdv: string, size: string, gia: number) => {
         // let date1 = new Date(ngay)
         // setId_c(id)
         console.log("gg", anh)
         setId_dv(id)
         setTendv(ten)
         setPrevURLIMG(new Buffer(anh, "base64").toString("binary"))
-        // setAnhminhhoa(anh)
+        setAnhminhhoa(anh)
         setLoaidv(ldv)
         setMotadv(mtdv)
         setValueSize(size)
         setGia(gia)
-
+        setStep("capnhat")
     }
     const handleOnChangeImage = async (event: { target: { files: any; }; }) => {
         // console.log("img")
@@ -356,14 +360,25 @@ const QLDichvu = () => {
                         onChange={(event) => setGia(event.target.valueAsNumber)}
                     ></input>
                 </div>
-                <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleCapnhatTTDichvu()}
-                    >Cập nhật thông tin</button>
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTDichvu()}
-                    >Lưu thông tin</button>
-                </div>
+
+                <div className="w-8/12 pb-7">
+
+                {step === "them" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleThemTTDichvu()}
+                        >Lưu thông tin</button>
+                    )
+                }
+                {step === "capnhat" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleCapnhatTTDichvu()}
+                        >Cập nhật thông tin</button>
+                    )
+                }
+
+</div>
             </div>
             <table className=" border-separate  border border-slate-400 w-full m-5 ">
                 <thead>

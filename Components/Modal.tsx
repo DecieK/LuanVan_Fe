@@ -460,7 +460,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 dateFormat="dd/MM/yyyy"
               />
             </div>
-            <div className='grid sm:grid-cols-3 grid-cols-2 mt-10 place-items-center'>              {
+            <div className='grid sm:grid-cols-3 gap-4 m-3 grid-cols-2 mt-10 place-items-center'>              {
               cumrap.map((item, index) => {
                 return (
                   <>
@@ -474,7 +474,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
               })
             }
             </div>
-            <div className='grid grid-cols-4 mt-8 gap-4 place-items-center mb-10'>
+            <div className='grid grid-cols-4 mt-8 gap-4 m-3 place-items-center mb-10'>
               {
                 suatchieus.map((item, index) => {
                   let datee = new Date()

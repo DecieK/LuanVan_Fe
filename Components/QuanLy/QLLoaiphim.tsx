@@ -24,7 +24,7 @@ const QLLoaiphim = () => {
     const [tenLP, setTenLP] = useState('');
     const [loaiphim, setLoaiphim] = useState<Loaiphim[]>([]);
     const [id_lp, setId_lp] = useState(Number);
-
+    const [step, setStep] = useState("them");
     const handleLayTTLoaiphim = async () => {
         try {
             const params = {
@@ -56,19 +56,20 @@ const QLLoaiphim = () => {
             setTenLP('')
 
             handleLayTTLoaiphim()
-            alert("Thêm thông tin loại phim mới thành thông")
+            alert("Thêm thông tin loại phim mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin ghế mới KHÔNG thành thông")
+            alert("Thêm thông tin ghế mới KHÔNG thành công")
 
         };
     }
     const handleSuaTTGhe = async (ten: string, id: number) => {
         setTenLP(ten)
         setId_lp(id)
+        setStep("capnhat")
     }
 
     const handleCapnhatTTLoaiphim = async () => {
@@ -84,9 +85,9 @@ const QLLoaiphim = () => {
             console.log(res)
 
             setTenLP('')
-
+            setStep('them')
             handleLayTTLoaiphim()
-            alert("Cập nhật thông tin loại phim mới thành thông")
+            alert("Cập nhật thông tin loại phim mới thành công")
 
 
 
@@ -94,7 +95,7 @@ const QLLoaiphim = () => {
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin loại phim mới KHÔNG thành thông")
+            alert("Cập nhật thông tin loại phim mới KHÔNG thành công")
 
         };
     }
@@ -109,12 +110,12 @@ const QLLoaiphim = () => {
             console.log(res)
             setTenLP('')
             handleLayTTLoaiphim()
-            alert("Xóa thông tin loại phim thành thông")
+            alert("Xóa thông tin loại phim thành công")
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Xóa thông tin loại phim KHÔNG thành thông")
+            alert("Xóa thông tin loại phim KHÔNG thành công")
 
         };
     }
@@ -122,22 +123,22 @@ const QLLoaiphim = () => {
     useEffect(() => {
         const handleLayTTLoaiphim = async () => {
             try {
-              const params = {
-                id: 'ALL',
-              };
-              // console.log("searchdate", params);
-              const response = await LayTTLoaiphim(params);
-              const res: Loaiphim[] = response.loaiphims;
-              // console.log("check api searchdate ghe: ", response);
-              // console.log("length", res.length);
-              setLoaiphim(res);
-              // console.log(res.length)
-      
+                const params = {
+                    id: 'ALL',
+                };
+                // console.log("searchdate", params);
+                const response = await LayTTLoaiphim(params);
+                const res: Loaiphim[] = response.loaiphims;
+                // console.log("check api searchdate ghe: ", response);
+                // console.log("length", res.length);
+                setLoaiphim(res);
+                // console.log(res.length)
+
             } catch (error) {
-              console.log(error);
+                console.log(error);
             }
-          }
-          handleLayTTLoaiphim()
+        }
+        handleLayTTLoaiphim()
     }, [])
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
@@ -148,8 +149,8 @@ const QLLoaiphim = () => {
                 <div className="flex space-x-5">
                     <p className="basis-[20%]">Tên loại phim</p>
                     <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                       value={(tenLP)}
-                       onChange={(event) => setTenLP(event.target.value)}
+                        value={(tenLP)}
+                        onChange={(event) => setTenLP(event.target.value)}
                     ></input>
                 </div>
                 {/* <div className="flex space-x-5">
@@ -158,14 +159,25 @@ const QLLoaiphim = () => {
                         onChange={(event) => setDiachi(event.target.value)}
                     ></input>
                 </div> */}
-                <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={()=>handleCapnhatTTLoaiphim()}
-                    >Cập nhật thông tin</button>
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={()=>handleThemTTLoaiphim()}
-                    >Lưu thông tin</button>
+
+                <div className="w-8/12 pt-7">
+                    {step === "them" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleThemTTLoaiphim()}
+                            >Lưu thông tin</button>
+                        )
+                    }
+                    {step === "capnhat" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleCapnhatTTLoaiphim()}
+                            >Cập nhật thông tin</button>
+                        )
+                    }
                 </div>
+
+
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>

@@ -46,7 +46,7 @@ const QLGhe = () => {
     const [id_cr, setId_cr] = useState(Number);
     const [id_r, setId_r] = useState(Number);
     const [id_g, setId_g] = useState(Number);
-
+    const [step, setStep] = useState("them");
 
 
     const handleLayttRap = (value: string) => {
@@ -111,24 +111,26 @@ const QLGhe = () => {
             setLoaighe('')
             // setValueCumrap('')
             // setValueRap('')
-                        handleLayTTGheALL()
+            handleLayTTGheALL()
             handleLayttRap(valueCumrap)
             handleLayTTGhe(valueRap)
 
-            alert("Thêm thông tin ghể mới thành thông")
+            alert("Thêm thông tin ghế mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin ghế mới KHÔNG thành thông")
+            alert("Thêm thông tin ghế mới KHÔNG thành công")
 
         };
     }
     const handleSuaTTGhe = async (mg: string, lg: string, id: number, idr: number) => {
         setMaghe(mg)
         setId_g(id)
+        setId_r(idr)
         setLoaighe(lg)
+        setStep("capnhat")
         rap.map((r) => {
             if (r.id === idr) {
                 setValueRap(r.ten_rap)
@@ -145,6 +147,11 @@ const QLGhe = () => {
     }
 
     const handleCapnhatTTGhe = async () => {
+console.log('check =>>>>', id_g)
+console.log('check =>>>>', id_r)
+console.log('check =>>>>', maghe)
+console.log('check =>>>>', loaighe)
+
 
         let res = await SuaTTGhe(
             {
@@ -159,18 +166,18 @@ const QLGhe = () => {
 
             setMaghe('')
             setLoaighe('')
-
+            setStep('them')
             handleLayTTGheALL()
             handleLayttRap(valueCumrap)
             handleLayTTGhe(valueRap)
-            alert("Cập nhật thông tin ghể thành thông")
+            alert("Cập nhật thông tin ghế thành công")
 
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin ghể KHÔNG thành thông")
+            alert("Cập nhật thông tin ghế KHÔNG thành công")
 
         };
     }
@@ -274,59 +281,76 @@ const QLGhe = () => {
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
-            <div className="space-y-5">
-                <Autocomplete
-                    value={valueCumrap}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={cumrap.map((option) => option.ten_tttt)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayttRap(newValue) : null }
+            <div className="space-y-5 w-9/12 m-auto">
+                <div className="flex justify-center gap-7 ">
+                    <Autocomplete
+                        value={valueCumrap}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={cumrap.map((option) => option.ten_tttt)}
+                        // options={}
+                        onChange={(event: any, newValue: string | null) => {
+                            // {newValue ? setValueCumrap(newValue) : null}
+                            { newValue ? handleLayttRap(newValue) : null }
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Trung tâm thương mại" />}
-                />
-                <Autocomplete
-                    value={valueRap}
-                    disablePortal
-                    id="combo-box-demo"
-                    options={rap.map((option) => option.ten_rap)}
-                    // options={}
-                    onChange={(event: any, newValue: string | null) => {
-                        // {newValue ? setValueCumrap(newValue) : null}
-                        { newValue ? handleLayTTGhe(newValue) : null }
+                        }}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Trung tâm thương mại" />}
+                    />
+                    <Autocomplete
+                        value={valueRap}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={rap.map((option) => option.ten_rap)}
+                        // options={}
+                        onChange={(event: any, newValue: string | null) => {
+                            // {newValue ? setValueCumrap(newValue) : null}
+                            { newValue ? handleLayTTGhe(newValue) : null }
 
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Rạp" />}
-                />
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Mã ghế</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        value={maghe}
-                        onChange={(event) => setMaghe(event.target.value)}
-                    ></input>
+                        }}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Rạp" />}
+                    />
                 </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Loại ghế</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                        value={loaighe}
-                        onChange={(event) => setLoaighe(event.target.value)}
-                    ></input>
+                <div className="flex justify-center gap-7 ">
+                    <div className="flex space-x-5 ">
+                        <p className="basis-[20%] pt-1">Mã ghế</p>
+                        <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                            value={maghe}
+                            onChange={(event) => setMaghe(event.target.value)}
+                        ></input>
+                    </div>
+                    <div className="flex space-x-5">
+                        <p className="basis-[30%] pt-1">Loại ghế</p>
+                        <input placeholder="" className="w-[60%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                            value={loaighe}
+                            onChange={(event) => setLoaighe(event.target.value)}
+                        ></input>
+                    </div>
                 </div>
-                <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleCapnhatTTGhe()}
 
-                    >Cập nhật thông tin</button>
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTGhe()}
-                    >Lưu thông tin</button>
-                </div>
             </div>
+
+            <div className="w-8/12 pt-7">
+                {step === "them" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleThemTTGhe()}
+                        >Lưu thông tin</button>
+                    )
+                }
+                {step === "capnhat" &&
+                    (
+                        <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleCapnhatTTGhe()}
+
+                        >Cập nhật thông tin</button>
+                    )
+                }
+            </div>
+
+
+
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>
                     <tr>

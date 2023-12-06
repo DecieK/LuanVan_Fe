@@ -217,24 +217,19 @@ const Chitietphim = ({ id_phim }: Props) => {
                                     } */}
                                 </div>
                                 <div className='flex space-x-2'>
-                                    <p className='font-semibold'>Diễn viên:</p>
+                                    <p className='font-semibold w-2/12'>Diễn viên:</p>
                                     <p>{item.dienvien}</p>
                                 </div>
-                                <div className='flex space-x-2'>
-                                    <p className='font-semibold'></p>
-                                    <p></p>
-                                </div>
-                                <div className='flex space-x-2'>
-                                    <p className='font-semibold'></p>
-                                    <p></p>
-                                </div>
+
 
                                 {/* <button className='uppercase font-semibold bg-red-400 w-36 h-8 rounded-tr-lg rounded-bl-lg ml-[18%]'>đặt vé</button> */}
-                                <button disabled={khachhang.length === 0}  onClick={() => setShowModal(true)}
-                                    className='uppercase font-semibold bg-red-400 w-36 h-8 rounded-tr-lg rounded-bl-lg ml-[18%]'>
-                                    Đặt vé
-                                </button>
-                                <p className='text-red-600 italic'>{khachhang.length === 0 ? 'Vui lòng đăng nhập để đặt vé' : null}</p>
+                                <div className='pt-7'>
+                                    <button disabled={khachhang.length === 0} onClick={() => setShowModal(true)}
+                                        className='uppercase font-semibold bg-red-400 w-36 h-8  rounded-tr-lg rounded-bl-lg ml-[18%]'>
+                                        Đặt vé
+                                    </button>
+                                    <p className='text-red-600 italic'>{khachhang.length === 0 ? 'Vui lòng đăng nhập để đặt vé' : null}</p>
+                                </div>
                             </div>
 
                         </div>

@@ -24,7 +24,7 @@ const QLCumrap = () => {
     const [diachi, setDiachi] = useState('');
     const [idcr, setIdcr] = useState(Number);
     const [cumrap, setCumrap] = useState<Cumrap[]>([]);
-
+    const [step, setStep] = useState("them");
     // const [showModal, setShowModal] = useState(false);
     const handleLayTTCumrap = async () => {
         try {
@@ -48,7 +48,7 @@ const QLCumrap = () => {
         setTenTTTT(ten)
         setDiachi(dc)
         setIdcr(id)
-
+        setStep("capnhat")
     }
     const handleXoaTTCumrap = async (id: number) => {
         let res = await XoaTTCumrap(
@@ -61,13 +61,13 @@ const QLCumrap = () => {
             setTenTTTT('')
             setDiachi('')
             handleLayTTCumrap()
-            alert("Xóa thông tin cụm rạp thành thông")
+            alert("Xóa thông tin cụm rạp thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Xóa thông tin cụm rạp KHÔNG thành thông")
+            alert("Xóa thông tin cụm rạp KHÔNG thành công")
 
         };
     }
@@ -87,14 +87,15 @@ const QLCumrap = () => {
             // console.log(res)
             setTenTTTT('')
             setDiachi('')
+            setStep('them')
             handleLayTTCumrap()
-            alert("Cập nhật thông tin cụm rạp mới thành thông")
+            alert("Cập nhật thông tin cụm rạp mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin cụm rạp mới KHÔNG thành thông")
+            alert("Cập nhật thông tin cụm rạp mới KHÔNG thành công")
 
         };
     }
@@ -112,13 +113,13 @@ const QLCumrap = () => {
             setTenTTTT('')
             setDiachi('')
             handleLayTTCumrap()
-            alert("Thêm thông tin cụm rạp mới thành thông")
+            alert("Thêm thông tin cụm rạp mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin cụm rạp mới KHÔNG thành thông")
+            alert("Thêm thông tin cụm rạp mới KHÔNG thành công")
 
         };
     }
@@ -162,20 +163,30 @@ const QLCumrap = () => {
                         onChange={(event) => setDiachi(event.target.value)}
                     ></input>
                 </div>
+
                 <div className="w-8/12 ">
-                    <button
-                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTCumrap()}
-                    >
-                        Lưu thông tin
-                    </button>
-                    <button
-                        className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleCapnhatTTCumrap()}
-                    >
-                        Cập nhật thông tin
-                    </button>
+                    {step === "them" &&
+                        (
+                            <button
+                                className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleThemTTCumrap()}
+                            >
+                                Lưu thông tin
+                            </button>
+                        )
+                    }
+                    {step === "capnhat" &&
+                        (
+                            <button
+                                className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleCapnhatTTCumrap()}
+                            >
+                                Cập nhật thông tin
+                            </button>
+                        )
+                    }
                 </div>
+
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>

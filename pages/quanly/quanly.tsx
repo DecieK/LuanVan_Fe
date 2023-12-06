@@ -57,7 +57,11 @@ import QLKhuyenmai from "@/Components/QuanLy/QLKhuyenmai";
 import QLNhanvien from "@/Components/QuanLy/QLNhanvien";
 import QLDoanhthu from "@/Components/QuanLy/QLDoanhthu";
 import Fab from "@mui/material/Fab";
-
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import { deepOrange, deepPurple } from '@mui/material/colors';
+import router from "next/router";
+import Tooltip from "@mui/material/Tooltip";
 
 const Quanly = () => {
   interface Cumrap {
@@ -75,6 +79,19 @@ const Quanly = () => {
     ten_rap: string;
     slghe: number;
     id_cumrap: number;
+  }
+  interface Nhanvien {
+    id: number;
+    Hten_NV: string;
+    Sdt_NV: string;
+    Ngaysinh_NV: Date;
+    Tuoi_NV: number;
+    Diachi_NV: string;
+    Gioitinh_NV: string;
+    Cccd_NV: string;
+    Chucvu_NV: string;
+    Email_NV: string;
+    Matkhau_NV: string;
   }
   interface Phim {
     id: number;
@@ -148,13 +165,18 @@ const Quanly = () => {
     setOpenL(!openL);
   };
 
-
+  const handleLogout = () => {
+    localStorage.removeItem("nhanvien");
+    // setAnchorEl(null)
+    // location.reload()
+    router.push("/");
+  }
   useEffect(() => {
 
-    const khachhangs = JSON.parse(
-      localStorage.getItem("khachhang") || "{}"
+    const nhanviens = JSON.parse(
+      localStorage.getItem("nhanvien") || "{}"
     );
-    if (Object.keys(khachhangs).length === 0) {
+    if (Object.keys(nhanviens).length === 0) {
       // setTrangthai(true)
       console.log("true");
     } else {
@@ -163,8 +185,8 @@ const Quanly = () => {
       // const res: Khachhang[] = khachhangs;
       // setKhachhang(res)
       // res.map((item) => {
-        setTennv(khachhangs[0].Hten_KH)
-        // console.log("áda",khachhangs.Hten_KH)
+      setTennv(nhanviens[0].Hten_NV)
+      // console.log("áda",khachhangs.Hten_KH)
       // });
     }
 
@@ -305,7 +327,7 @@ const Quanly = () => {
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value} >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example" >
+          <TabList onChange={handleChange} aria-label="lab API tabs example" className="">
             {/* <Tab label=" Rạp" value="1" /> */}
 
             <Tab label="Rạp" value="1" />
@@ -313,7 +335,25 @@ const Quanly = () => {
             <Tab label="Dịch vụ" value="3" />
             <Tab label="Nhân Viên" value="4" />
             <Tab label="Doanh Thu" value="5" />
-            <button>{tennv}</button>
+            {/* <button>{tennv}</button> */}
+            <div className="w-full ">
+              <div onClick={handleLogout} className="float-right mr-5 m-2 ">
+                <Tooltip title="Đăng xuất">
+                  <Stack direction="row" spacing={2}>
+                    <Avatar className=" rounded-full w-10 h-10 " sx={{ bgcolor: deepPurple[500] }}>
+                      <button>{tennv.slice(0, 1)}</button>
+                    </Avatar>
+                  </Stack>
+                </Tooltip>
+
+                <button>{tennv}</button>
+              </div>
+              {/* <Stack direction="row" spacing={2}>
+                <Avatar className="float-right mr-5 m-2 rounded-full w-12 h-12 border-2 border-green-300" sx={{ bgcolor: deepPurple[500] }}>
+                  <button>V</button>
+                </Avatar>
+              </Stack> */}
+            </div>
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -454,7 +494,7 @@ const Quanly = () => {
             {option == 5 ? (
               <div className="w-10/12 m-5">
 
-                <QLPhim  />
+                <QLPhim />
 
               </div>
             ) : null}
@@ -516,7 +556,7 @@ const Quanly = () => {
           <QLDoanhthu />
         </TabPanel>
       </TabContext>
-      
+
     </Box >
   );
 }

@@ -41,7 +41,9 @@ const QLNhanvien = () => {
 
     const [nhanvien, setNhanvien] = useState<Nhanvien[]>([]);
 
-
+    const [errorSDT, setErrorSDT] = useState(false)
+    const [errorCCCD, setErrorCCCD] = useState(false)
+    const [errorEmail, setErrorEmail] = useState(false)
     const [valueChucvu, setValueChucvu] = useState('');
     const [tennv, setTennv] = useState('');
     const [ngaysinh, setNgaysinh] = useState(new Date());
@@ -53,7 +55,32 @@ const QLNhanvien = () => {
     const [gt_NV, setGT_NV] = useState("");
     const [taikhoan, setTaikhoan] = useState('');
     const [matkhau, setMatkhau] = useState('');
+    const [step, setStep] = useState('them');
 
+    const handleErrorEmail = (val: string) => {
+        setTaikhoan(val)
+        if (val.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            setErrorEmail(false)
+        } else {
+            setErrorEmail(true)
+        }
+    }
+    const handleErrorSDT = (val: string) => {
+        setSdt(val)
+        if (val.match(/(0[3|5|7|8|9])+([0-9]{8})\b/g)) {
+            setErrorSDT(false)
+        } else {
+            setErrorSDT(true)
+        }
+    }
+    const handleErrorCCCD = (val1: string) => {
+        setCccd(val1)
+        if (val1.match(/^([0-9]{12})+$/)) {
+            setErrorCCCD(false)
+        } else {
+            setErrorCCCD(true)
+        }
+    }
     const handleLayTTNhanvien = async () => {
         try {
             const params = {
@@ -112,13 +139,13 @@ const QLNhanvien = () => {
             setTaikhoan('')
             setMatkhau('')
             handleLayTTNhanvien()
-            alert("Thêm thông tin nhân viên mới thành thông")
+            alert("Thêm thông tin nhân viên mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin nhân viên mới KHÔNG thành thông")
+            alert("Thêm thông tin nhân viên mới KHÔNG thành công")
 
         };
     }
@@ -134,6 +161,7 @@ const QLNhanvien = () => {
         setValueChucvu(cv)
         setTaikhoan(tk)
         setMatkhau(mk)
+        setStep('capnhat')
     }
     const handleCapnhatTTNhanvien = async () => {
         console.log("id", id_nv)
@@ -174,12 +202,13 @@ const QLNhanvien = () => {
             setValueChucvu('')
             setTaikhoan('')
             setMatkhau('')
+            setStep('them')
             handleLayTTNhanvien()
-            alert("Cập nhật thông tin nhân viên mới thành thông")
+            alert("Cập nhật thông tin nhân viên mới thành công")
 
         } else {
             console.log(res)
-            alert("Cập nhật thông tin nhân viên KHÔNG thành thông")
+            alert("Cập nhật thông tin nhân viên KHÔNG thành công")
 
         };
     }
@@ -202,13 +231,13 @@ const QLNhanvien = () => {
             setTaikhoan('')
             setMatkhau('')
             handleLayTTNhanvien()
-            alert("Xóa thông tin nhân viên thành thông")
+            alert("Xóa thông tin nhân viên thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Xóa thông tin nhân viên KHÔNG thành thông")
+            alert("Xóa thông tin nhân viên KHÔNG thành công")
 
         };
     }
@@ -270,10 +299,14 @@ const QLNhanvien = () => {
                         <div className="flex space-x-5">
                             <p className="basis-[20%]">Số điện thoại</p>
                             <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                                onChange={(event) => setSdt(event.target.value)}
+                                onChange={(event) => handleErrorSDT(event.target.value)}
                                 value={sdt}
+                                maxLength={10}
+                                minLength={10}
                             ></input>
                         </div>
+                        {errorSDT ? <p className="text-red-500  text-xs">Vui lòng nhập đúng số điện thoại</p> : ''}
+
                         <div className="flex space-x-5">
                             <p className="basis-[20%]">Giới tính</p>
                             <div className="col-span-4 mx-10 ">
@@ -294,10 +327,13 @@ const QLNhanvien = () => {
                         <div className="flex space-x-5">
                             <p className="basis-[20%]">CCCD/CMND</p>
                             <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                                onChange={(event) => setCccd(event.target.value)}
+                                onChange={(event) => handleErrorCCCD(event.target.value)}
                                 value={cccd}
+                                maxLength={12}
+                                minLength={12}
                             ></input>
                         </div>
+                        {errorCCCD ? <p className="text-red-500  text-xs">Vui lòng nhập đúng CCCD</p> : ''}
 
                         <div className="flex space-x-5">
                             <p className="basis-[20%]">Chức vụ</p>
@@ -316,12 +352,14 @@ const QLNhanvien = () => {
                             />
                         </div>
                         <div className="flex space-x-5">
-                            <p className="basis-[20%]">Tài khoản</p>
-                            <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
-                                onChange={(event) => setTaikhoan(event.target.value)}
+                            <p className="basis-[20%]">Tài khoản (Email)</p>
+                            <input placeholder="" type="email" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                                onChange={(event) => handleErrorEmail(event.target.value)}
                                 value={taikhoan}
                             ></input>
                         </div>
+                        {errorEmail ? <p className="text-red-500  text-xs">Lỗi Email không đúng định dạng</p> : ''}
+
                         <div className="flex space-x-5">
                             <p className="basis-[20%]">Mật khẩu</p>
                             <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
@@ -332,17 +370,24 @@ const QLNhanvien = () => {
                     </div>
                 </div>
 
-
-
                 <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleCapnhatTTNhanvien()}
-                    >Cập nhật thông tin</button>
+                    {step === "them" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleThemTTNhanvien()}
+                            >Lưu thông tin</button>
+                        )
+                    }
+                    {step === "capnhat" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                                onClick={() => handleCapnhatTTNhanvien()}
+                            >Cập nhật thông tin</button>
 
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTNhanvien()}
-                    >Lưu thông tin</button>
+                        )
+                    }
                 </div>
+
             </div>
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>

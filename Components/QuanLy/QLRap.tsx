@@ -45,7 +45,7 @@ const QLRap = () => {
     const [valueRap, setValueRap] = useState('');
     const [id_rap, setId_rap] = useState(Number);
     const [id_cr, setId_cr] = useState(Number);
-
+    const [step, setStep] = useState("them");
 
     const handleLayttRap = (value: string) => {
         setValueCumrap(value)
@@ -87,13 +87,13 @@ const QLRap = () => {
             setTenrap('')
             // setId_cr()
             handleLayttRap(valueCumrap)
-            alert("Thêm thông tin rạp mới thành thông")
+            alert("Thêm thông tin rạp mới thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Thêm thông tin rạp mới KHÔNG thành thông")
+            alert("Thêm thông tin rạp mới KHÔNG thành công")
 
         };
     }
@@ -112,14 +112,15 @@ const QLRap = () => {
             setSlg('')
             setTenrap('')
             // setId_cr()
+            setStep('them')
             handleLayttRap(valueCumrap)
-            alert("Cập nhật thông tin rạp thành thông")
+            alert("Cập nhật thông tin rạp thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Cập nhật thông tin rạp KHÔNG thành thông")
+            alert("Cập nhật thông tin rạp KHÔNG thành công")
 
         };
     }
@@ -136,20 +137,27 @@ const QLRap = () => {
             setTenrap('')
             // setId_cr()
             handleLayttRap(valueCumrap)
-            alert("Xóa thông tin rạp thành thông")
+            alert("Xóa thông tin rạp thành công")
 
             // handleCloseClick();
         } else {
 
             console.log(res)
-            alert("Xóa thông tin rạp KHÔNG thành thông")
+            alert("Xóa thông tin rạp KHÔNG thành công")
 
         };
     }
-    const handleSuaTTRap = async (ten: string, slg: number, id: number) => {
+    const handleSuaTTRap = async (ten: string, slg: number, id: number, idcr : number) => {
         setTenrap(ten)
         setId_rap(id)
         setSlg(slg.toString())
+       setId_cr(idcr)
+       cumrap.map((cr)=>{
+        if(cr.id===idcr){
+            setValueCumrap(cr.ten_tttt)
+        }
+       })
+        setStep("capnhat")
     }
 
     useEffect(() => {
@@ -193,8 +201,9 @@ const QLRap = () => {
     //chọn TTTT, chọn rạp => lưu tt ghế
     return (
         <div>
-            <div className="space-y-5">
+            <div className=" flex  justify-center gap-3">
                 <Autocomplete
+                className=""
                     disablePortal
                     id="combo-box-demo"
                     options={cumrap.map((option) => option.ten_tttt)}
@@ -208,30 +217,39 @@ const QLRap = () => {
                     renderInput={(params) => <TextField {...params} label="Trung tâm thương mại" />}
                 />
 
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Tên rạp</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                <div className="flex space-x-5 basis-4/12 pt-2 ">
+                    <p className="basis-[20%] pt-1">Tên rạp</p>
+                    <input placeholder="" className="w-[60%] h-9 pl-2 border-2 border-gray-500 outline-none"
                         onChange={(event) => setTenrap(event.target.value)}
                         value={tenrap}
                     ></input>
                 </div>
-                <div className="flex space-x-5">
-                    <p className="basis-[20%]">Số lượng ghế</p>
-                    <input placeholder="" className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
+                <div className="flex space-x-5  basis-4/12 pt-2 ">
+                    <p className="basis-[30%] pt-1">Số lượng ghế</p>
+                    <input placeholder="" type="number" min={1} className="w-[50%] h-9 pl-2 border-2 border-gray-500 outline-none"
                         onChange={(event) => setSlg(event.target.value)}
                         value={slg}
                     ></input>
                 </div>
-                <div className=" w-8/12 ">
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                    onClick={()=>handleCapnhatTTRap()}
-                    >Cập nhật thông tin</button>
-
-                    <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
-                        onClick={() => handleThemTTRap()}
-                    >Lưu thông tin</button>
-                </div>
+                
             </div>
+            <div className="w-8/12 pt-7">
+                    {step === "them" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={() => handleThemTTRap()}
+                        >Lưu thông tin</button>
+                    )
+                    }
+                    {step === "capnhat" &&
+                        (
+                            <button className="boder border-2 mb-10 bg-blue-400 font-bold float-right h-10 w-40"
+                            onClick={()=>handleCapnhatTTRap()}
+                            >Cập nhật thông tin</button>
+                    )
+                    }
+                </div>
+
             <table className=" border-separate  border border-slate-400 w-full  ">
                 <thead>
                     <tr>
@@ -261,7 +279,7 @@ const QLRap = () => {
 
                                 <td className="border border-slate-300 text-center">
                                     <EditIcon className="cursor-pointer"
-                                     onClick={() => handleSuaTTRap(item.ten_rap, item.slghe, item.id)} />
+                                     onClick={() => handleSuaTTRap(item.ten_rap, item.slghe, item.id, item.id_cumrap)} />
                                     <ClearIcon className="cursor-pointer" sx={{ color: 'red' }} 
                                     onClick={() => handleXoaTTRap(item.id)} 
                                     />
