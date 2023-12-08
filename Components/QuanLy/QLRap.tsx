@@ -265,7 +265,7 @@ const QLRap = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {rap.map((item) => (
+                    {rap.reverse().map((item) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

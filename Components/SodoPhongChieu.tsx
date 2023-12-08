@@ -12,6 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Image from 'next/image'
 import { ifError } from 'assert';
 import Link from 'next/link';
+import router from 'next/router';
 
 
 type Props = {
@@ -267,7 +268,7 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
 
       console.log(res)
       alert("Cập nhật vé thành công")
-
+      router.push('/lichsu')
       // handleCloseClick();
     } else {
 
@@ -360,6 +361,8 @@ const SodoPhongChieu = ({ id_phimP, id_ve, id_rapP, ngaychieuP, tenP, tenrapP, g
       if (res1 && res1.errCode === 0) {
         console.log(res1)
         alert("Cập nhật vé thành công thành công")
+        router.push('/lichsu')
+
         // handleCloseClick();
       } else {
         console.log(res1)

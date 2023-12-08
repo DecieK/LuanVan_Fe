@@ -183,6 +183,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
   const [r, setR] = useState(Number)
   const [dsdoans, setDsdoans] = useState<DSDichVu[]>([]);
   const [checked, setChecked] = React.useState(0);
+  const [img, setImg] = useState('');
+
   let temp: number
 
 
@@ -458,11 +460,10 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
         // console.log("length", res.length);
         setPhim(res);
         console.log(res.length)
-        //   res.map((res) => (
-        //     setGiave(res.giave),
-        //     console.log("giave", res.giave)
+          res.map((res) => (
+            setImg(new Buffer(res.poster, "base64").toString("binary"))
 
-        //   ));
+          ));
 
       } catch (error) {
         console.log(error);
@@ -670,11 +671,16 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
 
   return (
     <div>
-      <div className='flex lg:flex-row flex-col mt-3'>
+      <div className='flex mt-3'>
+        <div className=' w-8/12'>
+          <div className='h-3 w-9/12 bg-black m-auto'></div>
+          <p className='text-center text-yellow-600'>Màn hình</p>
+          <div className='w-8/12 m-auto'>
+            {/* <div className='flex lg:flex-row flex-col mt-3'>
         <div className=' lg:w-8/12 w-full '>
           <div className='h-3 w-9/12 bg-black m-auto'></div>
           <p className='text-center text-yellow-600'>Màn hình</p>
-          <div className='md:w-10/12 w-full grid grid-cols-10 pt-3 pb-3 gap-3  m-auto'>
+          <div className='md:w-10/12 w-full grid grid-cols-10 pt-3 pb-3 gap-3  m-auto'> */}
             {
               ghe.map((ghes) => {
                 let gheVIP = ghes.loaiGhe === 'VIP';
@@ -739,7 +745,8 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
                     }
                     }
                     key={ghes.id}
-                    className={`h-10 w-10 m-auto 
+                   
+                    className={`h-10 w-10 m-2
                       ${ghedoi ? 'w-20 rounded-xl h-10 border-2 border-green-700 ' : ''}           
                       ${gheVIP ? 'border-2 border-yellow-500 ' : ''}
                       ${classGhedangdat ? 'bg-blue-400' : ''}
@@ -800,7 +807,7 @@ const Sodoghe = ({ id_phimP, id_rapP, ngaychieuP, tenP, tenrapP, giobdP, gioktP,
           <div className='flex space-x-10 pt-4'>
             <Image
               className=""
-              src="/poster1.jpg"
+              src={img}
               width={100}
               height={100}
               alt="Picture of the author"

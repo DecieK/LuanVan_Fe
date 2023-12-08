@@ -311,7 +311,7 @@ const QLKhuyenmai = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {khuyenmai.map((item) => (
+                    {khuyenmai.reverse().map((item) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

@@ -178,7 +178,8 @@ const Quanly = () => {
     );
     if (Object.keys(nhanviens).length === 0) {
       // setTrangthai(true)
-      console.log("true");
+      // console.log("true");
+      router.push('/error')
     } else {
       // setTrangthai(false)
       console.log("false");

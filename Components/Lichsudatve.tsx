@@ -27,6 +27,7 @@ type Props = {
     id_km: number;
     id_nv: number;
     createdat: Date;
+    updatedat: Date;
     macode: string;
     magd: number;
     tggd: string
@@ -50,6 +51,7 @@ const Lichsudatve = ({
     id_nv,
     macode,
     createdat,
+    updatedat,
     magd,
     tggd
 
@@ -176,7 +178,8 @@ const Lichsudatve = ({
     const [idp, setIdp] = useState(Number);
     const [step, setStep] = useState(Boolean);
     let d = new Date(ngaychieu)
-
+    let d1 = new Date(createdat)
+    let d2 = new Date(updatedat)
 
 
 
@@ -386,6 +389,8 @@ const Lichsudatve = ({
             }
         }
 
+        console.log('check create', createdat)
+        console.log('check update', updatedat)
 
 
 
@@ -403,7 +408,7 @@ const Lichsudatve = ({
         handleLayTTKhuyenmai()
 
 
-    }, [createdat, id, id_c, id_cr, id_km, id_r, id_sc, magheArr, ttve, ve]);
+    }, [createdat, id, id_c, id_cr, id_km, id_r, id_sc, magheArr, ttve, updatedat, ve]);
     console.log("dđ", d)
     return (
         <div className="">
@@ -418,7 +423,7 @@ const Lichsudatve = ({
                     /> */}
                 </div>
                 <div className='bg-gray-200  basis-4/5  rounded-xl border-gray-300 border-l-2 border-dashed'>
-                    <div className=" flex rounded-lg mx-7 my-3" onClick={() => setStep(!step)}>
+                    <div className=" flex rounded-lg mx-7 my-3">
                         <div className="w-2/6 m-auto mt-[3%] ">
 
                             <Image
@@ -446,24 +451,26 @@ const Lichsudatve = ({
 
                             {
                                 (new Date().getTime()) < (new Date((d.getMonth() + 1) + '/' + (d.getDate() - 1) + '/' + d.getFullYear()).getTime())
-
                                     ?
-                                    <>
-                                        <button onClick={() => setShowModal(true)}>Cập nhật</button>
-                                        <button onClick={() => handleHuyVe1()}>Hủy vé</button>
-                                    </>
-
+                                    d1.getTime() === d2.getTime()
+                                        ?
+                                        <>
+                                            <button onClick={() => setShowModal(true)}>Cập nhật</button>
+                                            <button onClick={() => handleHuyVe1()}>Hủy vé</button>
+                                        </>
+                                        :
+                                        'Đã cập nhật'
                                     : "Quá hạn cập nhật"
 
                             }
 
 
                         </div>
-                        {/* {
-                            step === 'chung' ?
-                                <KeyboardDoubleArrowDownIcon onClick={() => setStep('chitiet')} />
+                        {
+                            !step ?
+                                <KeyboardDoubleArrowDownIcon onClick={() => setStep(!step)} />
                                 : null
-                        } */}
+                        }
                     </div>
 
 

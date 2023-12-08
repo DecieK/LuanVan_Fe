@@ -204,7 +204,7 @@ const QLCumrap = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {cumrap.map((item) => (
+                    {cumrap.reverse().map((item) => (
                         <>
                             <tr key={item.id}>
                                 {/* <td className="border border-slate-300 text-center">{item.id}</td> */}

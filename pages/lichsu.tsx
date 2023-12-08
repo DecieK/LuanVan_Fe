@@ -28,6 +28,7 @@ const Lichsu = ({ poster }: Props) => {
     MaGD: number;
     ThoigianGD: string
     createdAt: Date;
+    updatedAt: Date;
 
     // id_DA: number;
   }
@@ -131,7 +132,7 @@ const Lichsu = ({ poster }: Props) => {
       <Header />
       {
         ve ?
-          ve.map((ves, index) => {
+          ve.reverse().map((ves, index) => {
             return (
               <>
                 <Lichsudatve
@@ -150,6 +151,7 @@ const Lichsu = ({ poster }: Props) => {
                   id_km={ves.id_KM}
                   id_nv={ves.id_NV}
                   createdat={ves.createdAt}
+                  updatedat={ves.updatedAt}
                   macode={ves.maCode} 
                   magd ={ves.MaGD}
                   tggd = {ves.ThoigianGD}

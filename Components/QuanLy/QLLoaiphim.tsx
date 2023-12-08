@@ -191,7 +191,7 @@ const QLLoaiphim = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {loaiphim.map((item) => (
+                    {loaiphim.reverse().map((item) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

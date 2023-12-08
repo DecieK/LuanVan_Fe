@@ -1,6 +1,5 @@
    
-Điều kiện vé qua ngày chiếu thì k cập nhật được
-Bỏ chức năng sửa xóa thông tin tài khoản ng dùng
+
 
 NCB 9704198526191432198
 NGUYEN VAN A
@@ -21,3 +20,5 @@ vnp_Amount=39800000
 &vnp_TxnRef=178 ( Mã giao dịch (vnp_TxnRef))
 &vnp_SecureHash=941bdac6f0546c941baace125fa2af8d5baa7094544bb39827d22f185440fd604c3c3e3bee73c441dd70b224d77212321e26c4b6c763c4c4c7b921cdc8fe6217
 tạo bảng Giaodich lưu mấy thông tin này lên + id ve
+
+chỉnh hình sơ đồ ghế.

@@ -156,13 +156,13 @@ const ModalCapnhat = ({ show, onClose, id_phim, id_ve }: Props) => {
 
     setStartDate(date)
     let currdate = new Date()
-    // currdate.setHours(0, 0, 0, 0)
-    // date.setHours(0, 0, 0, 0)
-    // if (date.getTime() === currdate.getTime()) {
-    //   setCheckdate(true)
-    // } else {
-    //   setCheckdate(false)
-    // }
+    currdate.setHours(0, 0, 0, 0)
+    date.setHours(0, 0, 0, 0)
+    if (date.getTime() === currdate.getTime()) {
+      setCheckdate(true)
+    } else {
+      setCheckdate(false)
+    }
   }
 
   const deleteAllItems = () => {
@@ -334,6 +334,7 @@ const ModalCapnhat = ({ show, onClose, id_phim, id_ve }: Props) => {
   };
 
   useEffect(() => {
+    setCheckdate(true)
     const handleLayTTCumrap = async () => {
       try {
         const params = {

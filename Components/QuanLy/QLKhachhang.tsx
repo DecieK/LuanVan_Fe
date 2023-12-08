@@ -122,7 +122,7 @@ const QLKhachhang = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {Khachhang.map((item, index) => (
+                    {Khachhang.reverse().map((item, index) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

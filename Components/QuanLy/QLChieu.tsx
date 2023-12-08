@@ -155,6 +155,9 @@ const QLChieu = () => {
             setNgaychieu(new Date())
             setGiave('')
             // setId_cr()
+            setValuePhim('')
+            setValueRap('')
+            setValueSuatchieu('')
             handleLayTTChieu()
             alert("Thêm thông tin chiếu mới thành công")
 
@@ -385,6 +388,7 @@ const QLChieu = () => {
                         <DatePicker
                             className="border-b-2 border-gray-300 pl-2"
                             // type="datetime"
+                            minDate={new Date()}
                             selected={ngaychieu}
                             // onChange={handlSearchLichkham}
                             // onChange={(date: Date) => handleLayTTChieu(date)}
@@ -437,7 +441,7 @@ const QLChieu = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {chieu.map((item, index) => (
+                    {chieu.reverse().map((item, index) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

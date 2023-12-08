@@ -99,7 +99,7 @@ const Phim = () => {
             {option == 1 ? (
                 <div className='grid grid-cols-3 gap-2 w-11/12 m-auto mt-5 '>
                     {
-                        phim.map((item, index) => {
+                        phim.reverse().map((item, index) => {
 
                             if (item.trangthai === "Đang chiếu") {
                                 return (
@@ -153,7 +153,7 @@ const Phim = () => {
                 option == 2 ? (
                     <div className="grid grid-cols-3 gap-2 w-11/12 m-auto mt-5 ">
                         {
-                            phim.map((item, index) => {
+                            phim.reverse().map((item, index) => {
 
                                 if (item.trangthai === "Sắp chiếu") {
                                     return (
@@ -177,7 +177,7 @@ const Phim = () => {
                                                         <p className="">{item.tomtat.slice(0, 90)}...</p>
                                                         <div className="space-x-5  space-y-3">
                                                             <button onClick={() => handleXemchitiet(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
-                                                            <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
+                                                            <button onClick={() => handleMuave(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -14,6 +14,7 @@ import Image from 'next/image'
 import dayjs from "dayjs"
 import CommonUtils from "../CommonUtils";
 import Checkbox from '@mui/material/Checkbox';
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 
 const noto_serif = Noto_Serif({
@@ -72,11 +73,14 @@ const QLPhim = () => {
     const [poster, setPoster] = useState<any>();
     const [fileIMG, setFileIMG] = useState<File>()
     const [open, setOpen] = useState(Boolean);
+    const [check, setCheck] = useState(Boolean);
+
     const [step, setStep] = useState("them");
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const arrLP: number[] = []
     const handleLoaiphim = (idlp: number) => {
-        console.log('checkk',)
+        // setCheck(true)
+        console.log('checkk', label)
         if (arrLP.indexOf(idlp) === -1) {
             arrLP.push(idlp)
         } else {
@@ -90,6 +94,7 @@ const QLPhim = () => {
         setTenphim(tenphim)
         setDaodien(daodien)
         setDienvien(dienvien)
+        // setCheck(false)
         setNsx(nsx)
         setNgonngu(ngonngu)
         let d = new Date(ngaychieu)
@@ -107,6 +112,7 @@ const QLPhim = () => {
     }
     const handleCapnhatTTphim = async () => {
         console.log("poster", poster)
+        console.log('as', arrLP)
         let res = await SuaTTPhim(
             {
                 id: id,
@@ -416,7 +422,7 @@ const QLPhim = () => {
                                 return (
                                     <div key={index} className="flex">
 
-                                        <Checkbox onClick={() => handleLoaiphim(lp.id)} {...label} />
+                                        <Checkbox checked={false} onClick={() => handleLoaiphim(lp.id)} {...label} />
                                         <p className="pt-2">{lp.tenloai}</p>
 
                                     </div>
@@ -430,7 +436,7 @@ const QLPhim = () => {
                 <div className="basis-6/12 space-y-3">
                     <div className="flex">
                         <p className="basis-3/12">Thời lượng</p>
-                        <input className="h-9 w-80 border-2 outline-none pl-2"
+                        <input type="number" min={0} className="h-9 w-80 border-2 outline-none pl-2"
                             onChange={(event) => setThoiluong(event.target.value)}
                             value={thoiluong}
                         />
@@ -554,7 +560,7 @@ const QLPhim = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {phim.map((item) => (<>
+                        {phim.reverse().map((item) => (<>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>
                                 <td className="border border-slate-300 text-center w-[100px]">{item.tenphim}</td>

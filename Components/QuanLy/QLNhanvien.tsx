@@ -406,7 +406,7 @@ const QLNhanvien = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {nhanvien.map((item, index) => (
+                    {nhanvien.reverse().map((item, index) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

@@ -10,6 +10,7 @@ import { LayTTKhachhang, Laybinhluan, handleThembinhluan } from "@/service/userS
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
+import dayjs from "dayjs";
 
 
 const noto_serif = Noto_Serif({
@@ -43,6 +44,7 @@ const Binhluan = ({ id_phim }: Props) => {
         id_KH: number;
         id_phim: number;
         noidung: string;
+        createdAt: Date;
     }
 
 
@@ -199,7 +201,7 @@ const Binhluan = ({ id_phim }: Props) => {
                 }
 
                 {
-                    binhluan.slice(0, i).map((item, index) => {
+                    binhluan.reverse().slice(0, i).map((item, index) => {
                         return (
                             <div key={index} className=" mt-10">
                                 <Box
@@ -218,7 +220,8 @@ const Binhluan = ({ id_phim }: Props) => {
                                     <div className="pl-14 space-y-1">
                                         <div className="flex space-x-4">
                                             <Rating name="read-only" value={item.sosao} readOnly />
-                                            <p>05/12/2023</p>
+                                            <p>{dayjs(item.createdAt).format("DD/MM/YYYY hh:mm:ss")
+                                            }</p>
                                         </div>
                                         <p>{item.noidung}</p>
                                     </div>

@@ -188,13 +188,13 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
 
     setStartDate(date)
     let currdate = new Date()
-    // currdate.setHours(0, 0, 0, 0)
-    // date.setHours(0, 0, 0, 0)
-    // if (date.getTime() === currdate.getTime()) {
-    //   setCheckdate(true)
-    // } else {
-    //   setCheckdate(false)
-    // }
+    currdate.setHours(0, 0, 0, 0)
+    date.setHours(0, 0, 0, 0)
+    if (date.getTime() === currdate.getTime()) {
+      setCheckdate(true)
+    } else {
+      setCheckdate(false)
+    }
   }
 
   const deleteAllItems = () => {
@@ -365,6 +365,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
   };
 
   useEffect(() => {
+    setCheckdate(true)
     const handleLayTTCumrap = async () => {
       try {
         const params = {
@@ -479,7 +480,7 @@ const Modal = ({ show, onClose, id_phim }: Props) => {
                 suatchieus.map((item, index) => {
                   let datee = new Date()
                   if (checkdate === true) {
-                    if (item.giobatdau !== '' && datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
+                    if (item.giobatdau != '' && datee.getHours() < Number(item.giobatdau.slice(0, 2)) ||
                       (datee.getHours() === Number(item.giobatdau.slice(0, 2)) &&
                         (datee.getMinutes() + 10) < Number(item.giobatdau.slice(3, 5)))) {
                       return (

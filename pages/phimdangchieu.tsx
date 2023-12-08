@@ -1,5 +1,6 @@
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
+import Modal from "@/Components/Modal";
 import { LayTTPhim } from "@/service/userService";
 import { Noto_Serif } from "next/font/google";
 import Image from 'next/image'
@@ -32,6 +33,8 @@ const Phimdangchieu = () => {
     const [phim, setPhim] = useState<Phim[]>([]);
     const [src, setSrc] = useState(String);
     const [option, setOption] = React.useState(1)
+    const [showModal, setShowModal] = useState(false);
+    const [idp, setIdp] = React.useState(Number)
 
     const router = useRouter();
 
@@ -44,6 +47,10 @@ const Phimdangchieu = () => {
 
 
     };
+    const handleMuave = (id: number) => {
+        setShowModal(true)
+        setIdp(id)
+    }
 
     useEffect(() => {
         const handleLayTTPhim = async () => {
@@ -84,7 +91,7 @@ const Phimdangchieu = () => {
                 </div>
                 <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 md:w-11/12 w-9/12 m-auto mt-5 '>
                     {
-                        phim.map((item, index) => {
+                        phim.reverse().map((item, index) => {
 
                             if (item.trangthai === "Đang chiếu") {
                                 return (
@@ -108,7 +115,7 @@ const Phimdangchieu = () => {
                                                     <p className="">{item.tomtat.slice(0, 90)}...</p>
                                                     <div className="space-x-5  space-y-3">
                                                         <button onClick={() => handleXemchitiet(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Xem chi tiết</button>
-                                                        <button className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
+                                                        <button onClick={() => handleMuave(item.id)} className="rounded-full bg-neutral-900 py-2 px-3.5 font-com text-sm capitalize text-white shadow shadow-black/60">Mua vé</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,6 +130,11 @@ const Phimdangchieu = () => {
                 <Footer />
 
             </div>
+            <Modal
+                id_phim={idp}
+                onClose={() => setShowModal(false)}
+                show={showModal}
+            ></Modal>
         </div>
     )
 }

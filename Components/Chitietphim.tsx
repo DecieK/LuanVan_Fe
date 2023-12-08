@@ -33,6 +33,7 @@ const Chitietphim = ({ id_phim }: Props) => {
         id: number;
         id_phim: number;
         id_loaiphim: number;
+        loaiphim: Loaiphim;
     }
     interface Loaiphim {
         id: number;
@@ -202,19 +203,13 @@ const Chitietphim = ({ id_phim }: Props) => {
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold'>Thể loại: </p>
-                                    <p>Gia đình, Phiêu Lưu</p>
-                                    {/* {
-                                        dsloaiphims.map((item) => {
-                                            return (
-                                                <>
-                                                    <p>
-                                                        {item.tenloaiphim}
-                                                    </p>
-                                                </>
-                                            )
+                                    {/* <p>Gia đình, Phiêu Lưu</p> */}
+                                    <p>
+                                        {
+                                            chitietloaiphim.map((ctlp) => ctlp.id_phim === Number(id_phim) ? ctlp.loaiphim.tenloai + ' ' : null)
+                                        }
+                                    </p>
 
-                                        })
-                                    } */}
                                 </div>
                                 <div className='flex space-x-2'>
                                     <p className='font-semibold w-2/12'>Diễn viên:</p>
@@ -238,7 +233,9 @@ const Chitietphim = ({ id_phim }: Props) => {
                                 <InfoIcon sx={{ fontSize: 30 }} />
                                 <p className='font-semibold text-2xl'>Chi tiết</p>
                             </div>
-                            <p className='text-justify indent-10'>Wolfoo and The Mysterious Island (Wolfoo và hòn đảo kỳ bí) - câu chuyện xoanh quanh nhân vật chính là chú sói nhỏ Wolfoo 8 tuổi - một chú bé vui vẻ, tốt bụng và yêu thích sự khám phá. Đồng hành cùng Wolfoo chính là cô em gái Lucy 6 tuổi tinh nghịch, hay làm nũng nhưng vô cùng yêu thương anh trai. Câu chuyện bắt đầu khi hai anh em Wolfoo và Lucy bị hút vào một chiếc dây chuyền và đến với Linh Giới - một thế giới vô cùng kỳ diệu. Tại Linh Giới, một sự cố bất ngờ đã khiến hai anh em bị chia tách. Trong hành trình tìm em gái, Wolfoo đã vô tình bị cuốn vào cuộc đấu tranh khốc liệt chống lại binh đoàn quỷ dữ - đứng đầu là Chúa Quỷ Bane - đang cai trị Đảo Thần Bí. Không chỉ là câu chuyện phiêu lưu thuần túy, bộ phim còn mang trong mình những bài học quý giá về sự sáng tạo, sự can đảm và cả tình yêu thương. Tất cả những điều đó đã tạo nên một bộ phim thỏa mãn sự giải trí nhưng cũng đầy tính giáo dục.</p>
+                            <p className='text-justify indent-10'>
+                                {item.tomtat}
+                                </p>
                         </div>
                     </div>
 
@@ -259,44 +256,3 @@ const Chitietphim = ({ id_phim }: Props) => {
 
 export default Chitietphim;
 
-{/* {
-                phim.map((item, index) => {
-                    return (
-                        <>
-                            <div key={index}>
-                                <div>
-                                    {domLoaded && (
-                                        <ReactPlayer
-                                            height={300}
-                                            width={300}
-                                            // playing={true}
-                                            controls={true}
-                                            poster
-                                            url={item.trailer} />
-
-                                    )}
-                                </div>
-                                <div>
-                                    <p>{item.tenphim}</p>
-                                    <p>Quốc gia:{item.quocgia}</p>
-                                    <p>Diễn viên:{item.dienvien}</p>
-                                    <p>Nhà sản xuất:{item.nsx}</p>
-                                    <p>Thể loại:</p>
-                                    <p>Đạo diễn:{item.daodien}</p>
-                                    <p>Ngày khởi chiếu{item.ngaychieu}</p>
-                                </div>
-                                <button className='bg-slate-600'>Đặt vé</button>
-                                <div>
-                                    <div>Nội dung phim</div>
-                                    <div>{item.tomtat}</div>
-                                </div>
-                            </div>
-                        </>
-                    )
-                })
-            } */}
-{/* <Modal
-                id_phim={id_phim}
-                onClose={() => setShowModal(false)}
-                show={showModal}
-            ></Modal> */}

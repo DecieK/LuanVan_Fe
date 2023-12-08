@@ -185,7 +185,7 @@ const QLDoanhthu = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {thongke_ngay.map((item, index) => (
+                                {thongke_ngay.reverse().map((item, index) => (
                                     <>
                                         <tr key={index}>
                                             <td className="border border-slate-300 text-center">#</td>
@@ -221,7 +221,7 @@ const QLDoanhthu = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {thongke_phim.map((item2, index2) => (
+                            {thongke_phim.reverse().map((item2, index2) => (
                                 <>
                                     <tr key={index2}>
                                         <td className="border border-slate-300 text-center">#</td>
@@ -257,7 +257,7 @@ const QLDoanhthu = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {thongke_cumrap.map((item3, index3) => (
+                            {thongke_cumrap.reverse().map((item3, index3) => (
                                 <>
                                     <tr key={index3}>
                                         <td className="border border-slate-300 text-center">#</td>
@@ -294,7 +294,7 @@ const QLDoanhthu = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {thongke_thang.map((item4, index4) => (
+                                {thongke_thang.reverse().map((item4, index4) => (
                                     <>
                                         <tr key={index4}>
                                             <td className="border border-slate-300 text-center">#</td>
@@ -327,7 +327,7 @@ const QLDoanhthu = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {thongke_tuan.map((item5, index5) => {
+                                {thongke_tuan.reverse().map((item5, index5) => {
                                     d = new Date(item5.chieu.ngaychieu)
                                     d2 = new Date(d.getFullYear(),0,(2+(item5.week-1)*7))
                                     return (

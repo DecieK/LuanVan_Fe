@@ -394,7 +394,7 @@ const QLDichvu = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {doan.map((item, index) => (
+                    {doan.reverse().map((item, index) => (
                         <>
                             <tr key={index}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>

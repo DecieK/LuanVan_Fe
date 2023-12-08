@@ -177,7 +177,7 @@ const QLSuatchieu = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {suatchieu.map((item) => (
+                    {suatchieu.sort().map((item) => (
                         <>
                             <tr key={item.id}>
                                 <td className="border border-slate-300 text-center">{item.id}</td>
